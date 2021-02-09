@@ -1,4 +1,4 @@
-# Home 
+v# Home 
 
 # Product name (e.g. MediaLibrary)
 ```
@@ -18,3 +18,6 @@ Project Vision
 - Group member 2: __Diogo Samuel__, email: up201806250@fe.up.pt, up201806250@g.uporto.pt  
 - Group member 3: __Hugo Guimarães__, email: up201806490@fe.up.pt, up201806490@g.uporto.pt  
 - Group member 4: __Juliane Marubayashi__, email: up201800175@fe.up.pt, up201800175@g.uporto.pt  
+
+GROUP2152, 09/02/2021   
+ 
