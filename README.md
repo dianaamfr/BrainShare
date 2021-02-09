@@ -1,9 +1,9 @@
 # Home 
 
 # Product name (e.g. MediaLibrary)
-```
+
 BrainShare's mission is to create a community of FEUP students that allows them to easily obtain an answer to their questions regarding their curricular subject.
-```
+
 
 ## Project Components 
 - ER: Requirements Specification
