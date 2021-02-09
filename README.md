@@ -1,12 +1,12 @@
 # Home 
 
-# Product name (e.g. MediaLibrary)
+# BrainShare
 
 BrainShare's mission is to create a community of FEUP students that allows them to easily obtain an answer to their questions regarding their curricular subject.
 
 
 ## Project Components 
-- ER: Requirements Specification
+- [ER: Requirements Specification](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER)
 - EBD: Database Specification
 - EAP: Architecture Specification and Prototype
 - PA: Product and Presentation
