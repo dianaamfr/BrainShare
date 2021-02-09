@@ -1,4 +1,4 @@
-v# Home 
+# Home 
 
 # Product name (e.g. MediaLibrary)
 ```
