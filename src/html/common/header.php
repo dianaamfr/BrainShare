@@ -12,5 +12,6 @@
 
     <title>BrainShare</title>
   </head>
-  <main> 
+
 <body>
+  <main> 
