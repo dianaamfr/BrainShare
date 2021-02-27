@@ -9,6 +9,146 @@ body {
     font-size: 16px;
     font-family: "apercu",sans-serif;
     color: var(--black);
+    padding-top: 4rem;
+}
+
+main {
     margin: 0 8em;
+}
+
+/* Header */
+
+body > header .container-fluid {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+.header-search {
+    margin-right: 0.6rem;
+    display: flex;
+}
+
+.header-search .form-control {
+    border-radius: .25rem 0 0 .25rem;
+    border-right: unset;
+}
+
+.header-search .btn {
+    border-radius: 0 .25rem .25rem 0;
+}
+
+.navbar-brand {
+    margin-right: 10rem;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+body > header .btn-toolbar {
+    align-items: center;
+}
+
+.registration-button {
+    margin-right: 2rem;
+}
+
+.registration-button.btn {
+    margin-right: 1rem;
+}
+
+.nav-link.registration-button {
+    padding: unset;
+}
+
+.registration-menu .registration-button:last-child{
+    margin-left: unset;
+}
+
+.fa-bell {
+    font-size: 1.5rem;
+}
+
+.search-mobile .fa-search {
+    font-size: 1.4rem;
+}
+
+.profile-button img{
+    height: 1.6rem;
+    margin-right: 0.2rem;
+}
+
+.notifications-mobile, .search-mobile {
+    display:none;
+    padding: .25rem .75rem;
+}
+
+.mobile-profile-link {
+    display: none;
+}
+
+@media (max-width: 1500px) {
+    .navbar-brand {
+        margin-right: 5rem;
+    }
+
+    .header-search{
+        max-width: 300px;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 0.6rem;
+        padding-left: 0.6rem;
+    }
+
+    .registration-button {
+        margin-right: 1.5rem;
+    }
+}
+
+@media (max-width: 993px) {
+    .header-search {
+        display: none;
+    }
+
+    .notifications-mobile, .search-mobile {
+        display: inline-block;
+    }
+
+    .navbar-light .navbar-toggler{
+        border: none;
+    }
+
+    .navbar-collapse     {
+        padding-top: 1rem;
+    }
+
+    .navbar-brand {
+        flex: 1;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .registration-menu .profile-button{
+        display: none;
+    }
+
+    .mobile-profile-link {
+        display: block;
+        margin-bottom: 1rem;
+        padding-right: 0.6rem;
+        padding-left: 0.6rem;
+    }
+
+    .notifications {
+        display: none;
+    } 
+
+    body > header .btn-toolbar {
+        justify-content: flex-end;
+    }
 }
 
