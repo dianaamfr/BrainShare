@@ -1,4 +1,4 @@
-<h1>Hello, world!</h1>
+<h1>BrainShare</h1>
 
 <button type="button" class="btn btn-primary">Primary</button>
 
