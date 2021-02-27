@@ -13,24 +13,25 @@
     <script src="https://kit.fontawesome.com/cf05cece41.js" crossorigin="anonymous"></script>
   
     <title>BrainShare</title> 
+
   </head>
 
 <body>
   <header class="fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
 
         <!-- Logo - link to Home Page -->
         <a class="navbar-brand" href="#">BrainShare</a>
         
-        <!-- Movile Notifications Icon -->
-        <a class="notifications-mobile" href="#">
-          <i class="fas fa-bell"></i>
-        </a>
-
         <!-- Mobile Search Icon -->
         <a class="search-mobile" href="#">
           <i class="fas fa-search"></i>
+        </a>
+
+        <!-- Movile Notifications Icon -->
+        <a class="notifications-mobile" href="#">
+          <i class="fas fa-bell"></i>
         </a>
 
         <!-- Mobile Menu Icon -->
@@ -44,7 +45,7 @@
           <form class="header-search">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
-              <button class="btn btn-outline-success" type="submit">
+              <button class="btn btn-primary" type="submit">
               <i class="fas fa-search"></i>
               </button>
             </div>
@@ -56,7 +57,7 @@
             <div class="mobile-profile-link">
                 <a class="nav-link profile-button registration-button">
                     <img class="rounded-circle" src="images/profile.png" alt="">
-                    Joaquina <!-- Name goes here -->
+                    Joaquina Almeida<!-- Name goes here -->
                 </a>
               </div>
           <?php }?>
@@ -85,10 +86,10 @@
             
             <!-- TODO: If the User is a Moderator show this options --> 
             <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="#"id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="fasse">
-                Managment
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Management
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Manage Categories</a></li>
                 <li><a class="dropdown-item" href="#">Reports</a></li>
               </ul>
@@ -104,16 +105,16 @@
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
                 <a class="nav-link profile-button registration-button">
                     <img class="rounded-circle" src="images/profile.png" alt="">
-                    Joaquina <!-- Name goes here -->
+                    Joaquina Almeida<!-- Name goes here -->
                 </a>
                 <a class="registration-button notifications" href="#">
                   <i class="fas fa-bell"></i>
                 </a>
-                <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
+                <a class="registration-button btn btn-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-outline-primary" href="#">Login</a>
-              <a class="registration-button btn btn-outline-primary" href="#">Register</a>
+              <a class="registration-button btn btn-primary" href="#">Login</a>
+              <a class="registration-button btn btn-primary" href="#">Register</a>
             <?php } ?>
             
           </div>
