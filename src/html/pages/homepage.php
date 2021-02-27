@@ -16,6 +16,7 @@ include_once(dirname(__DIR__) . "\common\header.php");
 </div>
 
 
+
 <div class="row my-5">
     <div class="offset-md-1 col-md-6 my-5">
         <h2>What is BrainShare?</h2>
