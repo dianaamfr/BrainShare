@@ -7,8 +7,16 @@ body {
 
     background: var(--white);
     font-size: 16px;
-    font-family: "apercu",sans-serif;
+    /*font-family: "apercu",sans-serif;*/
     color: var(--black);
     margin: 0 8em;
 }
+ 
 
+.title-homepage{
+    font-size: 40px;
+}
+
+.feature-courses{
+    text-align :center; 
+}
