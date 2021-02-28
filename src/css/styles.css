@@ -4,40 +4,77 @@
 @font-face {
     font-family: title-font;
     src: url("../fonts/titillium/TitilliumWeb-Bold.ttf");
-    font-weight: bold;
+    font-weight: 700;
 }
 
+@font-face {
+    font-family: title-font;
+    src: url("../fonts/titillium/TitilliumWeb-SemiBold.ttf");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: title-font;
+    src: url("../fonts/titillium/TitilliumWeb-Regular.ttf");
+    font-weight: 400;
+}
+
+
 /* Texts */
+
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Light.ttf");
+    font-weight: 300;
+}
 
 @font-face {
     font-family: text-font;
     src: url("../fonts/poppins/Poppins-Regular.ttf");
-    font-weight: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Italic.ttf");
+    font-weight: 400;
+    font-style: italic;
 }
 
 @font-face {
     font-family: text-font;
     src: url("../fonts/poppins/Poppins-Medium.ttf");
-    font-weight: medium;
+    font-weight: 500;
 }
 
+h2, h3, h4 {
+    font-family: 'title-font';
+}
 
+h2 {
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 400;
+}
 
 body {
     --main-blue: #3C98E8; /* Main color */
     --light-blue: #61b5ff; /* Main color */
     --hover-blue: rgb(53, 122, 187); /* Main color */
-    --main-green: #86D383; /* Secondary color */
+    --main-green: #66ad63; /* Secondary color */
     --main-yellow: #FAC368; /* Secondary color */
     --transparent-yellow: #fac268c7;
-    --black: #262626; 
+    --black: #212529;
     --white: #f0f0f0;
     --grey: rgba(255, 255, 255, 0.719);
 
     background: var(--white);
     font-size: 16px;
     font-family: text-font;
-    font-weight: normal;
+    font-weight: 400;
     color: var(--black);
     padding-top: 4rem;
 }
@@ -58,7 +95,7 @@ a:hover {
 /* Buttons */
 
 .btn {
-    font-weight: medium;
+    font-weight: 500;
 }
 
 .btn-primary {
@@ -100,6 +137,26 @@ a:hover {
     box-shadow: none;
 }
 
+button {
+    border-color: unset;
+    background-color: unset;
+    border-image: none;
+    border-style: unset;
+}
+
+/* Tags */
+
+.badge {
+    font-weight: 400;
+}
+
+.bg-secondary {
+    border: 1px solid #868686;
+    background-color: rgb(236 236 236)!important;
+    font-size: 0.9rem;
+    color: #6f6f6f;
+}
+
 /* Header */
 
 body > header .container-fluid {
@@ -124,7 +181,7 @@ body > header .container-fluid {
 .navbar-dark .navbar-brand {
     color: var(--white);
     font-family: title-font;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.6rem;
 }
 
@@ -324,15 +381,75 @@ a.profile-button {
 
 /* Question Page */
 
+article.question.card, .answers {
+    max-width: 1200px;
+    margin: auto;
+}
+
+article.question .card-body .card-header {
+    background-color: unset;
+}
+
+article.question .card-title {
+    margin-right: 2rem;
+}
+
+.question-author span{  
+    padding: .5rem;
+    color: var(--bs-gray);
+    font-style: italic;
+}
+
 .question-author img {
-    height: 1.6rem;
+    height: 2.6rem;
+    padding: .5rem 0;
     margin-right: 0.2rem;
 }
 
-.course-tag {
-    border: 1px solid var(--black);
+.category{
+    padding: 0.5rem 1.5rem;
+}
+
+.category i{
+    margin-right: 0.5rem;
+}
+
+.course {
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
-    border-radius: 2rem;
+}
+
+.edit-question{
+    display: flex;
+    align-items: center;
+    color: var(--main-blue);
+    font-size: 1.5rem;
+    margin-left: 2rem;
+}
+
+.edit-question i {
+    color: var(--main-blue);
+    margin-left: 1rem;
+}
+
+.question-content p{
+    font-weight: 300;
+}
+
+.question footer{
+    padding: .5rem 1rem;
+}
+
+.answers{
+    border-top: 1px solid rgba(0,0,0,.125);
+    margin-top: 2rem;
+}
+
+.answers h4{
+    padding: 1.2rem 0.5rem 0.5rem 0.5rem;
+}
+
+.bi-chevron-up, .bi-chevron-down {
+    font-size: 2.5rem;
+    color: var(--main-blue);
 }
