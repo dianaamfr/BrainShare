@@ -2,10 +2,34 @@
 
 include_once(dirname(__DIR__) . "\common\header.php");
 
-$trash = '<span class="manage-tag-trash">
-<i class="far fa-trash-alt"></i>
-<i class="fas fa-trash-alt"></i>
-</span>';
+
+$tags = ['PPIN', 'MF_II', 'Exam', 'COMP', 'IART', 'Python'];
+$courses = ['MIEIC', 'MIEEC', 'MIEC', 'MIEIM'];
+
+function display_cards($array)
+{
+    foreach ($array as $element)
+        echo get_card($element);
+}
+
+
+function get_card($element)
+{
+
+    $trash =   '<span class="manage-trash">
+                    <i class="far fa-trash-alt"></i>
+                    <i class="fas fa-trash-alt"></i>
+                    </span>';
+
+    return "<div class='card mt-3 mx-1 col-md-3 manage-card'>
+                    <div class='card-body  manage-tag-card'>
+                        <span>$element</span>
+                        $trash 
+                    </div>
+                </div> ";
+}
+
+
 
 ?>
 
@@ -19,63 +43,22 @@ $trash = '<span class="manage-tag-trash">
     <div class="p-2 bg-light p-4 w-100">
         <h2 class="display-5 mb-5">Tags</h2>
         <div class="container">
-            <!-- tags here -->
+            <!-- Tags -->
             <div class="row">
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">
-                        <span>PPIN</span>
-                        <?= $trash ?>
-                    </div>
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">
-                        MF II
-                        <?= $trash ?>
-                    </div>
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">
-                        Exam
-                        <?= $trash ?>
-                    </div>
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">COMP
-                        <?= $trash ?>
-                    </div>
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">IART
-                        <?= $trash ?>
-                    </div>
-
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">
-                        IART
-                        <?= $trash ?>
-                    </div>
-                </div>
-                <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">
-                        Python
-                        <?= $trash ?>
-                    </div>
-                </div>
-
-
-
-
-
+                <?= display_cards($tags) ?>
             </div>
-
-
         </div>
     </div>
 
     <!-- Manage courses -->
     <div class="p-2 bg-light-blue mx-2 p-4 w-100">
-        <h2 class="display-5">Courses</h2>
+        <h2 class="display-5 mb-5">Courses</h2>
+        <div class="container">
+            <!-- Courses -->
+            <class class="row">
+                <?= display_cards($courses) ?>
+            </class>
+        </div>
 
     </div>
 </div>
