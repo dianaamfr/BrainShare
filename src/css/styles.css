@@ -46,6 +46,7 @@ h1 {
 
 .manage-tag-trash{
     cursor: pointer;
+    float:right;
 }
 
 .manage-tag-trash .fas.fa-trash-alt{

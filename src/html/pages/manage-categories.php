@@ -2,6 +2,10 @@
 
 include_once(dirname(__DIR__) . "\common\header.php");
 
+$trash = '<span class="manage-tag-trash">
+<i class="far fa-trash-alt"></i>
+<i class="fas fa-trash-alt"></i>
+</span>';
 
 ?>
 
@@ -20,29 +24,43 @@ include_once(dirname(__DIR__) . "\common\header.php");
                 <div class="card mt-3 mx-1 col-md-4">
                     <div class="card-body manage-tag-card">
                         <span>PPIN</span>
-                        <span class="manage-tag-trash p-2">
-                            <i class="far fa-trash-alt"></i>
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
+                        <?= $trash ?>
                     </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">MF II</div>
+                    <div class="card-body manage-tag-card">
+                        MF II
+                        <?= $trash ?>
+                    </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">Exam</div>
+                    <div class="card-body manage-tag-card">
+                        Exam
+                        <?= $trash ?>
+                    </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">COMP</div>
+                    <div class="card-body manage-tag-card">COMP
+                        <?= $trash ?>
+                    </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">IART</div>
+                    <div class="card-body manage-tag-card">IART
+                        <?= $trash ?>
+                    </div>
+
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">IART</div>
+                    <div class="card-body manage-tag-card">
+                        IART
+                        <?= $trash ?>
+                    </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">
-                    <div class="card-body manage-tag-card">Python</div>
+                    <div class="card-body manage-tag-card">
+                        Python
+                        <?= $trash ?>
+                    </div>
                 </div>
 
 
