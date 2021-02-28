@@ -1,3 +1,4 @@
+
 body {
     --main-blue: #3C98E8; /* Main color */
     --main-green: #86D383; /* Secondary color */
@@ -5,10 +6,25 @@ body {
     --black: #262626; 
     --white: #F2F2F2;
 
+    --light-grey: #acabab;
     background: var(--white);
     font-size: 16px;
-    font-family: "apercu",sans-serif;
     color: var(--black);
     margin: 0 8em;
 }
 
+.manage-tag-card::before{
+    content:"#"; 
+}  
+.bg-light-blue{
+    background-color: #a0c2e0 !important;   
+}
+
+
+@media (max-width: 991.98px) {
+    body {
+      margin: 0 0;
+    }
+
+
+}  
