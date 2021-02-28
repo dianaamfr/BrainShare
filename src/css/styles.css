@@ -60,14 +60,21 @@ h4 {
     font-weight: 400;
 }
 
+p {
+    margin-bottom: 0.2rem;
+    line-height: 1.9rem;
+}
+
 body {
     --main-blue: #3C98E8; /* Main color */
-    --light-blue: #61b5ff; /* Main color */
-    --hover-blue: rgb(53, 122, 187); /* Main color */
+    --light-blue: #61b5ff;
+    --hover-blue: rgb(53, 122, 187); 
     --main-green: #66ad63; /* Secondary color */
+    --hover-green: #528f50; 
     --main-yellow: #FAC368; /* Secondary color */
     --transparent-yellow: #fac268c7;
     --black: #212529;
+    --text-black: #3e444b;
     --white: #f0f0f0;
     --grey: rgba(255, 255, 255, 0.719);
 
@@ -75,7 +82,7 @@ body {
     font-size: 16px;
     font-family: text-font;
     font-weight: 400;
-    color: var(--black);
+    color: var(--text-black);
     padding-top: 4rem;
 }
 
@@ -94,6 +101,7 @@ a:hover {
 
 /* Buttons */
 
+/* blue */
 .btn {
     font-weight: 500;
 }
@@ -134,6 +142,59 @@ a:hover {
 }
 
 .btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus{
+    box-shadow: none;
+}
+
+/* Green */
+.btn-link {
+    color: var(--main-green);
+}
+
+.btn-link:hover {
+    color: var(--hover-green);
+}
+
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none;
+}
+
+
+.btn-secondary {
+    color: var(--white);
+    border-color: var(--main-green);
+    background-color: var(--main-green);
+}
+
+.btn-secondary:hover {
+    border-color: var(--hover-green);
+    background-color: var(--hover-green);
+}
+
+.btn-check:focus+.btn-secondary, 
+.btn-secondary:focus, .btn-check:active+.btn-secondary, 
+.btn-check:checked+.btn-secondary, .btn-secondary.active, 
+.btn-secondary:active, .show>.btn-secondary.dropdown-toggle,
+.btn-check:active+.btn-secondary:focus, 
+.btn-check:checked+.btn-secondary:focus, 
+.btn-secondary.active:focus, .btn-secondary:active:focus, 
+.show>.btn-secondary.dropdown-toggle:focus {
+    color: var(--white);
+    background-color: var(--hover-green);
+    border-color: var(--hover-green);
+    box-shadow: none;
+}
+
+.btn-outline-secondary {
+    color: var(--main-green);
+    border-color: var(--main-green);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--main-green);
+    border-color: var(--main-green);;
+}
+
+.btn-check:focus+.btn-outline-secondary, .btn-outline-secondary:focus{
     box-shadow: none;
 }
 
@@ -381,9 +442,18 @@ a.profile-button {
 
 /* Question Page */
 
-article.question.card, .answers {
+article.question.card, .answers, #submit-answer {
     max-width: 1200px;
     margin: auto;
+}
+
+article.question.card {
+    border: 1px solid rgba(0,0,0,0.26);
+}
+
+article.question.card h2 {
+    color: var(--main-blue);
+    font-weight: 600;
 }
 
 article.question .card-body .card-header {
@@ -433,7 +503,8 @@ article.question .card-title {
 }
 
 .question-content p{
-    font-weight: 300;
+    font-weight: 400;
+    margin-top: 1rem;
 }
 
 .question footer{
@@ -445,11 +516,69 @@ article.question .card-title {
     margin-top: 2rem;
 }
 
-.answers h4{
-    padding: 1.2rem 0.5rem 0.5rem 0.5rem;
+.answer.card {
+    background-color: unset;
+    border: unset;
+}
+
+.answer.card .card-body {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.answer header + .row {
+    margin-bottom: 1rem;
+}
+
+.answer header + .row .col{
+    margin-left: 3rem;
+}
+
+.answers header{
+    padding: 1.2rem 0.5rem;
 }
 
 .bi-chevron-up, .bi-chevron-down {
     font-size: 2.5rem;
     color: var(--main-blue);
+}
+
+.points {
+    font-size: 1.3rem;
+    color: var(--bs-gray);
+    font-weight: 500;
+}
+
+.fa-check {
+    color: var(--hover-green);
+    font-size: 1.8rem;
+    padding: 1.5rem;
+}
+
+.comments {
+    padding-left: 5rem;
+    margin: 1.5rem 0;
+}
+
+.comments .comment {
+    border-top: 1px solid rgba(0,0,0,.125);
+    padding: 1rem;
+}
+
+.comment-author span{
+    padding: .5rem;
+    color: var(--bs-gray);
+    font-style: italic;
+}
+
+#submit-answer {
+    border-top: 1px solid rgba(0,0,0,.125);
+    padding: 1.2rem 0.5rem;
+}
+
+#submit-answer label {
+    font-family: title-font;
+    font-weight: 500;
+    font-size: calc(1.3rem + .6vw);
+    margin-bottom: 1rem;
 }
