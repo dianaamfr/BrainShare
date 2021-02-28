@@ -32,7 +32,7 @@ function get_card($element)
 ?>
 
 <link href="../../css/styles.css" rel="stylesheet">
-<div class="manage-hero text-center my-bg-main-blue p-3">
+<div class="text-center my-bg-main-blue p-3">
     <h1 class="display-4 mt-5">Manage Categories</h1>
     <p class="lead my-3">Add or remove tags and courses</p>
 </div>
