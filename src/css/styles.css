@@ -44,6 +44,7 @@ body {
 
 main {
     margin: 0 8em;
+    padding-top: 3rem;
 }
 
 a {
@@ -316,3 +317,18 @@ a.profile-button {
     }
 }
 
+
+/* Question Page */
+
+.question-author img {
+    height: 1.6rem;
+    margin-right: 0.2rem;
+}
+
+.course-tag {
+    border: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    border-radius: 2rem;
+}

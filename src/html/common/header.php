@@ -30,7 +30,7 @@
         </a>
 
         <!-- Mobile Menu Icon -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="fasse" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>      
 
@@ -88,7 +88,7 @@
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
                 <a class="nav-link profile-button registration-button">
-                    <img class="rounded-circle" src="images/profile.png" alt="">
+                    <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
                 <a class="registration-button notifications" href="#">
