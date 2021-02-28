@@ -5,6 +5,9 @@ body {
   --black: #262626;
   --white: #f2f2f2;
 
+  --grey: #ececec;
+  --main-blue-light: #8ab6dd; /* Main color */
+
   background: var(--white);
   font-size: 16px;
   /*font-family: "apercu",sans-serif;*/
@@ -15,20 +18,27 @@ body {
 .homepage-container-hero {
   height: 350px;
   overflow-x: hidden;
+  background-image: url("../public/images/cool-background.png");
 }
+
 .homepage-feature-text {
   margin-top: 3rem;
 }
 
 .homepage-feature-image {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   text-anchor: middle;
 }
-.homepage-feature-courses {
+
+.homepage-course {
+  background-color: var(--grey);
+}
+.homepage-course-container {
   text-align: center;
 }
 
-.homepage-container-lastsearch {
+.homepage-lastsearch {
+  /*   background-color: var(--main-blue-light);*/
   max-width: 43rem;
 }
 
@@ -39,9 +49,9 @@ body {
 
   .homepage-feature-text {
     margin-top: 0;
-  } 
+  }
 
-  .homepage-feature-image{
-      text-align: center;
+  .homepage-feature-image {
+    text-align: center;
   }
 }
