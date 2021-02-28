@@ -6,15 +6,13 @@ include_once(dirname(__DIR__) . "\common\header.php");
 $tags = ['PPIN', 'MF_II', 'Exam', 'COMP', 'IART', 'Python'];
 $courses = ['MIEIC', 'MIEEC', 'MIEC', 'MIEIM'];
 
-function display_cards($array)
-{
+function display_cards($array) {
     foreach ($array as $element)
         echo get_card($element);
 }
 
 
-function get_card($element)
-{
+function get_card($element) {
 
     $trash =   '<span class="manage-trash">
                     <i class="far fa-trash-alt"></i>
@@ -29,8 +27,6 @@ function get_card($element)
                 </div> ";
 }
 
-
-
 ?>
 
 <link href="../../css/styles.css" rel="stylesheet">
@@ -38,9 +34,9 @@ function get_card($element)
     <h1 class="display-4 mt-5">Manage Categories</h1>
     <p class="lead my-3">Add or remove tags and courses</p>
 </div>
-<div class="d-flex mx-2 my-3">
+<div class="d-flex flex-sm-row flex-column mx-2 my-3">
     <!-- Manage tags-->
-    <div class="p-2 bg-light p-4 w-100">
+    <div class="bg-light-blue p-4 w-100">
         <h2 class="display-5 mb-5">Tags</h2>
         <div class="container">
             <!-- Tags -->
@@ -51,7 +47,7 @@ function get_card($element)
     </div>
 
     <!-- Manage courses -->
-    <div class="p-2 bg-light-blue mx-2 p-4 w-100">
+    <div class="bg-light p-4 w-100">
         <h2 class="display-5 mb-5">Courses</h2>
         <div class="container">
             <!-- Courses -->
