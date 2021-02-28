@@ -20,7 +20,10 @@ include_once(dirname(__DIR__) . "\common\header.php");
                 <div class="card mt-3 mx-1 col-md-4">
                     <div class="card-body manage-tag-card">
                         <span>PPIN</span>
-                        <a href="#" class="manage-tags-trash"></a>
+                        <span class="manage-tag-trash p-2">
+                            <i class="far fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="card mt-3 mx-1 col-md-4">

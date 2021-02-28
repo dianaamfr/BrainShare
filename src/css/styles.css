@@ -42,10 +42,24 @@ main {
 
 h1 {
   font-family: title-font;
+} 
+
+.manage-tag-trash{
+    cursor: pointer;
 }
-.lead{
-    font-weight: 200;
+
+.manage-tag-trash .fas.fa-trash-alt{
+    display:none;   
 }
+
+.manage-tag-trash:hover .far.fa-trash-alt{
+    display: none; 
+}
+
+.manage-tag-trash:hover .fas.fa-trash-alt{
+    display: inline; 
+}
+
 .manage-tag-card::before {
   content: "#";
 }
