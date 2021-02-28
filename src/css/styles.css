@@ -10,11 +10,16 @@ body {
   /*font-family: "apercu",sans-serif;*/
   color: var(--black);
   margin: 0 8em;
-} 
+}
 
+.homepage-container-hero {
+  height: 350px;
+  overflow-x: hidden;
+}
 .homepage-feature-text {
   margin-top: 3rem;
 }
+
 .homepage-feature-image {
   font-size: 2.5rem;
   text-anchor: middle;
@@ -28,6 +33,10 @@ body {
 }
 
 @media (max-width: 991.98px) {
+  body {
+    margin: 0 0;
+  }
+
   .homepage-feature-text {
     margin-top: 0;
   }
