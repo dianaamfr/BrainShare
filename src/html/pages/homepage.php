@@ -1,7 +1,9 @@
 <?php
 
 include_once(dirname(__DIR__) . "\common\header.php");
-?>
+?> 
+
+<link href="../../css/styles.css" rel="stylesheet">
 <div class="position-relative overflow-hidden p-5 text-center align-middle homepage-container-hero text-light">
     <div class="col-md-5 mx-auto">
         <h1 class="display-3 my-4"> BrainShare </h1>
