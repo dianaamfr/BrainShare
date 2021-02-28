@@ -25,7 +25,7 @@
 
 body {
     --main-blue: #3C98E8; /* Main color */
-    --transparent-blue: #3f96e2d8; /* Main color */
+    --light-blue: #61b5ff; /* Main color */
     --hover-blue: rgb(53, 122, 187); /* Main color */
     --main-green: #86D383; /* Secondary color */
     --main-yellow: #FAC368; /* Secondary color */
@@ -86,8 +86,8 @@ a:hover {
 }
 
 .btn-outline-primary {
-    color: var(--main-blue);
-    border-color: var(--main-blue);
+    color: var(--light-blue);
+    border-color: var(--light-blue);
 }
 
 .btn-outline-primary:hover {
@@ -172,20 +172,6 @@ body > header .btn-toolbar {
 .fa-bell {
     font-size: 1.5rem;
     color: var(--transparent-yellow)
-}
-
-.search-mobile {
-    display:none;
-}
-
-.search-mobile .fa-search {
-    font-size: 1.4rem;
-    color: var(--transparent-blue);
-    padding: .25rem .75rem;
-}
-
-.search-mobile .fa-search:hover{
-    color: var(--main-blue);
 }
 
 .fa-bell:hover {
@@ -282,7 +268,7 @@ a.profile-button {
         margin: 0;
     }
 
-    .notifications-mobile, .search-mobile {
+    .notifications-mobile {
         display: inline-block;
     }
 
@@ -310,8 +296,6 @@ a.profile-button {
 
     .registration-menu .profile-button{
         margin-bottom: 10px;
-        border-top: 1px solid rgba(255,255,255,0.2);
-        padding-top: 1rem;
         padding-bottom: 1rem;
         padding-right: 0.6rem;
         padding-left: 0.6rem;
@@ -327,6 +311,8 @@ a.profile-button {
 
     body > header .btn-toolbar {
         display: block;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 1rem;
     }
 }
 

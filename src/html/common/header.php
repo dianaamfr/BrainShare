@@ -97,8 +97,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-outline-primary" href="#">Login</a>
-              <a class="registration-button btn btn-outline-primary" href="#">Register</a>
+              <a class="registration-button btn btn-primary" href="#">Login</a>
+              <a class="registration-button btn btn-primary" href="#">Register</a>
             <?php } ?>
             
           </div>
