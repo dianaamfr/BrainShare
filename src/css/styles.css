@@ -87,9 +87,43 @@ h1 {
 
 
 
+.homepage-container-hero {
+  height: 350px;
+  overflow-x: hidden;
+  background-image: url("../public/images/cool-background.png");
+}
+
+.homepage-feature-text {
+  margin-top: 3rem;
+}
+
+.homepage-feature-image {
+  font-size: 3.5rem;
+  text-anchor: middle;
+}
+
+.homepage-course {
+  background-color: var(--grey);
+}
+.homepage-course-container {
+  text-align: center;
+}
+
+.homepage-lastsearch {
+  /*   background-color: var(--main-blue-light);*/
+  max-width: 43rem;
+}
 
 @media (max-width: 991.98px) {
-  main {
+  body {
     margin: 0 0;
+  }
+
+  .homepage-feature-text {
+    margin-top: 0;
+  }
+
+  .homepage-feature-image {
+    text-align: center;
   }
 }
