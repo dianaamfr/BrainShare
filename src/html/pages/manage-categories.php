@@ -52,9 +52,7 @@ function get_card($element)
                     </input>
                 </div>
             </form>
-
         </div>
-
     </div>
 
     <!-- Manage courses -->
