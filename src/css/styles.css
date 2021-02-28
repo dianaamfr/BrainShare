@@ -85,7 +85,6 @@ a:hover {
     box-shadow: none;
 }
 
-/* Outline Buttons Alternative
 .btn-outline-primary {
     color: var(--main-blue);
     border-color: var(--main-blue);
@@ -94,6 +93,10 @@ a:hover {
 .btn-outline-primary:hover {
     background-color: var(--main-blue);
     border-color: var(--main-blue);;
+}
+
+.btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus{
+    box-shadow: none;
 }
 
 /* Header */
