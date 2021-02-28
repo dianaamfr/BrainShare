@@ -35,12 +35,12 @@ include_once(dirname(__DIR__) . "\common\header.php");
 
 
     </div>
-
+    <hr>
     <!-- Courses -->
     <div class="pt-3 homepage-course">
         <h1 class="text-center my-5 display-5 fw-normal">Courses</h1>
         <div class="row">
-            <div class="col-lg-4 homepage-course-container my-5"> 
+            <div class="col-lg-4 homepage-course-container my-5">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <title>MIEIC</title>
                     <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
@@ -70,6 +70,7 @@ include_once(dirname(__DIR__) . "\common\header.php");
         </div>
     </div>
 
+    <hr>
     <!-- Last search button in page -->
     <div class="homepage-lastsearch my-5 d-flex mx-auto flex-column text-center">
         <h1 class="display-5 mb-4 fw-normal">Looking for questions to answer?</h1>
