@@ -42,7 +42,21 @@ main {
 
 h1 {
   font-family: title-font;
+}   
+ 
+
+.my-bg-main-green{
+    background-color: var(--main-green);
+    border-color: var(--main-green);
 } 
+
+.my-bg-main-blue {
+  background-color: var(--main-blue) !important;
+}
+
+.my-bg-black{
+    background-color: var(--black);
+}
 
 .manage-trash{
     cursor: pointer;
@@ -61,15 +75,15 @@ h1 {
     display: inline; 
 }
 
+
 .manage-card{
     width: 150px; 
 }
 .manage-tag-card::before {
   content: "#";
 }
-.bg-light-blue {
-  background-color: #a0c2e0 !important;
-}
+
+
 
 @media (max-width: 991.98px) {
   main {

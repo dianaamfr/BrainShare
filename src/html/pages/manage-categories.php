@@ -32,14 +32,14 @@ function get_card($element)
 ?>
 
 <link href="../../css/styles.css" rel="stylesheet">
-<div class="manage-hero text-center bg-light p-3">
+<div class="manage-hero text-center my-bg-main-blue p-3">
     <h1 class="display-4 mt-5">Manage Categories</h1>
     <p class="lead my-3">Add or remove tags and courses</p>
 </div>
 <div class="d-flex flex-sm-row flex-column mx-2 my-3">
     <!-- Manage tags-->
-    <div class="bg-light-blue p-4 w-100">
-        <h2 class="display-5 mb-5">Tags</h2>
+    <div class="my-bg-black p-4 w-100 mx-1">
+        <h2 class="display-5 mb-5 text-white">Tags</h2>
         <div class="container">
             <!-- Tags -->
             <div class="row">
@@ -48,7 +48,7 @@ function get_card($element)
             <form class="card mt-5">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Insert a tag...">
-                    <button class="btn btn-primary">Add Tag</button>
+                    <button class="btn my-bg-main-green">Add Tag</button>
                     </input>
                 </div>
             </form>
@@ -58,7 +58,7 @@ function get_card($element)
     </div>
 
     <!-- Manage courses -->
-    <div class="bg-light p-4 w-100">
+    <div class="bg-light p-4 w-100 mx-1">
         <h2 class="display-5 mb-5">Courses</h2>
         <div class="container">
             <!-- Courses -->
@@ -69,7 +69,7 @@ function get_card($element)
         <form class="card mt-5">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Insert a course...">
-                <button class="btn btn-primary">Add Course</button>
+                <button class="btn my-bg-main-green">Add Course</button>
                 </input>
             </div>
         </form>
