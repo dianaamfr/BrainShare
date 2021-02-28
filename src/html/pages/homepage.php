@@ -24,7 +24,7 @@ include_once(dirname(__DIR__) . "\common\header.php");
     <div class="row py-5">
 
         <div class="row py-5 flex-d justify-content-center align-items-center">
-            <div class=" offset-md-1 col-md-6 feature-text">
+            <div class=" offset-md-1 col-md-6">
                 <h1 class="mb-4 ">What is BrainShare? <span class="text-muted ">The way to learn.</span> </h1>
                 <p class="lead mb-5">Brainshare is a Q&A forum that allows FEUP students to answer their own doubts about about their courses!
                     All our features are completely free, since our goal is to be the center of information in our college.</p>

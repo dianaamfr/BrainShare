@@ -13,7 +13,7 @@ include_once(dirname(__DIR__) . "\common\header.php");
 <div class="bg-light">
     <div class="container">
         <div class="row py-5 flex-d justify-content-around align-items-center">
-            <div class="col-md-7 feature-text">
+            <div class="col-md-7">
                 <h1 class="mb-4 ">Who we are? <span class="text-muted ">People who care.</span> </h1>
                 <p class="lead mb-5">This website was proposed by a curricular unity of web technology. Among many themes presented to us, we've decided 
                     to build something that could help our academic community to grow in a colaborative way. Be it by asking or making questions the BrainShare 
@@ -30,7 +30,7 @@ include_once(dirname(__DIR__) . "\common\header.php");
 
         <hr class="my-5"/>
         <div class="row py-5 flex-d justify-content-around align-items-center">
-            <div class="col-md-7 feature-text order-md-2">
+            <div class="col-md-7 order-md-2">
                 <h1 class="mb-4 ">Get the most of BrainShare!</h1>
                 <p class="lead mb-5">In order to join all the feature provided for the website, please create an accout. Once 
                     your account is created, you can not only have your own profile to customize, but also be able to ask and answer questions. 
