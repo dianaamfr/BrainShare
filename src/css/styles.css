@@ -95,7 +95,6 @@ a:hover {
     background-color: var(--main-blue);
     border-color: var(--main-blue);;
 }
-*/
 
 /* Header */
 
@@ -197,16 +196,14 @@ body > header .btn-toolbar {
 
 a.profile-button {
     color: var(--grey);
+    display: flex;
+    align-items: center;
 }
 
 .notifications-mobile {
     display:none;
-    padding: .25rem .75rem;
+    padding: .25rem .75rem 0 .75rem;
     color: var(--main-yellow);
-}
-
-.mobile-profile-link {
-    display: none;
 }
 
 
@@ -266,14 +263,20 @@ a.profile-button {
 
     .navbar-expand-lg .navbar-nav {
         flex-direction: column;
+        margin-top: 1rem;
     }
 
     .navbar-expand-lg .navbar-toggler {
         display: inline-block;
     }
 
+    .navbar-expand-lg .navbar-nav .nav-link {
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
     .header-search {
-        display: none;
+        max-width: unset;
+        margin: 0;
     }
 
     .notifications-mobile, .search-mobile {
@@ -282,6 +285,7 @@ a.profile-button {
 
     .navbar-dark .navbar-toggler{
         border: none;
+        padding-right: unset;
     }
 
     .navbar-dark .navbar-toggler-icon {
@@ -302,14 +306,16 @@ a.profile-button {
     }
 
     .registration-menu .profile-button{
-        display: none;
-    }
-
-    .mobile-profile-link {
-        display: block;
-        margin-bottom: 1rem;
+        margin-bottom: 10px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         padding-right: 0.6rem;
         padding-left: 0.6rem;
+    }
+
+    .registration-menu .registration-button.btn{
+        float: right;
     }
 
     .notifications {
@@ -317,7 +323,7 @@ a.profile-button {
     } 
 
     body > header .btn-toolbar {
-        justify-content: flex-end;
+        display: block;
     }
 }
 

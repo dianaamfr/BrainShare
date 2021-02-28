@@ -24,11 +24,6 @@
         <!-- Logo - link to Home Page -->
         <a class="navbar-brand" href="#">BrainShare</a>
         
-        <!-- Mobile Search Icon -->
-        <a class="search-mobile" href="#">
-          <i class="fas fa-search"></i>
-        </a>
-
         <!-- Movile Notifications Icon -->
         <a class="notifications-mobile" href="#">
           <i class="fas fa-bell"></i>
@@ -50,17 +45,6 @@
               </button>
             </div>
           </form>
-
-          <!-- Mobile Profile Link -->
-          <?php
-          if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
-            <div class="mobile-profile-link">
-                <a class="nav-link profile-button registration-button">
-                    <img class="rounded-circle" src="images/profile.png" alt="">
-                    Joaquina Almeida<!-- Name goes here -->
-                </a>
-              </div>
-          <?php }?>
 
           <!-- Main Pages -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
