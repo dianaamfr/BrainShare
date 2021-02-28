@@ -197,7 +197,7 @@ a.profile-button {
 }
 
 
-@media (max-width: 1500px) {
+@media (max-width: 1665px) {
     .navbar-brand {
         margin-right: 5rem;
     }
@@ -262,6 +262,10 @@ a.profile-button {
 
     .navbar-expand-lg .navbar-nav .nav-link {
         border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .navbar-expand-lg .navbar-nav .dropdown-menu{
+        position: static;
     }
 
     .header-search {
