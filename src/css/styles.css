@@ -12,3 +12,54 @@ body {
     margin: 0 8em;
 }
 
+#login {
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#login .form-control:focus {
+    border-color: var(--main-green);
+    box-shadow: 0 0 10px var(--main-green);
+}
+
+#login .form-login input[type=email],
+#login .form-login input[type=password] {
+    width: 100%;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#login .btn-register {
+    margin-bottom: 1em;
+}
+
+#login .btn-login,
+#login .btn-register {
+    margin-top: 1em;
+    padding: 0.4em 3em;
+    width: 100%;
+    background-color: var(--main-green);
+    border-color: var(--main-green);
+}
+
+#login .btn-login:hover,
+#login .btn-register:hover {
+    margin-top: 1em;
+    width: 100%;
+    background-color: #198754;
+    border-color: #198754;
+}
+
+#login .forgot-password {
+    padding-top: 2em;
+    text-decoration: none;
+    color: var(--black);
+
+}
+
+#login .forgot-password:hover {
+    color: var(--black);
+    text-decoration: underline;
+}
+
