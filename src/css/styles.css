@@ -1,19 +1,41 @@
+/* Fonts */
+
+    /* Titles */
+    @font-face {
+        font-family: title-font;
+        src: url("../fonts/titillium/TitilliumWeb-Bold.ttf");
+        font-weight: bold;
+    }
+
+    /* Texts */
+
+    @font-face {
+        font-family: text-font;
+        src: url("../fonts/poppins/Poppins-Regular.ttf");
+        font-weight: normal;
+    }
+
+    @font-face {
+        font-family: text-font;
+        src: url("../fonts/poppins/Poppins-Medium.ttf");
+        font-weight: medium;
+    }
+
 body {
   --main-blue: #3c98e8; /* Main color */
   --main-green: #86d383; /* Secondary color */
   --main-yellow: #fac368; /* Secondary color */
   --black: #262626;
   --white: #f2f2f2;
+ 
 
-  --grey: #ececec;
-  --main-blue-light: #8ab6dd; /* Main color */
-
-  background: var(--white);
-  font-size: 16px;
-  /*font-family: "apercu",sans-serif;*/
-  color: var(--black);
-  margin: 0 8em;
+    background: var(--white);
+    font-size: 16px;
+    font-family: text-font;
+    font-weight: normal;
+    color: var(--black);
 }
+
 
 .homepage-container-hero {
   height: 350px;
@@ -54,4 +76,11 @@ body {
   .homepage-feature-image {
     text-align: center;
   }
+}
+main {
+    margin: 0 8em;
+}
+
+h1 {
+    font-family: title-font;
 }
