@@ -92,7 +92,7 @@
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
-                <button class="registration-button notifications" href="#">
+                <button class="registration-button notifications">
                   <i class="fas fa-bell"></i>
                 </button>
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
