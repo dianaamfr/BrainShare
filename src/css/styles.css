@@ -1,29 +1,66 @@
 /* Fonts */
 
-    /* Titles */
-    @font-face {
-        font-family: title-font;
-        src: url("../fonts/titillium/TitilliumWeb-Bold.ttf");
-        font-weight: bold;
-    }
+/* Titles */
+@font-face {
+    font-family: title-font;
+    src: url("../fonts/titillium/TitilliumWeb-Bold.ttf");
+    font-weight: 700;
+}
 
-    /* Texts */
+@font-face {
+    font-family: title-font;
+    src: url("../fonts/titillium/TitilliumWeb-SemiBold.ttf");
+    font-weight: 600;
+}
 
-    @font-face {
-        font-family: text-font;
-        src: url("../fonts/poppins/Poppins-Regular.ttf");
-        font-weight: normal;
-    }
+@font-face {
+    font-family: title-font;
+    src: url("../fonts/titillium/TitilliumWeb-Regular.ttf");
+    font-weight: 400;
+}
 
-    @font-face {
-        font-family: text-font;
-        src: url("../fonts/poppins/Poppins-Medium.ttf");
-        font-weight: medium;
-    }
+
+/* Texts */
+
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Light.ttf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Italic.ttf");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: text-font;
+    src: url("../fonts/poppins/Poppins-Medium.ttf");
+    font-weight: 500;
+}
+
+h2, h3, h4 {
+    font-family: 'title-font';
+}
+
+h2 {
+    font-weight: 600;
+}
 
 body {
     --main-blue: #3C98E8; /* Main color */
+    --hover-blue: rgb(53, 122, 187); 
     --main-green: #86D383; /* Secondary color */
+    --hover-green: #528f50; 
     --main-yellow: #FAC368; /* Secondary color */
     --black: #262626; 
     --white: #F2F2F2;
@@ -31,7 +68,7 @@ body {
     background: var(--white);
     font-size: 16px;
     font-family: text-font;
-    font-weight: normal;
+    font-weight: 400;
     color: var(--black);
 }
 
@@ -41,4 +78,106 @@ main {
 
 h1 {
     font-family: title-font;
+}
+
+h2 {
+    font-family: title-font;
+    font-weight: 700;
+}
+
+/* Buttons */
+
+/* blue */
+.btn {
+    font-weight: 500;
+}
+
+.btn-primary {
+    color: var(--white);
+    border-color: var(--main-blue);
+    background-color: var(--main-blue);
+}
+
+.btn-primary:hover {
+    border-color: var(--hover-blue);
+    background-color: var(--hover-blue);
+}
+
+.btn-check:focus+.btn-primary, 
+.btn-primary:focus, .btn-check:active+.btn-primary, 
+.btn-check:checked+.btn-primary, .btn-primary.active, 
+.btn-primary:active, .show>.btn-primary.dropdown-toggle,
+.btn-check:active+.btn-primary:focus, 
+.btn-check:checked+.btn-primary:focus, 
+.btn-primary.active:focus, .btn-primary:active:focus, 
+.show>.btn-primary.dropdown-toggle:focus {
+    color: var(--white);
+    background-color: var(--hover-blue);
+    border-color: var(--hover-blue);
+    box-shadow: none;
+}
+
+.btn-outline-primary {
+    color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);;
+}
+
+.btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus{
+    box-shadow: none;
+}
+
+@media (max-width: 992px) {
+    /* Main Margin */
+    main {
+        margin: 0 2em;
+    }
+}
+
+@media (max-width: 450px) {
+    main {
+        margin: 0;
+        padding-top: 0;
+    }
+
+    .add-question{
+        box-shadow: unset;
+        border-radius: 0;
+    }
+}
+
+
+/* Add Question */
+
+.add-question {
+    box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%);
+    border: 1px solid #dadce0;
+    background-color: white;
+}
+
+.add-question label {
+    font-family: title-font;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.add-question input, .add-question select, .add-question textarea {
+    box-shadow: inset 0 1px 3px #ddd;
+}
+
+.add-question h2 {
+    color: var(--main-blue);
+}
+
+.form-select:focus {
+    box-shadow: unset;
+    border-color: none;
+}
+
+.form-text {
+    color: var(--hover-green);
 }
