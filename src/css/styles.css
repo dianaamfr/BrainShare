@@ -19,7 +19,14 @@
         font-family: text-font;
         src: url("../fonts/poppins/Poppins-Medium.ttf");
         font-weight: medium;
-    }
+    } 
+
+    @font-face {
+      font-family: text-font;
+      src: url("../fonts/poppins/Poppins-Light.ttf");
+      font-weight: thin ;
+  }
+
 
 body {
   --main-blue: #3c98e8; /* Main color */
