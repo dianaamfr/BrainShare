@@ -1,31 +1,26 @@
-<div class="register-background container-fluid main_container ">
+<div id="register" class="container-fluid main_container ">
     <div class="card shadow-lg p-3 mb-5 bg-light text-black rounded position-absolute top-50 start-50 translate-middle">
         <h3 class="mb-3">Register</h3>
         <form>
-        <div class="col-lg-4">
-            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
+        <div class="mb-3">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140">
             <rect width="100%" height="100%" fill="#777"></rect>
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-        </svg>
-      </div>
+            </svg>
+        </div>
+
         <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="email" class="form-control" placeholder="name@example.com">
+            <input type="email" class="form-control" placeholder="Username">
         </div>
         <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" placeholder="name@example.com">
+            <input type="email" class="form-control" placeholder="Email">
         </div>
         <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control">
+            <input type="password" class="form-control" placeholder="Password">
         </div>
         <div class="mb-3">
-            <label class="form-label">Repeat Password</label>
-            <input type="password" class="form-control">
+            <input type="password" class="form-control" placeholder="Repeat Password">
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <button type="submit" class="btn btn-primary btn-block btn-register">Register</button>
         </form>
     </div> 
 </div>

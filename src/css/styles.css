@@ -1,5 +1,6 @@
 body {
     --main-blue: #3C98E8; /* Main color */
+    --main-blue-dark: #1e5280; /* Main color */
     --main-green: #86D383; /* Secondary color */
     --main-yellow: #FAC368; /* Secondary color */
     --black: #262626; 
@@ -12,15 +13,17 @@ body {
     margin: 0 8em;
 }
 
-#login {
+#login,
+#register {
     text-align: center;
     padding-top: 1em;
     padding-bottom: 1em;
 }
 
-#login .form-control:focus {
-    border-color: var(--main-green);
-    box-shadow: 0 0 10px var(--main-green);
+#login .form-control:focus,
+#register .form-control:focus {
+    border-color: var(--main-blue);
+    box-shadow: 0 0 10px var(--main-blue);
 }
 
 #login .form-login input[type=email],
@@ -34,32 +37,33 @@ body {
     margin-bottom: 1em;
 }
 
-#login .btn-login,
-#login .btn-register {
-    margin-top: 1em;
-    padding: 0.4em 3em;
-    width: 100%;
-    background-color: var(--main-green);
-    border-color: var(--main-green);
-}
-
-#login .btn-login:hover,
-#login .btn-register:hover {
-    margin-top: 1em;
-    width: 100%;
-    background-color: #198754;
-    border-color: #198754;
-}
-
 #login .forgot-password {
     padding-top: 2em;
     text-decoration: none;
     color: var(--black);
-
 }
 
 #login .forgot-password:hover {
     color: var(--black);
     text-decoration: underline;
+}
+
+#login .btn-login,
+#login .btn-register,
+#register .btn-register {
+    margin-top: 1em;
+    padding: 0.4em 3em;
+    width: 100%;
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+}
+
+#login .btn-login:hover,
+#login .btn-register:hover,
+#register .btn-register:hover {
+    margin-top: 1em;
+    width: 100%;
+    background-color: var(--main-blue-dark);
+    border-color: var(--main-blue-dark);
 }
 
