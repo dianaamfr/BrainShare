@@ -4,13 +4,13 @@ include_once(dirname(__DIR__) . "\common\header.php");
 ?> 
 
 <link href="../../css/styles.css" rel="stylesheet">
-<div class="position-relative overflow-hidden p-5 text-center align-middle homepage-container-hero text-light">
-    <div class="col-md-5 mx-auto">
-        <h1 class="display-3 my-4"> BrainShare </h1>
+<div class="position-relative p-5 text-center homepage-container-hero text-light d-flex justify-content-center flex-column">
+    <div class="banner-text col-md-5 mx-auto">
+        <h1 class="display-3"> BrainShare </h1>
         <p class="lead fw-normal mb-3"> The FEUP website for questions and answers. We connect students to solutions to improve your academic grow. </p>
         <div class="d-flex justify-content-center">
-            <a href="#" class="btn btn-outline-primary mx-2">Search</a>
-            <a href="#" class="btn btn-outline-primary mx-2">Add Question</a>
+            <a href="#" class="btn btn-primary mx-2">Search</a>
+            <a href="#" class="btn btn-primary mx-2">Add Question</a>
         </div>
     </div>
 
