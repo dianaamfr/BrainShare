@@ -213,7 +213,7 @@
           <div class="accordion-body">
             <div class="col-4">
               <div class="list-group" id="list-tab" role="tablist">
-                  <a class="list-group-item list-group-item-action active"  data-bs-toggle="list" href="#list-home" role="tab" aria-controls="home">PPIN</a>
+                  <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-home" role="tab" aria-controls="home">PPIN</a>
                   <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="profile">COMP</a>
                   <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="messages">LBAW</a>
                   <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="settings">IART</a>
