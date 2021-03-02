@@ -225,8 +225,8 @@ body > header .container-fluid {
 }
 
 .header-search {
-    margin-right: 0.6rem;
-    display: flex;
+    width: 40%;
+    max-width: 800px;
 }
 
 .header-search .form-control {
@@ -243,14 +243,15 @@ body > header .container-fluid {
     font-family: title-font;
     font-weight: 700;
     font-size: 1.6rem;
+    margin-right: 4rem;
 }
 
 .navbar-expand-lg .navbar-toggler{
     border: unset;
 }
 
-.navbar-brand {
-    margin-right: 10rem;
+.navbar-expand-lg .navbar-nav {
+    margin: 0 1rem;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
@@ -260,7 +261,7 @@ body > header .container-fluid {
 
 .navbar-dark .navbar-nav .nav-link {
     color: var(--grey);
-}
+}   
 
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
     color:var(--white);
@@ -269,13 +270,10 @@ body > header .container-fluid {
 
 body > header .btn-toolbar {
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .registration-button {
-    margin-right: 2rem;
-}
-
-.registration-button.btn {
     margin-right: 1rem;
 }
 
@@ -284,7 +282,7 @@ body > header .btn-toolbar {
 }
 
 .registration-menu .registration-button:last-child{
-    margin-left: unset;
+    margin-right: unset;
 }
 
 .fa-bell {
@@ -320,130 +318,6 @@ a.profile-button {
 
 .icon-hover:hover button:last-child{
     display: inline-block; 
-}
-
-@media (max-width: 1665px) {
-    .navbar-brand {
-        margin-right: 5rem;
-    }
-
-    .header-search{
-        max-width: 250px;
-    }
-
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-right: 0.6rem;
-        padding-left: 0.6rem;
-    }
-
-    .registration-button {
-        margin-right: 1.5rem;
-    }
-}
-
-
-@media (max-width: 1360px){
-
-    /* Toggle Menu */
-
-    .navbar{
-        padding-bottom: 1.2rem;
-    }
-
-    .navbar-brand {
-        margin-right: 0;
-    }
-
-    .navbar-expand-lg {
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .navbar-expand-lg .navbar-collapse {
-        display: block!important;
-        flex-basis: 100%;
-    }
-
-    .collapse:not(.show) {
-        display: none!important;
-    }
-
-    .navbar-expand-lg .navbar-toggler {
-        display: none;
-    }
-
-    .mb-lg-0{
-        margin-bottom: 0!important;
-    }
-
-    .navbar-expand-lg .navbar-nav {
-        flex-direction: column;
-        margin-top: 1rem;
-    }
-
-    .navbar-expand-lg .navbar-toggler {
-        display: inline-block;
-    }
-
-    .navbar-expand-lg .navbar-nav .nav-link {
-        border-top: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .navbar-expand-lg .navbar-nav .dropdown-menu{
-        position: static;
-    }
-
-    .header-search {
-        max-width: unset;
-        margin: 0;
-    }
-
-    .notifications-mobile {
-        display: inline-block;
-    }
-
-    .navbar-dark .navbar-toggler{
-        border: none;
-        padding-right: unset;
-    }
-
-    .navbar-dark .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
-    }
-      
-
-    .navbar-collapse     {
-        padding-top: 1rem;
-    }
-
-    .navbar-brand {
-        flex: 1;
-    }
-
-    .navbar-toggler:focus {
-        box-shadow: none;
-    }
-
-    .registration-menu .profile-button{
-        margin-bottom: 10px;
-        padding-bottom: 1rem;
-        padding-right: 0.6rem;
-        padding-left: 0.6rem;
-    }
-
-    .registration-menu .registration-button.btn{
-        float: right;
-    }
-
-    .notifications {
-        display: none;
-    } 
-
-    body > header .btn-toolbar {
-        display: block;
-        border-top: 1px solid rgba(255,255,255,0.2);
-        padding-top: 1rem;
-    }
 }
 
 
@@ -602,11 +476,116 @@ article.question .card-title {
     box-shadow: inset 0 1px 3px #ddd;
 }
 
-@media (max-width: 992px) {
-    /* Main Margin */
+@media (max-width: 1280px){
+    .navbar-dark .navbar-brand {
+        margin-right: 2rem;
+    }
+
+    .header-search {
+        width: auto;
+        max-width: unset;
+        flex: 1;
+    }
+}
+
+@media (max-width: 992px){
     main {
         margin: 0 2em;
     }
+}
+
+@media (max-width: 1024px) {
+
+    .header-search, .navbar-nav {
+        margin-bottom: 1rem!important;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        margin: 0;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /*Toogle menu*/
+
+    .navbar-expand-lg {
+        padding-bottom: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: block!important;
+        flex-basis: 100%;
+        padding-top: 2rem;
+    }
+
+    .collapse:not(.show) {
+        display: none!important;
+    }
+
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+
+    .navbar-expand-lg .navbar-toggler {
+        display: inline-block;
+        border: none;
+        padding-right: unset;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-link {
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .navbar-expand-lg .navbar-nav .dropdown-menu{
+        position: static;
+    }
+
+    .notifications-mobile {
+        display: inline-block;
+    }
+
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+    }
+    
+    .navbar-brand {
+        flex: 1;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .registration-menu .profile-button{
+        padding-bottom: 1rem;
+        padding-right: 0.6rem;
+        padding-left: 0.6rem;
+    }
+
+    .registration-menu .registration-button.btn{
+        float: right;
+    }
+
+    .notifications {
+        display: none;
+    } 
+
+    body > header .btn-toolbar {
+        display: block;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 1rem;
+    }
+
 }
 
 @media (max-width: 768px) {

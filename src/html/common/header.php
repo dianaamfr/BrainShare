@@ -39,7 +39,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <!-- Search Bar -->
-          <form class="header-search">
+          <form class="header-search d-flex me-auto">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-primary" type="submit">
@@ -49,19 +49,7 @@
           </form>
 
           <!-- Main Pages -->
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">Search</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">Users</a>
-            </li>
+          <ul class="navbar-nav mb-2 mb-lg-0">
 
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
@@ -71,7 +59,7 @@
             <?php }?>
             
             <!-- TODO: If the User is a Moderator show this options --> 
-            <!-- <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Management
               </a>
@@ -79,16 +67,14 @@
                 <li><a class="dropdown-item" href="#">Manage Categories</a></li>
                 <li><a class="dropdown-item" href="#">Reports</a></li>
               </ul>
-            </li> -->
-           
-
+            </li>
           </ul>
 
           <!-- Registration/Account -->
           <div class="registration-menu btn-toolbar mb-2 mb-lg-0">
 
             <?php // Registered Users options
-              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
+              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
                 <a class="nav-link profile-button registration-button">
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
