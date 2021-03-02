@@ -1,7 +1,7 @@
 
 <?php
 function questionForm($courses){ ?>
-    <section class="container-sm add-question rounded-1 p-4">
+    <section class="container-sm add-question rounded-1">
     <h2 class="mb-4">Add Question</h2>
         <form>
             <!-- Question Title -->
