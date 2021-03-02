@@ -1,0 +1,119 @@
+/* Question Page */
+
+article.question.card, .answers, #submit-answer {
+    max-width: 1200px;
+    margin: auto;
+}
+
+article.question.card {
+    box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%);
+    border: 1px solid #dadce0;
+}
+
+article.question.card h2 {
+    color: #258eea;
+    font-weight: 700;
+}
+
+article.question .card-body .card-header {
+    background-color: unset;
+}
+
+article.question .card-title {
+    margin-right: 2rem;
+}
+
+.question-author span{  
+    color: var(--bs-gray);
+    font-style: italic;
+}
+
+.question-author img {
+    height: 2.6rem;
+    padding: .5rem 0;
+}
+
+.question-author span {
+    margin-left: 1rem;
+}
+
+.category{
+    padding: 0.5rem 1.5rem;
+}
+
+.category i{
+    margin-right: 0.5rem;
+}
+
+.course {
+    display: flex;
+    align-items: center;
+}
+
+.edit-question{
+    display: flex;
+    align-items: center;
+    color: var(--main-blue);
+    font-size: 1.5rem;
+    margin-left: 2rem;
+}
+
+.edit-question i {
+    color: var(--main-blue);
+    margin-left: 1rem;
+}
+
+.edit-question i:hover {
+    color: var(--hover-blue);
+    margin-left: 1rem;
+}
+
+
+.question-content p{
+    font-weight: 400;
+    margin-top: 1rem;
+}
+
+.question footer{
+    padding: .5rem 1rem;
+}
+
+
+@media (max-width: 992px) {
+    /* Main Margin */
+    main {
+        margin: 0 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .question-header{
+        display: block!important;
+    }
+
+    .question-details:first-child {
+        display: flex!important;
+    }
+
+    .question-details:last-child {
+        display: none!important;
+    }
+
+
+}
+
+@media (max-width: 450px) {
+    main {
+        margin: 0;
+        padding-top: 0;
+    }
+
+    article.question.card, .answer.card .card-body {
+        box-shadow: unset;
+        border-radius: 0;
+    }
+
+    article.question.card {
+        padding-top: 1rem;
+    }
+}
