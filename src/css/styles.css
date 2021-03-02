@@ -34,10 +34,13 @@ body {
     grid-area: three;
 }
 
-#profile-main h3,
+#profile-main h3 {
+    color: var(--main-blue);
+}
+
 #profile-questions h3,
 #profile-answers h3 {
-    color: var(--main-blue);
+    color: var(--main-green);
 }
 
 .profile-question,
@@ -56,4 +59,25 @@ body {
 .profile-answer a:hover {
     color: var(--main-dark-green);
     text-decoration: none;
+}
+
+#main-pagination .page-link,
+#pagination-questions .page-link,
+#pagination-answers .page-link {
+    color: var(--main-green);
+}
+
+#main-pagination .page-item.active .page-link,
+#pagination-questions .page-item.active .page-link,
+#pagination-answers .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: var(--main-green);
+    border-color: var(--main-green);
+}
+
+#main-pagination .page-item.active .page-link:focus,
+#pagination-questions .page-item.active .page-link:focus,
+#pagination-answers .page-item.active .page-link:focus {
+    box-shadow: 0 0 0 .25rem var(--main-green);
 }

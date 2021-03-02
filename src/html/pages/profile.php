@@ -42,11 +42,15 @@
 </section>
 
 <hr class="mt-5 container">
+<ul id="main-pagination" class="pagination justify-content-center">
+    <li class="page-item page-question active"><button class="page-link">My Questions</button></li>
+    <li class="page-item page-answer"><button class="page-link">My Answers</button></li>
+</ul>
 
 <section id="profile-questions" class="container mt-5">
     <h3 class="mb-4">My Questions</h3>
-    <?php for($i = 0; $i < 2; $i++){ ?> 
-        <article class="profile-question container my-4 border shadow rounded">
+    <?php for($i = 0; $i < 2; $i++) { ?> 
+        <article class="profile-question question-page-1 container my-4 border shadow rounded">
             <!-- Question Title -->
             <div class="row">
                 <div class="col-2">
@@ -91,11 +95,14 @@
             </section>
         </article>
     <?php } ?>
+    <ul id="pagination-questions" class="pagination justify-content-center">
+        <li class="page-item page-1 active"><button class="page-link">1</button></li>
+        <li class="page-item page-2"><button class="page-link">2</button></li>
+        <li class="page-item page-3"><button class="page-link">3</button></li>
+    </ul>
 </section>
 
-<hr class="my-5 container">
-
-<section id="profile-answers" class="container">
+<section id="profile-answers" class="container mt-5">
     <h3 class="mb-4">My Answers</h3>
     <?php for($i = 0; $i < 2; $i++){ ?> 
         <article class="profile-question container my-4 border shadow rounded">
@@ -135,4 +142,10 @@
             </section>
         </article>
     <?php } ?>
+    <ul id="pagination-answers" class="pagination justify-content-center">
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+    </ul>
 </section>
