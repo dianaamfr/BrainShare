@@ -289,11 +289,7 @@ body > header .btn-toolbar {
 
 .fa-bell {
     font-size: 1.5rem;
-    color: var(--transparent-yellow)
-}
-
-.fa-bell:hover {
-    color: var(--main-yellow);
+    color: var(--white)
 }
 
 .profile-button img{
@@ -310,9 +306,21 @@ a.profile-button {
 .notifications-mobile {
     display:none;
     padding: .25rem .75rem 0 .75rem;
-    color: var(--main-yellow);
+    cursor: pointer;
+    color: var(--grey);
 }
 
+.icon-hover button:last-child {
+    display: none;
+}
+
+.icon-hover button:last-child, .icon-hover:hover button:first-child{
+    display:none;   
+}
+
+.icon-hover:hover button:last-child{
+    display: inline-block; 
+}
 
 @media (max-width: 1665px) {
     .navbar-brand {
@@ -503,12 +511,6 @@ article.question .card-title {
     color: var(--main-blue);
     margin-left: 1rem;
 }
-
-.edit-question i:hover {
-    color: var(--hover-blue);
-    margin-left: 1rem;
-}
-
 
 .question-content p{
     font-weight: 400;

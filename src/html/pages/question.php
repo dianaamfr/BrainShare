@@ -14,8 +14,14 @@
 
                 <!-- Edit/Delete: only for Registred Users -->
                 <div class="edit-question ms-auto">
-                    <button><i class="fas fa-edit"></i></button>
-                    <button><i class="fas fa-trash-alt"></i></button>
+                    <div class="icon-hover">
+                        <button><i class="far fa-edit"></i></button>
+                        <button><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="icon-hover">
+                        <button><i class="far fa-trash-alt"></i></button>
+                        <button><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 </div>
             </div>
 
@@ -30,10 +36,16 @@
                     MIEIC
                 </span>
 
-                <!-- Edit/Delete: only for Registred Users -->
+                <!-- Edit/Delete: only for Registered Users -->
                 <div class="edit-question">
-                    <button><i class="fas fa-edit"></i></button>
-                    <button><i class="fas fa-trash-alt"></i></button>
+                    <div class="icon-hover">
+                        <button><i class="far fa-edit"></i></button>
+                        <button><i class="fas fa-edit"></i></button>
+                    </div>
+                    <div class="icon-hover">
+                        <button><i class="far fa-trash-alt"></i></button>
+                        <button><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

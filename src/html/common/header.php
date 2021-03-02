@@ -25,10 +25,11 @@
         <!-- Logo - link to Home Page -->
         <a class="navbar-brand" href="#">BrainShare</a>
         
-        <!-- Movile Notifications Icon -->
-        <button class="notifications-mobile">
-          <i class="fas fa-bell"></i>
-        </button>
+        <!-- Mobile Notifications Icon -->
+        <div class="icon-hover notifications-mobile">
+          <button><i class="far fa-bell"></i></button>
+          <button><i class="fas fa-bell"></i></button>
+        </div>
 
         <!-- Mobile Menu Icon -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,9 +93,10 @@
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
-                <button class="registration-button notifications">
-                  <i class="fas fa-bell"></i>
-                </button>
+                <div class="registration-button icon-hover notifications">
+                  <button><i class="far fa-bell"></i></button>
+                  <button><i class="fas fa-bell"></i></button>
+              </div>
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
