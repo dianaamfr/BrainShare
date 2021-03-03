@@ -1,0 +1,8 @@
+div#user-management header{
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+div#user-management header div{
+    max-width: 500px;
+}

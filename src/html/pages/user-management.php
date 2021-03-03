@@ -10,10 +10,10 @@
         </div>
     </header>
 
-    <table class="table">
+    <table class="table table-bordered border-0 ">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col" >#</th>
                 <th scope="col"><i class="fas fa-sort"></i>Username</th>
                 <th scope="col"><i class="fas fa-sort"></i>Name</th>
                 <th scope="col"><i class="fas fa-sort"></i>Register Date</th>
@@ -69,5 +69,3 @@
     </table>
 </div
     
-
-</div>
