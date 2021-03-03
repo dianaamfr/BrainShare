@@ -1,5 +1,7 @@
   
 
+<?php include_once('html/common/templates.php'); ?>
+
 <div class="row page-margin" id="search-page">
   <!-- Sidebar -->
   <aside id="side-bar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
@@ -87,120 +89,5 @@
     </header>
   
     <!-- Questions -->
-    <article class="question-preview card flex-row align-items-center">
-        <div class="counts">
-          <div>2</div>
-          <div>answers</div>
-        </div>
-        <div class="counts">
-          <div>1</div>
-          <div>votes</div>
-        </div>
-        <div class="card-body">
-          <header class="card-header">
-              <div class="question-header d-flex align-items-center">
-
-                  <!-- Mobile Question details -->
-                  <div class="d-none question-details d-flex mb-3">
-                      <!-- Course -->
-                      <span class="category course badge rounded-pill bg-secondary">
-                          <i class="fas fa-graduation-cap"></i>
-                          MIEIC
-                      </span>
-                  </div>
-
-                  <!-- Question Title -->
-                  <h4 class="card-title flex-grow-1">Should I learn MIPS? </h4> <!-- Question Title -->
-
-                  <!-- Desktop Question details -->
-                  <div class="question-details d-flex">
-                      <!-- Course -->
-                      <span class="category course badge rounded-pill bg-secondary">
-                          <i class="fas fa-graduation-cap"></i>
-                          MIEIC
-                      </span>
-
-                  </div>
-              </div>
-              <div class="question-author d-inline-flex align-items-center">
-                  <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
-                  <div class="d-flex flex-wrap">
-                      <span>Joaquina Almeida</span> <!-- Name -->
-                      <span >15:02 - 10/05/2009</span> <!-- Date -->
-                  </div>
-              </div>
-          </header>
-
-          <!-- Tags and User -->
-          <footer class="card-footer">
-              <span class="category tag badge bg-secondary"> 
-                  <i class="fas fa-hashtag"></i>
-                  MIPS
-              </span>
-              <span class="category tag badge bg-secondary">
-                  <i class="fas fa-hashtag"></i>
-                  COMP
-              </span>
-          </footer>
-        </div>
-        <div class="counts-mobile">
-          <div>2 answers</div>
-          <div>2 comments</div>
-        </div>
-    </article>
-
-
-    <article class="question-preview card flex-row align-items-center">
-        <div class="counts">
-          <div>5</div>
-          <div>answers</div>
-        </div>
-        <div class="counts">
-          <div>2</div>
-          <div>votes</div>
-        </div>
-        <div class="card-body">
-          <header class="card-header">
-              <div class="question-header d-flex align-items-center">
-
-                  <!-- Mobile Question details -->
-                  <div class="d-none question-details d-flex mb-3">
-                      <!-- Course -->
-                      <span class="category course badge rounded-pill bg-secondary">
-                          <i class="fas fa-graduation-cap"></i>
-                          MIEIC
-                      </span>
-                  </div>
-
-                  <!-- Question Title -->
-                  <h4 class="card-title flex-grow-1">I can't solve this integral!</h4> <!-- Question Title -->
-
-                  <!-- Desktop Question details -->
-                  <div class="question-details d-flex">
-                      <!-- Course -->
-                      <span class="category course badge rounded-pill bg-secondary">
-                          <i class="fas fa-graduation-cap"></i>
-                          MIEIC
-                      </span>
-
-                  </div>
-              </div>
-              <div class="question-author d-inline-flex align-items-center">
-                  <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
-                  <div class="d-flex flex-wrap">
-                      <span>Marcio123</span> <!-- Name -->
-                      <span >15:02 - 10/05/2009</span> <!-- Date -->
-                  </div>
-              </div>
-          </header>
-
-          <!-- Tags and User -->
-          <footer class="card-footer">
-              <span class="category tag badge bg-secondary"> 
-                  <i class="fas fa-hashtag"></i>
-                  Amat
-              </span>
-          </footer>
-        </div>
-    </article>
+    <?php questionPreview(); ?>
 

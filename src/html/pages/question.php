@@ -53,7 +53,7 @@
             </div>
         
             <div class="question-author d-inline-flex align-items-center">
-                <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
+                <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                 <div class="d-flex flex-wrap">
                     <span>Joaquina Almeida</span> <!-- Name -->
                     <span >15:02 - 10/05/2009</span> <!-- Date -->
@@ -92,7 +92,7 @@
             <div class="card-body card">
                 <header>
                     <div class="question-author pagination align-items-center justify-content-end">
-                        <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
+                        <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                         <div class="d-flex flex-wrap">
                             <span>Joaquina Almeida</span> <!-- Name -->
                             <span >15:02 - 10/05/2009</span> <!-- Date -->
