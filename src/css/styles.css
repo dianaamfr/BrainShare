@@ -180,6 +180,9 @@ body {
     "one two"
     "one three"
 }
+#profile-main {
+    padding: 3em;
+}
 
 #profile-main .one {
     grid-area: one;
@@ -203,7 +206,6 @@ body {
     }
 }
 
-
 #profile-questions h3,
 #profile-answers h3 {
     color: var(--main-green);
@@ -211,7 +213,7 @@ body {
 
 .profile-question,
 .profile-answer {
-    padding: 2em;
+    padding: 3em;
     background-color: #FFFFFF;
 }
 
@@ -247,6 +249,23 @@ body {
 #pagination-answers .page-item.active .page-link:focus {
     box-shadow: 0 0 0 .25rem var(--main-green);
 }
+
+.profile-question .category-profile-question {
+    margin-top: 1em;
+    margin-right: 0.6em;
+    width: 100%;
+}
+
+.profile-question .date-user-image,
+.profile-answer .date-user-image {
+    width: 1.4em;
+}
+
+.profile-question .date-user-text,
+.profile-answer .date-user-text {
+    float: right;
+}
+
 .btn-check:focus+.btn-secondary, 
 .btn-secondary:focus, .btn-check:active+.btn-secondary, 
 .btn-check:checked+.btn-secondary, .btn-secondary.active, 

@@ -1,10 +1,8 @@
-<section id="profile-main" class="grid-profile container mt-5">
+<section id="profile-main" class="card shadow rounded grid-profile container-lg mt-lg-5">
     <div class="one">
         <h3 class="nickname my-4"><b>Joaquina123</b></h3>
         <div class="profile-pic col-lg">
-            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice">
-                <rect width="100%" height="100%" fill="#777"></rect>
-            </svg>
+            <img class="rounded-circle" src="images/profile.png" alt="Profile Image">
         </div>
     </div>
     <div class="two">
@@ -52,14 +50,14 @@
 <section id="profile-questions" class="container mt-5">
     <h3 class="mb-4">My Questions</h3>
     <?php for($i = 0; $i < 2; $i++) { ?> 
-        <article class="profile-question question-page-1 container my-4 border shadow rounded">
+        <article class="profile-question container my-4 border shadow rounded">
             <!-- Question Title -->
             <div class="row">
-                <div class="col-2">
+                <div class="col-lg-2">
                     <h4>0 answers</h4>
                 </div>
 
-                <div class="d-flex align-items-center col">
+                <div class="d-flex align-items-center col-lg">
                     <h2 class="card-title flex-grow-1"><a href="#">Should I learn MIPS?</a></h2> <!-- Question Title -->
 
                     <span class="category course badge rounded-pill bg-secondary">
@@ -70,30 +68,30 @@
             </div>
             
             <div class="row">
-                <section class="col-2 mt-5">
-                    <span class="category tag badge bg-secondary"> 
+                <section class="col-lg-2">
+                    <span class="category-profile-question category tag badge bg-secondary"> 
                         <i class="fas fa-hashtag"></i>
                         MIPS
                     </span>
-                    <span class="category tag badge bg-secondary">
+                    <span class="category-profile-question category tag badge bg-secondary">
                         <i class="fas fa-hashtag"></i>
                         COMP
                     </span>
                 </section>
 
                 <!-- Question Text -->
-                <div class="question-content col">
-                <p>Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future?</p>
+                <div class="question-content col-lg">
+                    <p>Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future?</p>
                 </div>
             </div>
 
             <!-- Question Date -->
-            <section class="float-right">
-                <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
-                <div>
-                    <span>Joaquina Almeida</span> <!-- Name -->
-                    <span >15:02 - 10/05/2009</span> <!-- Date -->
-                </div>
+            <section class="date-user-text">
+                <p>
+                    <img class="rounded-circle date-user-image" src="images/profile.png" alt="Profile Image">
+                    <span>Joaquina Almeida</span>
+                    <span >15:02 - 10/05/2009</span>
+                </p>
             </section>
         </article>
     <?php } ?>
@@ -110,11 +108,11 @@
         <article class="profile-question container my-4 border shadow rounded">
             <!-- Question Title -->
             <div class="row">
-                <div class="col-2">
+                <div class="col-lg-2">
                     <h4>20 Upvotes</h4>
                 </div>
 
-                <div class="d-flex align-items-center col">
+                <div class="d-flex align-items-center col-lg">
                     <h2 class="card-title flex-grow-1"><a href="#">Should I learn MIPS?</a></h2> <!-- Question Title -->
 
                     <span class="category course badge rounded-pill bg-secondary">
@@ -124,23 +122,23 @@
             </div>
             
             <div class="row">
-                <section class="col-2 mt-5">
+                <section class="col-lg-2 mt-5">
                 </section>
 
                 <!-- Question Text -->
-                <div class="question-content col">
+                <div class="question-content col-lg">
                     <h4>Answer:</h4>
                     <p>Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future?</p>
                 </div>
             </div>
 
             <!-- Question Date -->
-            <section class="float-right">
-                <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
-                <div>
-                    <span>Joaquina Almeida</span> <!-- Name -->
-                    <span >15:02 - 10/05/2009</span> <!-- Date -->
-                </div>
+            <section class="date-user-text">
+                <p>
+                    <img class="rounded-circle date-user-image" src="images/profile.png" alt="Profile Image">
+                    <span>Joaquina Almeida</span>
+                    <span >15:02 - 10/05/2009</span>
+                </p>
             </section>
         </article>
     <?php } ?>
