@@ -31,11 +31,20 @@ function get_card($element)
 
 ?>
 
-<link href="../../css/styles.css" rel="stylesheet">
+<link href="../../css/styles.css" rel="stylesheet"> 
+
+<!-- hero -->
 <div class="manage-hero text-center my-bg-main-blue p-3">
     <h1 class="display-4 mt-5">Manage Categories</h1>
     <p class="lead my-3">Add or remove tags and courses</p>
 </div>
+
+<!-- pagination -->
+<ul id="main-pagination" class="pagination justify-content-center my-5">
+    <li class="page-item page-question active"><button class="page-link">My Questions</button></li>
+    <li class="page-item page-answer"><button class="page-link">My Answers</button></li>
+</ul>
+
 <div class="d-flex flex-sm-row flex-column mx-2 my-3">
     <!-- Manage tags-->
     <div class="my-bg-black p-4 w-100 mx-1">
