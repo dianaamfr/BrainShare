@@ -11,7 +11,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous" defer></script>
     <script src="https://kit.fontawesome.com/cf05cece41.js" crossorigin="anonymous"></script>
-  
+
+    <!-- Rich Text -->
+    <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
+    <script type="text/javascript" src="http://lab.lepture.com/editor/editor.js" defer></script>
+    <script type="text/javascript" src="http://lab.lepture.com/editor/marked.js" defer></script>
+
+    <script src="js/editor.js" defer></script>
+    <!-- Rich Text -->
+    
     <title>BrainShare</title> 
 
   </head>
@@ -22,7 +30,7 @@
       <div class="container-fluid">
 
         <!-- Logo - link to Home Page -->
-        <a class="navbar-brand" href="index.php">BrainShare</a>
+        <a class="navbar-brand" href="#">BrainShare</a>
         
         <!-- Mobile Notifications Icon -->
         <div class="icon-hover notifications-mobile">
@@ -53,7 +61,7 @@
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="add-question.php">Add Question</a>
+                  <a class="nav-link" href="#">Add Question</a>
                 </li>
             <?php }?>
             
@@ -73,7 +81,7 @@
           <div class="registration-menu btn-toolbar mb-2 mb-lg-0">
 
             <?php // Registered Users options
-              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */false){ ?>
+              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
                 <a class="nav-link profile-button registration-button">
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
@@ -85,8 +93,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-primary" href="login.php">Login</a>
-              <a class="registration-button btn btn-primary" href="register.php">Register</a>
+              <a class="registration-button btn btn-primary" href="#">Login</a>
+              <a class="registration-button btn btn-primary" href="#">Register</a>
             <?php } ?>
             
           </div>
@@ -95,4 +103,4 @@
       </div>
     </nav>
   </header>
-  <main class="flex-grow-1"> 
+  <main> 

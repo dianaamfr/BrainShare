@@ -15,7 +15,9 @@ function questionForm($courses){ ?>
                 <!-- Question Body -->
                 <div class="mb-3">
                     <label for="questionTextarea" class="form-label">Question Body</label>
-                    <textarea class="form-control" placeholder="Describe your problem here" id="questionTextarea" style="height: 100px" aria-describedby="questionBodyHelp"></textarea>
+                    <div class="container border form-control">
+                        <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" id="questionTextarea" style="height: 100px" aria-describedby="questionBodyHelp"></textarea>
+                    </div>
                     <div id="questionBodyHelp" class="form-text">Describe all the details that may help others understand your question.</div>
                 </div>
 
