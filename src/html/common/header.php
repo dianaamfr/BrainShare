@@ -17,7 +17,6 @@
   </head>
 
 <body>
-<<<<<<< HEAD
   <header class="fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -97,6 +96,3 @@
     </nav>
   </header>
   <main class="flex-grow-1"> 
-=======
-  <main>
->>>>>>> about-page

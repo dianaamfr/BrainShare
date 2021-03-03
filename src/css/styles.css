@@ -80,6 +80,7 @@ body {
   flex-direction: column;
   height: 100%;
   max-width: 1920px;
+  margin: auto;
 }
 
 main {position: relative;}
@@ -248,7 +249,8 @@ border-style: unset;
 /* ---- Header ---- */
 
 header.fixed-top {
-max-width: 1920px;
+  max-width: 1920px;
+  margin: auto;
 }
 
 body > header .container-fluid {
