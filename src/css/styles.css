@@ -229,26 +229,20 @@ body {
     text-decoration: none;
 }
 
-#main-pagination .page-link,
-#pagination-questions .page-link,
-#pagination-answers .page-link {
+.page-link{
     color: var(--main-green);
 }
-/*
-#main-pagination .page-item.active .page-link,
-#pagination-questions .page-item.active .page-link,
-#pagination-answers .page-item.active .page-link {
+
+.page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: var(--main-green);
     border-color: var(--main-green);
 }
 
-#main-pagination .page-item.active .page-link:focus,
-#pagination-questions .page-item.active .page-link:focus,
-#pagination-answers .page-item.active .page-link:focus {
+.page-item.active .page-link:focus{
     box-shadow: 0 0 0 .25rem var(--main-green);
-}*/ 
+} 
 
 .profile-question .category-profile-question {
     margin-top: 1em;

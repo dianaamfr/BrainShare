@@ -42,7 +42,7 @@
 </section>
 
 <hr class="mt-5 container">
-<ul id="main-pagination" class="pagination justify-content-center">
+<ul class="pagination justify-content-center">
     <li class="page-item page-question active"><button class="page-link" id="pagination-button-1">My Questions</button></li>
     <li class="page-item page-answer"><button class="page-link" id="pagination-button-2">My Answers</button></li>
 </ul>
