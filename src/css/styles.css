@@ -1,5 +1,4 @@
 /* Fonts */
-
   /* Titles */
   @font-face {
       font-family: title-font;
@@ -19,9 +18,7 @@
       font-weight: 400;
   }
 
-
   /* Texts */
-
   @font-face {
       font-family: text-font;
       src: url("../fonts/poppins/Poppins-Light.ttf");
@@ -48,7 +45,6 @@
   }
 
 /* Headings and text elements */
-
 h1, h2, h3, h4 {
     font-family: 'title-font';
 }
@@ -336,7 +332,7 @@ article.question.card {
 }
 
 article.question.card h2 {
-    color: var(--main-blue);x
+    color: var(--main-blue);
     font-weight: 600;
 }
 
@@ -474,6 +470,60 @@ article.question .card-title {
     box-shadow: inset 0 1px 3px #ddd;
 }
 
+#login,
+#register {
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    max-width: 30em;
+}
+
+#login .form-control:focus,
+#register .form-control:focus {
+    border-color: var(--main-blue);
+    box-shadow: 0 10px var(--main-blue);
+}
+
+#login .form-login input[type=email],
+#login .form-login input[type=password] {
+    width: 100%;
+    display: block;
+    margin-bottom: 1em;
+}
+
+#login .btn-register {
+    margin-bottom: 1em;
+}
+
+#login .forgot-password {
+    padding-top: 2em;
+    text-decoration: none;
+    color: var(--black);
+}
+
+#login .forgot-password:hover {
+    color: var(--black);
+    text-decoration: underline;
+}
+
+#login .btn-login,
+#login .btn-register,
+#register .btn-register {
+    margin-top: 1em;
+    padding: 0.4em 3em;
+    width: 100%;
+    background-color: var(--main-blue);
+    border: none;
+}
+
+#login .btn-login:hover,
+#login .btn-register:hover,
+#register .btn-register:hover {
+    margin-top: 1em;
+    width: 100%;
+    background-color: var(--hover-blue);
+    border-color: none;
+}
 
 @media (max-width: 1360px){
     .navbar-dark .navbar-brand {
@@ -487,13 +537,11 @@ article.question .card-title {
     }
 }
 
-
 @media (max-width: 992px){
     .page-margin {
         margin: 0 2em;
     }
 }
-
 
 @media (max-width: 1024px) {
 
@@ -586,7 +634,6 @@ article.question .card-title {
         border-top: 1px solid rgba(255,255,255,0.2);
         padding-top: 1rem;
     }
-
 }
 
 @media (max-width: 768px) {
