@@ -30,7 +30,7 @@
       <div class="container-fluid">
 
         <!-- Logo - link to Home Page -->
-        <a class="navbar-brand" href="#">BrainShare</a>
+        <a class="navbar-brand" href="index.php">BrainShare</a>
         
         <!-- Mobile Notifications Icon -->
         <div class="icon-hover notifications-mobile">
@@ -93,8 +93,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-                <a class="registration-button btn btn-primary" href="#">Login</a>
-                <a class="registration-button btn btn-primary" href="#">Register</a>
+                <a class="registration-button btn btn-primary" href="login.php">Login</a>
+                <a class="registration-button btn btn-primary" href="register.php">Register</a>
             <?php } ?>
             
           </div>
