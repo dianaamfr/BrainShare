@@ -234,7 +234,7 @@ body {
 #pagination-answers .page-link {
     color: var(--main-green);
 }
-
+/*
 #main-pagination .page-item.active .page-link,
 #pagination-questions .page-item.active .page-link,
 #pagination-answers .page-item.active .page-link {
@@ -248,7 +248,7 @@ body {
 #pagination-questions .page-item.active .page-link:focus,
 #pagination-answers .page-item.active .page-link:focus {
     box-shadow: 0 0 0 .25rem var(--main-green);
-}
+}*/ 
 
 .profile-question .category-profile-question {
     margin-top: 1em;

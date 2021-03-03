@@ -43,11 +43,11 @@
 
 <hr class="mt-5 container">
 <ul id="main-pagination" class="pagination justify-content-center">
-    <li class="page-item page-question active"><button class="page-link">My Questions</button></li>
-    <li class="page-item page-answer"><button class="page-link">My Answers</button></li>
+    <li class="page-item page-question active"><button class="page-link" id="pagination-button-1">My Questions</button></li>
+    <li class="page-item page-answer"><button class="page-link" id="pagination-button-2">My Answers</button></li>
 </ul>
 
-<section id="profile-questions" class="container mt-5">
+<section id="pagination-item-1" class="container mt-5">
     <h3 class="mb-4">My Questions</h3>
     <?php for($i = 0; $i < 2; $i++) { ?> 
         <article class="profile-question container my-4 border shadow rounded">
@@ -102,7 +102,7 @@
     </ul>
 </section>
 
-<section id="profile-answers" class="container mt-5">
+<section id="pagination-item-2" class="container mt-5">
     <h3 class="mb-4">My Answers</h3>
     <?php for($i = 0; $i < 2; $i++){ ?> 
         <article class="profile-question container my-4 border shadow rounded">
