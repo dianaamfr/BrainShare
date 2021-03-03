@@ -1,5 +1,5 @@
 <div class="page-margin d-flex flex-column justify-content-center">
-    <section id="login" class="container-sm p-5 mb-5 bg-light flex-1">
+    <section id="login" class="container-sm card p-5 mb-5">
         <h2 class="mb-4">Login</h2>
         <form class="form-login text-start">
             <div class="mb-4">

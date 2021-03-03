@@ -1,5 +1,5 @@
 <div class="page-margin">
-    <section id="register" class="container-sm card p-5 bg-light">
+    <section id="register" class="container-sm card p-5">
         <h2 class="mb-4">Register</h2>
         <form class="text-start">
             <div class="mb-4 text-center">
