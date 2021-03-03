@@ -1,3 +1,26 @@
+/* Fonts */
+
+    /* Titles */
+    @font-face {
+        font-family: title-font;
+        src: url("../fonts/titillium/TitilliumWeb-Bold.ttf");
+        font-weight: bold;
+    }
+
+    /* Texts */
+
+    @font-face {
+        font-family: text-font;
+        src: url("../fonts/poppins/Poppins-Regular.ttf");
+        font-weight: normal;
+    }
+
+    @font-face {
+        font-family: text-font;
+        src: url("../fonts/poppins/Poppins-Medium.ttf");
+        font-weight: medium;
+    }
+
 body {
     --main-blue: #3C98E8; /* Main color */
     --main-blue-dark: #1e5280; /* Main color */
@@ -8,9 +31,17 @@ body {
 
     background: var(--white);
     font-size: 16px;
-    font-family: "apercu",sans-serif;
+    font-family: text-font;
+    font-weight: normal;
     color: var(--black);
+}
+
+main {
     margin: 0 8em;
+}
+
+h1 {
+    font-family: title-font;
 }
 
 #login,
@@ -18,6 +49,7 @@ body {
     text-align: center;
     padding-top: 1em;
     padding-bottom: 1em;
+    max-width: 30em;
 }
 
 #login .form-control:focus,

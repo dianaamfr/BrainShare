@@ -1,5 +1,4 @@
-<div id="register" class="container-fluid main_container ">
-    <div class="card shadow-lg p-3 mb-5 bg-light text-black rounded position-absolute top-50 start-50 translate-middle">
+    <section id="register" class="container-sm shadow-lg p-3 mb-5 bg-light text-black rounded position-absolute top-50 start-50 translate-middle">
         <h3 class="mb-3">Register</h3>
         <form>
         <div class="mb-3">
@@ -23,4 +22,3 @@
         <button type="submit" class="btn btn-primary btn-block btn-register">Register</button>
         </form>
     </div> 
-</div>
