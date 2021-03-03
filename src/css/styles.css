@@ -481,7 +481,7 @@ article.question .card-title {
 #login .form-control:focus,
 #register .form-control:focus {
     border-color: var(--main-blue);
-    box-shadow: 0 0 10px var(--main-blue);
+    box-shadow: 0 10px var(--main-blue);
 }
 
 #login .form-login input[type=email],
@@ -513,7 +513,7 @@ article.question .card-title {
     padding: 0.4em 3em;
     width: 100%;
     background-color: var(--main-blue);
-    border-color: var(--main-blue);
+    border: none;
 }
 
 #login .btn-login:hover,
@@ -521,8 +521,8 @@ article.question .card-title {
 #register .btn-register:hover {
     margin-top: 1em;
     width: 100%;
-    background-color: var(--main-blue-dark);
-    border-color: var(--main-blue-dark);
+    background-color: var(--hover-blue);
+    border-color: none;
 }
 
 @media (max-width: 1360px){

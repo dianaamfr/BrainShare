@@ -8,7 +8,6 @@
             <input type="password" class="form-control" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary btn-login">Login</button>
-
     </form>
     <button type="submit" class="btn btn-primary btn-register">Register</button>
     <a href="#" class="forgot-password justify-content-center">Forgot Password</a>
