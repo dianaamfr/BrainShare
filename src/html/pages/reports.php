@@ -25,13 +25,13 @@
         
     </header>
 
-    <table class="table table-bordered border-0 ">
+    <table class="table-responsive table-bordered border-0 table-sm">
         <thead>
             <tr>
                 <th scope="col" >#</th>
                 <th scope="col"><i class="fas fa-sort"></i>Summary</th>
                 <th scope="col"><i class="fas fa-sort"></i>Type</th>
-                <th scope="col"><i class="fas fa-sort"></i>Nº Reports</th>
+                <th scope="col"><i class="fas fa-sort"></i>Nº</th>
                 <th scope="col"><i class="fas fa-sort"></i>Actions</th>
             </tr>
         </thead>

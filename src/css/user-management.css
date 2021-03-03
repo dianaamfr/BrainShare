@@ -12,6 +12,7 @@ div.user-administration header div.input-group{
 
 div.user-administration header div.dropdown{
     float: right;
+    color: var(--main-blue);
 }
 
 div.user-administration header h2{
@@ -23,3 +24,56 @@ div.user-administration header div button.dropdown-toggle, div.user-administrati
     text-align:start;
 }
 
+div.user-administration table thead tr th{
+    color: var(--main-blue);
+    border-color: #212529;
+}
+
+
+
+@media (max-width: 450px) {
+
+
+    main, html, body{
+        margin: 0 !important;
+        padding-left: 0% !important;
+    }
+
+    div.user-administration header{
+        max-width: none;
+        width: 100% !important;
+    }
+
+    div.user-administration header div.dropdown{
+        max-width: none;
+        width: 100%;
+    }
+
+
+}
+
+
+
+@media (max-width: 768px) {
+    main{
+        margin: 2em !important;
+    }
+
+    div.user-administration header{
+        max-width: none;
+        width: 100%;
+    }
+
+    div.user-administration header div.dropdown{
+        max-width: none;
+        width: 90%;
+        float: left !important;
+        color: var(--main-blue);
+    }
+    
+
+    div.user-administration header div.input-group{
+        margin-top: 2em;
+    }
+
+}
