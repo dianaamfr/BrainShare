@@ -213,6 +213,42 @@ a.btn {
   max-width: 43rem;
 }
 
+/* Questions */ 
+
+
+.profile-question {
+    padding: 3em;
+    background-color: #FFFFFF;
+}
+
+.profile-question a {
+    color: var(--main-green);
+    text-decoration: none;
+}
+
+.profile-question a:hover {
+    color: var(--hover-green);
+    text-decoration: none;
+}
+
+
+.profile-question .category-profile-question {
+  margin-top: 1em;
+  margin-right: 0.6em;
+  width: 100%;
+}
+
+.profile-question .date-user-image,
+.profile-answer .date-user-image {
+  width: 1.4em;
+}
+
+.profile-question .date-user-text,
+.profile-answer .date-user-text {
+  float: right;
+}
+
+
 @media (max-width: 992px) {
   body {
     margin: 0 0;
