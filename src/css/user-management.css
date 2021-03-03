@@ -29,6 +29,10 @@ div.user-administration table thead tr th{
     border-color: #212529;
 }
 
+div.user-administration table{
+    width: 100%;
+}
+
 
 
 @media (max-width: 450px) {
@@ -46,7 +50,12 @@ div.user-administration table thead tr th{
 
     div.user-administration header div.dropdown{
         max-width: none;
+        width: 100% !important;
+    }
+
+    div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
         width: 100%;
+        text-align:start;
     }
 
 
@@ -66,14 +75,20 @@ div.user-administration table thead tr th{
 
     div.user-administration header div.dropdown{
         max-width: none;
-        width: 90%;
+        width: 100% !important;
+        width: 100% !important;
         float: left !important;
         color: var(--main-blue);
+        padding-bottom: 1em;
     }
     
 
     div.user-administration header div.input-group{
         margin-top: 2em;
+    }
+
+    div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
+        width: 100%;
     }
 
 }

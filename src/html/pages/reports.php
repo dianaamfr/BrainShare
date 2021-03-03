@@ -25,7 +25,7 @@
         
     </header>
 
-    <table class="table-responsive table-bordered border-0 table-sm">
+    <table class="table-responsive table-bordered border-0">
         <thead>
             <tr>
                 <th scope="col" >#</th>
