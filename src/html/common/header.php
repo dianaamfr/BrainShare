@@ -22,7 +22,7 @@
       <div class="container-fluid">
 
         <!-- Logo - link to Home Page -->
-        <a class="navbar-brand" href="#">BrainShare</a>
+        <a class="navbar-brand" href="index.php">BrainShare</a>
         
         <!-- Mobile Notifications Icon -->
         <div class="icon-hover notifications-mobile">
@@ -73,7 +73,7 @@
           <div class="registration-menu btn-toolbar mb-2 mb-lg-0">
 
             <?php // Registered Users options
-              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
+              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */false){ ?>
                 <a class="nav-link profile-button registration-button">
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
@@ -85,8 +85,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-primary" href="#">Login</a>
-              <a class="registration-button btn btn-primary" href="#">Register</a>
+              <a class="registration-button btn btn-primary" href="login.php">Login</a>
+              <a class="registration-button btn btn-primary" href="register.php">Register</a>
             <?php } ?>
             
           </div>
@@ -95,4 +95,4 @@
       </div>
     </nav>
   </header>
-  <main> 
+  <main class="flex-grow-1"> 

@@ -44,6 +44,41 @@
       font-weight: 500;
   }
 
+/* Body */
+
+html {
+  height: 100%;
+}
+
+body {
+    --main-blue: #3C98E8; /* Main color */
+    --light-blue: #69b3f3;
+    --hover-blue: rgb(53, 122, 187); 
+    --main-green: #65a863; /* Secondary color */
+    --hover-green: #528f50; 
+    --black: #16191b;
+    --text-black: #3e444b;
+    --white: #f3f3f3;
+    --grey: rgba(255, 255, 255, 0.719);
+
+    background: var(--white);
+    font-size: 16px;
+    font-family: text-font;
+    font-weight: 400;
+    color: var(--text-black);
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.page-margin {
+  margin: 0 8em;
+  padding-top: 3rem;
+  height: 100%;
+}
+
+
 /* Headings and text elements */
 h1, h2, h3, h4 {
     font-family: 'title-font';
@@ -51,6 +86,7 @@ h1, h2, h3, h4 {
 
 h2 {
     font-weight: 600;
+    font-size: 2rem;
 }
 
 h4 {
@@ -69,33 +105,6 @@ a {
 a:hover {
   color: var(--white);
 }
-
-/* Body */
-
-body {
-    --main-blue: #3197d1; /* Main color */
-    --light-blue: #69b3f3;
-    --hover-blue: rgb(53, 122, 187); 
-    --main-green: #65a863; /* Secondary color */
-    --hover-green: #528f50; 
-    --black: #212529;
-    --text-black: #3e444b;
-    --white: #f0f0f0;
-    --grey: rgba(255, 255, 255, 0.719);
-
-    background: var(--white);
-    font-size: 16px;
-    font-family: text-font;
-    font-weight: 400;
-    color: var(--text-black);
-    padding-top: 4rem;
-}
-
-.page-margin {
-  margin: 0 8em;
-  padding-top: 3rem;
-}
-
 
 /* Buttons */
 
@@ -470,59 +479,61 @@ article.question .card-title {
     box-shadow: inset 0 1px 3px #ddd;
 }
 
+/* Login and Register */
+
 #login,
 #register {
     text-align: center;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    max-width: 30em;
+    max-width: 30rem;
+    box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%)!important;
+    border: 1px solid #dadce0;
 }
 
-#login .form-control:focus,
-#register .form-control:focus {
-    border-color: var(--main-blue);
-    box-shadow: 0 10px var(--main-blue);
+#register-image {
+  width: 150px;
 }
 
-#login .form-login input[type=email],
-#login .form-login input[type=password] {
+#register input[type="file"]{
+  display: none;
+}
+
+#register input[type="file"] + label {
+  display: block;
+  cursor: pointer;
+}
+
+#register input#file-upload-button:hover {
+    color: var(--hover-green);
+}
+
+input[type=email], input[type=text], input[type=password] {
     width: 100%;
     display: block;
     margin-bottom: 1em;
+    box-shadow: rgb(221, 221, 221) 0px 1px 3px inset;
 }
 
 #login .btn-register {
     margin-bottom: 1em;
 }
 
-#login .forgot-password {
-    padding-top: 2em;
-    text-decoration: none;
-    color: var(--black);
+#login label {
+  width: 100%;
+  font-family: title-font;
+  font-weight: 400;
+  font-size: 1.2rem;
 }
 
-#login .forgot-password:hover {
-    color: var(--black);
-    text-decoration: underline;
+#login .form-text {
+  font-size: 0.9rem;
+  font-family: text-font;
 }
 
 #login .btn-login,
 #login .btn-register,
 #register .btn-register {
-    margin-top: 1em;
     padding: 0.4em 3em;
-    width: 100%;
-    background-color: var(--main-blue);
-    border: none;
-}
-
-#login .btn-login:hover,
-#login .btn-register:hover,
-#register .btn-register:hover {
-    margin-top: 1em;
-    width: 100%;
-    background-color: var(--hover-blue);
-    border-color: none;
+    width: 100%;  
 }
 
 @media (max-width: 1360px){
@@ -630,9 +641,9 @@ article.question .card-title {
     } 
 
     body > header .btn-toolbar {
-        display: block;
         border-top: 1px solid rgba(255,255,255,0.2);
         padding-top: 1rem;
+        justify-content: flex-end;
     }
 }
 
@@ -661,6 +672,8 @@ article.question .card-title {
         padding-top: 0;
     }
 
+    /* Question Page */
+
     article.question.card, .answer.card .card-body {
         box-shadow: unset;
         border-radius: 0;
@@ -668,5 +681,12 @@ article.question .card-title {
 
     article.question.card {
         padding-top: 1rem;
+    }
+
+    /* Login/Register */
+    #login, #register {
+      box-shadow: unset!important;
+      border: 0;
+      background-color: unset!important;
     }
 }
