@@ -10,7 +10,7 @@
         </div>
     </header>
 
-    <table class="table table-bordered border-0 table-responsive-sm">
+    <table class="table table-responsive table-hover">
         <thead>
             <tr>
                 <th scope="col" >#</th>

@@ -5,7 +5,7 @@ div.user-administration header{
 }
 
 div.user-administration header div.input-group{
-    max-width: 700px;
+    max-width: 500px;
     margin-top: 6em;
 }
 
@@ -57,12 +57,12 @@ div.user-administration table tbody tr td div.dropdown button{
     }
 
     div.user-administration header{
-        max-width: none;
+        max-width: 400px;
         width: 100% !important;
     }
 
     div.user-administration header div.dropdown{
-        max-width: none;
+        max-width: 400px;
         width: 100% !important;
     }
 
@@ -81,12 +81,12 @@ div.user-administration table tbody tr td div.dropdown button{
     }
 
     div.user-administration header{
-        max-width: none;
+        max-width: 400px;
         width: 100%;
     }
 
     div.user-administration header div.dropdown{
-        max-width: none;
+        max-width: 400px;
         width: 100% !important;
         width: 100% !important;
         float: left !important;
