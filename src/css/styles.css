@@ -197,6 +197,13 @@ body {
     color: var(--main-blue);
 }
 
+@media (max-width: 992px){
+    .grid-profile {
+        display: block;
+    }
+}
+
+
 #profile-questions h3,
 #profile-answers h3 {
     color: var(--main-green);
