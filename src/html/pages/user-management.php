@@ -1,4 +1,4 @@
-<div id="user-management">
+<div class="user-administration">
 
     <header>
         <h1>Users</h1>

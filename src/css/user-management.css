@@ -1,8 +1,25 @@
-div#user-management header{
+div.user-administration header{
     padding-top: 2em;
     padding-bottom: 2em;
+    
 }
 
-div#user-management header div{
-    max-width: 500px;
+div.user-administration header div.input-group{
+    max-width: 700px;
+    margin-top: 6em;
+
 }
+
+div.user-administration header div.dropdown{
+    float: right;
+}
+
+div.user-administration header h2{
+    font-size: small;
+}
+
+div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
+    width: 400px;
+    text-align:start;
+}
+
