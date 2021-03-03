@@ -53,7 +53,7 @@
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add Question</a>
+                  <a class="nav-link" href="add-question.php">Add Question</a>
                 </li>
             <?php }?>
             

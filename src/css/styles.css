@@ -67,6 +67,7 @@ body {
     font-weight: 400;
     color: var(--text-black);
     padding-top: 4rem;
+
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -106,9 +107,13 @@ a:hover {
   color: var(--white);
 }
 
+input, textarea, select {
+  box-shadow: rgb(221, 221, 221) 0px 1px 3px inset;
+}
+
 /* Buttons */
 
-/* blue */
+/* Blue */
 .btn {
     font-weight: 500;
 }
@@ -506,22 +511,20 @@ article.question .card-title {
     color: var(--hover-green);
 }
 
-input[type=email], input[type=text], input[type=password] {
+#register input[type=email], #register input[type=text], #register input[type=password],
+#login input[type=email], #login input[type=password] {
     width: 100%;
     display: block;
     margin-bottom: 1em;
-    box-shadow: rgb(221, 221, 221) 0px 1px 3px inset;
 }
 
 #login .btn-register {
     margin-bottom: 1em;
 }
 
-#login label {
+#login label, #register label {
   width: 100%;
-  font-family: title-font;
-  font-weight: 400;
-  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 #login .form-text {
@@ -535,6 +538,29 @@ input[type=email], input[type=text], input[type=password] {
     padding: 0.4em 3em;
     width: 100%;  
 }
+
+/* Add Question */
+
+.add-question {
+  box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%);
+  border: 1px solid #dadce0;
+  background-color: white;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2.5rem 2rem;
+}
+
+.add-question .form-label {
+  color: var(--main-blue);
+  font-weight: 500;
+}
+
+.form-select:focus {
+  box-shadow: unset;
+  border-color: none;
+}
+
+/* Breakpoints */
 
 @media (max-width: 1360px){
     .navbar-dark .navbar-brand {
@@ -690,3 +716,4 @@ input[type=email], input[type=text], input[type=password] {
       background-color: unset!important;
     }
 }
+
