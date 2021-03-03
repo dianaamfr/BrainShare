@@ -25,8 +25,8 @@
         
     </header>
 
-    <table class="table-responsive table-bordered border-0">
-        <thead>
+    <table class="table table-responsive table-hover">
+        <thead >
             <tr>
                 <th scope="col" >#</th>
                 <th scope="col"><i class="fas fa-sort"></i>Summary</th>
@@ -91,7 +91,7 @@
                 </td>
             </tr>   
             <tr>
-                <th scope="row">3</th>
+                <th scope="row">4</th>
                 <td>I doesn't really look that cool but do whatever man.</td>
                 <td>Comment</td>
                 <td>1</td>

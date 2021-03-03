@@ -7,7 +7,6 @@ div.user-administration header{
 div.user-administration header div.input-group{
     max-width: 700px;
     margin-top: 6em;
-
 }
 
 div.user-administration header div.dropdown{
@@ -19,18 +18,32 @@ div.user-administration header h2{
     font-size: small;
 }
 
-div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
+div.user-administration header div.dropdown button{
     width: 400px;
     text-align:start;
 }
 
+div.user-administration div.dropdown button{
+    background-color:#eaffec !important;
+    color: #567b3f;
+}
+
+div.user-administration div.dropdown ul li :hover{
+    background-color:#589455;
+    color: white;
+}
+
 div.user-administration table thead tr th{
-    color: var(--main-blue);
     border-color: #212529;
+    font-weight: bold;
 }
 
 div.user-administration table{
     width: 100%;
+}
+
+div.user-administration table tbody tr td div.dropdown button{
+    background-color: var(--main-green);
 }
 
 
@@ -57,7 +70,6 @@ div.user-administration table{
         width: 100%;
         text-align:start;
     }
-
 
 }
 
