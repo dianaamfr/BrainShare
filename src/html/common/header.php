@@ -61,7 +61,7 @@
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add Question</a>
+                  <a class="nav-link" href="add-question.php">Add Question</a>
                 </li>
             <?php }?>
             
@@ -93,8 +93,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-primary" href="#">Login</a>
-              <a class="registration-button btn btn-primary" href="#">Register</a>
+                <a class="registration-button btn btn-primary" href="#">Login</a>
+                <a class="registration-button btn btn-primary" href="#">Register</a>
             <?php } ?>
             
           </div>
@@ -103,4 +103,4 @@
       </div>
     </nav>
   </header>
-  <main> 
+  <main class="flex-grow-1">
