@@ -45,11 +45,11 @@
     </section>
 
     <ul id="main-pagination" class="pagination justify-content-center">
-        <li class="page-item page-question active"><button class="page-link">My Questions</button></li>
-        <li class="page-item page-answer"><button class="page-link">My Answers</button></li>
+        <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">My Questions</button></li>
+        <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
     </ul>
 
-    <section id="profile-questions" class="container mt-5">
+    <section id="pagination-item-1" class="container mt-5">
         <h3 class="mb-4">My Questions</h3>
         <?php for($i = 0; $i < 2; $i++) { 
             questionPreview();
@@ -61,12 +61,12 @@
         </ul>
     </section>
 
-    <section id="profile-answers" class="container mt-5">
+    <section id="pagination-item-2" class="container mt-5">
         <h3 class="mb-4">My Answers</h3>
         <?php for($i = 0; $i < 2; $i++){
             answerPreview();
         } ?>
-        <ul id="pagination-answers" class="pagination justify-content-center">
+        <ul id="pagination-answers" class="pagination justify-content-center profile-answers">
             <li class="page-item active"><a class="page-link" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>

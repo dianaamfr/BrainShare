@@ -826,10 +826,6 @@ background-position: center;
   }
 }
 
-#profile-questions h3,
-#profile-answers h3 {
-  color: var(--main-blue);
-}
 
 .profile-question,
 .profile-answer {
@@ -849,15 +845,11 @@ background-position: center;
   text-decoration: none;
 }
 
-#main-pagination .page-link,
-#pagination-questions .page-link,
-#pagination-answers .page-link {
+.page-link {
   color: var(--main-blue);
 }
 
-#main-pagination .page-item.active .page-link,
-#pagination-questions .page-item.active .page-link,
-#pagination-answers .page-item.active .page-link {
+.page-item.active .page-link {
   z-index: 3;
   color: #fff;
   background-color: var(--main-blue);
@@ -865,9 +857,7 @@ background-position: center;
   font-weight: 500;
 }
 
-#main-pagination .page-item.active .page-link:focus,
-#pagination-questions .page-item.active .page-link:focus,
-#pagination-answers .page-item.active .page-link:focus {
+.page-item.active .page-link:focus {
   box-shadow: unset;
 }
 
