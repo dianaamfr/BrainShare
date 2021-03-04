@@ -10,62 +10,64 @@
         </div>
     </header>
 
-    <table class="table table-responsive table-hover">
-        <thead>
-            <tr>
-                <th scope="col" >#</th>
-                <th scope="col"><i class="fas fa-sort"></i>Username</th>
-                <th scope="col"><i class="fas fa-sort"></i>Name</th>
-                <th scope="col"><i class="fas fa-sort"></i>Register Date</th>
-                <th scope="col"><i class="fas fa-sort"></i>Status</th>
-                <th scope="col"><i class="fas fa-sort"></i>Role</th>
-                <th scope="col"><i class="fas fa-sort"></i>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Joaquina</td>
-                <td>Maria Joaquina</td>
-                <td>12/01/2020</td>
-                <td>Active</td>
-                <td>Moderator</td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Actions
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Promote to Administrator</a></li>
-                            <li><a class="dropdown-item" href="#">Demote from Moderator</a></li>
-                            <li><a class="dropdown-item" href="#">Ban</a></li>
-                            <li><a class="dropdown-item" href="#">Delete Account</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>MarcioRB</td>
-                <td>Marcio Rebelo</td>
-                <td>10/02/2020</td>
-                <td>Banned</td>
-                <td>User</td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Actions
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Promote to Administrator</a></li>
-                            <li><a class="dropdown-item" href="#">Promote to Moderator</a></li>
-                            <li><a class="dropdown-item" href="#">Remove ban</a></li>
-                            <li><a class="dropdown-item" href="#">Delete Account</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Username</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Name</th>
+                    <th scope="col" increased-width-2><i class="fas fa-sort big-row"></i>Register Date</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Status</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Role</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Joaquina</td>
+                    <td>Maria Joaquina</td>
+                    <td>12/01/2020</td>
+                    <td>Active</td>
+                    <td>Moderator</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Promote to Administrator</a></li>
+                                <li><a class="dropdown-item" href="#">Demote from Moderator</a></li>
+                                <li><a class="dropdown-item" href="#">Ban</a></li>
+                                <li><a class="dropdown-item" href="#">Delete Account</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>MarcioRB</td>
+                    <td>Marcio Rebelo</td>
+                    <td>10/02/2020</td>
+                    <td>Banned</td>
+                    <td>User</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Promote to Administrator</a></li>
+                                <li><a class="dropdown-item" href="#">Promote to Moderator</a></li>
+                                <li><a class="dropdown-item" href="#">Remove ban</a></li>
+                                <li><a class="dropdown-item" href="#">Delete Account</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div
     

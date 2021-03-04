@@ -36,6 +36,19 @@ div.user-administration div.dropdown ul li :hover{
 div.user-administration table thead tr th{
     border-color: #212529;
     font-weight: bold;
+    min-width: 100px;
+}
+
+div.user-administration table thead tr th:first-child{
+    min-width: 20px;
+}
+
+#increase-width-1{
+    min-width: 130px;
+}
+
+div.user-administration table thead tr th:nth-child(4){
+    min-width: 150px;
 }
 
 div.user-administration table{
