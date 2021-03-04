@@ -7,6 +7,12 @@
         font-weight: 600;
     }
 
+    @font-face {
+      font-family: title-font;
+      src: url("../fonts/rubik/Rubik-Medium.ttf");
+      font-weight: 500;
+  }
+
     /* Texts */
 
     @font-face {
@@ -29,9 +35,8 @@
 
 
 body {
-    --main-blue: #3c9bd2; /* Main color */
-    --light-blue: #61b5ff;
-    --hover-blue: rgb(53, 122, 187); 
+    --main-blue: #48aae2; /* Main color */
+    --hover-blue: #077bbe;
     --main-green: #7bc478; /* Secondary color */
     --hover-green: #528f50; 
     --black: #212529;
@@ -76,10 +81,12 @@ h2 {
 .btn-primary {
     color: var(--white);
     border-color: var(--main-blue);
+    outline: 0;
     background-color: var(--main-blue);
 }
 
 .btn-primary:hover {
+    outline: 0;
     border-color: var(--hover-blue);
     background-color: var(--hover-blue);
 }
@@ -93,8 +100,8 @@ h2 {
 .btn-primary.active:focus, .btn-primary:active:focus, 
 .show>.btn-primary.dropdown-toggle:focus {
     color: var(--white);
-    background-color: var(--hover-blue);
-    border-color: var(--hover-blue);
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
     box-shadow: none;
 }
 
@@ -156,10 +163,18 @@ h2 {
 
 .homepage-container-hero {
   padding: 100px 0;
-  background-image: url("../public/images/cool-background.png");
+  background-image: url("../images/banner2.png");
   background-position: right;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.homepage-course-container p {
+  max-width: 270px;
+}
+
+.homepage-course-container a {
+  margin-top: auto;
 }
 
 .banner-text p {
@@ -177,6 +192,7 @@ h1.display-3 {
   font-size: 2.6rem;
   color: #dedede;
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 a.btn {
@@ -193,17 +209,23 @@ a.btn {
 .homepage-feature-text {
   margin-top: 3rem;
   max-width: 550px;
-  font-weight: 300;
+  padding-right: 2rem;
 }
 
-.homepage-feature-image {
-  font-size: 3.5rem;
-  text-anchor: middle;
+.homepage-feature-image1 {
+  background-image: url("../images/qa_home2.png");
+  background-position: top;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 3rem;
+  height: 350px;
 }
 
-.homepage-course {
-  background-color: var(--grey);
+.homepage-course, .feature.questions {
+  border-top: 1px solid rgba(0,0,0,.125);
+  padding: 3rem 0;
 }
+
 .homepage-course-container {
   text-align: center;
 }
@@ -211,6 +233,25 @@ a.btn {
 .homepage-lastsearch {
   /*   background-color: var(--main-blue-300);*/
   max-width: 43rem;
+}
+
+.course-icon {
+    width: 110px;
+    height: 110px;
+    background-position: center;
+    background-size: contain;
+}
+
+#course-icon1{
+  background-image: url("../images/mieic.png");
+}
+
+#course-icon2{
+  background-image: url("../images/miec.png");
+}
+
+#course-icon3{
+  background-image: url("../images/mieec.png");
 }
 
 /* Questions */ 
@@ -248,14 +289,17 @@ a.btn {
   float: right;
 }
 
+@media (max-width: 1024px) {
+  .page-margin {
+    margin: 0 2em;  
+  }
+  
+}
+
 
 @media (max-width: 992px) {
   body {
     margin: 0 0;
-  }
-
-  .homepage-feature-text {
-    margin-top: 0;
   }
 
   .homepage-feature-image {
