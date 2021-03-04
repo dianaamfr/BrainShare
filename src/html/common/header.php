@@ -13,6 +13,15 @@
     <script src="https://kit.fontawesome.com/cf05cece41.js" crossorigin="anonymous"></script>
     <script src="js/pagination.js" defer></script>
     
+
+    <!-- Rich Text -->
+    <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
+    <script type="text/javascript" src="http://lab.lepture.com/editor/editor.js" defer></script>
+    <script type="text/javascript" src="http://lab.lepture.com/editor/marked.js" defer></script>
+
+    <script src="js/editor.js" defer></script>
+    <!-- Rich Text -->
+    
     <title>BrainShare</title> 
 
   </head>
@@ -74,7 +83,7 @@
           <div class="registration-menu btn-toolbar mb-2 mb-lg-0">
 
             <?php // Registered Users options
-              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */false){ ?>
+              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
                 <a class="nav-link profile-button registration-button">
                     <img src="images/profile.png" alt="">
                     Joaquina Almeida<!-- Name goes here -->
@@ -86,8 +95,8 @@
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
-              <a class="registration-button btn btn-primary" href="login.php">Login</a>
-              <a class="registration-button btn btn-primary" href="register.php">Register</a>
+                <a class="registration-button btn btn-primary" href="login.php">Login</a>
+                <a class="registration-button btn btn-primary" href="register.php">Register</a>
             <?php } ?>
             
           </div>
@@ -96,4 +105,4 @@
       </div>
     </nav>
   </header>
-  <main class="flex-grow-1"> 
+  <main class="flex-grow-1">
