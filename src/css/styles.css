@@ -397,7 +397,7 @@ article.question .card-title {
 }
 
 .category{
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .category i{
@@ -621,7 +621,8 @@ font-family: text-font;
 /* question preview */
 .question-preview.card .question-header > h4 {
   padding-top: 1.5rem;
-  font-size: 1.2rem;
+  padding-right: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 0;
   font-family: text-font;
 }
@@ -711,6 +712,29 @@ border-color: var(--main-green);
 font-weight: 500;
 }
 
+/* mobile navbar */
+
+.bd-subnavbar .nav-link button {
+  color: var(--bs-gray);
+}
+
+.bd-subnavbar .nav-link button:hover,.bd-subnavbar .subnav-selected button{
+  text-decoration: underline;
+  color: var(--text-black);
+  font-weight: 500;
+}
+.bd-subnavbar {
+    display: none!important;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: rgba(255,255,255,0.95);
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%)
+}
+
+.bd-subnavbar .dropdown-item.active, .bd-subnavbar .dropdown-item:active {
+  background-color: var(--main-blue);
+}
 
 /* About */
 
@@ -820,12 +844,6 @@ background-position: center;
   font-size: 1.4rem;
 }
 
-@media (max-width: 992px){
-  .grid-profile {
-      display: block;
-  }
-}
-
 #profile-questions h3,
 #profile-answers h3 {
   color: var(--main-blue);
@@ -902,6 +920,14 @@ background-position: center;
 }
 
 @media (max-width: 1024px) {
+
+  body {
+    padding-top: 75.19px;
+  }
+
+  .page-margin {
+    margin: 0 2em;
+  }
 
   .header-search, .navbar-nav {
       margin-bottom: 1rem!important;
@@ -992,12 +1018,14 @@ background-position: center;
       padding-top: 1rem;
       justify-content: flex-end;
   }
+
+  /* Subnavbar */
+  .bd-subnavbar {
+    display: flex!important;
+  }
 }
 
 @media (max-width: 992px){
-.page-margin {
-    margin: 0 2em;
-}
 
 /* Search Page */
 .counts {
@@ -1010,6 +1038,11 @@ background-position: center;
 
 .question-preview.card {
     display: block;
+}
+
+/* Profile */
+.grid-profile {
+  display: block;
 }
 }
 
@@ -1028,6 +1061,15 @@ background-position: center;
 
   .comments {
       padding-left: 0;
+  }
+
+  /* Search Page */
+  #side-bar {
+    display: none;
+  }
+
+  #search-questions {
+    padding-left: 0;
   }
 
 }
