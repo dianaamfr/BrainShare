@@ -212,32 +212,21 @@ $question3 =
             </div>
         </section>
 
-        <hr>
-
-            <!-- Carousel  
+        <hr> 
             <div class="carousel slide my-4" data-ride="carousel" id="featuretted-questions"> 
                 <h2 class="mb-4 fw-normal text-center">Featuretted questions</h2>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
+                    <?= $question1 ?>
                     </div>
                     <div class="carousel-item">
+                    <?= $question2 ?>
                     </div>
                     <div class="carousel-item">
+                    <?= $question3 ?>
                 </div>
-            </div> --->
+            </div>
 
-            <section class="feature questions">
-                <h2 class="mb-4 fw-normal text-center">Featured Questions</h2>
-                    <div>
-                        <?= $question1 ?>
-                    </div>
-                    <div>
-                        <?= $question2 ?>
-                    </div>
-                    <div>
-                        <?= $question3 ?>
-                </div>
-            </section>
             <!-- Nav buttons -->
 
             <button class="carousel-control-prev" role="button" data-slide="prev">

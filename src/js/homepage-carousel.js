@@ -6,6 +6,8 @@ let carouselItems = document.querySelectorAll('.carousel .carousel-inner .carous
 const rightButton = document.querySelector('.carousel-control-next')
 const leftButton = document.querySelector('.carousel-control-prev')
 
+let currentNumber = 0
+
 function goRight() {
     currentNumber++
     let index = currentNumber % sizeCarousel
