@@ -34,7 +34,7 @@
   </head>
 
 <body>
-  <header class="fixed-top">
+  <header class="fixed-top m-auto">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
 
@@ -80,14 +80,14 @@
                 Management
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Manage Categories</a></li>
+                <li><a class="dropdown-item" href="manage-categories.php">Manage Categories</a></li>
                 <li><a class="dropdown-item" href="#">Reports</a></li>
               </ul>
             </li>
           </ul>
 
           <!-- Registration/Account -->
-          <div class="registration-menu btn-toolbar mb-2 mb-lg-0">
+          <div class="registration-menu btn-toolbar mb-2 mb-lg-0 align-items-center flex-nowrap">
 
             <?php // Registered Users options
               if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>

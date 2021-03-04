@@ -15,17 +15,18 @@ function get_card($element)
 {
 
     $trash =   '<span class="icon-hover">
-                    <button><i class="far fa-trash-alt"></i></button> 
-                    <button><i class="fas fa-trash-alt"></i></button> 
+                    <button class="p-0"><i class="far fa-trash-alt"></i></button> 
+                    <button class="p-0"><i class="fas fa-trash-alt"></i></button> 
                     </span>';
 
-    return "<div class='card mt-3 mx-1 col-md-3 manage-card'>
-                    <div class='card-body  manage-tag-card'>
+    return "<div class='card rounded-1 manage-tag-card px-3 py-2 mt-3 mx-1'>
+                    <div class='card-body d-flex p-0'>
                         <span>$element</span>
                         $trash 
                     </div>
                 </div> ";
 }
+
 
 ?>
 
@@ -34,51 +35,53 @@ function get_card($element)
     <h1>Manage Categories</h1>
 </div>
 
-<div class="bg-light">
+<div class="bg-light page-margin">
     <!-- pagination -->
     <ul id="main-pagination" class="pagination justify-content-center mt-0">
-        <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">My Questions</button></li>
-        <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
+        <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">Tags</button></li>
+        <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">Courses</button></li>
     </ul>
 
     <!-- Manage tags-->
-    <section id="pagination-item-1" class="p-4 w-100 mx-1 ">
-        <div class="container">
-
-            <h2 class="display-5 mb-5 mx-5">Tags</h2>
+    <div id="pagination-item-1" class="managment">
+        <section class="p-4 w-100 mx-1">
+            <h3 class="mb-4">Tags</h3>
             <!-- Tags -->
             <div class="row">
-                <?= display_cards($tags) ?>
+                <?php for($i = 0; $i < 3; $i++){ display_cards($tags);} ?>
             </div>
-            <form class="card mt-5">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Insert a tag...">
-                    <button class="btn my-bg-main-green">Add Tag</button>
-                    </input>
-                </div>
-            </form>
+        </section>
 
-        </div>
-    </section>
+        <form class="mt-5 d-flex justify-content-between flex-wrap">
+            <div class="input-group manage-search m-3">
+                <input type="text" class="form-control" placeholder="Insert a tag...">
+                <button class="btn btn-primary">Add Tag</button>
+                </input>
+            </div>
+            <div class="input-group manage-search m-3">
+                <input type="text" class="form-control" placeholder="Search tag...">
+                <button class="btn btn-primary">Search Tag</button>
+                </input>
+            </div>
+        </form>
+    </div>
 
     <!-- Manage courses -->
-    <section id="pagination-item-2" class="p-4 w-100 mx-1">
-        <div class="container">
-
-            <h2 class="display-5 mb-5 mx-5">Courses</h2>
+    <div id="pagination-item-2" class="managment">
+        <section class="p-4 w-100 mx-1">
+            <h3 class="mb-4">Courses</h3>
             <!-- Courses -->
             <class class="row">
                 <?= display_cards($courses) ?>
             </class>
-            <form class="card mt-5">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Insert a course...">
-                    <button class="btn my-bg-main-green">Add Course</button>
-                    </input>
-                </div>
-            </form>
-        </div>
+        </section>
 
-    </section>
-
+        <form class="mt-5 d-flex justify-content-between flex-wrap">
+            <div class="input-group manage-search m-3">
+                <input type="text" class="form-control" placeholder="Insert a course...">
+                <button class="btn btn-primary">Add Course</button>
+                </input>
+            </div>
+        </form>
+    </div>
 </div>
