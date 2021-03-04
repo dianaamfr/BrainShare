@@ -615,17 +615,16 @@ font-family: text-font;
   margin-bottom: 2rem;
   box-shadow: 0px 1px 2px 0px rgb(183 183 183 / 30%), 0px 2px 6px 2px rgb(154 154 154 / 15%);
   border: 1px solid #dadce0;
+  padding: 1rem;
 }
 
 
 /* question preview */
 .question-preview.card .question-header > h4 {
-  padding-top: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 0;
-  font-family: text-font;
+  font-family: title-font;
 }
-
 .question-preview .card-footer .tag{
   margin-right: 0.3rem;
 }
@@ -817,7 +816,8 @@ background-position: center;
 .question-preview.card .answer-content h4 {
   font-weight: 500;
   margin-bottom: 0.5rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  color: var(--main-blue);
 }
 
 @media (max-width: 992px){

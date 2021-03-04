@@ -14,9 +14,9 @@ function display_cards($array)
 function get_card($element)
 {
 
-    $trash =   '<span class="manage-trash">
-                    <i class="far fa-trash-alt"></i>
-                    <i class="fas fa-trash-alt"></i>
+    $trash =   '<span class="icon-hover">
+                    <button><i class="far fa-trash-alt"></i></button> 
+                    <button><i class="fas fa-trash-alt"></i></button> 
                     </span>';
 
     return "<div class='card mt-3 mx-1 col-md-3 manage-card'>
@@ -29,22 +29,23 @@ function get_card($element)
 
 ?>
 
-<div class="text-center my-bg-main-blue p-3">
-    <h1 class="display-4 mt-5">Manage Categories</h1>
-    <p class="lead my-3">Add or remove tags and courses</p>
+
+<div class="text-center my-bg-main-blue">
+    <h1>Manage Categories</h1>
 </div>
 
-<!-- pagination -->
-<ul id="main-pagination" class="pagination justify-content-center my-5">
-    <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">My Questions</button></li>
-    <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
-</ul>
+<div class="bg-light">
+    <!-- pagination -->
+    <ul id="main-pagination" class="pagination justify-content-center mt-0">
+        <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">My Questions</button></li>
+        <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
+    </ul>
 
-<section id="pagination-item-1" class="d-flex flex-sm-row flex-column mx-2 my-3">
     <!-- Manage tags-->
-    <div class="my-bg-black p-4 w-100 mx-1">
-        <h2 class="display-5 mb-5 text-white">Tags</h2>
+    <section id="pagination-item-1" class="p-4 w-100 mx-1 ">
         <div class="container">
+
+            <h2 class="display-5 mb-5 mx-5">Tags</h2>
             <!-- Tags -->
             <div class="row">
                 <?= display_cards($tags) ?>
@@ -56,23 +57,28 @@ function get_card($element)
                     </input>
                 </div>
             </form>
-        </div>
-</section>
 
-<!-- Manage courses -->
-<section id="pagination-item-2" class="bg-light p-4 w-100 mx-1">
-    <h2 class="display-5 mb-5">Courses</h2>
-    <div class="container">
-        <!-- Courses -->
-        <class class="row">
-            <?= display_cards($courses) ?>
-        </class>
-    </div>
-    <form class="card mt-5">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Insert a course...">
-            <button class="btn my-bg-main-green">Add Course</button>
-            </input>
         </div>
-    </form>
-</section>
+    </section>
+
+    <!-- Manage courses -->
+    <section id="pagination-item-2" class="p-4 w-100 mx-1">
+        <div class="container">
+
+            <h2 class="display-5 mb-5 mx-5">Courses</h2>
+            <!-- Courses -->
+            <class class="row">
+                <?= display_cards($courses) ?>
+            </class>
+            <form class="card mt-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Insert a course...">
+                    <button class="btn my-bg-main-green">Add Course</button>
+                    </input>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+</div>
