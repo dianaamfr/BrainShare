@@ -13,7 +13,6 @@
  *
  * Similarly buttons must have the following syntax: pagination-button-x.
  *
- *
  */
 
 let page_link_list = [];  // Instances of pagination-button-x.
@@ -32,6 +31,10 @@ while (still_available_pages) {
   } else still_available_pages = false;
 }
 
+// Set first item as visible and the others invisible.
+setItemsInvisible(); 
+page_item_list[0].style.display = "block"; 
+
 // addEventListener for each button.
 page_link_list.forEach((element) => {
   element.addEventListener("click", (e) => { 
@@ -42,6 +45,7 @@ page_link_list.forEach((element) => {
   });
 }); 
 
+
 /**
  * Set the current pagination item as visible and the others as invisible.  
  * @param {html element} page_item - Item to be set visible. 
@@ -51,6 +55,7 @@ function toggleItem(page_item, page_link){
   setButtonsInactive(); 
   setItemsInvisible();  
   page_link.parentNode.classList.add('active');  
+  console.log(page_item);
   page_item.style.display = "block"; 
 
 }
