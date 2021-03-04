@@ -1079,3 +1079,9 @@ article.question .card-title {
     background-color: unset!important;
   }
 }
+
+/* --- Edit Profile -- */
+
+.edit-icon {
+  font-size: 1.5em;
+}
