@@ -1,4 +1,4 @@
-<div class="page-margin d-flex flex-column justify-content-center">
+<div class="page-margin d-flex flex-column justify-content-center" id="login-limit">
     <section id="login" class="container-sm card p-5 mb-5">
         <h2 class="mb-4">Login</h2>
         <form class="form-login text-start">

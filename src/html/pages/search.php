@@ -25,7 +25,7 @@
   <aside id="side-bar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
       <div class="accordion-item active">
         <h6 class="accordion-header">
-          <button type="button">New Questions
+          <button type="button" class="blue">New Questions
           </button>
         </h6>
       </div>
