@@ -154,7 +154,9 @@
     <form id="submit-answer" action="" method="">
         <div class="mb-3 p-3">
         <label for="submitAnswerTextarea" class="form-label">Post an Answer</label>
-        <textarea class="form-control" id="submitAnswerTextarea" rows="3" placeholder="Type your answer here"></textarea>
+        <div class="container border form-control">
+            <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
+        </div>
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
     </form>
