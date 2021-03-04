@@ -23,7 +23,7 @@ let still_available_pages = true,
 // Get all the pagination items and buttons. 
 while (still_available_pages) {
   const page_link = document.querySelector( "#pagination-button-" + counter);
-  const page_item = document.querySelector("#pagination-item-" + counter); 
+  const page_item = document.querySelector("#pagination-item-" + counter);  
   if (page_link !== null && page_item !== null) {
     page_link_list.push(page_link);
     page_item_list.push(page_item);
@@ -32,7 +32,7 @@ while (still_available_pages) {
 }
 
 // Set first item as visible and the others invisible.
-setItemsInvisible(); 
+setItemsInvisible();  
 page_item_list[0].style.display = "block"; 
 
 // addEventListener for each button.
@@ -55,7 +55,6 @@ function toggleItem(page_item, page_link){
   setButtonsInactive(); 
   setItemsInvisible();  
   page_link.parentNode.classList.add('active');  
-  console.log(page_item);
   page_item.style.display = "block"; 
 
 }
