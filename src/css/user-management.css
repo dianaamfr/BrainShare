@@ -1,0 +1,123 @@
+div.user-administration header{
+    padding-top: 2em;
+    padding-bottom: 2em;
+    
+}
+
+div.user-administration header div.input-group{
+    max-width: 500px;
+    margin-top: 6em;
+}
+
+div.user-administration header div.dropdown{
+    float: right;
+    color: var(--main-blue);
+}
+
+div.user-administration header h2{
+    font-size: small;
+}
+
+div.user-administration header div.dropdown button{
+    width: 400px;
+    text-align:start;
+}
+
+div.user-administration div.dropdown button{
+    background-color:#eaffec !important;
+    color: #567b3f;
+}
+
+div.user-administration div.dropdown ul li :hover{
+    background-color:#589455;
+    color: white;
+}
+
+div.user-administration table thead tr th{
+    border-color: #212529;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+div.user-administration table thead tr th:first-child{
+    min-width: 20px;
+}
+
+div.user-administration table thead tr th:nth-child(2){
+    min-width: 120px;
+}
+
+#reports-number{
+    min-width: 100px;
+}
+
+#users-register-date{
+    min-width: 140px;
+}
+
+div.user-administration table{
+    width: 100%;
+}
+
+div.user-administration table tbody tr td div.dropdown button{
+    background-color: var(--main-green);
+}
+
+
+
+@media (max-width: 450px) {
+
+
+    main, html, body{
+        margin: 0 !important;
+        padding-left: 0% !important;
+    }
+
+    div.user-administration header{
+        max-width: 400px;
+        width: 100% !important;
+    }
+
+    div.user-administration header div.dropdown{
+        max-width: 400px;
+        width: 100% !important;
+    }
+
+    div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
+        width: 100%;
+        text-align:start;
+    }
+
+}
+
+
+
+@media (max-width: 768px) {
+    main{
+        margin: 2em !important;
+    }
+
+    div.user-administration header{
+        max-width: 400px;
+        width: 100%;
+    }
+
+    div.user-administration header div.dropdown{
+        max-width: 400px;
+        width: 100% !important;
+        width: 100% !important;
+        float: left !important;
+        color: var(--main-blue);
+        padding-bottom: 1em;
+    }
+    
+
+    div.user-administration header div.input-group{
+        margin-top: 2em;
+    }
+
+    div.user-administration header div button.dropdown-toggle, div.user-administration header div.dropdown ul{
+        width: 100%;
+    }
+
+}
