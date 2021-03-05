@@ -16,7 +16,7 @@
                         <label class="form-label d-block ">Name</label>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user edit-icon"></i></span>
+                                <span class="input-group-text" ><i class="fas fa-user edit-icon"></i></span>
                             </div>
                             <input type="text" class="form-control" value="Maria Joaquina">
                         </div>
@@ -25,7 +25,7 @@
                         <label class="form-label">Email</label>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-at edit-icon"></i></span>
+                                <span class="input-group-text" ><i class="fas fa-at edit-icon"></i></span>
                             </div>
                             <input type="text" class="form-control" value="up201806230@fe.up.pt" >
                         </div>
@@ -34,7 +34,7 @@
                         <label>Birthday</label>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar edit-icon" aria-hidden="true"></i></span>
+                                <span class="input-group-text" ><i class="fa fa-calendar edit-icon" aria-hidden="true"></i></span>
                             </div>
                             <input class="form-control" type="date" value="2011-08-19">
                         </div>
