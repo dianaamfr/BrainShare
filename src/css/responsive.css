@@ -57,22 +57,34 @@
         justify-content: flex-end;
     }
   
-    /* Subnavbar */
-    .bd-subnavbar {
-      display: flex!important;
+}
+
+@media (max-width: 1360px){
+    .navbar-dark .navbar-brand {
+        margin-right: 2rem;
+    }
+  
+    .header-search {
+      width: auto;
+      max-width: unset;
+      flex: 1;
     }
 }
-  
+
 @media (max-width: 992px){
     .page-margin {
       padding: 0 2em;
     }
   
-    .grid-profile {
-      display: block;
+    /* Subnavbar */
+    .bd-subnavbar {
+        display: flex!important;
     }
-  
-    /* Search Page */
+
+    #side-bar {
+        display: none;
+    }
+
     .counts {
         display: none;
     }
@@ -95,8 +107,8 @@
       background-color: var(--bs-light);
     }
   
-    /* Question Page */
-    .question-page {
+    /* Question Page, User/Reports Management, Management Pages */
+    .question-page, .page-margin.user-administration, #search-page {
       padding-top: 3rem;
     }
   
@@ -105,23 +117,6 @@
       display: block;
     }
 
-    /* User/Reports Management */
-
-    .page-margin.user-administration {
-        padding-top: 3rem;
-    }
-}
-
-@media (max-width: 1360px){
-    .navbar-dark .navbar-brand {
-        margin-right: 2rem;
-    }
-  
-    .header-search {
-      width: auto;
-      max-width: unset;
-      flex: 1;
-    }
 }
 
 @media (max-width: 768px) {
@@ -157,15 +152,6 @@
   
     .comments {
         padding-left: 0;
-    }
-  
-    /* Search Page */
-    #side-bar {
-      display: none;
-    }
-  
-    #search-questions {
-      padding-left: 0;
     }
   
 }

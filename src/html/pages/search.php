@@ -19,7 +19,7 @@
   <li class="nav-link nav-item"><button>By Tag</button></li>
 </nav>
 
-<div class="row page-margin" id="search-page">
+<div class="d-flex justify-content-between page-margin" id="search-page">
 
   <!-- Sidebar -->
   <aside id="side-bar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
