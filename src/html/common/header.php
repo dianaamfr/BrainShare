@@ -29,6 +29,9 @@
     <!-- Our Rich Text script -->
     <script src="js/editor.js" defer></script>
     
+    <!-- Library to translate MD to html  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script> 
+    
     <title>BrainShare</title> 
 
   </head>
