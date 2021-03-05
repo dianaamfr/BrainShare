@@ -1079,3 +1079,27 @@ article.question .card-title {
     background-color: unset!important;
   }
 }
+
+
+/* Modal */
+
+div.modal-header i{
+  color:  var(--main-blue);
+}
+
+div.modal-header h5.modal-title{
+  margin-left: 5px;
+}
+
+div.modal-content{
+  background-color: var(--light-grey);
+}
+
+div.modal-body a{
+  border:0;
+  border-bottom: 3px solid  var(--main-blue);
+}
+
+div.modal-footer button{
+  background-color: var(--main-blue);
+}

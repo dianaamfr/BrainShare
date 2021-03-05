@@ -42,7 +42,7 @@
         <a class="navbar-brand" href="index.php">BrainShare</a>
         
         <!-- Mobile Notifications Icon -->
-        <div class="icon-hover notifications-mobile">
+        <div class="registration-button icon-hover notifications-mobile " data-bs-toggle="modal" data-bs-target="#exampleModal">
           <button><i class="far fa-bell"></i></button>
           <button><i class="fas fa-bell"></i></button>
         </div>
@@ -98,7 +98,7 @@
                 <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <button><i class="far fa-bell"></i></button>
                   <button><i class="fas fa-bell"></i></button>
-              </div>
+                </div>
                 <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
             <?php }
             else { // Unregistered Users options ?> 
@@ -118,16 +118,21 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+        <i class="fas fa-bell"></i>
+        <h5 class="modal-title" id="exampleModalLabel">  Notifications</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action">First Link</a>
-          <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-          <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-          <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-          <a href="#" class="list-group-item list-group-item-action disabled">A disabled link item</a>
+          <div class="list-group ">
+            <a href="#" class="list-group-item list-group-item-action ">
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> pedrov111 has answered your question. 
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> Joaquina123 has answered your question. 
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> mcrebelo has answered your question
+            </a>
         </div>
       </div>
       <div class="modal-footer">
