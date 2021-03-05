@@ -1,4 +1,4 @@
-<div class="page-margin question-page">
+<div id="page-top" class="page-margin question-page">
 
     <!-- Question -->
     <article class="question card">
@@ -62,17 +62,24 @@
             </header>
 
             <!-- Question Text -->
-            <div class="question-content card-body md-content">
-                Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future? I mean, look at this: <br>
-                ```
-                .text  <br> 
-                .globl main  <br> 
-                main:   <br> 
-                #The following block of code is to pre-load the integer values representing the various instructions into registers for storage <br> 
-                li $t3, 1 #This is to load the immediate value of 1 into the temporary register $t3 <br> 
-                li $t4, 2 #This is to load the immediate value of 2 into the temporary register $t4 <br> 
-                li $t5, 3 #This is to load the immediate value of 3 into the temporary register $t5 <br>
-                ```
+            <div class="row align-items-center">
+                <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+                    <p class="points m-0">5</p>
+                    <i class="bi bi-chevron-up d-flex"></i>
+                    <i class="bi bi-chevron-down d-flex"></i>
+                </div>
+                <div class="question-content md-content col align-self-start">
+                    Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future? I mean, look at this: <br>
+                    ```
+                    .text  <br> 
+                    .globl main  <br> 
+                    main:   <br> 
+                    #The following block of code is to pre-load the integer values representing the various instructions into registers for storage <br> 
+                    li $t3, 1 #This is to load the immediate value of 1 into the temporary register $t3 <br> 
+                    li $t4, 2 #This is to load the immediate value of 2 into the temporary register $t4 <br> 
+                    li $t5, 3 #This is to load the immediate value of 3 into the temporary register $t5 <br>
+                    ```
+                </div>
             </div>
 
             <!-- Tags -->
@@ -85,6 +92,13 @@
                     <i class="fas fa-hashtag"></i>
                     COMP
                 </span>
+
+                <div class="d-inline-flex align-items-right report-icon">
+                    <div class="icon-hover">
+                        <button><i class="far fa-flag"></i></button>
+                        <button><i class="fas fa-flag"></i></button>
+                    </div>
+                </div>
             </footer>
 
         </div>
@@ -128,6 +142,14 @@
 
                 <footer class="d-flex align-items-center">
                     <span class="comments flex-grow-1">1 Comments</span>
+
+                    <div class="d-inline-flex align-items-right report-icon">
+                        <div class="icon-hover">
+                            <button><i class="far fa-flag"></i></button>
+                            <button><i class="fas fa-flag"></i></button>
+                        </div>
+                    </div>
+
                     <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm" role="button" aria-expanded="false" aria-controls="collapseCommentForm">Add Comment</a>
                 </footer>
             </div>
@@ -152,6 +174,12 @@
                             <span>- Joaquina Almeida</span> <!-- Name -->
                             <span>15:02 - 10/05/2009</span> <!-- Date -->
                         </span>
+                        <div class="d-inline-flex align-items-right report-icon">
+                            <div class="icon-hover">
+                                <button><i class="far fa-flag"></i></button>
+                                <button><i class="fas fa-flag"></i></button>
+                            </div>
+                        </div>
                     </div>
                 <?php }
                 ?>
@@ -161,13 +189,16 @@
 
     <!-- Submit Answer Form -->
     <form id="submit-answer" action="" method="">
-        <div class="mb-3 p-3">
+        <div class="mb-1 p-3">
         <label for="submitAnswerTextarea" class="form-label">Post an Answer</label>
         <div class="border form-control">
             <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
         </div>
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
+        <div class="back-top">
+            <button class="btn btn-primary mb-5" onclick="location.href='#page-top'">Back to Question</button>
+        </div>
     </form>
-
+    
 </div>

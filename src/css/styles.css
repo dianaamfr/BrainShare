@@ -526,6 +526,19 @@ article.question .card-title {
   box-shadow: inset 0 1px 3px #ddd;
 }
 
+.report-icon {
+  float: right;
+}
+
+.report-icon button {
+  color: var(--main-green);
+}
+
+.back-top {
+  padding-right: 1em;
+  float: right;
+}
+
 /* ---- Login and Register ---- */
 
 #login,
