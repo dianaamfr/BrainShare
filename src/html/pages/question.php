@@ -1,4 +1,4 @@
-<div class="page-margin">
+<div class="page-margin question-page">
 
     <!-- Question -->
     <article class="question card">
@@ -163,7 +163,7 @@
     <form id="submit-answer" action="" method="">
         <div class="mb-3 p-3">
         <label for="submitAnswerTextarea" class="form-label">Post an Answer</label>
-        <div class="container border form-control">
+        <div class="border form-control">
             <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
         </div>
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
