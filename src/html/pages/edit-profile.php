@@ -71,7 +71,7 @@
 
                     <!-- Tags -->
                     <div class="mb-3">
-                        <label for="questionTagsSelect" class="form-label">Tags</label>
+                        <label class="form-label">Tags</label>
                         <input type="text" class="form-control" placeholder="Associate Tags here">
                     </div>
             </section>
