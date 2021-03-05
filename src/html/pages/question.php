@@ -1,82 +1,91 @@
-<div class="page-margin">
+<div class="page-margin question-page">
 
     <!-- Question -->
     <article class="question card">
         <div class="card-body">
-        <header class="card-header">
-            <div class="question-header d-flex align-items-center">
+            <header class="card-header">
+                <div class="question-header d-flex align-items-center">
 
-                <!-- Mobile Question details -->
-                <div class="d-none question-details d-flex mb-3">
-                    <!-- Course -->
-                    <span class="category course badge rounded-pill bg-secondary">
-                        <i class="fas fa-graduation-cap"></i>
-                        MIEIC
-                    </span>
+                    <!-- Mobile Question details -->
+                    <div class="d-none question-details d-flex mb-3">
+                        <!-- Course -->
+                        <span class="category course badge rounded-pill bg-secondary">
+                            <i class="fas fa-graduation-cap"></i>
+                            MIEIC
+                        </span>
 
-                    <!-- Edit/Delete: only for Registred Users -->
-                    <div class="edit-question ms-auto">
-                        <div class="icon-hover">
-                            <button><i class="far fa-edit"></i></button>
-                            <button><i class="fas fa-edit"></i></button>
+                        <!-- Edit/Delete: only for Registred Users -->
+                        <div class="edit-question ms-auto">
+                            <div class="icon-hover">
+                                <button><i class="far fa-edit"></i></button>
+                                <button><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="icon-hover">
+                                <button><i class="far fa-trash-alt"></i></button>
+                                <button><i class="fas fa-trash-alt"></i></button>
+                            </div>
                         </div>
-                        <div class="icon-hover">
-                            <button><i class="far fa-trash-alt"></i></button>
-                            <button><i class="fas fa-trash-alt"></i></button>
+                    </div>
+
+                    <!-- Question Title -->
+                    <h2 class="card-title flex-grow-1">Should I learn MIPS? </h2> <!-- Question Title -->
+
+                    <!-- Desktop Question details -->
+                    <div class="question-details d-flex">
+                        <!-- Course -->
+                        <span class="category course badge rounded-pill bg-secondary">
+                            <i class="fas fa-graduation-cap"></i>
+                            MIEIC
+                        </span>
+
+                        <!-- Edit/Delete: only for Registered Users -->
+                        <div class="edit-question">
+                            <div class="icon-hover">
+                                <button><i class="far fa-edit"></i></button>
+                                <button><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="icon-hover">
+                                <button><i class="far fa-trash-alt"></i></button>
+                                <button><i class="fas fa-trash-alt"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Question Title -->
-                <h2 class="card-title flex-grow-1">Should I learn MIPS? </h2> <!-- Question Title -->
-
-                <!-- Desktop Question details -->
-                <div class="question-details d-flex">
-                    <!-- Course -->
-                    <span class="category course badge rounded-pill bg-secondary">
-                        <i class="fas fa-graduation-cap"></i>
-                        MIEIC
-                    </span>
-
-                    <!-- Edit/Delete: only for Registered Users -->
-                    <div class="edit-question">
-                        <div class="icon-hover">
-                            <button><i class="far fa-edit"></i></button>
-                            <button><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="icon-hover">
-                            <button><i class="far fa-trash-alt"></i></button>
-                            <button><i class="fas fa-trash-alt"></i></button>
-                        </div>
+                <div class="question-author d-inline-flex align-items-center">
+                    <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
+                    <div class="d-flex flex-wrap">
+                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
-            </div>
-        
-            <div class="question-author d-inline-flex align-items-center">
-                <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
-                <div class="d-flex flex-wrap">
-                    <span>Joaquina Almeida</span> <!-- Name -->
-                    <span >15:02 - 10/05/2009</span> <!-- Date -->
-                </div>
-            </div>
-        </header>
+            </header>
 
-        <!-- Question Text -->
-        <div class="question-content card-body">
-            <p>Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future?</p>
-        </div>
+            <!-- Question Text -->
+            <div class="question-content card-body md-content">
+                Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future? I mean, look at this: <br>
+                ```
+                .text  <br> 
+                .globl main  <br> 
+                main:   <br> 
+                #The following block of code is to pre-load the integer values representing the various instructions into registers for storage <br> 
+                li $t3, 1 #This is to load the immediate value of 1 into the temporary register $t3 <br> 
+                li $t4, 2 #This is to load the immediate value of 2 into the temporary register $t4 <br> 
+                li $t5, 3 #This is to load the immediate value of 3 into the temporary register $t5 <br>
+                ```
+            </div>
 
-        <!-- Tags -->
-        <footer>
-            <span class="category tag badge bg-secondary"> 
-                <i class="fas fa-hashtag"></i>
-                MIPS
-            </span>
-            <span class="category tag badge bg-secondary">
-                <i class="fas fa-hashtag"></i>
-                COMP
-            </span>
-        </footer>
+            <!-- Tags -->
+            <footer>
+                <span class="category tag badge bg-secondary">
+                    <i class="fas fa-hashtag"></i>
+                    MIPS
+                </span>
+                <span class="category tag badge bg-secondary">
+                    <i class="fas fa-hashtag"></i>
+                    COMP
+                </span>
+            </footer>
 
         </div>
 
@@ -95,7 +104,7 @@
                         <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                         <div class="d-flex flex-wrap">
                             <span>Joaquina Almeida</span> <!-- Name -->
-                            <span >15:02 - 10/05/2009</span> <!-- Date -->
+                            <span>15:02 - 10/05/2009</span> <!-- Date -->
                         </div>
                     </div>
                 </header>
@@ -126,26 +135,26 @@
                 <div class="collapse" id="collapseCommentForm">
                     <form id="submit-comment" action="" method="">
                         <div class="mb-3 p-3">
-                        <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
-                        <div class="d-grid gap-2 d-flex justify-content-end">
-                            <button class="btn btn-secondary mt-3" type="submit">Submit</button>
-                            <button class="btn btn-outline-secondary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
-                        </div>
+                            <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
+                            <div class="d-grid gap-2 d-flex justify-content-end">
+                                <button class="btn btn-secondary mt-3" type="submit">Submit</button>
+                                <button class="btn btn-outline-secondary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
+                            </div>
                         </div>
                     </form>
                 </div>
-                <?php for($i = 0; $i < 2; $i++){ ?> 
+                <?php for ($i = 0; $i < 2; $i++) { ?>
                     <div class="comment">
-                    <div class="comment-text d-inline-block">
-                        <p>Please don't use C unless you have to.</p>
+                        <div class="comment-text d-inline-block">
+                            <p>Please don't use C unless you have to.</p>
+                        </div>
+                        <span class="comment-author">
+                            <span>- Joaquina Almeida</span> <!-- Name -->
+                            <span>15:02 - 10/05/2009</span> <!-- Date -->
+                        </span>
                     </div>
-                    <span class="comment-author">
-                        <span>- Joaquina Almeida</span> <!-- Name -->
-                        <span>15:02 - 10/05/2009</span> <!-- Date -->
-                    </span>
-                </div>
                 <?php }
-            ?>
+                ?>
             </div>
         </div>
     </section>
@@ -154,9 +163,9 @@
         <div class="mb-3 p-3">
             
         <label for="submitAnswerTextarea" class="form-label">Post an Answer</label>
-            <div class="container border form-control">
-                <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here"></textarea>
-            </div>
+        <div class="border form-control">
+            <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
+        </div>
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
     </form>

@@ -27,7 +27,11 @@
     <script type="text/javascript" src="http://lab.lepture.com/editor/marked.js" defer></script>
     
     <!-- Our Rich Text script -->
-    <script src="js/editor.js" defer></script>
+    <script src="js/editor.js" defer></script> 
+    <script src="js/parseMD.js" defer></script> 
+    
+    <!-- Library to translate MD to html  --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script> 
     
     <title>BrainShare</title> 
 
@@ -35,11 +39,21 @@
 
 <body>
   <header class="fixed-top m-auto">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
       <div class="container-fluid">
 
         <!-- Logo - link to Home Page -->
         <a class="navbar-brand" href="index.php">BrainShare</a>
+
+        <!-- Tablet Search Bar -->
+        <form class="header-search d-flex me-auto tablet-header-search" action="search.php" >
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
         
         <!-- Mobile Notifications Icon -->
         <div class="icon-hover notifications-mobile">
@@ -55,17 +69,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <!-- Search Bar -->
-          <form class="header-search d-flex me-auto" action="search.php" >
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">
-              <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </form>
+        <form class="header-search d-flex me-auto main-search" action="search.php" >
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
 
           <!-- Main Pages -->
-          <ul class="navbar-nav mb-2 mb-lg-0">
+          <ul class="navbar-nav mb-2 mb-xl-0">
 
             <?php // Registered Users options
               if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
@@ -87,7 +101,7 @@
           </ul>
 
           <!-- Registration/Account -->
-          <div class="registration-menu btn-toolbar mb-2 mb-lg-0 align-items-center flex-nowrap">
+          <div class="registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
             <?php // Registered Users options
               if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>

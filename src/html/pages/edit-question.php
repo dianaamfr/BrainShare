@@ -1,8 +1,8 @@
 
 <?php
 function editQuestionForm($courses) { ?>
-    <div class="page-margin ">
-        <section class="container-sm add-question rounded-1">
+    <div class="page-margin" id="add-question-page">
+        <section class="container-sm add-question bg-light rounded-1">
             <h2 class="mb-4">Edit Question</h2>
             <form>
                 <!-- Question Title -->
@@ -39,7 +39,7 @@ function editQuestionForm($courses) { ?>
                     <input type="text" class="form-control" placeholder="Associate Tags here">
                 </div>
         
-                <button type="submit" class="btn btn-primary mt-3">Add Question</button>
+                <button type="submit" class="btn btn-primary mt-3">Edit Question</button>
             </form>
         </section>
     </div>

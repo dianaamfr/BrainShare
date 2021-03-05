@@ -1,8 +1,8 @@
 
 <?php
 function questionForm($courses){ ?>
-    <div class="page-margin ">
-        <section class="container-sm add-question rounded-1">
+    <div class="page-margin" id="add-question-page">
+        <section class="container-sm add-question bg-light rounded-1">
             <h2 class="mb-4">Add Question</h2>
             <form>
                 <!-- Question Title -->
@@ -15,7 +15,7 @@ function questionForm($courses){ ?>
                 <!-- Question Body -->
                 <div class="mb-3">
                     <label for="questionTextarea" class="form-label">Question Body</label>
-                    <div class="container border form-control">
+                    <div class="border form-control">
                         <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" id="questionTextarea" style="height: 100px" aria-describedby="questionBodyHelp"></textarea>
                     </div>
                     <div id="questionBodyHelp" class="form-text">Describe all the details that may help others understand your question.</div>
