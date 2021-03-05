@@ -63,6 +63,14 @@ div.user-administration table tbody tr td div.dropdown button{
     background-color: var(--main-green);
 }
 
+.table-responsive {
+    overflow: visible;
+}
+
+.table-responsive .dropdown-menu ul {
+    position: static !important;
+}
+
 
 
 @media (max-width: 450px) {
