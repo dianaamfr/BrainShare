@@ -21,14 +21,14 @@
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="search.php">Search Questions</a></li>
                     <li><a class="link-secondary" href="question.php">Add Question</a></li>
-                    <li><a class="link-secondary" href="search.php">Search Users</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
                 <h5>Management</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="categories.php">Manage Categories</a></li>
-                    <li><a class="link-secondary" href="reports.php">Reports</a></li>
+                    <li><a class="link-secondary" href="manage-categories.php">Manage Categories</a></li>
+                    <li><a class="link-secondary" href="manage-reports.php">Manage Reports</a></li>
+                    li><a class="link-secondary" href="manage-users.php">Manage Users</a></li>
                 </ul>
             </div>
         </nav>
