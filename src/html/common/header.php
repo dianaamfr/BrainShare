@@ -95,7 +95,7 @@
                     <img src="images/profile.png" alt="profile picture" class="rounded-circle">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
-                <div class="registration-button icon-hover notifications">
+                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <button><i class="far fa-bell"></i></button>
                   <button><i class="fas fa-bell"></i></button>
               </div>
@@ -112,4 +112,28 @@
       </div>
     </nav>
   </header>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">First Link</a>
+          <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+          <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+          <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+          <a href="#" class="list-group-item list-group-item-action disabled">A disabled link item</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
   <main class="flex-grow-1">
