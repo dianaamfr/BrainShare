@@ -229,15 +229,21 @@ border-style: unset;
     border-color: var(--main-green);
 }
 
-.btn-outline-secondary:hover {
+.btn-outline-secondary:hover,
+.btn-check:active+.btn-outline-secondary:focus, 
+.btn-check:checked+.btn-outline-secondary:focus,
+.btn-outline-secondary.active:focus,
+.btn-outline-secondary.dropdown-toggle.show:focus,
+.btn-outline-secondary:active:focus,
+.btn-check:active+.btn-outline-secondary, 
+.btn-check:checked+.btn-outline-secondary,
+.btn-outline-secondary.active, 
+.btn-outline-secondary.dropdown-toggle.show, 
+.btn-outline-secondary:active{
     background-color: var(--main-green);
-    border-color: var(--main-green);;
-}
-
-.btn-check:focus+.btn-outline-secondary, .btn-outline-secondary:focus{
+    border-color: var(--main-green);
     box-shadow: none;
 }
-
 
 /* ---- Tags ---- */
 
@@ -888,7 +894,7 @@ article.question .card-title {
 
 /* ---- Categories ---- */
 
-.managment {
+.management {
   max-width: 1200px;
   margin: auto;
 }

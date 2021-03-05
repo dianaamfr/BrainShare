@@ -1,7 +1,5 @@
 <?php
 
-include_once(dirname(__DIR__) . "\common\header.php");
-
 $tags = ['PPIN', 'MF_II', 'Exam', 'COMP', 'IART', 'Python'];
 $courses = ['MIEIC', 'MIEEC', 'MIEC', 'MIEIM'];
 
@@ -27,13 +25,12 @@ function get_card($element)
                 </div> ";
 }
 
-
 ?>
 
 
-<div class="text-center my-bg-main-blue">
+<header class="text-center my-bg-main-blue">
     <h1>Manage Categories</h1>
-</div>
+</header>
 
 <div class="bg-light page-margin">
     <!-- pagination -->
@@ -43,7 +40,7 @@ function get_card($element)
     </ul>
 
     <!-- Manage tags-->
-    <div id="pagination-item-1" class="managment">
+    <div id="pagination-item-1" class="management">
         <section class="p-4 w-100 mx-1">
             <h3 class="mb-4">Tags</h3>
             <!-- Tags -->
@@ -67,7 +64,7 @@ function get_card($element)
     </div>
 
     <!-- Manage courses -->
-    <div id="pagination-item-2" class="managment">
+    <div id="pagination-item-2" class="management">
         <section class="p-4 w-100 mx-1">
             <h3 class="mb-4">Courses</h3>
             <!-- Courses -->

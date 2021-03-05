@@ -96,7 +96,8 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="manage-categories.php">Manage Categories</a></li>
-                <li><a class="dropdown-item" href="#">Reports</a></li>
+                <li><a class="dropdown-item" href="manage-reports.php">Manage Reports</a></li>
+                <li><a class="dropdown-item" href="manage-users.php">Manage Users</a></li>
               </ul>
             </li>
           </ul>
