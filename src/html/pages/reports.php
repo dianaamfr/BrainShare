@@ -30,9 +30,9 @@
             <thead >
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col" id="increase-width-1"><i class="fas fa-sort"></i>Summary</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Summary</th>
                     <th scope="col"><i class="fas fa-sort"></i>Type</th>
-                    <th scope="col"><i class="fas fa-sort"></i>Reports</th>
+                    <th scope="col" id="reports-number"><i class="fas fa-sort"></i>Reports</th>
                     <th scope="col"><i class="fas fa-sort"></i>Actions</th>
                 </tr>
             </thead>

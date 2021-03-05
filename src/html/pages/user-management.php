@@ -17,7 +17,7 @@
                     <th scope="col">#</th>
                     <th scope="col"><i class="fas fa-sort"></i>Username</th>
                     <th scope="col"><i class="fas fa-sort"></i>Name</th>
-                    <th scope="col" increased-width-2><i class="fas fa-sort big-row"></i>Register Date</th>
+                    <th scope="col" id="users-register-date"><i class="fas fa-sort big-row"></i>Register Date</th>
                     <th scope="col"><i class="fas fa-sort"></i>Status</th>
                     <th scope="col"><i class="fas fa-sort"></i>Role</th>
                     <th scope="col"><i class="fas fa-sort"></i>Actions</th>
