@@ -1085,3 +1085,11 @@ article.question .card-title {
 .edit-icon {
   font-size: 1.5em;
 }
+
+.edit-icon-tag {
+  padding: .75rem .75rem;
+}
+
+.about-me {
+  height: 10em;
+}
