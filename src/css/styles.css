@@ -764,7 +764,8 @@ article.question .card-title {
 }
 
 #about-image1 {
-  width: 600px;
+  width: calc(50% - 1rem);
+  max-width: 600px;
   height: 400px;
   background-image: url(../images/team.jpg);
   background-size: cover;
@@ -772,8 +773,9 @@ article.question .card-title {
 }
 
 #about-image2 {
-  width: 600px;
+  width: calc(50% - 1rem);
   height: 400px;
+  max-width: 600px;
   background-image: url(../images/questions_answers.png);
   background-size: cover;
   background-position: center;
@@ -942,14 +944,6 @@ article.question .card-title {
 /* ---- Breakpoints ---- */
 
 @media (max-width: 1360px) {
-  /* About page  */
-  .about-container {
-    width: 60%;
-    text-align: center;
-  }
-  .about-container > p {
-    max-width: 100%;
-  }
 
   #about-image2 {
     margin-bottom: 1rem;
@@ -1033,11 +1027,17 @@ article.question .card-title {
 
   /* About page  */
   .about-container {
-    width: 80%;
+    width: 100%;
     text-align: center;
   }
+  
   .about-container > p {
-    max-width: 100%;
+    max-width: 80%;
+    margin: auto;
+  }
+
+  #about-image1, #about-image2 {
+    width: 100%;
   }
 
   /* Search Page */
