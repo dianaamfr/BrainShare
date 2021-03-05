@@ -62,13 +62,13 @@
             </header>
 
             <!-- Question Text -->
-            <div class="row align-items-center">
+            <div class="row align-items-center px-3">
                 <div class="col-auto d-flex flex-column justify-content-center align-items-center">
                     <p class="points m-0">5</p>
                     <i class="bi bi-chevron-up d-flex"></i>
                     <i class="bi bi-chevron-down d-flex"></i>
                 </div>
-                <div class="question-content md-content col align-self-start">
+                <div class="question-content md-content col align-self-start ps-4">
                     Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future? I mean, look at this: <br>
                     ```
                     .text  <br> 
@@ -113,24 +113,22 @@
         </header>
         <div class="answer card">
             <div class="card-body card">
-                <header>
-                    <div class="question-author pagination align-items-center justify-content-end">
-                        <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
-                        <div class="d-flex flex-wrap">
-                            <span>Joaquina Almeida</span> <!-- Name -->
-                            <span>15:02 - 10/05/2009</span> <!-- Date -->
-                        </div>
+                <header class="question-author pagination align-items-center justify-content-end card-header">
+                    <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
+                    <div class="d-flex flex-wrap">
+                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </header>
 
-                <div class="row align-items-center">
+                <div class="row align-items-center px-3">
                     <div class="col-auto d-flex flex-column justify-content-center align-items-center">
                         <p class="points m-0">5</p>
                         <i class="bi bi-chevron-up d-flex"></i>
                         <i class="bi bi-chevron-down d-flex"></i>
                     </div>
 
-                    <div class="col align-self-start">
+                    <div class="col align-self-start ps-4">
                         <p>I doesn't really look that cool but do whatever man.</p>
                         <p>Just trust in your heart!</p>
                     </div>
@@ -189,10 +187,10 @@
     <!-- Submit Answer Form -->
     <form id="submit-answer" action="" method="">
         <div class="mb-1 p-3">
-        <label for="submitAnswerTextarea" class="form-label">Post an Answer</label>
-        <div class="border form-control">
-            <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
-        </div>
+            <label for="question-text-area" class="form-label">Post an Answer</label>
+                <div class="border form-control" id="submitAnswerTextarea">
+                    <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
+                </div>
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
         <div class="back-top">

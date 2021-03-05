@@ -1,5 +1,5 @@
 <div class="page-margin background-light">
-    <section id="profile-main" class="card grid-profile container-lg mt-lg-5 bg-light">
+    <section id="profile-main" class="card grid-profile container-lg mt-lg-5 background-light">
         <div class="one">
             <!-- Nickname and Photo -->
             <h3 class="nickname my-4">joaquina123</h3>

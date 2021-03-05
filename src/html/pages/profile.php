@@ -1,7 +1,7 @@
 <?php include_once('html/common/templates.php'); ?>
 
 <div class="page-margin background-light">
-    <section id="profile-main" class="bg-light card grid-profile container-lg mt-lg-5">
+    <section id="profile-main" class="background-light card grid-profile container-lg mt-lg-5">
         <div class="one">
             <h3 class="nickname my-4">joaquina123</h3>
             <div class="profile-pic col-lg">
