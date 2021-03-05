@@ -42,3 +42,16 @@ main {
 h1 {
     font-family: title-font;
 }
+
+body > footer {
+    border-top: 1px solid rgba(88, 88, 88, 0.2);
+    background-color: rgb(235, 235, 235);
+}
+
+body > footer li {
+    line-height: 1.9rem;
+}
+
+body > footer h5 {
+    margin-bottom: 1rem;
+}
