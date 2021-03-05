@@ -1,3 +1,4 @@
+
 div.user-administration table thead tr th {
     border-color: var(--black);
     color: var(--text-black);
@@ -8,19 +9,24 @@ div.user-administration table thead tr th {
     white-space: nowrap;
 }
 
-div.user-administration table thead tr th i{
-    margin-right: 0.6rem;
+div.user-administration .form-select {
+    width: auto;
 }
 
-.dropdown-item.active, .dropdown-item:active {
-    background-color: var(--main-blue);
+div.user-administration td img {
+    width: 30px;
+    margin-right: 0.5rem;
+}
+
+div.user-administration table thead tr th i{
+    margin-right: 0.6rem;
 }
 
 div.user-administration table thead tr th:nth-child(2){
     min-width: 120px;
 }
 
-div.user-administration table thead tr th:nth-child(2){
+div.user-administration#reports table thead tr th:nth-child(2){
     min-width: 300px;
 }
 
