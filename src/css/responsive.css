@@ -1,0 +1,241 @@
+@media (max-width: 1199.97px) {
+
+    .page-margin {
+        padding: 3rem 2rem 0;
+    }
+
+    .tablet-header-search {
+      display: flex!important;
+    }
+  
+    .main-search {
+      display: none!important;
+    }  
+    
+    .navbar-expand-xl .navbar-nav {
+        margin: 0;
+    }
+  
+    .navbar-expand-xl .navbar-nav .nav-link {
+        padding-right: 0;
+        padding-left: 0;
+    }
+  
+    /*Toogle menu*/
+  
+    .navbar-expand-xl .navbar-collapse {
+        padding-top: 2rem;
+    }
+  
+    .navbar-expand-xl .navbar-nav .nav-link {
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+  
+    .notifications-mobile {
+        display: inline-block;
+    }
+  
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+    }
+  
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+  
+    .registration-menu .registration-button.btn{
+        float: right;
+    }
+  
+    .notifications {
+        display: none;
+    } 
+  
+    body > header .btn-toolbar {
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding-top: 1rem;
+        justify-content: flex-end;
+    }
+  
+    /* Subnavbar */
+    .bd-subnavbar {
+      display: flex!important;
+    }
+}
+  
+@media (max-width: 992px){
+    .page-margin {
+      padding: 0 2em;
+    }
+  
+    .grid-profile {
+      display: block;
+    }
+  
+    /* Search Page */
+    .counts {
+        display: none;
+    }
+  
+    .question-preview .counts-mobile {
+        display: inline-block;
+    }
+  
+    .question-preview.card {
+        display: block;
+    }
+  
+    /* Add Question */
+    .add-question, #profile-main {
+      box-shadow: unset;
+      border: unset;
+    }
+  
+    .background-light {
+      background-color: var(--bs-light);
+    }
+  
+    /* Question Page */
+    .question-page {
+      padding-top: 3rem;
+    }
+  
+    /* Profile */
+    .grid-profile {
+      display: block;
+    }
+
+    /* User/Reports Management */
+
+    .page-margin.user-administration {
+        padding-top: 3rem;
+    }
+}
+
+@media (max-width: 1360px){
+    .navbar-dark .navbar-brand {
+        margin-right: 2rem;
+    }
+  
+    .header-search {
+      width: auto;
+      max-width: unset;
+      flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Header */
+  
+    .navbar-dark .navbar-brand {
+      flex: 1;
+    }
+  
+    .tablet-header-search {
+      display: none!important;
+    }
+  
+    .main-search {
+      display: flex!important;
+      padding-bottom: 1rem;
+    }
+  
+    /* Questions */
+  
+    .question-header{
+        display: block!important;
+    }
+  
+    .question-details:first-child {
+        display: flex!important;
+    }
+  
+    .question-details:last-child {
+        display: none!important;
+    }
+  
+    .comments {
+        padding-left: 0;
+    }
+  
+    /* Search Page */
+    #side-bar {
+      display: none;
+    }
+  
+    #search-questions {
+      padding-left: 0;
+    }
+  
+}
+  
+@media (max-width: 450px) {
+    .page-margin {
+        padding: 0;
+    }
+  
+    /* Header */
+    .navbar > .container-fluid {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+  
+    /* Search Page */
+  
+    #search-page {
+      padding-top: 3rem;
+    }
+  
+    .bd-subnavbar .nav-link {
+      padding: .5rem 0.5rem;
+    }
+  
+    #search-questions > header {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+  
+    .question-author, .category,  .question-preview .counts-mobile {
+      font-size: 0.85rem;
+    }
+  
+    .category {
+      padding: 0.3rem 0.5rem;
+    }
+  
+    /* Question Page */
+  
+    article.question.card, #search-page .answer.card .card-body, #search-page .question-preview.card {
+        box-shadow: unset;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        padding: 0;
+    }
+  
+    article.question.card {
+        padding-top: 1rem;
+    }
+  
+    .answers > header {
+      padding: 2rem 1rem 1rem;
+    }
+  
+    /* Login/Register */
+    #login, #register {
+      box-shadow: unset!important;
+      border: 0;
+    }
+  
+    #login-limit {
+      background-color: #fff;
+    }
+  
+    /* Add Question */
+  
+    .add-question {
+      padding: 2.5rem 1rem;
+    }
+}
+  

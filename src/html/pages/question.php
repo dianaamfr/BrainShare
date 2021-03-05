@@ -107,9 +107,9 @@
 
     <!-- Answer -->
     <section class="answers">
-        <header>
+        <header class="d-flex align-items-center">
             <h4 class="d-inline-block">1 Answer</h4>
-            <a class="btn btn-primary float-end" href="#submit-answer">Add Answer</a>
+            <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card">
             <div class="card-body card">

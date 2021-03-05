@@ -1,13 +1,31 @@
   
 
-<?php include_once('html/common/templates.php'); ?>
+<!-- Sub nav bar - Mobile -->
+<nav class="bd-subnavbar align-items-center" aria-label="Secondary navigation">
+  <li class="nav-link nav-item subnav-selected"><button>New Questions</button></li>
+  <li class="nav-link nav-item dropdown">
+    <button class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      By Course
+    </button>
+    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+        <li><a class="dropdown-item" href="#">MIEIC</a></li>
+        <li><a class="dropdown-item" href="#">MIB</a></li>
+        <li><a class="dropdown-item" href="#">MIEC</a></li>
+        <li><a class="dropdown-item" href="#">MIEGI</a></li>
+        <li><a class="dropdown-item" href="#">MIEEC</a></li>
+        <li><a class="dropdown-item" href="#">MIEM</a></li>
+      </ul>
+  </li>
+  <li class="nav-link nav-item"><button>By Tag</button></li>
+</nav>
 
 <div class="row page-margin" id="search-page">
+
   <!-- Sidebar -->
   <aside id="side-bar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
       <div class="accordion-item active">
         <h6 class="accordion-header">
-          <button type="button">New Questions
+          <button type="button" class="blue">New Questions
           </button>
         </h6>
       </div>
@@ -71,23 +89,127 @@
         </div>
       </form>
 
-       <!-- Mobile Filters -->
-      <!-- <div class="dropdown" id="mobile-dropdown-filters">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Courses
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">MIEIC</a></li>
-        <li><a class="dropdown-item" href="#">MIB</a></li>
-        <li><a class="dropdown-item" href="#">MIEC</a></li>
-        <li><a class="dropdown-item" href="#">MIEGI</a></li>
-        <li><a class="dropdown-item" href="#">MIEEC</a></li>
-        <li><a class="dropdown-item" href="#">MIEM</a></li>
-      </ul>
-    </div> -->
-
     </header>
   
     <!-- Questions -->
-    <?php questionPreview(); ?>
+    <article class="question-preview card flex-row align-items-center">
+        <div class="counts">
+          <div>2</div>
+          <div>answers</div>
+        </div>
+        <div class="counts">
+          <div>1</div>
+          <div>votes</div>
+        </div>
+        <div class="card-body">
+          <header class="card-header">
+              <div class="question-header d-flex align-items-center">
+
+                  <!-- Mobile Question details -->
+                  <div class="d-none question-details d-flex mb-3">
+                      <!-- Course -->
+                      <span class="category course badge rounded-pill bg-secondary">
+                          <i class="fas fa-graduation-cap"></i>
+                          MIEIC
+                      </span>
+                  </div>
+
+                  <!-- Question Title -->
+                  <h4 class="card-title flex-grow-1">Should I learn MIPS? </h4> <!-- Question Title -->
+
+                  <!-- Desktop Question details -->
+                  <div class="question-details d-flex">
+                      <!-- Course -->
+                      <span class="category course badge rounded-pill bg-secondary">
+                          <i class="fas fa-graduation-cap"></i>
+                          MIEIC
+                      </span>
+
+                  </div>
+              </div>
+          </header>
+
+          <!-- Tags and User -->
+          <footer class="card-footer d-flex align-items-center flex-wrap">
+              <div class="flex-grow-1 mb-1">
+                <span class="category tag badge bg-secondary"> 
+                    <i class="fas fa-hashtag"></i>
+                    MIPS
+                </span>
+                <span class="category tag badge bg-secondary">
+                    <i class="fas fa-hashtag"></i>
+                    COMP
+                </span>
+              </div>
+              <div class="question-author d-inline-flex align-items-center">
+                  <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
+                  <div class="d-flex flex-wrap">
+                      <span>Joaquina Almeida</span> <!-- Name -->
+                      <span >15:02 - 10/05/2009</span> <!-- Date -->
+                  </div>
+              </div>
+          </footer>
+        </div>
+        <div class="counts-mobile">
+          <div>2 answers</div>
+          <div>2 comments</div>
+        </div>
+    </article>
+
+
+    <article class="question-preview card flex-row align-items-center">
+        <div class="counts">
+          <div>5</div>
+          <div>answers</div>
+        </div>
+        <div class="counts">
+          <div>2</div>
+          <div>votes</div>
+        </div>
+        <div class="card-body">
+          <header class="card-header">
+              <div class="question-header d-flex align-items-center">
+
+                  <!-- Mobile Question details -->
+                  <div class="d-none question-details d-flex mb-3">
+                      <!-- Course -->
+                      <span class="category course badge rounded-pill bg-secondary">
+                          <i class="fas fa-graduation-cap"></i>
+                          MIEIC
+                      </span>
+                  </div>
+
+                  <!-- Question Title -->
+                  <h4 class="card-title flex-grow-1">I can't solve this integral!</h4> <!-- Question Title -->
+
+                  <!-- Desktop Question details -->
+                  <div class="question-details d-flex">
+                      <!-- Course -->
+                      <span class="category course badge rounded-pill bg-secondary">
+                          <i class="fas fa-graduation-cap"></i>
+                          MIEIC
+                      </span>
+
+                  </div>
+              </div>
+          </header>
+
+          <!-- Tags and User -->
+          <footer class="card-footer d-flex align-items-center flex-wrap">
+              <div class="flex-grow-1 mb-1">
+                <span class="category tag badge bg-secondary"> 
+                    <i class="fas fa-hashtag"></i>
+                    Amat
+                </span>
+              </div>
+              <div class="question-author d-inline-flex align-items-center">
+                  <img class="rounded-circle" src="images/profile.png" alt=""> <!-- Small Profile Image -->
+                  <div class="d-flex flex-wrap">
+                      <span>Joaquina Almeida</span> <!-- Name -->
+                      <span >15:02 - 10/05/2009</span> <!-- Date -->
+                  </div>
+              </div>
+          </footer>
+        </div>
+    </article>
 
