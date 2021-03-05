@@ -55,3 +55,7 @@ body > footer li {
 body > footer h5 {
     margin-bottom: 1rem;
 }
+
+footer > nav{
+    display: flex;
+}
