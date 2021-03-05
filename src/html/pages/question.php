@@ -17,8 +17,8 @@
                         <!-- Edit/Delete: only for Registred Users -->
                         <div class="edit-question ms-auto">
                             <div class="icon-hover">
-                                <button><i class="far fa-edit"></i></button>
-                                <button><i class="fas fa-edit"></i></button>
+                                <a href="edit-question.php"><i class="far fa-edit"></i></a>
+                                <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
                             <div class="icon-hover">
                                 <button><i class="far fa-trash-alt"></i></button>
@@ -41,8 +41,8 @@
                         <!-- Edit/Delete: only for Registered Users -->
                         <div class="edit-question">
                             <div class="icon-hover">
-                                <button><i class="far fa-edit"></i></button>
-                                <button><i class="fas fa-edit"></i></button>
+                                <a href="edit-question.php"><i class="far fa-edit"></i></a>
+                                <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
                             <div class="icon-hover">
                                 <button><i class="far fa-trash-alt"></i></button>
@@ -186,7 +186,6 @@
             </div>
         </div>
     </section>
-
     <!-- Submit Answer Form -->
     <form id="submit-answer" action="" method="">
         <div class="mb-1 p-3">
@@ -197,7 +196,7 @@
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
         <div class="back-top">
-            <button class="btn btn-primary mb-5" onclick="location.href='#page-top'">Back to Question</button>
+            <a class="btn btn-outline-secondary mb-5" href=#page-top>Back to Question</a>
         </div>
     </form>
     

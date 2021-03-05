@@ -16,9 +16,6 @@ include_once(dirname(__DIR__) . "\common\header.php");
 
 </div>
 
-<!-- title->top-margin: 5; bottom-margin: 4-->
-<!-- text-> bottom-margin: 5 -->
-
 <div class="mx-3">
     <!-- Featured text  -->
     <div class="row py-5">

@@ -366,11 +366,12 @@ a.profile-button {
   color: var(--light-grey);
 }
 
-.icon-hover button:last-child, .icon-hover button:last-child, .icon-hover:hover button:first-child{
+.icon-hover button:last-child, .icon-hover button:last-child, .icon-hover:hover button:first-child,
+.icon-hover a:last-child, .icon-hover a:last-child, .icon-hover:hover a:first-child{
   display:none;   
 }
 
-.icon-hover:hover button:last-child{
+.icon-hover:hover button:last-child,.icon-hover:hover a:last-child {
   display: inline-block; 
 }
 
@@ -1026,12 +1027,12 @@ article.question .card-title {
   }
 
   /* Add Question */
-  .add-question {
+  .add-question, #profile-main {
     box-shadow: unset;
     border: unset;
   }
 
-  #add-question-page {
+  .background-light {
     background-color: var(--bs-light);
   }
 
@@ -1100,4 +1101,18 @@ article.question .card-title {
     border: 0;
     background-color: unset!important;
   }
+}
+
+/* --- Edit Profile -- */
+
+.edit-icon {
+  font-size: 1.5em;
+}
+
+.edit-icon-tag {
+  padding: .75rem .75rem;
+}
+
+.about-me {
+  height: 10em;
 }

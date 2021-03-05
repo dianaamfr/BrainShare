@@ -1,47 +1,43 @@
 <?php include_once('html/common/templates.php'); ?>
 
-<div class="page-margin">
-    <section id="profile-main" class="card grid-profile container-lg mt-lg-5">
+<div class="page-margin background-light">
+    <section id="profile-main" class="bg-light card grid-profile container-lg mt-lg-5">
         <div class="one">
             <h3 class="nickname my-4">joaquina123</h3>
             <div class="profile-pic col-lg">
                 <img class="rounded-circle img-thumbnail" src="images/profile.png" alt="Profile Image">
             </div>
         </div>
-        <div class="two">
-            <div class="row mt-4">
-                <section class="profile-info col-lg">
-                    <h3>Personal</h3>
-                    <p><span class="profile-small-title"><i class="fas fa-user"></i> Name:</span> Maria Joaquina</p>
-                    <p><span class="profile-small-title"><i class="fas fa-at"></i> E-mail:</span> up201806230@fe.up.pt</p>
-                    <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Birthday:</span> 09/02/1997</p>
-                </section>
+        <div class="two row mt-4">
+            <section class="profile-info col-lg">
+                <h3>Personal</h3>
+                <p><span class="profile-small-title"><i class="fas fa-user"></i> Name:</span> Maria Joaquina</p>
+                <p><span class="profile-small-title"><i class="fas fa-at"></i> E-mail:</span> up201806230@fe.up.pt</p>
+                <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Birthday:</span> 09/02/1997</p>
+            </section>
 
-                <section class="profile-about-me col-lg">
-                    <h3>About Me</h3>
-                    <p>Hello! It's Joaquina! I'm currently studying Informatic Engineering (MIEIC) at FEUP. My dream is to work at google and become a great software engineer. I love dogs and cats, I hope I love you too.</p>
-                </section>
-            </div>
-        </div>
-        <div class="three">
-            <section class="profile-academic-info">
-                <h3>Academic Information</h3>
-                <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
-                <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Current year:</span> 3rd</p>
-                <div>
-                    <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
-                        <span class="category tag badge bg-secondary"> 
-                            <i class="fas fa-hashtag"></i>
-                            MIPS
-                        </span>
-                        <span class="category tag badge bg-secondary">
-                            <i class="fas fa-hashtag"></i>
-                            COMP
-                        </span>
-                    </p>
-                </div>
+            <section class="profile-about-me col-lg">
+                <h3>About Me</h3>
+                <p>Hello! It's Joaquina! I'm currently studying Informatic Engineering (MIEIC) at FEUP. My dream is to work at google and become a great software engineer. I love dogs and cats, I hope I love you too.</p>
             </section>
         </div>
+        <section class="three profile-academic-info">
+            <h3>Academic Information</h3>
+            <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
+            <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Current year:</span> 3rd</p>
+            <div>
+                <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
+                    <span class="category tag badge bg-secondary"> 
+                        <i class="fas fa-hashtag"></i>
+                        MIPS
+                    </span>
+                    <span class="category tag badge bg-secondary">
+                        <i class="fas fa-hashtag"></i>
+                        COMP
+                    </span>
+                </p>
+            </div>
+        </section>
     </section>
 
     <ul id="main-pagination" class="pagination justify-content-center">
