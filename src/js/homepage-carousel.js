@@ -1,5 +1,5 @@
 'use strict'
-
+/*
 const sizeCarousel = document.querySelectorAll('.carousel-custom .page').length
 let carouselItems = document.querySelectorAll('.carousel-custom .page')
 // Change Between Questions and Answers
@@ -62,4 +62,4 @@ function goLeft() {
 } 
 
 rightButton.addEventListener("click", goRight)
-leftButton.addEventListener("click", goLeft)
+leftButton.addEventListener("click", goLeft)*/
