@@ -1134,25 +1134,22 @@ div.user-administration#reports table thead tr th:nth-child(2){
 }
 
 
-/* Modal */
+/* Notifications Modal */
 
-div.modal-header i{
+#notificationsModal div.modal-header i {
   color:  var(--main-blue);
 }
 
-div.modal-header h5.modal-title{
-  margin-left: 5px;
+#notificationsModal img {
+  max-width: 40px;
+  margin-right: 0.5rem;
 }
 
-div.modal-content{
-  background-color: var(--light-grey);
-}
-
-div.modal-body a{
+#notificationsModal div.modal-body a{
   border:0;
-  border-bottom: 3px solid  var(--main-blue);
+  border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-div.modal-footer button{
+#notificationsModal div.modal-footer button{
   background-color: var(--main-blue);
 }

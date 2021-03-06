@@ -60,7 +60,7 @@
         </form>
         
         <!-- Mobile Notifications Icon -->
-        <div class="registration-button icon-hover notifications-mobile " data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div class="registration-button icon-hover notifications-mobile " data-bs-toggle="modal" data-bs-target="#notificationsModal">
           <button><i class="far fa-bell"></i></button>
           <button><i class="fas fa-bell"></i></button>
         </div>
@@ -114,7 +114,7 @@
                     <img src="images/profile.png" alt="profile picture" class="rounded-circle">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
-                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
                   <button><i class="far fa-bell"></i></button>
                   <button><i class="fas fa-bell"></i></button>
                 </div>
@@ -133,28 +133,28 @@
   </header>
 
   <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <i class="fas fa-bell"></i>
-        <h5 class="modal-title" id="exampleModalLabel">  Notifications</h5>
+        <h5 class="modal-title ms-3" id="notificationsModal">  Notifications</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
           <div class="list-group ">
             <a href="#" class="list-group-item list-group-item-action ">
-              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> pedrov111 has answered your question. 
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle">pedrov111 has answered your question. 
             </a>
             <a href="#" class="list-group-item list-group-item-action">
-              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> Joaquina123 has answered your question. 
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle">Joaquina123 has answered your question. 
             </a>
             <a href="#" class="list-group-item list-group-item-action">
-              <img src="images/profile.png" alt="profile picture" class="rounded-circle" width="50" heigth="50"> mcrebelo has answered your question
+              <img src="images/profile.png" alt="profile picture" class="rounded-circle">mcrebelo has answered your question.
             </a>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer border-0">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

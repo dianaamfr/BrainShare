@@ -69,6 +69,8 @@
   
     .notifications-mobile {
         display: inline-block;
+        margin: 0;
+        padding: 0;
     }
   
     .navbar-dark .navbar-toggler-icon {
