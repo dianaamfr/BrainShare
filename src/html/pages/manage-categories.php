@@ -1,6 +1,7 @@
 <?php
 
-$tags = ['PPIN', 'MF_II', 'Exam', 'COMP', 'IART', 'Python'];
+$tags = ['PPIN', 'MF_II', 'Exam', 'COMP', 'IART', 'Python', 'Prolog', 
+'Soild', 'Arm', 'html', 'mechanics', 'calculus', 'digital', 'geology', 'design', 'phisics', 'materials'];
 $courses = ['MIEIC', 'MIEEC', 'MIEC', 'MIEIM'];
 
 function display_cards($array)
@@ -43,22 +44,23 @@ function get_card($element)
     <div id="pagination-item-1" class="management">
         <section class="p-4 w-100 mx-1">
             <h3 class="mb-4">Tags</h3>
+
+            <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
+                <div class="input-group manage-search mb-3">
+                    <input type="text" class="form-control" placeholder="Insert a tag...">
+                    <button class="btn btn-primary">Add Tag</button>
+                </div>
+                <div class="input-group manage-search mb-3">
+                    <input type="text" class="form-control" placeholder="Search tag...">
+                    <button class="btn btn-primary">Search Tag</button>
+                </div>
+            </form>
+
             <!-- Tags -->
-            <div class="row">
-                <?php for($i = 0; $i < 3; $i++){ display_cards($tags);} ?>
+            <div class="d-flex flex-wrap">
+                <?php display_cards($tags); ?>
             </div>
         </section>
-
-        <form class="mt-5 d-flex justify-content-between flex-wrap">
-            <div class="input-group manage-search m-3">
-                <input type="text" class="form-control" placeholder="Insert a tag...">
-                <button class="btn btn-primary">Add Tag</button>
-            </div>
-            <div class="input-group manage-search m-3">
-                <input type="text" class="form-control" placeholder="Search tag...">
-                <button class="btn btn-primary">Search Tag</button>
-            </div>
-        </form>
     </div>
 
     <!-- Manage courses -->

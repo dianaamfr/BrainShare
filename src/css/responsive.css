@@ -210,6 +210,12 @@
     width: 100%;
   }
 
+  /* Management */
+
+  .manage-search {
+    margin-left: unset!important;
+    flex-basis: 100%;
+  }
 }
   
 @media (max-width: 450px) {
