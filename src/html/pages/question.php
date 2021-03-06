@@ -16,11 +16,11 @@
 
                         <!-- Edit/Delete: only for Registred Users -->
                         <div class="edit-question ms-auto">
-                            <div class="icon-hover">
+                            <div class="icon-hover" title="Edit">
                                 <a href="edit-question.php"><i class="far fa-edit"></i></a>
                                 <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
-                            <div class="icon-hover">
+                            <div class="icon-hover" title="Delete">
                                 <button><i class="far fa-trash-alt"></i></button>
                                 <button><i class="fas fa-trash-alt"></i></button>
                             </div>
@@ -40,11 +40,11 @@
 
                         <!-- Edit/Delete: only for Registered Users -->
                         <div class="edit-question">
-                            <div class="icon-hover">
+                            <div class="icon-hover" title="Edit">
                                 <a href="edit-question.php"><i class="far fa-edit"></i></a>
                                 <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
-                            <div class="icon-hover">
+                            <div class="icon-hover" title="Delete">
                                 <button><i class="far fa-trash-alt"></i></button>
                                 <button><i class="fas fa-trash-alt"></i></button>
                             </div>
@@ -93,7 +93,7 @@
                     COMP
                 </span>
 
-                <div class="d-inline-flex align-items-right report-icon">
+                <div class="d-inline-flex align-items-right report-icon" title="Report">
                     <div class="icon-hover">
                         <button><i class="far fa-flag"></i></button>
                         <button><i class="fas fa-flag"></i></button>
@@ -141,7 +141,7 @@
                 <footer class="d-flex align-items-center">
                     <span class="comments flex-grow-1">1 Comments</span>
 
-                    <div class="d-inline-flex align-items-right report-icon">
+                    <div class="d-inline-flex align-items-right report-icon" title="Report">
                         <div class="icon-hover">
                             <button><i class="far fa-flag"></i></button>
                             <button><i class="fas fa-flag"></i></button>
@@ -172,7 +172,7 @@
                             <span>- Joaquina Almeida</span> <!-- Name -->
                             <span>15:02 - 10/05/2009</span> <!-- Date -->
                         </span>
-                        <div class="d-inline-flex align-items-right report-icon">
+                        <div class="d-inline-flex align-items-right report-icon" title="Report">
                             <div class="icon-hover">
                                 <button><i class="far fa-flag"></i></button>
                                 <button><i class="fas fa-flag"></i></button>

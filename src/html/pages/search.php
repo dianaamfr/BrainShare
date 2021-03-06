@@ -88,7 +88,6 @@
           </button>
         </div>
       </form>
-
     </header>
   
     <!-- Questions -->
@@ -102,4 +101,4 @@
             <li class="page-item page-3"><button class="page-link">3</button></li>
         </ul>
     </section>
-
+</section> 
