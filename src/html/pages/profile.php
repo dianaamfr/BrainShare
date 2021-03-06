@@ -22,20 +22,27 @@
             </section>
         </div>
         <section class="three profile-academic-info">
-            <h3>Academic Information</h3>
-            <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
-            <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Current year:</span> 3rd</p>
-            <div>
-                <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
-                    <span class="category tag badge bg-secondary"> 
-                        <i class="fas fa-hashtag"></i>
-                        MIPS
-                    </span>
-                    <span class="category tag badge bg-secondary">
-                        <i class="fas fa-hashtag"></i>
-                        COMP
-                    </span>
-                </p>
+            <div class="row">
+                <section class="col-lg">
+                    <h3>Academic Information</h3>
+                    <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
+                    <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Current year:</span> 3rd</p>
+                    <div>
+                        <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
+                            <span class="category tag badge bg-secondary"> 
+                                <i class="fas fa-hashtag"></i>
+                                MIPS
+                            </span>
+                            <span class="category tag badge bg-secondary">
+                                <i class="fas fa-hashtag"></i>
+                                COMP
+                            </span>
+                        </p>
+                    </div>
+                </section>
+                <div class="col-lg align-edit-button">
+                    <a class="btn btn-primary my-2" href="edit-profile.php">Edit Profile</a>
+                </div>
             </div>
         </section>
     </section>

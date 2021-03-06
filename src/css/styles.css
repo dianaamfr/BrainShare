@@ -968,6 +968,11 @@ article.question .card-title {
   font-size: 1.75rem;
 }
 
+.align-edit-button {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .profile-pic img {
   max-width: 200px;
 }
@@ -1101,6 +1106,9 @@ article.question .card-title {
 
 .about-me {
   height: 10em;
+}
+.button-align-right {
+  float:right;
 }
 
 /* ---- User/Reports Management ---- */

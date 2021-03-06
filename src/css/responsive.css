@@ -153,6 +153,16 @@
     margin: auto;
   }
 
+  .nickname {
+    text-align: center;
+  }
+  
+  .profile-pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
   #about-image1, #about-image2,.homepage-feature-image1 {
     width: 100%;
   }

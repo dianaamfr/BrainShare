@@ -76,7 +76,10 @@
                     </div>
             </section>
             
-            <button type="submit" class="btn btn-primary mt-3">Edit Profile</button>
+            <div class="button-align-right">
+                <button type="submit" class="btn btn-primary mt-3">Discard Changes</button>
+                <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+            </div>
             </form>
         </div>
     </section>
