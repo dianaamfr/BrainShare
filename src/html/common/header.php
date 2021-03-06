@@ -110,7 +110,7 @@
 
             <?php // Registered Users options
               if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
-                <a class="nav-link profile-button registration-button">
+                <a class="nav-link profile-button registration-button" href="profile.php">
                     <img src="images/profile.png" alt="profile picture" class="rounded-circle">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>

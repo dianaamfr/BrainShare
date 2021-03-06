@@ -119,7 +119,7 @@
     }
   
     /* Add Question */
-    .add-question, #profile-main {
+    .add-question {
       box-shadow: unset;
       border: unset;
     }
@@ -138,10 +138,16 @@
       display: block;
     }
 
+    #profile-main {
+      margin-top: 2rem;
+    }
+  
+
   /* About page  */
   .about-container, .homepage-feature-text {
     width: 100%;
     text-align: center;
+    padding: 1.5rem;
   }
   
   .about-container > p {
@@ -149,6 +155,16 @@
     margin: auto;
   }
 
+  .nickname {
+    text-align: center;
+  }
+  
+  .profile-pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
   #about-image1, #about-image2,.homepage-feature-image1 {
     width: 100%;
   }
@@ -212,11 +228,16 @@
     .page-margin {
         padding: 0;
     }
+
+    #profile-main {
+      margin-top: 0;
+      padding: 1.5rem;
+    }
   
-    /* Header */
-    .navbar > .container-fluid {
-      padding-right: 1rem;
-      padding-left: 1rem;
+    /* Questions */
+    .navbar > .container-fluid,  #search-questions > header, .profile-questions-preview {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
     }
   
     /* Search Page */
@@ -230,8 +251,8 @@
     }
   
     #search-questions > header {
-      padding-right: 1rem;
-      padding-left: 1rem;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
     }
   
     .question-author, .category,  .question-preview .counts-mobile {
@@ -244,16 +265,22 @@
   
     /* Question Page */
   
-    article.question.card, #search-page .answer.card .card-body, #search-page .question-preview.card {
+    article.question.card, #search-page .answer.card .card-body, 
+    #search-page, .question-preview.card,
+    .question-preview.card, 
+    .answer.card .card-body {
         box-shadow: unset;
         border-radius: 0;
         border-left: 0;
         border-right: 0;
-        padding: 0;
+    }
+
+    .question-preview.card {
+      padding: 0;
     }
   
     article.question.card {
-        padding-top: 1rem;
+      padding-top: 1rem;
     }
   
     .answers > header {

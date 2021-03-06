@@ -325,6 +325,7 @@ body > header .container-fluid {
 
 .navbar-expand-xl .navbar-toggler {
   border: unset;
+  padding-right: unset;
 }
 
 /* page links */
@@ -385,6 +386,7 @@ a.profile-button {
   padding: 0.25rem 0.75rem 0 0.75rem;
   cursor: pointer;
   color: var(--light-grey);
+  padding-right: unset;
 }
 
 .icon-hover button:last-child, .icon-hover button:last-child, .icon-hover:hover button:first-child,
@@ -733,7 +735,7 @@ article.question .card-title {
   padding: 2.5rem 2rem;
 }
 
-.add-question .form-label {
+.add-question .form-label, .profile-info .form-label, .profile-academic-info .form-label {
   color: var(--main-blue);
   font-weight: 500;
 }
@@ -769,12 +771,12 @@ article.question .card-title {
   margin: 2rem 0;
 }
 
-#search-page header #questions-search-bar .form-control {
+#search-page header #questions-search-bar .form-control, #profile-search .form-control {
   border-radius: 0.25rem 0 0 0.25rem;
   border-right: unset;
 }
 
-#search-page header #questions-search-bar .btn {
+#search-page header #questions-search-bar .btn, #profile-search .btn {
   border-radius: 0 0.25rem 0.25rem 0;
 }
 
@@ -859,7 +861,6 @@ article.question .card-title {
   border: 1px solid rgba(0, 0, 0, 0.125);
   outline: unset;
   box-shadow: unset;
-  border-bottom-width: 0;
 }
 
 #side-bar .accordion-button:not(.collapsed)::after {
@@ -882,6 +883,13 @@ article.question .card-title {
 /* mobile navbar */
 
 .bd-subnavbar .nav-link button {
+  color: var(--bs-gray);
+}
+
+.bd-subnavbar select {
+  box-shadow: unset;
+  border: unset;
+  background-color: unset;
   color: var(--bs-gray);
 }
 
@@ -981,10 +989,6 @@ article.question .card-title {
   max-width: 200px;
 }
 
-.profile-info {
-  margin-bottom: 2rem;
-}
-
 .profile-info p,
 .profile-academic-info p {
   margin-bottom: 0.5rem;
@@ -994,6 +998,18 @@ article.question .card-title {
 .profile-academic-info .profile-small-title {
   color: var(--dark-grey);
   margin-right: 0.5rem;
+}
+
+.profile-info .input-group {
+  margin-bottom: 1rem;
+}
+
+.profile-info .input-group-prepend > span {
+  color: var(--white);
+  border-radius: 0.25rem 0 0 0.25rem;
+  background-color: var(--main-blue);
+  font-size: 0.8rem;
+  height: 100%;
 }
 
 .profile-small-title i {
@@ -1110,6 +1126,9 @@ article.question .card-title {
 
 .about-me {
   height: 10em;
+}
+.button-align-right {
+  float:right;
 }
 
 /* ---- User/Reports Management ---- */

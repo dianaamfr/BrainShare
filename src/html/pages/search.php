@@ -3,18 +3,16 @@
 <!-- Sub nav bar - Mobile -->
 <nav class="bd-subnavbar align-items-center" aria-label="Secondary navigation">
   <li class="nav-link nav-item subnav-selected"><button>New Questions</button></li>
-  <li class="nav-link nav-item dropdown">
-    <button class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      By Course
-    </button>
-    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-        <li><a class="dropdown-item" href="#">MIEIC</a></li>
-        <li><a class="dropdown-item" href="#">MIB</a></li>
-        <li><a class="dropdown-item" href="#">MIEC</a></li>
-        <li><a class="dropdown-item" href="#">MIEGI</a></li>
-        <li><a class="dropdown-item" href="#">MIEEC</a></li>
-        <li><a class="dropdown-item" href="#">MIEM</a></li>
-      </ul>
+  <li class="nav-link nav-item">
+    <select>
+        <option selected disabled>Course</option>
+        <option>MIEIC</option>
+        <option>MIB</option>
+        <option>MIEC</option>
+        <option>MIEGI</option>
+        <option>MIEEC</option>
+        <option>MIEM</option>
+    </select>
   </li>
   <li class="nav-link nav-item"><button>By Tag</button></li>
 </nav>
@@ -31,11 +29,11 @@
       </div>
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#side-bar">
           Courses
         </button>
       </h6>
-      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#side-bar">
         <div class="accordion-body">
           <div>
             <div class="list-group" id="list-tab" role="tablist">
@@ -52,7 +50,7 @@
     </div>
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" data-bs-parent="#side-bar">
           Tags
         </button>
       </h6>
