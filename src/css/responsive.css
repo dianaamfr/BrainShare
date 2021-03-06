@@ -206,10 +206,6 @@
     display: flex!important;
   }
 
-  #search-questions{
-    width: 100%;
-  }
-
 }
   
 @media (max-width: 450px) {

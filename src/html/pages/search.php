@@ -75,24 +75,27 @@
   
   <!-- Questions Results -->
   <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
-    <header>
-      <h2>Search</h2>
-      <h5>by keyword </h5>
-    
-      <!-- Search Bar -->
-      <form class="d-flex me-auto" id="questions-search-bar">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">
-          <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </form>
 
-    </header>
+    <div class="container-md mt-5">
+      <header>
+        <h2>Search</h2>
+        <h5>by keyword </h5>
+      
+        <!-- Search Bar -->
+        <form class="d-flex me-auto" id="questions-search-bar">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+      </header>
+    </div>
   
     <!-- Questions -->
-    <section class="container-md mt-5" id="heyhey">
+    <section class="container-md mt-5">
         <?php for($i = 0; $i < 2; $i++) { 
             questionPreview();
         } ?>
@@ -102,4 +105,5 @@
             <li class="page-item page-3"><button class="page-link">3</button></li>
         </ul>
     </section>
+  </section>
 
