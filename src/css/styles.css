@@ -135,6 +135,10 @@ select {
   box-shadow: rgb(221, 221, 221) 0px 1px 3px inset;
 }
 
+.form-text {
+  color: var(--main-green);
+}
+
 pre {
   white-space: pre-line;
 }
@@ -294,7 +298,7 @@ body > header .container-fluid {
 }
 
 .header-search {
-  width: 40%;
+  width: 37%;
   max-width: 800px;
 }
 
@@ -317,7 +321,7 @@ body > header .container-fluid {
   font-family: title-font;
   font-weight: 600;
   font-size: 1.6rem;
-  margin-right: 3.8rem;
+  margin-right: 3.5rem;
 }
 
 .navbar-expand-xl .navbar-toggler {
@@ -393,6 +397,104 @@ a.profile-button {
   display: inline-block; 
 }
 
+
+
+/* Homepage */
+
+.homepage-container-hero {
+  padding: 100px 0;
+  background-image: url("../images/banner2.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.homepage-course-container p {
+  max-width: 270px;
+}
+
+.homepage-course-container a {
+  margin-top: auto;
+}
+
+.banner-text p {
+  font-weight: 400!important;
+  color: #dedede;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem!important;
+  max-width: 425px;
+  margin: auto;
+  line-height: 1.8rem;
+}
+
+
+h1.display-3 {
+  font-family: title-font;
+  font-size: 3.2rem;
+  color: #dedede;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+a.btn {
+    width: 135px;
+    padding: 0.3rem;
+    display: inline-block;
+    font-size: 0.85rem;
+}
+
+.homepage-feature {
+  justify-content: space-around;
+}
+
+.homepage-feature-text {
+  margin-top: 3rem;
+  max-width: 550px;
+  padding-right: 2rem;
+}
+
+.homepage-feature-image1 {
+  background-image: url("../images/qa_home2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: calc(50% - 1rem);
+  max-width: 600px;
+  height: 400px;
+}
+
+.homepage-course, .feature.questions {
+  border-top: 1px solid rgba(0,0,0,.125);
+  padding: 3rem 0;
+  max-width: 1320px;
+  margin: auto;
+}
+
+.course-icon {
+    width: 110px;
+    height: 110px;
+    background-position: center;
+    background-size: contain;
+}
+
+#course-icon1{
+  background-image: url("../images/mieic.png");
+}
+
+#course-icon2{
+  background-image: url("../images/miec.png");
+}
+
+#course-icon3{
+  background-image: url("../images/mieec.png");
+}
+
+.carousel-control-next, .carousel-control-prev {
+  display: block;
+  width: auto;
+}
+
+
 /* ---- Question Page ---- */
 
 article.question.card,
@@ -462,7 +564,7 @@ article.question .card-title {
 }
 
 .edit-question i {
-  color: var(--main-blue);
+  color: var(--main-green);
   margin-left: 1rem;
 }
 
@@ -674,7 +776,7 @@ article.question .card-title {
   box-shadow: 0px 1px 2px 0px rgb(183 183 183 / 30%),
     0px 2px 6px 2px rgb(154 154 154 / 15%);
   border: 1px solid #dadce0;
-  padding: 1rem;
+  padding: 1rem 1rem 0;
 }
 
 /* question preview */

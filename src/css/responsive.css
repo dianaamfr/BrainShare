@@ -124,7 +124,7 @@
     }
 
   /* About page  */
-  .about-container {
+  .about-container, .homepage-feature-text {
     width: 100%;
     text-align: center;
   }
@@ -134,7 +134,7 @@
     margin: auto;
   }
 
-  #about-image1, #about-image2 {
+  #about-image1, #about-image2,.homepage-feature-image1 {
     width: 100%;
   }
 
@@ -176,12 +176,14 @@
     }
   
   /* About page  */
-  .about-container {
-    width: 100%;
-    text-align: center;
-  }
+  
   .about-container > p {
     max-width: 100%;
+  }
+
+  /* Simulate Home page slider */
+  .homepage-course-container:not(:first-child)  {
+    display: none!important;
   }
 
 }
