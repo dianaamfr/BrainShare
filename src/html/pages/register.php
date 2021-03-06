@@ -12,19 +12,19 @@
             </div>
             </div>
             <div class="mb-4">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Username*</label>
                 <input type="text" id="username" class="form-control" placeholder="Username">
             </div>
             <div class="mb-4">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email*</label>
                 <input type="email" id="email" class="form-control" placeholder="Email">
             </div>
             <div class="mb-4">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Password*</label>
                 <input type="password" id="password" class="form-control" placeholder="Password">
             </div>
             <div class="mb-4">
-                <label for="password2" class="form-label">Password</label>
+                <label for="password2" class="form-label">Confirm Password*</label>
                 <input type="password" id="password2" class="form-control" placeholder="Repeat Password">
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-register">Register</button>

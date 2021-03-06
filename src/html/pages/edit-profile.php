@@ -26,7 +26,7 @@ function editProfileForm($courses)
                             </div>
 
                             <!-- Email -->
-                            <label class="form-label">Email</label>
+                            <label class="form-label">Email*</label>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend" title="Email">
                                     <span class="input-group-text"><i class="fas fa-at edit-icon"></i></span>
