@@ -9,6 +9,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-
+src/public/images/.idea/
 # Visual Studio Code files
-.vscode
+.vscode 

@@ -12,7 +12,7 @@ function display_cards($array)
 function get_card($element)
 {
 
-    $trash =   '<span class="icon-hover">
+    $trash =   '<span class="icon-hover" title="Delete">
                     <button class="p-0"><i class="far fa-trash-alt"></i></button> 
                     <button class="p-0"><i class="fas fa-trash-alt"></i></button> 
                     </span>';
