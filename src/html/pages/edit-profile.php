@@ -27,7 +27,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" ><i class="fas fa-at edit-icon"></i></span>
                             </div>
-                            <input type="text" class="form-control" value="up201806230@fe.up.pt" >
+                            <input type="text" class="form-control" value="up201806230@fe.up.pt" required>
                         </div>
 
                         <!-- Birthday -->
