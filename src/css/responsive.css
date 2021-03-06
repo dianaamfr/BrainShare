@@ -101,10 +101,6 @@
       padding: 0 2em 3rem;
     }
   
-    /* Subnavbar */
-    .bd-subnavbar {
-        display: flex!important;
-    }
 
     #side-bar {
         display: none;
@@ -203,6 +199,15 @@
   /* Simulate Home page slider */
   .homepage-course-container:not(:first-child)  {
     display: none!important;
+  }
+
+   /* Subnavbar */
+   .bd-subnavbar {
+    display: flex!important;
+  }
+
+  #search-questions{
+    width: 100%;
   }
 
 }

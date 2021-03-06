@@ -74,7 +74,7 @@
   </aside>
   
   <!-- Questions Results -->
-  <section id="search-questions" class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+  <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
     <header>
       <h2>Search</h2>
       <h5>by keyword </h5>
