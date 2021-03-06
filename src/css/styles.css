@@ -740,6 +740,15 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
+.question-href{
+  text-decoration: unset !important;
+  color: var(--text-black);
+}
+
+.question-href:hover{
+  color:inherit;
+}
+
 #search-questions {
   padding-right: 0 !important;
 }
