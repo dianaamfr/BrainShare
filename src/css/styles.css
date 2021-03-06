@@ -852,7 +852,6 @@ article.question .card-title {
   border: 1px solid rgba(0, 0, 0, 0.125);
   outline: unset;
   box-shadow: unset;
-  border-bottom-width: 0;
 }
 
 #side-bar .accordion-button:not(.collapsed)::after {
@@ -875,6 +874,13 @@ article.question .card-title {
 /* mobile navbar */
 
 .bd-subnavbar .nav-link button {
+  color: var(--bs-gray);
+}
+
+.bd-subnavbar select {
+  box-shadow: unset;
+  border: unset;
+  background-color: unset;
   color: var(--bs-gray);
 }
 
