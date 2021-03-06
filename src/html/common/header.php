@@ -76,7 +76,7 @@
         <form class="header-search d-flex me-auto main-search" action="search.php" >
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
+            <button class="btn btn-primary" type="submit" title="Search">
             <i class="fas fa-search"></i>
             </button>
           </div>
@@ -114,7 +114,7 @@
                     <img src="images/profile.png" alt="profile picture" class="rounded-circle">
                     Joaquina Almeida<!-- Name goes here -->
                 </a>
-                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal" title="Notifications">
                   <button><i class="far fa-bell"></i></button>
                   <button><i class="fas fa-bell"></i></button>
                 </div>

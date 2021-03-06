@@ -83,7 +83,7 @@
       <form class="d-flex me-auto" id="questions-search-bar">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="submit" title="Search">
           <i class="fas fa-search"></i>
           </button>
         </div>

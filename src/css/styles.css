@@ -1134,7 +1134,11 @@ div.user-administration td img {
 }
 
 div.user-administration table thead tr th i{
-  margin-right: 0.6rem;
+  margin-right: 0.6rem; 
+} 
+
+div.user-administration table thead tr th i:hover{
+  cursor: pointer; 
 }
 
 div.user-administration#reports table thead tr th:nth-child(2){
