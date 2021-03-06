@@ -8,7 +8,7 @@ function questionForm($courses){ ?>
                 <!-- Question Title -->
                 <div class="mb-3">
                     <label for="questionTitle" class="form-label">Question Title</label>
-                    <input type="text" class="form-control" id="questionTitle" placeholder="Write the title here" aria-describedby="questionTitleHelp">
+                    <input type="text" class="form-control" id="questionTitle" placeholder="Write the title here" aria-describedby="questionTitleHelp" required>
                     <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
                 </div>
 
@@ -16,7 +16,7 @@ function questionForm($courses){ ?>
                 <div class="mb-3">
                     <label for="question-text-area" class="form-label">Question Body</label>
                     <div class="border form-control">
-                        <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp"></textarea>
+                        <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp" required></textarea>
                     </div>
                     <div id="questionBodyHelp" class="form-text">Describe all the details that may help others understand your question.</div>
                 </div>
