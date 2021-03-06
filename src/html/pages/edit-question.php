@@ -7,7 +7,7 @@ function editQuestionForm($courses) { ?>
             <form>
                 <!-- Question Title -->
                 <div class="mb-3">
-                    <label for="questionTitle" class="form-label">Question Title</label>
+                    <label for="questionTitle" class="form-label">Question Title*</label>
                     <input type="text" class="form-control" id="questionTitle" value="Should I learn MIPS?" required>
                     <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
                 </div>
