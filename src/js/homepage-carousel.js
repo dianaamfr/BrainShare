@@ -1,7 +1,5 @@
 'use strict'
 
-'use strict'
-
 const sizeCarousel = document.querySelectorAll('.carousel-custom .page').length
 let carouselItems = document.querySelectorAll('.carousel-custom .page')
 // Change Between Questions and Answers
@@ -15,7 +13,6 @@ function goRight() {
 		if(boxToRemove != null) {
     	boxToRemove.style.display = ""
     }
-		let actual = currentNumber
     
     currentNumber++
     let index = currentNumber % sizeCarousel
@@ -41,7 +38,6 @@ function goLeft() {
 		if(boxToRemove != null) {
     	boxToRemove.style.display = ""
     }
-		let actual = currentNumber
     
     currentNumber--
     let index = currentNumber % sizeCarousel

@@ -139,7 +139,6 @@ $question3 =
             </p>
         </section>
         </article>';
-
 ?>
 
 <div class="position-relative text-center homepage-container-hero text-light">
@@ -155,9 +154,7 @@ $question3 =
 </div>
 
 <div class="page-margin">
-
     <div class="mx-3">
-
         <!-- Featured text  -->
         <div class="row py-5 homepage-feature">
             <div class="offset-md-1 col-md-6 homepage-feature-text">
@@ -182,10 +179,8 @@ $question3 =
         <section class="pt-3 homepage-course"> 
             <h2 class="mb-4 fw-normal text-center">Courses</h2>
             
-            <div id="content" class="carousel-custom">
 
-                <div id="page1" class="page">
-                <div class="row">
+            <div class="row">
                 <div class="col-lg-4 homepage-course-container my-5">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>MIEIC</title>
@@ -214,69 +209,23 @@ $question3 =
                     <a href="#" class="btn btn-outline-primary">Check questions</a>
                 </div>
             </div>
-                </div>
-                <div id="page2" class="page">
-                <div class="row">
-                <div class="col-lg-4 homepage-course-container my-5">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>MIEIC</title>
-                        <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                    </svg>
-                    <h2 class="mt-4">MIEIC</h2>
-                    <p>Matesters in Informatics and Computation Engineering</p>
-                    <a href="#" class="btn btn-outline-primary">Check questions</a>
-                </div>
-                <div class="col-lg-4 homepage-course-container my-5">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>MIEEC</title>
-                        <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                    </svg>
-                    <h2 class="mt-4">MIEC</h2>
-                    <p>Masters in Civil Engineering</p>
-                    <a href="#" class="btn btn-outline-primary">Check questions</a>
-                </div>
-            </div>
-                </div>
-            
-
-            <button class="carousel-control-prev" role="button" data-slide="prev">
-                <span class="display-4 text-dark"> &lt; </span>
-                <span class="sr-only">Next</span>
-            </button>
-            <button class="carousel-control-next" role="button" data-slide="next">
-                <span class="display-4 text-dark"> &gt; </span>
-                <span class="sr-only">Previous</span>
-            </button>
-        </div>
         </section>
 
         <hr> 
-            <section class="my-4" data-ride="carousel" id="featuretted-questions"> 
-                <h2 class="mb-4 fw-normal text-center">Featuretted questions</h2>
-                <div>
-                    <?= $question1 ?>
-                </div>
-                <div>
-                    <?= $question2 ?>
-                </div>
-                <div>
-                    <?= $question3 ?>
-                </div>
-            </section>
+        <section class="my-4"  id="featuretted-questions"> 
+            <h2 class="mb-4 fw-normal text-center">Featuretted questions</h2>
+            <div>
+                <?= $question1 ?>
+            </div>
+            <div>
+                <?= $question2 ?>
+            </div>
+            <div>
+                <?= $question3 ?>
+            </div>
+        </section>
 
-            <!-- Nav buttons -->
-
-            <button class="carousel-control-prev" role="button" data-slide="prev">
-                <span class="display-4 text-dark"> &lt; </span>
-                <span class="sr-only">Next</span>
-            </button>
-            <button class="carousel-control-next" role="button" data-slide="next">
-                <span class="display-4 text-dark"> &gt; </span>
-                <span class="sr-only">Previous</span>
-            </button>
-
-        </div>
-
+        <!-- Nav buttons -->
         <hr>
 
         <!-- Last search button in page -->
@@ -286,8 +235,7 @@ $question3 =
                 Learning-by-teaching is one of our lemmas. By explaining and sharing your knowledge you're able to increase
                 your comprehension in a topic. Show what you have learned and don't forget to have fun!
             </p>
-            <p><a href="#" class="btn btn-outline-primary mb-5">Search</a></p>
+            <p><a href="#search.php" class="btn btn-outline-primary mb-5">Search</a></p>
         </section>
     </div>
-
 </div>
