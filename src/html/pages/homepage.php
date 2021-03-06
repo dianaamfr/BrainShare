@@ -13,9 +13,9 @@
     </div>
 
     <div class="page-margin">
-        <div class="mx-3">
+        <div>
             <!-- Featured text  -->
-            <div class="row py-5 homepage-feature">
+            <div class="row py-5 homepage-feature gx-0">
                 <div class="col-md-6 homepage-feature-text mb-5">
                     <h2 class="mb-4 ">What is BrainShare? <span class="text-muted ">The way to learn.</span> </h2>
                     <p class="mb-5">BrainShare is a Q&A forum that allows FEUP students to answer their own doubts about about their courses!
@@ -29,7 +29,7 @@
             <!-- Courses -->
             <section class="homepage-course position-relative"> 
                 <h2 class="mb-4 text-center">Courses</h2>
-                <div class="row">
+                <div class="row gx-0 ">
                     <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
                         <div class="course-icon" id="course-icon1"></div>
                         <h3 class="mt-4">MIEIC</h3>

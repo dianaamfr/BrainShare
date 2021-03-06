@@ -325,6 +325,7 @@ body > header .container-fluid {
 
 .navbar-expand-xl .navbar-toggler {
   border: unset;
+  padding-right: unset;
 }
 
 /* page links */
@@ -385,6 +386,7 @@ a.profile-button {
   padding: 0.25rem 0.75rem 0 0.75rem;
   cursor: pointer;
   color: var(--light-grey);
+  padding-right: unset;
 }
 
 .icon-hover button:last-child, .icon-hover button:last-child, .icon-hover:hover button:first-child,
@@ -733,7 +735,7 @@ article.question .card-title {
   padding: 2.5rem 2rem;
 }
 
-.add-question .form-label {
+.add-question .form-label, .profile-info .form-label, .profile-academic-info .form-label {
   color: var(--main-blue);
   font-weight: 500;
 }
@@ -968,17 +970,8 @@ article.question .card-title {
   font-size: 1.75rem;
 }
 
-.align-edit-button {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
 .profile-pic img {
   max-width: 200px;
-}
-
-.profile-info {
-  margin-bottom: 2rem;
 }
 
 .profile-info p,
@@ -990,6 +983,18 @@ article.question .card-title {
 .profile-academic-info .profile-small-title {
   color: var(--dark-grey);
   margin-right: 0.5rem;
+}
+
+.profile-info .input-group {
+  margin-bottom: 1rem;
+}
+
+.profile-info .input-group-prepend > span {
+  color: var(--white);
+  border-radius: 0.25rem 0 0 0.25rem;
+  background-color: var(--main-blue);
+  font-size: 0.8rem;
+  height: 100%;
 }
 
 .profile-small-title i {
