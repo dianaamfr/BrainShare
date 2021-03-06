@@ -1,3 +1,21 @@
+@media (max-width: 1367px){
+  body {
+    font-size: 15px;
+  }
+  
+  .navbar-dark .navbar-nav .nav-link{
+    font-size: 14px;
+  }
+
+  h1.display-3 {
+    font-size: 2.7rem;
+  }
+
+  .question-preview.card .question-header > h4 {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 1360px){
 
   #about-image2 {

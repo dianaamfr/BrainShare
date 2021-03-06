@@ -3,8 +3,8 @@
   <!-- Banner -->
     <div class="position-relative text-center homepage-container-hero text-light">
         <div class="banner-text col-md-6 mx-auto">
-            <h1 class="display-3 pb-3"> BrainShare </h1>
-            <p class="lead pb-3"> The FEUP website for questions and answers. We connect students to solutions to improve your academic experience. </p>
+            <h1 class="display-3 pb-2"> BrainShare </h1>
+            <p class="lead pb-2"> The FEUP website for questions and answers. We connect students to solutions to improve your academic experience. </p>
             <div class="d-flex justify-content-center">
                 <a href="#" class="btn btn-primary mx-3">Search</a>
                 <a href="#" class="btn btn-primary mx-3">Add Question</a>

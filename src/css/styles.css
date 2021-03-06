@@ -419,10 +419,10 @@ a.profile-button {
 
 .banner-text p {
   font-weight: 400!important;
-  color: #dedede;
-  font-size: 1.2rem;
+  color: whitesmoke;
+  font-size: 1rem;
   margin-bottom: 1.5rem!important;
-  max-width: 425px;
+  max-width: 360px;
   margin: auto;
   line-height: 1.8rem;
 }
@@ -430,8 +430,8 @@ a.profile-button {
 
 h1.display-3 {
   font-family: title-font;
-  font-size: 3.2rem;
-  color: #dedede;
+  font-size: 2.9rem;
+  color: whitesmoke;
   margin-bottom: 1rem;
   font-weight: 600;
 }
