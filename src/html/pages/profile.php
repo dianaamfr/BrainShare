@@ -45,6 +45,18 @@
         <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
     </ul>
 
+     <!-- Search Bar -->
+     <div class="container">
+        <form class="d-flex me-auto">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+            </button>
+            </div>
+        </form>
+    </div>
+
     <section id="pagination-item-1" class="container mt-5">
         <h3 class="mb-4">My Questions</h3>
         <?php for($i = 0; $i < 2; $i++) { 
