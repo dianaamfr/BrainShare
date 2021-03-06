@@ -6,5 +6,6 @@ if(document.getElementById('question-text-area') != null) {
   });
 
   editor.render();
+  window.scrollTo(0,0);
 }
 
