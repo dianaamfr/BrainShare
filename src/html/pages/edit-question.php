@@ -7,14 +7,14 @@ function editQuestionForm($courses) { ?>
             <form>
                 <!-- Question Title -->
                 <div class="mb-3">
-                    <label for="questionTitle" class="form-label">Question Title</label>
+                    <label for="questionTitle" class="form-label">Question Title*</label>
                     <input type="text" class="form-control" id="questionTitle" value="Should I learn MIPS?">
                     <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
                 </div>
 
                 <!-- Question Body -->
                 <div class="mb-3">
-                    <label for="question-text-area" class="form-label">Question Body</label>
+                    <label for="question-text-area" class="form-label">Question Body*</label>
                     <div class="border form-control">
                         <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp">Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future?
                         </textarea>

@@ -7,14 +7,14 @@ function questionForm($courses){ ?>
             <form>
                 <!-- Question Title -->
                 <div class="mb-3">
-                    <label for="questionTitle" class="form-label">Question Title</label>
+                    <label for="questionTitle" class="form-label">Question Title*</label>
                     <input type="text" class="form-control" id="questionTitle" placeholder="Write the title here" aria-describedby="questionTitleHelp">
                     <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
                 </div>
 
                 <!-- Question Body -->
                 <div class="mb-3">
-                    <label for="question-text-area" class="form-label">Question Body</label>
+                    <label for="question-text-area" class="form-label">Question Body*</label>
                     <div class="border form-control">
                         <textarea id="question-text-area" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp"></textarea>
                     </div>
