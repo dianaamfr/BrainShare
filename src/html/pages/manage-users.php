@@ -2,15 +2,14 @@
     <h1>Manage Users</h1>
 </header>
 
-<div class="user-administration bg-light page-margin">
+<div class="user-administration page-margin">
     
     <section class="p-4 management">
         <header>
             <h3 class="mb-4">Management Options</h3>
 
             <div class="input-group rounded flex-grow-1 mb-3">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" />
+                <input type="search" class="form-control rounded" placeholder="Search"/>
                 <button type="button" class="btn btn-primary">Search</button>
             </div>
         </header>
@@ -65,5 +64,5 @@
             </table>
         </div>
     </section>
-</div
+</div>
     

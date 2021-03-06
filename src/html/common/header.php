@@ -24,8 +24,8 @@
 
     <!-- Rich Text -->
     <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
-    <script type="text/javascript" src="http://lab.lepture.com/editor/editor.js" defer></script>
-    <script type="text/javascript" src="http://lab.lepture.com/editor/marked.js" defer></script>
+    <script src="http://lab.lepture.com/editor/editor.js" defer></script>
+    <script src="http://lab.lepture.com/editor/marked.js" defer></script>
     
     <!-- Our Rich Text script -->
     <script src="js/editor.js" defer></script> 
@@ -138,7 +138,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <i class="fas fa-bell"></i>
-        <h5 class="modal-title ms-3" id="notificationsModal">  Notifications</h5>
+        <h5 class="modal-title ms-3">  Notifications</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

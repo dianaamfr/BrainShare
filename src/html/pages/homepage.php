@@ -51,11 +51,11 @@
                 </div>
 
                 <!-- Arrows -->
-                <button class="carousel-control-prev" role="button" data-slide="prev">
+                <button class="carousel-control-prev" data-slide="prev">
                     <span class="display-4 text-dark"> &lt; </span>
                     <span class="sr-only">Next</span>
                 </button>
-                <button class="carousel-control-next" role="button" data-slide="next">
+                <button class="carousel-control-next" data-slide="next">
                     <span class="display-4 text-dark"> &gt; </span>
                     <span class="sr-only">Previous</span>
                 </button>

@@ -2,14 +2,14 @@
     <h1>Manage Reports</h1>
 </header>
 
-<div class="user-administration bg-light page-margin" id="reports">
+<div class="user-administration page-margin" id="reports">
 
     <section class="p-4 management">
         <header>
             <h3 class="mb-4">Management Options</h3>
 
             <!-- Filter -->
-            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-toolbar mb-3">
                 <select class="reportsDropdown me-4 mb-3 form-select">
                     <option selected value="all">All</option>
                     <option value="users">Users</option>
@@ -18,8 +18,7 @@
                 </select>
 
                 <div class="input-group rounded flex-grow-1 mb-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
+                    <input type="search" class="form-control rounded" placeholder="Search"/>
                     <button type="button" class="btn btn-primary">Search</button>
                 </div>
             </div>
@@ -97,4 +96,4 @@
             </table>
         </div>
     </section>
-</div
+</div>

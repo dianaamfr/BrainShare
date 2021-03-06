@@ -37,7 +37,7 @@
 @media (max-width: 1199.97px) {
 
     .page-margin {
-        padding: 3rem 2rem 0;
+        padding: 3rem 2rem;
     }
 
     .tablet-header-search {
@@ -70,7 +70,6 @@
     .notifications-mobile {
         display: inline-block;
         margin: 0;
-        padding: 0;
     }
   
     .navbar-dark .navbar-toggler-icon {
@@ -99,7 +98,7 @@
 
 @media (max-width: 992px){
     .page-margin {
-      padding: 0 2em;
+      padding: 0 2em 3rem;
     }
   
     /* Subnavbar */
@@ -130,7 +129,7 @@
     }
   
     .background-light {
-      background-color: var(--bs-light);
+      background-color: var(--white);
     }
   
     /* Question Page, User/Reports Management, Management Pages */
@@ -160,7 +159,7 @@
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     /* Header */
   

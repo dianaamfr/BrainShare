@@ -70,7 +70,7 @@ body {
   --hover-green: #457e43;
   --black: #16191b;
   --text-black: #3a3a3a;
-  --white: #f3f3f3;
+  --white: #f6f6f6;
   --light-grey: rgba(255, 255, 255, 0.719);
   --dark-grey: #6c757de0;
   --clean-white: #ffffff;
@@ -94,8 +94,7 @@ main {
 }
 
 .page-margin {
-  padding: 3rem 8em 0;
-  height: 100%;
+  padding: 3rem 8em;
 }
 
 /* Headings and text elements */
@@ -465,7 +464,7 @@ a.btn {
 
 .homepage-course, .feature.questions {
   border-top: 1px solid rgba(0,0,0,.125);
-  padding: 3rem 0;
+  padding-top: 3rem;
   max-width: 1320px;
   margin: auto;
 }
@@ -655,7 +654,7 @@ article.question .card-title {
 }
 
 .report-icon button {
-  color: var(--main-green);
+  color: var(--bs-danger);
 }
 
 .back-top {
@@ -1152,4 +1151,21 @@ div.user-administration#reports table thead tr th:nth-child(2){
 
 #notificationsModal div.modal-footer button{
   background-color: var(--main-blue);
+}
+
+body > footer {
+    border-top: 1px solid rgba(0,0,0,.125);
+    background-color: rgb(235, 235, 235);
+}
+
+body > footer li {
+    line-height: 1.9rem;
+}
+
+body > footer h5 {
+    margin-bottom: 1rem;
+}
+
+body > footer > nav{
+    display: flex;
 }

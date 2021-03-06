@@ -32,7 +32,7 @@ function get_card($element)
     <h1>Manage Categories</h1>
 </header>
 
-<div class="bg-light page-margin">
+<div class="page-margin">
     <!-- pagination -->
     <ul id="main-pagination" class="pagination justify-content-center mt-0">
         <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">Tags</button></li>
@@ -53,12 +53,10 @@ function get_card($element)
             <div class="input-group manage-search m-3">
                 <input type="text" class="form-control" placeholder="Insert a tag...">
                 <button class="btn btn-primary">Add Tag</button>
-                </input>
             </div>
             <div class="input-group manage-search m-3">
                 <input type="text" class="form-control" placeholder="Search tag...">
                 <button class="btn btn-primary">Search Tag</button>
-                </input>
             </div>
         </form>
     </div>
@@ -68,16 +66,15 @@ function get_card($element)
         <section class="p-4 w-100 mx-1">
             <h3 class="mb-4">Courses</h3>
             <!-- Courses -->
-            <class class="row">
+            <div class="row">
                 <?= display_cards($courses) ?>
-            </class>
+            </div>
         </section>
 
         <form class="mt-5 d-flex justify-content-between flex-wrap">
             <div class="input-group manage-search m-3">
                 <input type="text" class="form-control" placeholder="Insert a course...">
                 <button class="btn btn-primary">Add Course</button>
-                </input>
             </div>
         </form>
     </div>
