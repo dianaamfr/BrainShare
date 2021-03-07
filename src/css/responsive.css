@@ -135,7 +135,7 @@
   
     /* Profile */
     .grid-profile {
-      display: block;
+      display: inline-block;
     }
 
     #profile-main {

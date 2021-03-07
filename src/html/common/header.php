@@ -24,8 +24,8 @@
 
     <!-- Rich Text -->
     <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
-    <script src="http://lab.lepture.com/editor/editor.js" defer></script>
-    <script src="http://lab.lepture.com/editor/marked.js" defer></script>
+    <script src="https://lab.lepture.com/editor/editor.js" defer></script>
+    <script src="https://lab.lepture.com/editor/marked.js" defer></script>
     
     <!-- Our Rich Text script -->
     <script src="js/editor.js" defer></script> 

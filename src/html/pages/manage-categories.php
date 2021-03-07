@@ -42,7 +42,7 @@ function get_card($element)
 
     <!-- Manage tags-->
     <div id="pagination-item-1" class="management">
-        <section class="p-4 w-100 mx-1">
+        <section class="p-4 w-100">
             <h3 class="mb-4">Tags</h3>
 
             <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">

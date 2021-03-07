@@ -20,7 +20,7 @@
                 <h5>Features</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="search.php">Search Questions</a></li>
-                    <li><a class="link-secondary" href="question.php">Add Question</a></li>
+                    <li><a class="link-secondary" href="add-question.php">Add Question</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
