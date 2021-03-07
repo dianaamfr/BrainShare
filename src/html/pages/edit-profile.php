@@ -35,7 +35,7 @@ function editProfileForm($courses)
                             </div>
 
                             <!-- Birthday -->
-                            <label>Birthday</label>
+                            <label class="form-label">Birthday</label>
                             <div class="input-group">
                                 <div class="input-group-prepend" title="Birthday">
                                     <span class="input-group-text"><i class="fa fa-calendar edit-icon" aria-hidden="true"></i></span>
