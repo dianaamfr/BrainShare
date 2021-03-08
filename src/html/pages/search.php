@@ -94,9 +94,9 @@
   
     <!-- Questions -->
     <section class="container-md mt-5">
-        <?php for($i = 0; $i < 2; $i++) { 
+        <?php 
             questionPreview();
-        } ?>
+        ?>
         <ul id="pagination-questions" class="pagination justify-content-center">
             <li class="page-item page-1 active"><button class="page-link">1</button></li>
             <li class="page-item page-2"><button class="page-link">2</button></li>
