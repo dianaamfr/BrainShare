@@ -2,31 +2,51 @@
 
 <!-- Sub nav bar - Mobile -->
 <nav class="bd-subnavbar align-items-center" aria-label="Secondary navigation">
-  <li class="nav-link nav-item subnav-selected"><button>New Questions</button></li>
-  <li class="nav-link nav-item">
-    <select>
-        <option selected disabled>Course</option>
-        <option>MIEIC</option>
-        <option>MIB</option>
-        <option>MIEC</option>
-        <option>MIEGI</option>
-        <option>MIEEC</option>
-        <option>MIEM</option>
-    </select>
-  </li>
-  <li class="nav-link nav-item"><button>By Tag</button></li>
+  <ul class="d-flex m-0 p-0">
+    <li class="nav-link nav-item subnav-selected"><button>Newest</button></li>
+    <li class="nav-link nav-item"><button>Popular</button></li>
+
+    <li class="nav-link nav-item">
+      <select>
+          <option selected disabled>Courses</option>
+          <option>MIEIC</option>
+          <option>MIB</option>
+          <option>MIEC</option>
+          <option>MIEGI</option>
+          <option>MIEEC</option>
+          <option>MIEM</option>
+      </select>
+    </li>
+    <li class="nav-link nav-item">
+      <select>
+            <option selected disabled>Tags</option>
+            <option>PPIN</option>
+            <option>COMP</option>
+            <option>LBAW</option>
+            <option>IART</option>
+            <option>SDIS</option>
+            <option>exam</option>
+        </select>
+    </li>
+  </ul>
 </nav>
 
 <div class="d-flex justify-content-between page-margin" id="search-page">
 
   <!-- Sidebar -->
   <aside id="side-bar" class="col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
-      <div class="accordion-item active">
-        <h6 class="accordion-header">
-          <button type="button" class="blue">New Questions
-          </button>
-        </h6>
-      </div>
+    <div class="accordion-item active">
+      <h6 class="accordion-header">
+        <button type="button" class="blue">New Questions
+        </button>
+      </h6>
+    </div>
+    <div class="accordion-item">
+      <h6 class="accordion-header">
+        <button type="button">Popular Questions
+        </button>
+      </h6>
+    </div>
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#side-bar">
@@ -36,14 +56,14 @@
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#side-bar">
         <div class="accordion-body">
           <div>
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#list-home" role="tab" >MIEIC</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-profile" role="tab">MIB</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-messages" role="tab" >MIEC</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" >MIEGI</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" >MIEEC</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" a>MIEM</a>
-            </div>
+            <nav class="list-group">
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEIC</button>
+              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIB</button>
+              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEC</button>
+              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEGI</button>
+              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEEC</button>
+              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEM</button>
+            </nav>
           </div>
         </div>
       </div>
@@ -54,16 +74,16 @@
           Tags
         </button>
       </h6>
-      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#side-bar">
         <div class="accordion-body">
           <div>
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-home" role="tab" aria-controls="home">PPIN</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="profile">COMP</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="messages">LBAW</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="settings">IART</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="settings">SDIS</a>
-                <a class="list-group-item list-group-item-action"  data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="settings">EXAM</a>
+            <div class="list-group">
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">PPIN</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">COMP</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">LBAW</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">IART</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">SDIS</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">exam</button>
             </div>
           </div>
         </div >
@@ -104,3 +124,5 @@
         </ul>
     </section>
   </section>
+
+</div>

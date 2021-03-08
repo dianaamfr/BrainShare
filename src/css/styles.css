@@ -289,8 +289,6 @@ button {
   padding-top: 2rem;
 }
 
-/* ---- Subnav ---- */
-
 /* ---- Header ---- */
 
 header.fixed-top {
@@ -587,6 +585,10 @@ article.question .card-title {
   padding: 0.5rem 1rem;
 }
 
+.question-tags .tag {
+  margin-right: 0.2rem;
+}
+
 .answers {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   margin-top: 2rem;
@@ -606,16 +608,14 @@ article.question .card-title {
   padding: 2rem 0.5rem 1rem;
 }
 
-.bi-chevron-up,
-.bi-chevron-down {
-  font-size: 2.5rem;
+.vote_btn i {
+  font-size: 1.8rem;
   color: var(--main-blue);
 }
 
 .points {
   font-size: 1.3rem;
-  color: var(--bs-gray);
-  font-weight: 500;
+  color: var(--main-blue);
 }
 
 .fa-check {
@@ -658,10 +658,6 @@ article.question .card-title {
 #submitAnswerTextarea {
   border: 1px solid var(--main-blue)!important;
   box-shadow: inset 0 1px 3px #ddd;
-}
-
-.report-icon {
-  float: right;
 }
 
 .report-icon button {
@@ -751,15 +747,6 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
-.question-href{
-  text-decoration: unset !important;
-  color: var(--text-black);
-}
-
-.question-href:hover{
-  color:inherit;
-}
-
 #search-questions {
   padding-right: 0 !important;
 }
@@ -799,11 +786,18 @@ article.question .card-title {
 }
 
 /* question preview */
-.question-preview.card .question-header > h4 {
+.question-preview.card .question-header > h4 > a {
+  color: var(--main-blue);
   font-size: 1.4rem;
   margin-bottom: 0;
   font-family: title-font;
+  text-decoration: unset;
 }
+
+.question-preview.card .question-header > h4 > a:hover {
+  color: var(--hover-blue);
+}
+
 .question-preview .card-footer .tag {
   margin-right: 0.3rem;
 }
@@ -818,15 +812,13 @@ article.question .card-title {
   padding: 0 1rem;
   height: min-content;
   text-align: center;
-  color: var(--main-blue);
-  opacity: 0.8;
+  color: var(--bs-gray);
 }
 
 .question-preview .counts-mobile {
   display: none;
   padding: 0rem 2em 1rem;
-  color: var(--main-blue);
-  opacity: 0.8;
+  color: var(--bs-gray);
 }
 
 .question-preview .counts-mobile div {
@@ -846,18 +838,18 @@ article.question .card-title {
   padding: 0;
 }
 
-#side-bar > :first-child {
+#side-bar > :first-child, #side-bar > :nth-child(2) {
   padding: 1rem 1.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-bottom: unset;
 }
 
-#side-bar > :first-child button {
+#side-bar > :first-child button, #side-bar > :nth-child(2) button{
   padding: 0;
   font-weight: 500;
 }
 
-#side-bar button:hover {
+#side-bar h6 > button:hover {
   color: var(--main-blue);
 }
 
@@ -907,13 +899,24 @@ article.question .card-title {
   color: var(--text-black);
   font-weight: 500;
 }
+
 .bd-subnavbar {
     display: none!important;
     position: sticky;
     top: 0;
     z-index: 1020;
     background-color: rgba(255,255,255,0.95);
-    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%)
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+}
+
+.bd-subnavbar ul {
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.bd-subnavbar ul::-webkit-scrollbar {
+  display: none;
 }
 
 .bd-subnavbar .dropdown-item.active, .bd-subnavbar .dropdown-item:active {
@@ -1037,7 +1040,6 @@ article.question .card-title {
   font-weight: 500;
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
-  color: var(--main-blue);
 }
 
 .profile-question,
