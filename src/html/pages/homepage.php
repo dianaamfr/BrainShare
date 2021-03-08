@@ -64,9 +64,9 @@
             <section class="feature questions">
                 <h2 class="mb-4 text-center">Featured Questions</h2>
                 <div class="my-5">
-                    <?php for($i = 0; $i < 2; $i++){
-                        questionPreview();
-                    }?>
+                    <?php
+                        firstQuestions();
+                    ?>
                 </div>  
             </section>
         </div>

@@ -65,8 +65,14 @@
             <div class="row align-items-center px-3">
                 <div class="col-auto d-flex flex-column justify-content-center align-items-center">
                     <p class="points m-0">5</p>
-                    <i class="bi bi-chevron-up d-flex"></i>
-                    <i class="bi bi-chevron-down d-flex"></i>
+                    <div class="icon-hover vote_btn" title="Up Vote">
+                        <button><i class="bi bi-caret-up"></i></button>
+                        <button><i class="bi bi-caret-up-fill"></i></button>
+                    </div>
+                    <div class="icon-hover vote_btn" title="Down Vote">
+                        <button><i class="bi bi-caret-down"></i></button>
+                        <button><i class="bi bi-caret-down-fill"></i></button>
+                    </div>
                 </div>
                 <div class="question-content md-content col align-self-start ps-4">
                     Is the MIPS programming language that beneficial to know? I'm a CS student and am taking a assembly class which focuses on MIPS. I'm very comfortable writing in high level languages, but MIPS has me a little bit down. Is MIPS something that I should really focus on and try to completely grasp it? Will it help me in the future? I mean, look at this: <br>
@@ -83,17 +89,19 @@
             </div>
 
             <!-- Tags -->
-            <footer>
-                <span class="category tag badge bg-secondary">
-                    <i class="fas fa-hashtag"></i>
-                    MIPS
-                </span>
-                <span class="category tag badge bg-secondary">
-                    <i class="fas fa-hashtag"></i>
-                    COMP
-                </span>
+            <footer class="d-flex">
+                <div class="question-tags">
+                    <span class="category tag badge bg-secondary">
+                        <i class="fas fa-hashtag"></i>
+                        MIPS
+                    </span>
+                    <span class="category tag badge bg-secondary">
+                        <i class="fas fa-hashtag"></i>
+                        COMP
+                    </span>
+                </div>
 
-                <div class="d-inline-flex align-items-right report-icon" title="Report">
+                <div class="ms-auto report-icon" title="Report">
                     <div class="icon-hover">
                         <button><i class="far fa-flag"></i></button>
                         <button><i class="fas fa-flag"></i></button>
@@ -124,13 +132,19 @@
                 <div class="row align-items-center px-3">
                     <div class="col-auto d-flex flex-column justify-content-center align-items-center">
                         <p class="points m-0">5</p>
-                        <i class="bi bi-chevron-up d-flex"></i>
-                        <i class="bi bi-chevron-down d-flex"></i>
+                        <div class="icon-hover vote_btn" title="Up Vote">
+                            <button><i class="bi bi-caret-up"></i></button>
+                            <button><i class="bi bi-caret-up-fill"></i></button>
+                        </div>
+                        <div class="icon-hover vote_btn" title="Down Vote">
+                            <button><i class="bi bi-caret-down"></i></button>
+                            <button><i class="bi bi-caret-down-fill"></i></button>
+                        </div>
                     </div>
 
                     <div class="col align-self-start ps-4">
-                        <p>I doesn't really look that cool but do whatever man.</p>
-                        <p>Just trust in your heart!</p>
+                        <p>You only need to learn the basic concepts.</p>
+                        <p>MIPS instructions will not be used in the exam, but it is an important topic you should be able to understand in order to build a compiler</p>
                     </div>
 
                     <div class="d-flex flex-column justify-content-center col-auto">
@@ -141,7 +155,7 @@
                 <footer class="d-flex align-items-center">
                     <span class="comments flex-grow-1">1 Comments</span>
 
-                    <div class="d-inline-flex align-items-right report-icon" title="Report">
+                    <div class="report-icon" title="Report">
                         <div class="icon-hover">
                             <button><i class="far fa-flag"></i></button>
                             <button><i class="fas fa-flag"></i></button>
@@ -163,25 +177,44 @@
                         </div>
                     </form>
                 </div>
-                <?php for ($i = 0; $i < 2; $i++) { ?>
                     <div class="comment">
                         <div class="comment-text d-inline-block">
-                            <p>Please don't use C unless you have to.</p>
+                            <p>Yeah, as a student repeating this curricular unit, I can confirm it will rather likely not be presented in the exam, as we have already been evaluated on this topic 2 years ago .</p>
                         </div>
-                        <span class="comment-author">
-                            <span>- Joaquina Almeida</span> <!-- Name -->
-                            <span>15:02 - 10/05/2009</span> <!-- Date -->
-                        </span>
-                        <div class="d-inline-flex align-items-right report-icon" title="Report">
-                            <div class="icon-hover">
-                                <button><i class="far fa-flag"></i></button>
-                                <button><i class="fas fa-flag"></i></button>
+                        <div class="d-flex">
+                            <div class="comment-author">
+                                <span>- Carlos Ribeiro</span> <!-- Name -->
+                                <span>01:10 - 11/05/2009</span> <!-- Date -->
+                            </div>
+                            <div class="ms-auto report-icon" title="Report">
+                                <div class="icon-hover">
+                                    <button><i class="far fa-flag"></i></button>
+                                    <button><i class="fas fa-flag"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                <?php }
-                ?>
-            </div>
+
+                    <div class="comment">
+                        <div class="comment-text d-inline-block">
+                            <p>Yeah, don't waste your time on learing MIPS.</p>
+                            <p>The professor is only talking about it to remind us of basic assembly instructions</p>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="comment-author">
+                                <span>- Maria Guilhereme</span> <!-- Name -->
+                                <span>08:35 - 12/05/2009</span> <!-- Date -->
+                            </div>
+                            <div class="ms-auto report-icon" title="Report">
+                                <div class="icon-hover">
+                                    <button><i class="far fa-flag"></i></button>
+                                    <button><i class="fas fa-flag"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </section>
     <!-- Submit Answer Form -->

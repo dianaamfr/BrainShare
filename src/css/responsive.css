@@ -260,7 +260,7 @@
     /* Search Page */
   
     #search-page {
-      padding-top: 3rem;
+      padding-top: unset;
     }
   
     .bd-subnavbar .nav-link {
@@ -270,6 +270,10 @@
     #search-questions > header {
       padding-right: 1.5rem;
       padding-left: 1.5rem;
+    }
+
+    #search-questions > section:last-child {
+      padding: unset;
     }
   
     .question-author, .category,  .question-preview .counts-mobile {
@@ -318,6 +322,11 @@
   
     .add-question {
       padding: 2.5rem 1rem;
+    }
+
+    /* Management */
+    .my-bg-main-blue h1 {
+      padding: 30px;
     }
 }
   
