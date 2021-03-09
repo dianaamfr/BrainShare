@@ -563,7 +563,7 @@ article.question .card-title {
   align-items: center;
 }
 
-.CodeMirror {
+#submit-answer .CodeMirror {
   height: 10em!important;
 }
 
