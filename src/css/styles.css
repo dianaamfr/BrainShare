@@ -1174,6 +1174,12 @@ div.user-administration#reports table thead tr th:nth-child(2){
 
 /* Notifications Modal */
 
+
+#notificationsModal .dropdown-toggle::after{
+  border: none;
+  content: unset;
+}
+
 #notificationsModal div.modal-header i {
   color:  var(--main-blue);
 }
@@ -1184,13 +1190,31 @@ div.user-administration#reports table thead tr th:nth-child(2){
 }
 
 #notificationsModal div.modal-body a{
-  border:0;
-  border-bottom: 1px solid rgba(0,0,0,.125);
+  text-decoration: unset;
+  color: var(--text-black);
 }
 
 #notificationsModal div.modal-footer button{
   background-color: var(--main-blue);
 }
+
+#notificationsModal i.fas.fa-circle{
+  margin-right: 11px;
+}
+
+#notifications-more{
+  background-color: var(--main-blue);
+  color: white;
+}
+
+ul.notification-list li:hover{
+  color: white;
+  background-color: var(--main-blue);
+}
+
+
+
+
 
 body > footer {
     border-top: 1px solid rgba(0,0,0,.125);
