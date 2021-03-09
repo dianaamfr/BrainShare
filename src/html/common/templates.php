@@ -54,7 +54,7 @@ function firstQuestions(){ ?>
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>joaquina</span> <!-- Username -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
