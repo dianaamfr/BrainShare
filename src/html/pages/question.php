@@ -55,7 +55,7 @@
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- Carlos Ribeiro</span> <!-- Name -->
+                                <span>Carlos123</span> <!-- Username -->
                                 <span>01:10 - 11/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">
@@ -203,7 +203,7 @@
 
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- Maria Guilhereme</span> <!-- Name -->
+                                <span>Maria Guilhereme</span> <!-- Name -->
                                 <span>08:35 - 12/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">

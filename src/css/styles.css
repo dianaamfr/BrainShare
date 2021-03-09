@@ -637,7 +637,11 @@ article.question .card-title {
   padding: 0.5rem;
   color: var(--bs-gray);
   font-style: italic;
-}
+} 
+
+.comment-author span:first-of-type:before{
+  content: "-"; 
+} 
 
 #collapseCommentForm .form-control {
   border: 1px solid var(--main-green);
