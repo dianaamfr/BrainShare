@@ -76,5 +76,3 @@ function questionForm($courses){ ?>
         </section>
     </div>
 <?php } ?>
-
-<script src="tags-input.js"></script>
