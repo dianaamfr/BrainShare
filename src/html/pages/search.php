@@ -8,25 +8,25 @@
 
     <li class="nav-link nav-item">
       <select>
-          <option selected disabled>Courses</option>
-          <option>MIEIC</option>
-          <option>MIB</option>
-          <option>MIEC</option>
-          <option>MIEGI</option>
-          <option>MIEEC</option>
-          <option>MIEM</option>
+        <option selected disabled>Courses</option>
+        <option>MIEIC</option>
+        <option>MIB</option>
+        <option>MIEC</option>
+        <option>MIEGI</option>
+        <option>MIEEC</option>
+        <option>MIEM</option>
       </select>
     </li>
     <li class="nav-link nav-item">
       <select>
-            <option selected disabled>Tags</option>
-            <option>PPIN</option>
-            <option>COMP</option>
-            <option>LBAW</option>
-            <option>IART</option>
-            <option>SDIS</option>
-            <option>exam</option>
-        </select>
+        <option selected disabled>Tags</option>
+        <option>PPIN</option>
+        <option>COMP</option>
+        <option>LBAW</option>
+        <option>IART</option>
+        <option>SDIS</option>
+        <option>exam</option>
+      </select>
     </li>
   </ul>
 </nav>
@@ -58,11 +58,11 @@
           <div>
             <nav class="list-group">
               <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEIC</button>
-              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIB</button>
-              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEC</button>
-              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEGI</button>
-              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEEC</button>
-              <button class="list-group-item list-group-item-action"  data-bs-toggle="list">MIEM</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIB</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEC</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEGI</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEEC</button>
+              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEM</button>
             </nav>
           </div>
         </div>
@@ -74,7 +74,16 @@
           Tags
         </button>
       </h6>
-      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#side-bar">
+      <div id="collapseThree" class="accordion-collapse collapse accordion-search" aria-labelledby="headingThree" data-bs-parent="#side-bar">
+        <!-- Search Bar -->
+        <form class="d-flex me-auto">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
         <div class="accordion-body">
           <div>
             <div class="list-group">
@@ -86,11 +95,11 @@
               <button class="list-group-item list-group-item-action" data-bs-toggle="list">exam</button>
             </div>
           </div>
-        </div >
+        </div>
       </div>
     </div>
   </aside>
-  
+
   <!-- Questions Results -->
   <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
 
@@ -98,30 +107,30 @@
       <header>
         <h2>Search</h2>
         <h5>by keyword </h5>
-      
+
         <!-- Search Bar -->
         <form class="d-flex me-auto" id="questions-search-bar">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit">
-            <i class="fas fa-search"></i>
+              <i class="fas fa-search"></i>
             </button>
           </div>
         </form>
 
       </header>
     </div>
-  
+
     <!-- Questions -->
     <section class="container-md mt-5">
-        <?php 
-            questionPreview();
-        ?>
-        <ul id="pagination-questions" class="pagination justify-content-center">
-            <li class="page-item page-1 active"><button class="page-link">1</button></li>
-            <li class="page-item page-2"><button class="page-link">2</button></li>
-            <li class="page-item page-3"><button class="page-link">3</button></li>
-        </ul>
+      <?php
+      questionPreview();
+      ?>
+      <ul id="pagination-questions" class="pagination justify-content-center">
+        <li class="page-item page-1 active"><button class="page-link">1</button></li>
+        <li class="page-item page-2"><button class="page-link">2</button></li>
+        <li class="page-item page-3"><button class="page-link">3</button></li>
+      </ul>
     </section>
   </section>
 
