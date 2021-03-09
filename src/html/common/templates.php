@@ -40,8 +40,8 @@ function firstQuestions()
                 </div>
             </header>
             <div class="limited-text-3 card-body">
-                <p> I know that arm nowadays is very used. I don't know any operational system that uses MIPS. 
-                    Still I would like to learn it. 
+                <p> I know that arm nowadays is very used. I don't know any operational system that uses MIPS.
+                    Still I would like to learn it.
                 </p>
             </div>
 
@@ -472,7 +472,9 @@ function answerPreview()
             <!-- Question Text -->
             <div class="answer-content col-lg">
                 <h4>My Answer</h4>
-                <p>C is really just a simple language that can be easily read and understood. Also it has barely changed in the last 30 years, which means that many programmers know it well, thus you will find a lot of material online about everything you need while using C, and as a programmer, you often read more code that you write, so it is important to understand what many of your experienced coworkes have built.</p>
+                <div class="limited-text-3">
+                    <p>C is really just a simple language that can be easily read and understood. Also it has barely changed in the last 30 years, which means that many programmers know it well, thus you will find a lot of material online about everything you need while using C, and as a programmer, you often read more code that you write, so it is important to understand what many of your experienced coworkes have built.</p>
+                </div>
             </div>
 
             <!-- User -->
@@ -526,8 +528,11 @@ function answerPreview()
             <!-- Question Text -->
             <div class="answer-content col-lg">
                 <h4>My Answer</h4>
-                <p>You might have missed a basic step in the provided guide.</p>
-                <p>One simple mistake might have been related to compatibility issues. Pandas is only supported by Python version 3.71 and above. Use "python --version" command to check your current version and update it if necessary</p>
+
+                <div class="limited-text-3">
+                    <p>You might have missed a basic step in the provided guide.</p>
+                    <p>One simple mistake might have been related to compatibility issues. Pandas is only supported by Python version 3.71 and above. Use "python --version" command to check your current version and update it if necessary</p>
+                </div>
             </div>
 
             <!--User -->
