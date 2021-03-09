@@ -54,7 +54,7 @@ function firstQuestions(){ ?>
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina</span> <!-- Username -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -115,7 +115,7 @@ function firstQuestions(){ ?>
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -181,7 +181,7 @@ function firstQuestions(){ ?>
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Paulo Sousa</span> <!-- Name -->
+                        <span>PSousa</span> <!-- Username -->
                         <span>19:57 - 27/04/2018</span> <!-- Date -->
                     </div>
                 </div>
@@ -257,7 +257,7 @@ function questionPreview(){
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Márcio Rebelo</span> <!-- Name -->
+                        <span>Marcio123</span> <!-- Username -->
                         <span>17:30 - 8/03/2020</span> <!-- Date -->
                     </div>
                 </div>
@@ -323,7 +323,7 @@ function questionPreview(){
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile_image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Paulo Reis</span> <!-- Name -->
+                        <span>PLR</span> <!-- Username -->
                         <span>22:23 - 21/02/2021</span> <!-- Date -->
                     </div>
                 </div>
@@ -388,7 +388,7 @@ function questionPreview(){
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Carlos Da Maia</span> <!-- Name -->
+                        <span>CarlosDaMaia</span> <!-- Username -->
                         <span>17:41 - 25/09/2020</span> <!-- Date -->
                     </div>
                 </div>
@@ -450,7 +450,7 @@ function answerPreview()
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>17:30 - 17/04/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -501,7 +501,7 @@ function answerPreview()
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>13:02 - 14/05/2009</span> <!-- Date -->
                     </div>
                 </div>
