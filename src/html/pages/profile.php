@@ -47,9 +47,13 @@
         </section>
     </section>
 
-    <ul id="main-pagination" class="pagination justify-content-center" >
-        <li class="page-item page-question active"><button id="pagination-button-1" class="page-link">My Questions</button></li>
-        <li class="page-item page-answer"><button id="pagination-button-2" class="page-link">My Answers</button></li>
+    <ul id="main-pagination" class="pagination nav nav-tabs">
+        <li class="page-question active nav-item ">
+            <button id="pagination-button-1" class="nav-link page-link">My Questions</button>
+        </li>
+        <li class="page-answer nav-item">
+            <button id="pagination-button-2" class="nav-link page-link">My Answers</button>
+        </li>
     </ul>
 
      <!-- Search Bar -->

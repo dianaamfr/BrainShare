@@ -288,6 +288,24 @@ button {
   margin-top: 2rem;
   padding-top: 2rem;
 }
+/* ---- Tabs ---- */
+
+.nav-tabs .nav-link {
+  color: var(--main-blue);
+
+}
+
+.nav-item.active .nav-link {
+  color: #fff;
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  box-shadow: unset;
+  color: var(--main-blue);
+}
 
 /* ---- Header ---- */
 
