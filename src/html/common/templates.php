@@ -254,9 +254,10 @@ function questionPreview()
             </header>
 
             <!-- card body -->
-            <div class="limited-text-3 card-body">
-                I just love python. But I don't know if it will be slow for artifitial intelligence. <br>
-                Guys, what do you think?
+            <div class="limited-text-3 card-body md-content remove-md"> 
+                <h2>I just love python. </h2> 
+                <p>But I don't know if it will be slow for artifitial intelligence. <br>
+                Guys, what do you think? </p>
 
             </div>
 
