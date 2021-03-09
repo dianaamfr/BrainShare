@@ -86,7 +86,7 @@
           <ul class="navbar-nav mb-2 mb-xl-0">
 
             <?php // Registered Users options
-              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */true){ ?>
+              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */false){ ?>
                 <li class="nav-item">
                   <a class="nav-link" href="add-question.php">Add Question</a>
                 </li>
@@ -94,18 +94,18 @@
             
             <!-- TODO: If the User is a Moderator show this options --> 
             <?php 
-              if(true){ ?>
+              if(false){ ?>
                 <li class="nav-item">
                   <a class="nav-link" href="manage-categories.php">Management</a>
                 </li>
-              <?php }?>
+            <?php }?>
           </ul>
 
           <!-- Registration/Account -->
           <div class="registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
             <?php // Registered Users options
-              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/true){ ?>
+              if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/ false){ ?>
                 <a class="nav-link profile-button registration-button" href="profile.php">
                     <img src="images/profile.png" alt="profile picture" class="rounded-circle">
                     joaquina123<!-- Name goes here -->
