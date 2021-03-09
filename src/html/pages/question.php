@@ -55,7 +55,7 @@
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina1234</span> <!-- Name -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 <header class="question-author pagination align-items-center justify-content-end card-header">
                     <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>Joaquina Almeida</span> <!-- Name -->
+                        <span>joaquina1234</span> <!-- Name -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </header>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- Carlos Ribeiro</span> <!-- Name -->
+                                <span>- carlitos</span> <!-- Name -->
                                 <span>01:10 - 11/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">
@@ -203,7 +203,7 @@
 
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- Maria Guilhereme</span> <!-- Name -->
+                                <span>- guilhermeee</span> <!-- Name -->
                                 <span>08:35 - 12/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">
