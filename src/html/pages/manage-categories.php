@@ -139,42 +139,37 @@ function tags_table(){ ?>
         </ul>
 
         <!-- Manage tags-->
-        <div id="pagination-item-1" class="management manage-categories">
-            <section class="w-100 mt-5">
-                <h2 class="mb-4">Tags</h2>
+        <section id="pagination-item-1" class="management manage-categories w-100 mt-5">
+            <h2 class="mb-4">Tags</h2>
 
-                <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-                    <div class="input-group manage-search mb-3">
-                        <input type="text" class="form-control" placeholder="Insert a tag...">
-                        <button class="btn btn-primary">Add Tag</button>
-                    </div>
-                    <div class="input-group manage-search mb-3 ms-3">
-                        <input type="text" class="form-control" placeholder="Search tag...">
-                        <button class="btn btn-primary">Search Tag</button>
-                    </div>
-                </form>
+            <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
+                <div class="input-group manage-search mb-3">
+                    <input type="text" class="form-control" placeholder="Insert a tag...">
+                    <button class="btn btn-primary">Add Tag</button>
+                </div>
+                <div class="input-group manage-search mb-3 ms-3">
+                    <input type="text" class="form-control" placeholder="Search tag...">
+                    <button class="btn btn-primary">Search Tag</button>
+                </div>
+            </form>
 
-                <!-- Tags -->
-                <?php  tags_table(); ?>
-            </section>
-        </div>
+            <!-- Tags -->
+            <?php  tags_table(); ?>
+        </section>
 
         <!-- Manage courses -->
-        <div id="pagination-item-2" class="management manage-categories">
-            <section class="w-100 mt-5">
-                <h2 class="mb-4">Courses</h2>
+        <section id="pagination-item-2" class="management manage-categories w-100 mt-5">
+            <h2 class="mb-4">Courses</h2>
 
-                <form class="mt-5 d-flex justify-content-between flex-wrap">
-                    <div class="input-group manage-search">
-                        <input type="text" class="form-control" placeholder="Insert a course...">
-                        <button class="btn btn-primary">Add Course</button>
-                    </div>
-                </form>
+            <form class="mt-5 d-flex justify-content-between flex-wrap">
+                <div class="input-group manage-search">
+                    <input type="text" class="form-control" placeholder="Insert a course...">
+                    <button class="btn btn-primary">Add Course</button>
+                </div>
+            </form>
 
-                <!-- Courses -->
-                <?php  courses_table(); ?>
-            </section>
-        </div>
+            <!-- Courses -->
+            <?php  courses_table(); ?>
+        </section>
     </section>
-
 </div>

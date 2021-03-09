@@ -148,6 +148,16 @@ pre {
   white-space: pre-line;
 }
 
+/* ---- Labels ---- */
+.add-question .form-label, 
+.profile-info .form-label, 
+.profile-academic-info .form-label,
+.management label {
+  color: var(--main-blue);
+  font-weight: 500;
+}
+
+
 /* ---- Buttons ---- */
 
 .btn {
@@ -754,11 +764,6 @@ article.question .card-title {
   padding: 3rem 2rem;
 }
 
-.add-question .form-label, .profile-info .form-label, .profile-academic-info .form-label {
-  color: var(--main-blue);
-  font-weight: 500;
-}
-
 /* ----- Search Page ---- */
 
 #search-questions {
@@ -1109,7 +1114,7 @@ article.question .card-title {
 
 /* ---- User/Reports Management ---- */
 
-div.management table thead tr th {
+.management table thead tr th {
   border-color: var(--black);
   color: var(--text-black);
   font-family: title-font;
@@ -1119,20 +1124,20 @@ div.management table thead tr th {
   white-space: nowrap;
 }
 
-div.management .form-select {
+.management .form-select {
   width: auto;
 }
 
-div.management td img {
+.management td img {
   width: 30px;
   margin-right: 0.5rem;
 }
 
-div.management table thead tr th i{
+.management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-div.management#reports table thead tr th:nth-child(2){
+.management#reports table thead tr th:nth-child(2){
   min-width: 300px;
 }
 
@@ -1167,7 +1172,7 @@ div.management#reports table thead tr th:nth-child(2){
   padding: 1rem;
 }
 
-/* ---- Categories ---- */
+/* Categories */
 
 
 .manage-categories .icon-hover button {
@@ -1180,7 +1185,14 @@ div.management#reports table thead tr th:nth-child(2){
   flex: 1;
 }
 
-/* Notifications Modal */
+/* Reports */
+
+#reports .fa-check {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+/* ---- Notifications Modal ---- */
 
 #notificationsModal div.modal-header i {
   color:  var(--main-blue);
