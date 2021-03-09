@@ -563,6 +563,10 @@ article.question .card-title {
   align-items: center;
 }
 
+.CodeMirror {
+  height: 10em!important;
+}
+
 .edit-question {
   display: flex;
   align-items: center;

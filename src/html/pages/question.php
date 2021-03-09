@@ -227,7 +227,7 @@
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
         <div class="back-top">
-            <a class="btn btn-outline-secondary mb-5" href=#page-top>Back to Question</a>
+            <a class="btn btn-outline-secondary mb-5" href=#page-top>Back to Top</a>
         </div>
     </form>
     
