@@ -93,15 +93,8 @@
             <?php }?>
             
             <!-- TODO: If the User is a Moderator show this options --> 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Management
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="manage-categories.php">Manage Categories</a></li>
-                <li><a class="dropdown-item" href="manage-reports.php">Manage Reports</a></li>
-                <li><a class="dropdown-item" href="manage-users.php">Manage Users</a></li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="manage-categories.php">Management</a>
             </li>
           </ul>
 

@@ -53,7 +53,7 @@
 
 /* temporary class */
 .blue {
-  color: var(--main-blue);
+  color: var(--main-blue)!important;
 }
 
 /* ---- Body ---- */
@@ -283,11 +283,26 @@ button {
   border: 1px solid #6c757d33;
 }
 
-/* ---- Pagination ---- */
-#main-pagination {
-  margin-top: 2rem;
-  padding-top: 2rem;
+/* ---- Tabs ---- */
+
+.nav-tabs .nav-link {
+  color: var(--main-blue);
+
 }
+
+.nav-item.active .nav-link {
+  color: #fff;
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  box-shadow: unset;
+  color: var(--main-blue);
+}
+
+
 
 /* ---- Header ---- */
 
@@ -732,12 +747,11 @@ article.question .card-title {
 /* ---- Add Question ---- */
 
 .add-question {
-  box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%),
-    0px 2px 6px 2px rgb(60 64 67 / 15%);
+  box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%);
   border: 1px solid #dadce0;
   max-width: 1200px;
   margin: auto;
-  padding: 2.5rem 2rem;
+  padding: 3rem 2rem;
 }
 
 .add-question .form-label, .profile-info .form-label, .profile-academic-info .form-label {
@@ -1060,27 +1074,6 @@ article.question .card-title {
   text-decoration: none;
 }
 
-.page-link {
-  color: var(--main-blue);
-}
-
-.page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: var(--main-blue);
-  border-color: var(--main-blue);
-  font-weight: 500;
-}
-
-.page-link:hover {
-  box-shadow: unset;
-  color: var(--main-blue);
-}
-
-.page-item.active .page-link:focus {
-  color: var(--white);
-}
-
 .profile-question .category-profile-question {
   margin-top: 1em;
   margin-right: 0.6em;
@@ -1095,34 +1088,6 @@ article.question .card-title {
 .profile-question .date-user-text,
 .profile-answer .date-user-text {
   float: right;
-}
-
-/* ---- Categories ---- */
-
-.management {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.manage-tag-card {
-  width: min-content;
-  height: min-content;
-}
-
-.manage-tag-card > .card-body span:first-child {
-  margin-right: 2rem;
-  color: var(--text-black);
-  font-weight: 500;
-  font-size: 1.1rem;
-}
-
-.manage-tag-card span.icon-hover button {
-  color: var(--main-blue);
-}
-
-.manage-search {
-  min-width: 250px;
-  flex: 1;
 }
 
  /* --- Edit Profile -- */
@@ -1144,7 +1109,7 @@ article.question .card-title {
 
 /* ---- User/Reports Management ---- */
 
-div.user-administration table thead tr th {
+div.management table thead tr th {
   border-color: var(--black);
   color: var(--text-black);
   font-family: title-font;
@@ -1154,23 +1119,66 @@ div.user-administration table thead tr th {
   white-space: nowrap;
 }
 
-div.user-administration .form-select {
+div.management .form-select {
   width: auto;
 }
 
-div.user-administration td img {
+div.management td img {
   width: 30px;
   margin-right: 0.5rem;
 }
 
-div.user-administration table thead tr th i{
+div.management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-div.user-administration#reports table thead tr th:nth-child(2){
+div.management#reports table thead tr th:nth-child(2){
   min-width: 300px;
 }
 
+.management-nav{
+  padding: 0;
+  height: min-content;
+  max-width: 40%;
+}
+
+.management-nav ul {
+  padding: 0;
+}
+
+.management-nav li {
+  padding: 1rem 1.25rem;
+  outline: 1px solid rgba(0, 0, 0, 0.125);
+  list-style-type: none;
+  background-color:#f8f9fa;
+}
+
+.management-nav a {
+  color: var(--text-black);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.management-nav li:hover a {
+  color: var(--main-blue);
+}
+
+.manage-categories td {
+  padding: 1rem;
+}
+
+/* ---- Categories ---- */
+
+
+.manage-categories .icon-hover button {
+  color: var(--main-blue);
+  font-size: 1.5rem;
+}
+
+.manage-search {
+  min-width: 250px;
+  flex: 1;
+}
 
 /* Notifications Modal */
 

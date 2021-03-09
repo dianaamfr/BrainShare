@@ -2,9 +2,9 @@
     <h1>Manage Users</h1>
 </header>
 
-<div class="user-administration page-margin">
+<div class="management page-margin">
     
-    <section class="p-4 management">
+    <section class="p-4">
         <header>
             <h3 class="mb-4">Management Options</h3>
 

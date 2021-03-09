@@ -2,9 +2,9 @@
     <h1>Manage Reports</h1>
 </header>
 
-<div class="user-administration page-margin" id="reports">
+<div class="management page-margin" id="reports">
 
-    <section class="p-4 management">
+    <section class="p-4">
         <header>
             <h3 class="mb-4">Management Options</h3>
 

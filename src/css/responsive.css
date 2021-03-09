@@ -136,7 +136,7 @@
     }
   
     /* Question Page, User/Reports Management, Management Pages */
-    .question-page, .page-margin.user-administration, #search-page {
+    .question-page, .page-margin.management, #search-page {
       padding-top: 3rem;
     }
   
