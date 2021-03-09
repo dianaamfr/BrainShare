@@ -765,18 +765,19 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
-#search-questions {
+.side-content {
   padding-right: 0 !important;
+  padding-bottom: 3rem;
 }
 
 /* title */
-#search-questions > header h5 {
+.side-content > header h5 {
   font-size: 1.3rem;
   color: var(--bs-grey);
   font-weight: 500;
 }
 
-#search-questions h2 {
+.side-content h2 {
   color: var(--main-blue);
 }
 
@@ -901,8 +902,9 @@ article.question .card-title {
 
 /* mobile navbar */
 
-.bd-subnavbar .nav-link button {
+.bd-subnavbar .nav-link button, .bd-subnavbar .nav-link a {
   color: var(--bs-gray);
+  text-decoration: none;
 }
 
 .bd-subnavbar select {
@@ -912,7 +914,10 @@ article.question .card-title {
   color: var(--bs-gray);
 }
 
-.bd-subnavbar .nav-link button:hover,.bd-subnavbar .subnav-selected button{
+.bd-subnavbar .nav-link button:hover,
+.bd-subnavbar .subnav-selected button,
+.bd-subnavbar .nav-link a:hover,
+.bd-subnavbar .subnav-selected a{
   text-decoration: underline;
   color: var(--text-black);
   font-weight: 500;
@@ -1208,9 +1213,7 @@ article.question .card-title {
   flex: 1;
 }
 
-/* Reports */
-
-#reports .fa-check {
+.management .fa-check {
   color: var(--white);
   font-size: 1rem;
 }

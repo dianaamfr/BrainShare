@@ -17,7 +17,7 @@ function tags_table(){ ?>
                     <th scope="col">#</th>
                     <th scope="col"><i class="fas fa-sort"></i>Tag</th>
                     <th scope="col"><i class="fas fa-sort"></i>Number of uses</th>
-                    <th scope="col" id="users-register-date"><i class="fas fa-sort big-row"></i>Date</th>
+                    <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
                     <th scope="col"><i class="fas fa-sort"></i>Delete</th>
                 </tr>
             </thead>
@@ -78,7 +78,7 @@ function tags_table(){ ?>
                     <th scope="col">#</th>
                     <th scope="col"><i class="fas fa-sort"></i>Tag</th>
                     <th scope="col"><i class="fas fa-sort"></i>Number of uses</th>
-                    <th scope="col" id="users-register-date"><i class="fas fa-sort big-row"></i>Date</th>
+                    <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
                     <th scope="col"><i class="fas fa-sort"></i>Delete</th>
                 </tr>
             </thead>
@@ -116,8 +116,16 @@ function tags_table(){ ?>
     </div>
 <?php } ?>
 
+<!-- Sub nav bar - Mobile -->
+<nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
+  <ul class="d-flex m-0 p-0">
+    <li class="nav-link nav-item subnav-selected"><a href="manage-categories.php">Categories</a></li>
+    <li class="nav-link nav-item"><a href="manage-reports.php">Reports</a></li>
+    <li class="nav-link nav-item"><a href="manage-users.php">Users</a></li>
+  </ul>
+</nav>
 
-<div class="d-flex justify-content-between page-margin">
+<div class="d-flex justify-content-between page-margin categories-content">
     <!-- Side Bar - will be a template -->
     <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
         <ul>
@@ -127,7 +135,7 @@ function tags_table(){ ?>
         </ul>
     </aside>
 
-    <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
+    <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
         <!-- pagination -->
         <ul class="nav nav-tabs">
             <li class="page-question active nav-item">
@@ -164,8 +172,8 @@ function tags_table(){ ?>
             <h2 class="mb-4">Courses</h2>
 
             <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-                <div class="input-group manage-search">
-                    <input type="text" class="form-control mb-3" placeholder="Insert a course...">
+                <div class="input-group manage-search  mb-3">
+                    <input type="text" class="form-control" placeholder="Insert a course...">
                     <button class="btn btn-primary">Add Course</button>
                 </div>
             </form>
@@ -173,5 +181,5 @@ function tags_table(){ ?>
             <!-- Courses -->
             <?php  courses_table(); ?>
         </section>
-    </section>
+    </div>
 </div>

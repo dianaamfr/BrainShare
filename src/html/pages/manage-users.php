@@ -1,4 +1,13 @@
-<div class="d-flex justify-content-between page-margin management" id="reports"> 
+<!-- Sub nav bar - Mobile -->
+<nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
+  <ul class="d-flex m-0 p-0">
+    <li class="nav-link nav-item"><a href="manage-categories.php">Categories</a></li>
+    <li class="nav-link nav-item"><a href="manage-reports.php">Reports</a></li>
+    <li class="nav-link nav-item subnav-selected"><a href="manage-users.php">Users</a></li>
+  </ul>
+</nav>
+
+<div class="d-flex justify-content-between page-margin management" id="users"> 
     <!-- Side Bar - will be a template -->
     <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
         <ul>
@@ -8,7 +17,7 @@
         </ul>
     </aside>
 
-    <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
+    <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
         <h2 class="mb- mt-5">Users</h2>
 
         <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
@@ -25,7 +34,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col"><i class="fas fa-sort"></i>Username</th>
-                            <th scope="col" id="users-register-date"><i class="fas fa-sort big-row"></i>Date</th>
+                            <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
                             <th scope="col"><i class="fas fa-sort"></i>Banned</th>
                             <th scope="col"><i class="fas fa-sort"></i>Role</th>
                             <th scope="col"><i class="fas fa-sort"></i>Actions</th>
@@ -83,5 +92,5 @@
                     </tbody>
                 </table>
             </div>
-    </section>
+    </div>
 </div>
