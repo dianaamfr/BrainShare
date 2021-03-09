@@ -925,7 +925,9 @@ article.question .card-title {
 
 /* About */
 
-.my-bg-main-blue h1 {
+.my-bg-main-blue h1, 
+.my-bg-main-blue.error h1,
+.my-bg-main-blue.error p {
   font-size: 2.8rem;
   padding: 80px;
   background-color: #4ca0e8;
@@ -933,6 +935,15 @@ article.question .card-title {
   margin: 0;
 }
 
+.my-bg-main-blue.error h1{
+  padding-bottom: 20px;
+}
+.my-bg-main-blue.error p{  
+  padding-top: 0;
+  padding-bottom: 80px;
+  font-size: 1rem;
+
+}
 .about-text {
   font-size: 1.05rem;
   font-weight: 400;
