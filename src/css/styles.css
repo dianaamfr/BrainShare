@@ -60,7 +60,6 @@
 
 html {
   background-color: rgb(250, 250, 250);
-  height: 100%;
 }
 
 body {
@@ -83,9 +82,9 @@ body {
   color: var(--text-black);
   padding-top: 3.96rem;
 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100%;
   max-width: 1920px;
   margin: auto;
 }
@@ -1114,14 +1113,20 @@ article.question .card-title {
 
 /* ---- User/Reports Management ---- */
 
-.management table thead tr th {
-  border-color: var(--black);
-  color: var(--text-black);
+.management .table>:not(:last-child)>:last-child>*{
+  border-bottom-color: var(--bs-gray);
+  color: var(--bs-gray);
   font-family: title-font;
-  font-weight: 500;
-  font-size: 1.2rem;
-  min-width: 100px;
+  font-weight: 400;
+  font-size: 1.1rem;
   white-space: nowrap;
+}
+
+.management table tr th  {
+  color: var(--bs-gray);
+  font-family: title-font;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 
 .management .form-select {
@@ -1138,8 +1143,29 @@ article.question .card-title {
 }
 
 .management#reports table thead tr th:nth-child(2){
-  min-width: 300px;
+  min-width: 200px;
 }
+
+.management td {
+  padding: 0.6rem;
+}
+
+.management td a {
+  color: var(--main-blue);
+  text-decoration: none;
+}
+
+.management td a:hover {
+  color: var(--hover-blue);
+}
+
+.table-entries {
+  padding: 0 0.7rem 0.7rem 0;
+  color: var(--bs-gray);
+  font-style: italic;
+}
+
+/* Management side bar */
 
 .management-nav{
   padding: 0;
@@ -1168,9 +1194,6 @@ article.question .card-title {
   color: var(--main-blue);
 }
 
-.manage-categories td {
-  padding: 1rem;
-}
 
 /* Categories */
 

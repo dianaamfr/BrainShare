@@ -10,6 +10,7 @@ function trash(){ ?>
 <?php 
 function tags_table(){ ?>
     <div class="table-responsive">
+        <div class="table-entries">Showing 1 to 6 of 11 entries</div>
         <table class="table table-hover align-middle w-100">
             <thead>
                 <tr>
@@ -46,21 +47,21 @@ function tags_table(){ ?>
                     <th scope="row">4</th>
                     <td>IART</td>
                     <td>26</td>
-                    <td>12/01/2020</td>
+                    <td>18/08/2020</td>
                     <td><?php trash();?></td>
                 </tr>
                 <tr>
                     <th scope="row">5</th>
                     <td>Mechanics</td>
                     <td>24</td>
-                    <td>12/01/2020</td>
+                    <td>28/12/2019</td>
                     <td><?php trash();?></td>
                 </tr>
                 <tr>
-                    <th scope="row">5</th>
+                    <th scope="row">6</th>
                     <td>Design</td>
                     <td>19</td>
-                    <td>12/01/2020</td>
+                    <td>05/07/2017</td>
                     <td><?php trash();?></td>
                 </tr>
             </tbody>
@@ -70,6 +71,7 @@ function tags_table(){ ?>
 
 <?php function courses_table(){ ?>
     <div class="table-responsive">
+        <div class="table-entries">Showing 1 to 4 of 4 entries</div>
         <table class="table table-hover align-middle w-100">
             <thead>
                 <tr>
@@ -116,7 +118,7 @@ function tags_table(){ ?>
 
 
 <div class="d-flex justify-content-between page-margin">
-
+    <!-- Side Bar - will be a template -->
     <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
         <ul>
             <li><a href="manage-categories.php" class="blue">Manage Categories</a></li>
@@ -161,9 +163,9 @@ function tags_table(){ ?>
         <section id="pagination-item-2" class="management manage-categories w-100 mt-5">
             <h2 class="mb-4">Courses</h2>
 
-            <form class="mt-5 d-flex justify-content-between flex-wrap">
+            <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
                 <div class="input-group manage-search">
-                    <input type="text" class="form-control" placeholder="Insert a course...">
+                    <input type="text" class="form-control mb-3" placeholder="Insert a course...">
                     <button class="btn btn-primary">Add Course</button>
                 </div>
             </form>

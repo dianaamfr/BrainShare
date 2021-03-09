@@ -1,7 +1,7 @@
 <?php include_once('html/common/templates.php'); ?>
 
 <!-- Sub nav bar - Mobile -->
-<nav class="bd-subnavbar align-items-center" aria-label="Secondary navigation">
+<nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
   <ul class="d-flex m-0 p-0">
     <li class="nav-link nav-item subnav-selected"><button>Newest</button></li>
     <li class="nav-link nav-item"><button>Popular</button></li>
