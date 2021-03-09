@@ -2,7 +2,7 @@
 function editQuestionForm($courses){ ?>
     <div class="page-margin">
         <section class="background-light container-sm add-question card rounded-1">
-            <h2 class="mb-4">Add Question</h2>
+            <h2 class="mb-4">Edit Question</h2>
             <form>
                 <!-- Question Title -->
                 <div class="mb-3">
