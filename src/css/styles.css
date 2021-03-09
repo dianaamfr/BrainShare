@@ -212,11 +212,11 @@ button {
 
 /* Green */
 .btn-link {
-  color: var(--main-green);
+  color: var(--main-blue);
 }
 
 .btn-link:hover {
-  color: var(--hover-green);
+  color: var(--hover-blue);
 }
 
 .btn-check:focus + .btn,
@@ -580,7 +580,7 @@ article.question .card-title {
 }
 
 .edit-question i {
-  color: var(--main-green);
+  color: var(--bs-gray);
   margin-left: 1rem;
 }
 

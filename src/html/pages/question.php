@@ -172,7 +172,7 @@
                             <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                             <div class="d-grid gap-2 d-flex justify-content-end">
                                 <button class="btn btn-secondary mt-3" type="submit">Submit</button>
-                                <button class="btn btn-outline-secondary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
+                                <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -227,7 +227,7 @@
         <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
         </div>
         <div class="back-top">
-            <a class="btn btn-outline-secondary mb-5" href=#page-top>Back to Question</a>
+            <a class="btn btn-outline-primary mb-5" href=#page-top>Back to Question</a>
         </div>
     </form>
     
