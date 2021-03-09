@@ -43,7 +43,7 @@
     </div>
     <div class="accordion-item">
       <h6 class="accordion-header">
-        <button type="button">Popular Questions
+        <button type="button">Most Voted Questions
         </button>
       </h6>
     </div>
