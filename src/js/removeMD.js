@@ -13,6 +13,7 @@ remove_md_list.forEach((element) => {
 
 function stripHtml(html) {
    let tmp = document.createElement("DIV");
-   tmp.innerHTML = html;
+   tmp.innerHTML = html; 
+   console.log(tmp.textContent, tmp.innerHTML);
    return tmp.textContent || tmp.innerText || "";
 }

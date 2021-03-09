@@ -39,7 +39,7 @@ function firstQuestions()
                     </div>
                 </div>
             </header>
-            <div class="limited-text-3 card-body">
+            <div class="limited-text-3 card-body md-content remove-md"> 
                 I know that arm nowadays is very used. I don't know any operational system that uses MIPS.
                 Still I would like to learn it.
             </div>
@@ -109,7 +109,7 @@ function firstQuestions()
                 </div>
             </header>
 
-            <div class="limited-text-3 card-body">
+            <div class="limited-text-3 card-body md-content remove-md"> 
                 I really thought I was good at mathematics, but this is to hard for me.
                 Can someone help me?
             </div>
@@ -175,7 +175,7 @@ function firstQuestions()
                     </div>
                 </div>
             </header>
-            <div class="limited-text-3 card-body">
+            <div class="limited-text-3 card-body md-content remove-md"> 
                 I just study a lot, but I never get good grades <br>
                 I have no idea what's wrong, now I'm just sad.
 
@@ -332,7 +332,7 @@ function questionPreview()
             </header>
 
             <!-- card body -->
-            <div class="limited-text-3 card-body">
+            <div class="limited-text-3 card-body md-content remove-md"> 
                 My professor has asked me to use pandas to get some statistics. <br>
                 however i'm having a terrible time to install it. <br>
                 i've asked some collegues and they also don't know how to do it. i know it may be a foolish question, because there's the official website explaining how to do it, but the instructions were so confused that it didn't work. can someone help me, please? 
@@ -407,7 +407,7 @@ function questionPreview()
                 </div>
             </header>
             <!-- card body -->
-            <div class="limited-text-3 card-body">
+            <div class="limited-text-3 card-body md-content remove-md"> 
                 I was thinking of learning a new language. I know C is very popular, but if I learn C++ will I learn C too?
 
             </div>
