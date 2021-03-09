@@ -39,7 +39,7 @@ function firstQuestions()
                     </div>
                 </div>
             </header>
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 I know that arm nowadays is very used. I don't know any operational system that uses MIPS.
                 Still I would like to learn it.
             </div>
@@ -109,7 +109,7 @@ function firstQuestions()
                 </div>
             </header>
 
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 I really thought I was good at mathematics, but this is to hard for me.
                 Can someone help me?
             </div>
@@ -175,7 +175,7 @@ function firstQuestions()
                     </div>
                 </div>
             </header>
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 I just study a lot, but I never get good grades <br>
                 I have no idea what's wrong, now I'm just sad.
 
@@ -254,7 +254,7 @@ function questionPreview()
             </header>
 
             <!-- card body -->
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 <h2>I just love python. </h2> 
                 <p>But I don't know if it will be slow for artifitial intelligence. <br>
                 Guys, what do you think? </p>
@@ -332,7 +332,7 @@ function questionPreview()
             </header>
 
             <!-- card body -->
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 My professor has asked me to use pandas to get some statistics. <br>
                 however i'm having a terrible time to install it. <br>
                 i've asked some collegues and they also don't know how to do it. i know it may be a foolish question, because there's the official website explaining how to do it, but the instructions were so confused that it didn't work. can someone help me, please? 
@@ -407,9 +407,8 @@ function questionPreview()
                 </div>
             </header>
             <!-- card body -->
-            <div class="limited-text-3 card-body md-content remove-md"> 
+           <div class="limited-text-3 card-body md-content md-remove"> 
                 I was thinking of learning a new language. I know C is very popular, but if I learn C++ will I learn C too?
-
             </div>
 
 
@@ -472,7 +471,7 @@ function answerPreview()
             <!-- Question Text -->
             <div class="answer-content col-lg">
                 <h4>My Answer</h4>
-                <div class="limited-text-3">
+                <div class="limited-text-3 md-content md-remove">
                     C is really just a simple language that can be easily read and understood. Also it has barely changed in the last 30 years, which means that many programmers know it well, thus you will find a lot of material online about everything you need while using C, and as a programmer, you often read more code that you write, so it is important to understand what many of your experienced coworkes have built.
                 </div>
             </div>
@@ -529,7 +528,7 @@ function answerPreview()
             <div class="answer-content col-lg">
                 <h4>My Answer</h4>
 
-                <div class="limited-text-3">
+                <div class="limited-text-3 md-content md-remove">
                     <p> You might have missed a basic step in the provided guide. <br> 
                     One simple mistake might have been related to compatibility issues. Pandas is only supported by Python version 3.71 and above. Use "python --version" command to check your current version and update it if necessary  </p> 
                 </div>

@@ -7,15 +7,20 @@
  * <div class="md-content md-remove"> </div> 
  */
 
-let remove_md_list = document.querySelector(".md-remove .md-content "); 
+try{
+let remove_md_list = document.querySelectorAll(".md-content.md-remove");  
 
 remove_md_list.forEach((element) => {
     element.innerHTML = stripHtml(element.innerHTML); 
-}); 
+});  
+
+} catch(e){
+    console.warn("No md to remove");
+}
 
 
 function stripHtml(html) {
    let tmp = document.createElement("DIV");
    tmp.innerHTML = html; 
    return tmp.textContent || tmp.innerText || "";
-}
+} 
