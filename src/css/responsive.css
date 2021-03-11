@@ -65,9 +65,13 @@
     }
   
     /*Toogle menu*/
-  
-    .navbar-expand-xl .navbar-collapse {
-        padding-top: 2rem;
+    
+    .navbar-expand-xl .navbar-collapse{
+      padding-top: 0.5rem;
+  }
+
+    .navbar-expand-xl .navbar-collapse ul {
+        padding-top: 1.5rem;
     }
   
     .navbar-expand-xl .navbar-nav .nav-link {
@@ -136,7 +140,7 @@
     }
   
     /* Question Page, User/Reports Management, Management Pages */
-    .question-page, .page-margin.user-administration, #search-page {
+    .question-page,  #search-page {
       padding-top: 3rem;
     }
   
@@ -174,6 +178,11 @@
   
   #about-image1, #about-image2,.homepage-feature-image1 {
     width: 100%;
+  }
+  
+  /* Categories */
+  .categories-content {
+    margin-top: 3rem;
   }
 
 }
@@ -229,7 +238,7 @@
     display: flex!important;
   }
 
-  #search-questions{
+  .side-content{
     width: 100%;
   }
 
@@ -239,11 +248,25 @@
     margin-left: unset!important;
     flex-basis: 100%;
   }
+
+  .management-nav {
+    display: none;
+  }
 }
   
 @media (max-width: 450px) {
     .page-margin {
         padding: 0;
+    }
+
+    /* Management */
+
+    .management {
+      padding: 0 1rem;
+    }
+
+    .nav-tabs {
+      padding: 0 1rem;
     }
 
     #profile-main {
@@ -252,7 +275,7 @@
     }
   
     /* Questions */
-    .navbar > .container-fluid,  #search-questions > header, .profile-questions-preview {
+    .navbar > .container-fluid,  .side-content > header, .profile-questions-preview {
       padding-right: 1.5rem;
       padding-left: 1.5rem;
     }
@@ -267,13 +290,17 @@
       padding: .5rem 0.5rem;
     }
   
-    #search-questions > header {
+    .side-content > header {
       padding-right: 1.5rem;
       padding-left: 1.5rem;
     }
 
-    #search-questions > section:last-child {
+    #search-page .side-content > section:last-child {
       padding: unset;
+    }
+
+    #search-page {
+      padding-top: 3rem;
     }
   
     .question-author, .category,  .question-preview .counts-mobile {
@@ -321,7 +348,7 @@
     /* Add Question */
   
     .add-question {
-      padding: 2.5rem 1rem;
+      padding: 3rem 1rem;
     }
 
     /* Management */

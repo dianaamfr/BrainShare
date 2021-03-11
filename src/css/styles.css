@@ -53,14 +53,13 @@
 
 /* temporary class */
 .blue {
-  color: var(--main-blue);
+  color: var(--main-blue)!important;
 }
 
 /* ---- Body ---- */
 
 html {
   background-color: rgb(250, 250, 250);
-  height: 100%;
 }
 
 body {
@@ -83,9 +82,9 @@ body {
   color: var(--text-black);
   padding-top: 3.96rem;
 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100%;
   max-width: 1920px;
   margin: auto;
 }
@@ -151,6 +150,16 @@ option {
 pre {
   white-space: pre-line;
 }
+
+/* ---- Labels ---- */
+.add-question .form-label, 
+.profile-info .form-label, 
+.profile-academic-info .form-label,
+.management label {
+  color: var(--main-blue);
+  font-weight: 500;
+}
+
 
 /* ---- Buttons ---- */
 
@@ -274,6 +283,16 @@ button {
   box-shadow: none;
 }
 
+/* Pagination */
+.pagination .page-item.active .page-link{
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
+}
+
+.pagination .page-link {
+  color: var(--main-blue);
+}
+
 /* ---- Tags ---- */
 
 .badge {
@@ -287,11 +306,6 @@ button {
   border: 1px solid #6c757d33;
 }
 
-/* ---- Pagination ---- */
-#main-pagination {
-  margin-top: 2rem;
-  padding-top: 2rem;
-}
 /* ---- Tabs ---- */
 
 .nav-tabs .nav-link {
@@ -310,6 +324,8 @@ button {
   box-shadow: unset;
   color: var(--main-blue);
 }
+
+
 
 /* ---- Header ---- */
 
@@ -766,12 +782,11 @@ article.question .card-title {
 /* ---- Add Question ---- */
 
 .add-question {
-  box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%),
-    0px 2px 6px 2px rgb(60 64 67 / 15%);
+  box-shadow: 0px 1px 2px 0px rgb(60 64 67 / 30%), 0px 2px 6px 2px rgb(60 64 67 / 15%);
   border: 1px solid #dadce0;
   max-width: 1200px;
   margin: auto;
-  padding: 2.5rem 2rem;
+  padding: 3rem 2rem;
 }
 
 .add-question .form-label,
@@ -783,18 +798,19 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
-#search-questions {
+.side-content {
   padding-right: 0 !important;
+  padding-bottom: 3rem;
 }
 
 /* title */
-#search-questions > header h5 {
+.side-content > header h5 {
   font-size: 1.3rem;
   color: var(--bs-grey);
   font-weight: 500;
 }
 
-#search-questions h2 {
+.side-content h2 {
   color: var(--main-blue);
 }
 
@@ -950,8 +966,9 @@ article.question .card-title {
 
 /* mobile navbar */
 
-.bd-subnavbar .nav-link button {
+.bd-subnavbar .nav-link button, .bd-subnavbar .nav-link a {
   color: var(--bs-gray);
+  text-decoration: none;
 }
 
 .bd-subnavbar select {
@@ -962,7 +979,9 @@ article.question .card-title {
 }
 
 .bd-subnavbar .nav-link button:hover,
-.bd-subnavbar .subnav-selected button {
+.bd-subnavbar .subnav-selected button,
+.bd-subnavbar .nav-link a:hover,
+.bd-subnavbar .subnav-selected a{
   text-decoration: underline;
   color: var(--text-black);
   font-weight: 500;
@@ -1120,10 +1139,6 @@ article.question .card-title {
   padding: 0.3rem;
 }
 
-#profile-main + #main-pagination {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
-
 .answer-content {
   padding: 1rem;
 }
@@ -1152,27 +1167,6 @@ article.question .card-title {
   text-decoration: none;
 }
 
-.page-link {
-  color: var(--main-blue);
-}
-
-.page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: var(--main-blue);
-  border-color: var(--main-blue);
-  font-weight: 500;
-}
-
-.page-link:hover {
-  box-shadow: unset;
-  color: var(--main-blue);
-}
-
-.page-item.active .page-link:focus {
-  color: var(--white);
-}
-
 .profile-question .category-profile-question {
   margin-top: 1em;
   margin-right: 0.6em;
@@ -1189,37 +1183,9 @@ article.question .card-title {
   float: right;
 }
 
-/* ---- Categories ---- */
-
-.management {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.manage-tag-card {
-  width: min-content;
-  height: min-content;
-}
-
-.manage-tag-card > .card-body span:first-child {
-  margin-right: 2rem;
-  color: var(--text-black);
-  font-weight: 500;
-  font-size: 1.1rem;
-}
-
-.manage-tag-card span.icon-hover button {
-  color: var(--main-blue);
-}
-
-.manage-search {
-  min-width: 250px;
-  flex: 1;
-}
-
-/* --- Edit Profile -- */
-
-.edit-icon {
+ /* --- Edit Profile -- */
+  
+ .edit-icon {
   font-size: 1.5em;
 }
 
@@ -1236,34 +1202,107 @@ article.question .card-title {
 
 /* ---- User/Reports Management ---- */
 
-div.user-administration table thead tr th {
-  border-color: var(--black);
-  color: var(--text-black);
+.management .table>:not(:last-child)>:last-child>*{
+  border-bottom-color: var(--bs-gray);
+  color: var(--bs-gray);
   font-family: title-font;
-  font-weight: 500;
-  font-size: 1.2rem;
-  min-width: 100px;
+  font-weight: 400;
+  font-size: 1.1rem;
   white-space: nowrap;
 }
 
-div.user-administration .form-select {
+.management table tr th  {
+  color: var(--bs-gray);
+  font-family: title-font;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+.management .form-select {
   width: auto;
 }
 
-div.user-administration td img {
+.management td img {
   width: 30px;
   margin-right: 0.5rem;
 }
 
-div.user-administration table thead tr th i {
+.management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-div.user-administration#reports table thead tr th:nth-child(2) {
-  min-width: 300px;
+.management#reports table thead tr th:nth-child(2){
+  min-width: 200px;
 }
 
-/* Notifications Modal */
+.management td {
+  padding: 0.6rem;
+}
+
+.management td a {
+  color: var(--main-blue);
+  text-decoration: none;
+}
+
+.management td a:hover {
+  color: var(--hover-blue);
+}
+
+.table-entries {
+  padding: 0 0.7rem 0.7rem 0;
+  color: var(--bs-gray);
+  font-style: italic;
+}
+
+/* Management side bar */
+
+.management-nav{
+  padding: 0;
+  height: min-content;
+  max-width: 40%;
+}
+
+.management-nav ul {
+  padding: 0;
+}
+
+.management-nav li {
+  padding: 1rem 1.25rem;
+  outline: 1px solid rgba(0, 0, 0, 0.125);
+  list-style-type: none;
+  background-color:#f8f9fa;
+}
+
+.management-nav a {
+  color: var(--text-black);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.management-nav li:hover a {
+  color: var(--main-blue);
+}
+
+
+/* Categories */
+
+
+.manage-categories .icon-hover button {
+  color: var(--main-blue);
+  font-size: 1.5rem;
+}
+
+.manage-search {
+  min-width: 250px;
+  flex: 1;
+}
+
+.management .fa-check {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+/* ---- Notifications Modal ---- */
 
 
 #notificationsModal .dropdown-toggle::after{

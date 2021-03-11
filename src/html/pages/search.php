@@ -1,10 +1,10 @@
 <?php include_once('html/common/templates.php'); ?>
 
 <!-- Sub nav bar - Mobile -->
-<nav class="bd-subnavbar align-items-center" aria-label="Secondary navigation">
+<nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
   <ul class="d-flex m-0 p-0">
     <li class="nav-link nav-item subnav-selected"><button>Newest</button></li>
-    <li class="nav-link nav-item"><button>Popular</button></li>
+    <li class="nav-link nav-item"><button>Most Voted</button></li>
 
     <li class="nav-link nav-item">
       <select>
@@ -17,17 +17,7 @@
         <option>MIEM</option>
       </select>
     </li>
-    <li class="nav-link nav-item">
-      <select>
-        <option selected disabled>Tags</option>
-        <option>PPIN</option>
-        <option>COMP</option>
-        <option>LBAW</option>
-        <option>IART</option>
-        <option>SDIS</option>
-        <option>exam</option>
-      </select>
-    </li>
+    <li class="nav-link nav-item"><button>Tags</button></li>
   </ul>
 </nav>
 
@@ -101,9 +91,9 @@
   </aside>
 
   <!-- Questions Results -->
-  <section id="search-questions" class="col-md-9 ms-md-auto col-lg-9 px-md-4">
+  <section class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
 
-    <div class="container-md mt-5">
+    <div class="container-md mt-md-5">
       <header>
         <h2>Search</h2>
         <h5>by keyword </h5>

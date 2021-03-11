@@ -47,17 +47,19 @@
         </section>
     </section>
 
-    <ul id="main-pagination" class="pagination nav nav-tabs">
-        <li class="page-question active nav-item ">
-            <button id="pagination-button-1" class="nav-link page-link">My Questions</button>
-        </li>
-        <li class="page-answer nav-item">
-            <button id="pagination-button-2" class="nav-link page-link">My Answers</button>
-        </li>
-    </ul>
-
-     <!-- Search Bar -->
+     <!-- Questions/Answers Navigation -->
      <div class="container-lg p-0 mt-5">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-5">
+            <li class="page-question active nav-item ">
+                <button id="pagination-button-1" class="nav-link page-link">My Questions</button>
+            </li>
+            <li class="page-answer nav-item">
+                <button id="pagination-button-2" class="nav-link page-link">My Answers</button>
+            </li>
+        </ul>
+
+        <!-- Search Bar -->
         <form class="d-flex me-auto" id="profile-search">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">

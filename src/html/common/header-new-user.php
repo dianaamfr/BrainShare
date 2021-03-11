@@ -82,25 +82,6 @@
           </div>
         </form>
 
-          <!-- Main Pages -->
-          <ul class="navbar-nav mb-2 mb-xl-0">
-
-            <?php // Registered Users options
-              if(/* isset($_SESSION['username']) && ($_SESSION['username'] !== '') */false){ ?>
-                <li class="nav-item">
-                  <a class="nav-link" href="add-question.php">Add Question</a>
-                </li>
-            <?php }?>
-            
-            <!-- TODO: If the User is a Moderator show this options --> 
-            <?php 
-              if(false){ ?>
-                <li class="nav-item">
-                  <a class="nav-link" href="manage-categories.php">Management</a>
-                </li>
-            <?php }?>
-          </ul>
-
           <!-- Registration/Account -->
           <div class="registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
