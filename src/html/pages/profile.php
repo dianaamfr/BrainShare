@@ -7,6 +7,7 @@
             <div class="profile-pic col-md mb-4">
                 <img class="rounded-circle img-thumbnail" src="images/profile.png" alt="Profile Image">
             </div>
+            <p class="nickname"><span class="score">User Score:</span> <span class="points">17 points</span></p>
         </div>
         <div class="two row mt-4">
             <section class="profile-info col-md mb-4">
@@ -26,7 +27,6 @@
                 <section class="col-md mb-4">
                     <h3>Academic Information</h3>
                     <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
-                    <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Current year:</span> 3rd</p>
                     <div>
                         <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
                             <span class="category tag badge bg-secondary"> 

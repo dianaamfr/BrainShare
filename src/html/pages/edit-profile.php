@@ -67,12 +67,6 @@ function editProfileForm($courses)
                             </select>
                         </div>
 
-                        <!-- Current Year -->
-                        <div class="mb-3">
-                            <label class="form-label">Current Year</label>
-                            <input type="text" class="form-control" value="3rd">
-                        </div>
-
                         <!-- Tags -->
                         <div class="mb-3">
                             <label class="form-label">Tags</label>

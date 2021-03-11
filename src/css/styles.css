@@ -563,6 +563,10 @@ article.question .card-title {
   align-items: center;
 }
 
+#submit-answer .CodeMirror {
+  height: 10em!important;
+}
+
 .edit-question {
   display: flex;
   align-items: center;
@@ -995,6 +999,16 @@ article.question .card-title {
 #profile-main .nickname {
   color: var(--main-blue);
   font-size: 1.75rem;
+}
+
+#profile-main .score {
+  color: var(--main-blue);
+  font-size: 1.10rem;
+}
+
+#profile-main .points {
+  color: var(--text-black);
+  font-size: 1.10rem;
 }
 
 .profile-pic img {

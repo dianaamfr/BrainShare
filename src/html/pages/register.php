@@ -25,8 +25,8 @@
                 <div id="questionBodyHelp" class="form-text">Password must have 8 letters</div>
             </div>
             <div class="mb-4">
-                <label for="password2" class="form-label">Password*</label>
-                <input type="password" id="password2" class="form-control" data-match="#password" data-match-error="Whoops, these don't match" placeholder="Repeat Password" required>
+                <label for="password2" class="form-label">Confirm Password*</label>
+                <input type="password" id="password2" class="form-control" data-match="#password" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-register">Register</button>
         </form>
