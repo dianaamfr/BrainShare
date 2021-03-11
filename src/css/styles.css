@@ -771,7 +771,7 @@ article.question .card-title {
   margin: 2rem 0;
 }
 
-#search-page header #questions-search-bar .form-control, #profile-search .form-control {
+#search-page header #questions-search-bar .form-control, #profile-search .form-control{
   border-radius: 0.25rem 0 0 0.25rem;
   border-right: unset;
 }
@@ -779,6 +779,7 @@ article.question .card-title {
 #search-page header #questions-search-bar .btn, #profile-search .btn {
   border-radius: 0 0.25rem 0.25rem 0;
 }
+
 
 
 .question-preview.card {
@@ -830,8 +831,23 @@ article.question .card-title {
   display: inline-block;
 }
 
-/* Side bar */
 
+/* Accordion with search*/ 
+.accordion-search button[type="submit"]{
+  padding-bottom: 0.5rem;
+}
+.accordion-search input , .accordion-search button[type="submit"]{
+  border-radius: 0; 
+}
+
+
+.accordion-search .list-group button:first-of-type{
+  border-radius: 0; 
+}
+
+
+
+/* Side bar*/ 
 #side-bar {
   padding: 0;
   height: min-content;
@@ -881,6 +897,9 @@ article.question .card-title {
   border-color: var(--main-blue);
 }
 
+#side-bar .accordion-with-search {
+
+}
 .accordion-button {
   font-weight: 500;
 }
@@ -929,7 +948,9 @@ article.question .card-title {
 
 /* About */
 
-.my-bg-main-blue h1 {
+.my-bg-main-blue h1, 
+.my-bg-main-blue.error h1,
+.my-bg-main-blue.error p {
   font-size: 2.8rem;
   padding: 80px;
   background-color: #4ca0e8;
@@ -937,6 +958,15 @@ article.question .card-title {
   margin: 0;
 }
 
+.my-bg-main-blue.error h1{
+  padding-bottom: 20px;
+}
+.my-bg-main-blue.error p{  
+  padding-top: 0;
+  padding-bottom: 80px;
+  font-size: 1rem;
+
+}
 .about-text {
   font-size: 1.05rem;
   font-weight: 400;
