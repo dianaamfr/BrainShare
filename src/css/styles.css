@@ -100,7 +100,10 @@ main {
 }
 
 /* Headings and text elements */
-h1,h2,h3,h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: "title-font";
 }
 
@@ -136,7 +139,8 @@ select {
   box-shadow: rgb(221, 221, 221) 0px 1px 3px inset;
 }
 
-select, option {
+select,
+option {
   font: -moz-pull-down-menu;
 }
 
@@ -208,11 +212,11 @@ button {
 
 /* Green */
 .btn-link {
-  color: var(--main-green);
+  color: var(--main-blue);
 }
 
 .btn-link:hover {
-  color: var(--hover-green);
+  color: var(--hover-blue);
 }
 
 .btn-check:focus + .btn,
@@ -255,19 +259,19 @@ button {
 }
 
 .btn-outline-secondary:hover,
-.btn-check:active+.btn-outline-secondary:focus, 
-.btn-check:checked+.btn-outline-secondary:focus,
+.btn-check:active + .btn-outline-secondary:focus,
+.btn-check:checked + .btn-outline-secondary:focus,
 .btn-outline-secondary.active:focus,
 .btn-outline-secondary.dropdown-toggle.show:focus,
 .btn-outline-secondary:active:focus,
-.btn-check:active+.btn-outline-secondary, 
-.btn-check:checked+.btn-outline-secondary,
-.btn-outline-secondary.active, 
-.btn-outline-secondary.dropdown-toggle.show, 
-.btn-outline-secondary:active{
-    background-color: var(--main-green);
-    border-color: var(--main-green);
-    box-shadow: none;
+.btn-check:active + .btn-outline-secondary,
+.btn-check:checked + .btn-outline-secondary,
+.btn-outline-secondary.active,
+.btn-outline-secondary.dropdown-toggle.show,
+.btn-outline-secondary:active {
+  background-color: var(--main-green);
+  border-color: var(--main-green);
+  box-shadow: none;
 }
 
 /* ---- Tags ---- */
@@ -344,12 +348,13 @@ body > header .container-fluid {
   padding-left: 0.8rem;
 }
 
-.navbar-dark .navbar-nav .nav-link, .nav-link.profile-button.registration-button {
+.navbar-dark .navbar-nav .nav-link,
+.nav-link.profile-button.registration-button {
   color: var(--light-grey);
 }
 
 .navbar-dark .navbar-nav .nav-link:focus,
-.navbar-dark .navbar-nav .nav-link:hover, 
+.navbar-dark .navbar-nav .nav-link:hover,
 .nav-link.profile-button.registration-button:hover {
   color: var(--white);
 }
@@ -396,16 +401,19 @@ a.profile-button {
   padding-right: unset;
 }
 
-.icon-hover button:last-child, .icon-hover button:last-child, .icon-hover:hover button:first-child,
-.icon-hover a:last-child, .icon-hover a:last-child, .icon-hover:hover a:first-child{
-  display:none;   
+.icon-hover button:last-child,
+.icon-hover button:last-child,
+.icon-hover:hover button:first-child,
+.icon-hover a:last-child,
+.icon-hover a:last-child,
+.icon-hover:hover a:first-child {
+  display: none;
 }
 
-.icon-hover:hover button:last-child,.icon-hover:hover a:last-child {
-  display: inline-block; 
+.icon-hover:hover button:last-child,
+.icon-hover:hover a:last-child {
+  display: inline-block;
 }
-
-
 
 /* Homepage */
 
@@ -426,15 +434,14 @@ a.profile-button {
 }
 
 .banner-text p {
-  font-weight: 400!important;
+  font-weight: 400 !important;
   color: whitesmoke;
   font-size: 1rem;
-  margin-bottom: 1.5rem!important;
+  margin-bottom: 1.5rem !important;
   max-width: 360px;
   margin: auto;
   line-height: 1.8rem;
 }
-
 
 h1.display-3 {
   font-family: title-font;
@@ -445,10 +452,10 @@ h1.display-3 {
 }
 
 a.btn {
-    width: 135px;
-    padding: 0.3rem;
-    display: inline-block;
-    font-size: 0.85rem;
+  width: 135px;
+  padding: 0.3rem;
+  display: inline-block;
+  font-size: 0.85rem;
 }
 
 .homepage-feature {
@@ -471,37 +478,38 @@ a.btn {
   height: 400px;
 }
 
-.homepage-course, .feature.questions {
-  border-top: 1px solid rgba(0,0,0,.125);
+.homepage-course,
+.feature.questions {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
   padding-top: 3rem;
   max-width: 1320px;
   margin: auto;
 }
 
 .course-icon {
-    width: 110px;
-    height: 110px;
-    background-position: center;
-    background-size: contain;
+  width: 110px;
+  height: 110px;
+  background-position: center;
+  background-size: contain;
 }
 
-#course-icon1{
+#course-icon1 {
   background-image: url("../images/mieic.png");
 }
 
-#course-icon2{
+#course-icon2 {
   background-image: url("../images/miec.png");
 }
 
-#course-icon3{
+#course-icon3 {
   background-image: url("../images/mieec.png");
 }
 
-.carousel-control-next, .carousel-control-prev {
+.carousel-control-next,
+.carousel-control-prev {
   display: block;
   width: auto;
 }
-
 
 /* ---- Question Page ---- */
 
@@ -550,7 +558,7 @@ article.question .card-title {
   margin-left: 1rem;
 }
 
-.category{
+.category {
   padding: 0.5rem 1rem;
 }
 
@@ -576,7 +584,7 @@ article.question .card-title {
 }
 
 .edit-question i {
-  color: var(--main-green);
+  color: var(--bs-gray);
   margin-left: 1rem;
 }
 
@@ -643,6 +651,10 @@ article.question .card-title {
   font-style: italic;
 }
 
+.comment-author span:first-of-type:before {
+  content: "-";
+}
+
 #collapseCommentForm .form-control {
   border: 1px solid var(--main-green);
   box-shadow: inset 0 1px 3px #ddd;
@@ -660,7 +672,7 @@ article.question .card-title {
 }
 
 #submitAnswerTextarea {
-  border: 1px solid var(--main-blue)!important;
+  border: 1px solid var(--main-blue) !important;
   box-shadow: inset 0 1px 3px #ddd;
 }
 
@@ -744,7 +756,9 @@ article.question .card-title {
   padding: 2.5rem 2rem;
 }
 
-.add-question .form-label, .profile-info .form-label, .profile-academic-info .form-label {
+.add-question .form-label,
+.profile-info .form-label,
+.profile-academic-info .form-label {
   color: var(--main-blue);
   font-weight: 500;
 }
@@ -771,23 +785,15 @@ article.question .card-title {
   margin: 2rem 0;
 }
 
-#search-page header #questions-search-bar .form-control, #profile-search .form-control{
+#search-page header #questions-search-bar .form-control,
+#profile-search .form-control {
   border-radius: 0.25rem 0 0 0.25rem;
   border-right: unset;
 }
 
-#search-page header #questions-search-bar .btn, #profile-search .btn {
+#search-page header #questions-search-bar .btn,
+#profile-search .btn {
   border-radius: 0 0.25rem 0.25rem 0;
-}
-
-
-
-.question-preview.card {
-  margin-bottom: 2rem;
-  box-shadow: 0px 1px 2px 0px rgb(183 183 183 / 30%),
-    0px 2px 6px 2px rgb(154 154 154 / 15%);
-  border: 1px solid #dadce0;
-  padding: 1rem 1rem 0;
 }
 
 /* question preview */
@@ -831,6 +837,24 @@ article.question .card-title {
   display: inline-block;
 }
 
+.question-preview.card {
+  margin-bottom: 2rem;
+  box-shadow: 0px 1px 2px 0px rgb(183 183 183 / 30%),
+    0px 2px 6px 2px rgb(154 154 154 / 15%);
+  border: 1px solid #dadce0;
+  padding: 1rem 1rem 0;
+}
+
+.limited-text-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden; 
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0));
+}
+
+
+/* Side bar */
 
 /* Accordion with search*/ 
 .accordion-search button[type="submit"]{
@@ -858,13 +882,15 @@ article.question .card-title {
   padding: 0;
 }
 
-#side-bar > :first-child, #side-bar > :nth-child(2) {
+#side-bar > :first-child,
+#side-bar > :nth-child(2) {
   padding: 1rem 1.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-bottom: unset;
 }
 
-#side-bar > :first-child button, #side-bar > :nth-child(2) button{
+#side-bar > :first-child button,
+#side-bar > :nth-child(2) button {
   padding: 0;
   font-weight: 500;
 }
@@ -917,32 +943,34 @@ article.question .card-title {
   color: var(--bs-gray);
 }
 
-.bd-subnavbar .nav-link button:hover,.bd-subnavbar .subnav-selected button{
+.bd-subnavbar .nav-link button:hover,
+.bd-subnavbar .subnav-selected button {
   text-decoration: underline;
   color: var(--text-black);
   font-weight: 500;
 }
 
 .bd-subnavbar {
-    display: none!important;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-    background-color: rgba(255,255,255,0.95);
-    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+  display: none !important;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
 }
 
 .bd-subnavbar ul {
   overflow-x: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .bd-subnavbar ul::-webkit-scrollbar {
   display: none;
 }
 
-.bd-subnavbar .dropdown-item.active, .bd-subnavbar .dropdown-item:active {
+.bd-subnavbar .dropdown-item.active,
+.bd-subnavbar .dropdown-item:active {
   background-color: var(--main-blue);
 }
 
@@ -1171,21 +1199,21 @@ article.question .card-title {
   flex: 1;
 }
 
- /* --- Edit Profile -- */
-  
- .edit-icon {
+/* --- Edit Profile -- */
+
+.edit-icon {
   font-size: 1.5em;
 }
 
 .edit-icon-tag {
-  padding: .75rem .75rem;
+  padding: 0.75rem 0.75rem;
 }
 
 .about-me {
   height: 10em;
 }
 .button-align-right {
-  float:right;
+  float: right;
 }
 
 /* ---- User/Reports Management ---- */
@@ -1209,19 +1237,18 @@ div.user-administration td img {
   margin-right: 0.5rem;
 }
 
-div.user-administration table thead tr th i{
+div.user-administration table thead tr th i {
   margin-right: 0.6rem;
 }
 
-div.user-administration#reports table thead tr th:nth-child(2){
+div.user-administration#reports table thead tr th:nth-child(2) {
   min-width: 300px;
 }
-
 
 /* Notifications Modal */
 
 #notificationsModal div.modal-header i {
-  color:  var(--main-blue);
+  color: var(--main-blue);
 }
 
 #notificationsModal img {
@@ -1229,28 +1256,28 @@ div.user-administration#reports table thead tr th:nth-child(2){
   margin-right: 0.5rem;
 }
 
-#notificationsModal div.modal-body a{
-  border:0;
-  border-bottom: 1px solid rgba(0,0,0,.125);
+#notificationsModal div.modal-body a {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-#notificationsModal div.modal-footer button{
+#notificationsModal div.modal-footer button {
   background-color: var(--main-blue);
 }
 
 body > footer {
-    border-top: 1px solid rgba(0,0,0,.125);
-    background-color: rgb(235, 235, 235);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: rgb(235, 235, 235);
 }
 
 body > footer li {
-    line-height: 1.9rem;
+  line-height: 1.9rem;
 }
 
 body > footer h5 {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-body > footer > nav{
-    display: flex;
+body > footer > nav {
+  display: flex;
 }

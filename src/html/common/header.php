@@ -29,7 +29,8 @@
     
     <!-- Our Rich Text script -->
     <script src="js/editor.js" defer></script> 
-    <script src="js/parseMD.js" defer></script> 
+    <script src="js/parseMD.js" defer></script>  
+    <script src="js/removeMD.js" defer></script> 
 
     <!-- Carousel -->
     <!-- <script src="js/homepage-carousel.js" defer></script> -->

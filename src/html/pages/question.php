@@ -55,7 +55,7 @@
                 <div class="question-author d-inline-flex align-items-center">
                     <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
                     <div class="d-flex flex-wrap">
-                        <span>joaquina1234</span> <!-- Name -->
+                        <span>joaquina123</span> <!-- Username -->
                         <span>15:02 - 10/05/2009</span> <!-- Date -->
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                             <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                             <div class="d-grid gap-2 d-flex justify-content-end">
                                 <button class="btn btn-secondary mt-3" type="submit">Submit</button>
-                                <button class="btn btn-outline-secondary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
+                                <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- carlitos</span> <!-- Name -->
+                                <span>carlitos</span> <!-- Username -->
                                 <span>01:10 - 11/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">
@@ -203,7 +203,7 @@
 
                         <div class="d-flex">
                             <div class="comment-author">
-                                <span>- guilhermeee</span> <!-- Name -->
+                                <span>guilhermeee</span> <!-- Username -->
                                 <span>08:35 - 12/05/2009</span> <!-- Date -->
                             </div>
                             <div class="ms-auto report-icon" title="Report">
