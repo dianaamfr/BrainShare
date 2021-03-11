@@ -796,6 +796,22 @@ article.question .card-title {
   font-weight: 500;
 }
 
+.manage-tag-card {
+  width: min-content;
+  height: min-content;
+}
+
+.manage-tag-card > .card-body span:first-child {
+  margin-right: 2rem;
+  color: var(--text-black);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.manage-tag-card span.icon-hover button {
+    color: var(--main-blue);
+}
+
 /* ----- Search Page ---- */
 
 .side-content {
@@ -808,10 +824,6 @@ article.question .card-title {
   font-size: 1.3rem;
   color: var(--bs-grey);
   font-weight: 500;
-}
-
-.side-content h2 {
-  color: var(--main-blue);
 }
 
 /*search bar*/
