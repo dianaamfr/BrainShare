@@ -7,7 +7,7 @@
             <div class="profile-pic col-md mb-4">
                 <img class="rounded-circle img-thumbnail" src="images/profile.png" alt="Profile Image">
             </div>
-            <p class="nickname"><span class="score">User Score:</span> <span class="points">17 points</span></p>
+            <p><span class="score">User Score:</span> <span class="points">17 points</span></p>
         </div>
         <div class="two row mt-4">
             <section class="profile-info col-md mb-4">

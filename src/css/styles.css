@@ -1003,12 +1003,14 @@ article.question .card-title {
 
 #profile-main .score {
   color: var(--main-blue);
-  font-size: 1.10rem;
+  font-weight: 500;
+  font-family: title-font;
+  font-size: 1.2rem;
 }
 
 #profile-main .points {
   color: var(--text-black);
-  font-size: 1.10rem;
+  font-size: 1.1rem;
 }
 
 .profile-pic img {
