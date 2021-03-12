@@ -7,14 +7,14 @@ function editProfileForm($courses)
         <section id="profile-main" class="card grid-profile container-lg">
             <div class="one">
                 <!-- Nickname and Photo -->
-                <h3 class="nickname my-4">joaquina123</h3>
+                <h3 class="nickname mb-4">joaquina123</h3>
                 <div class="profile-pic col-md mb-4">
                     <img class="rounded-circle img-thumbnail" src="images/profile.png" alt="Profile Image">
                 </div>
             </div>
             <div class="form-edit-profile">
                 <form>
-                    <div class="two row mt-4">
+                    <div class="two row">
                         <section class="profile-info col-md mb-4">
                             <h3>Personal</h3>
                             <!-- Name -->

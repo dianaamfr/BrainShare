@@ -169,7 +169,7 @@
             <li class="list-group-item list-group-item-action container">
               <a href="question.php">
               <img src="images/profile.png" alt="profile picture" class="rounded-circle">
-                  <span class="fw-bold">Carlos123</span>
+                  <span class="fw-bold">carlos123</span>
                   <span>has commented your answer.</span>
               </a>
               <div class="d-flex align-items-center">
@@ -192,7 +192,7 @@
             <div class="d-flex align-items-center">
                 <a href="question.php">
                   <img src="images/profile.png" alt="profile picture" class="rounded-circle">
-                  <span class="fw-bold">Diaaaana2003</span>
+                  <span class="fw-bold">diaaaana2003</span>
                   <span>has answered your question.</span>
                 </a>
                 <i class="fas fa-circle ms-auto"></i>
@@ -216,7 +216,7 @@
         </ul>
       </div>
       <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary border-0" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

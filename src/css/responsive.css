@@ -108,50 +108,42 @@
 }
 
 @media (max-width: 992px){
-    .page-margin {
-      padding: 0 2em 3rem;
-    }
-  
+  .page-margin {
+    padding: 2rem 2em 3rem;
+  }
 
-    #side-bar {
-        display: none;
-    }
 
-    .counts {
-        display: none;
-    }
-  
-    .question-preview .counts-mobile {
-        display: inline-block;
-    }
-  
-    .question-preview.card {
-        display: block;
-    }
-  
-    /* Add Question */
-    .add-question {
-      box-shadow: unset;
-      border: unset;
-    }
-  
-    .background-light {
-      background-color: var(--white);
-    }
-  
-    /* Question Page, User/Reports Management, Management Pages */
-    .question-page,  #search-page {
-      padding-top: 3rem;
-    }
-  
-    /* Profile */
-    .grid-profile {
+  #side-bar {
+      display: none;
+  }
+
+  .counts {
+      display: none;
+  }
+
+  .question-preview .counts-mobile {
       display: inline-block;
-    }
+  }
 
-    #profile-main {
-      margin-top: 2rem;
-    }
+  .question-preview.card {
+      display: block;
+  }
+
+  /* Add Question */
+  .add-question {
+    box-shadow: unset;
+    border: unset;
+    padding: 2rem 0;
+  }
+
+  .background-light {
+    background-color: var(--white);
+  }
+
+  /* Profile */
+  .grid-profile {
+    display: inline-block;
+  }
   
 
   /* About page  */

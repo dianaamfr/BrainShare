@@ -71,7 +71,8 @@ function questionForm($courses){ ?>
                     </div>
                 </div>
         
-                <button type="submit" class="btn btn-primary mt-3">Add Question</button>
+                <!--<button type="submit" class="btn btn-primary mt-3">Add Question</button>-->
+                <a class="btn btn-primary mt-3" href="question.php">Add Question</a>
             </form>
         </section>
     </div>

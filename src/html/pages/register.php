@@ -1,4 +1,4 @@
-<div class="page-margin">
+<div class="page-margin d-flex flex-column justify-content-center">
     <section id="register" class="container-sm card p-5">
         <h2 class="mb-4">Register</h2>
         <form class="text-start" data-toggle="validator">
