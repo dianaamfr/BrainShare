@@ -58,12 +58,6 @@
             </button>
           </div>
         </form>
-        
-        <!-- Mobile Notifications Icon -->
-        <div class="registration-button icon-hover notifications-mobile " data-bs-toggle="modal" data-bs-target="#notificationsModal">
-          <button><i class="far fa-bell"></i></button>
-          <button><i class="fas fa-bell"></i></button>
-        </div>
 
         <!-- Mobile Menu Icon -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
