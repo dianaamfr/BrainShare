@@ -83,7 +83,7 @@
         </form>
 
           <!-- Registration/Account -->
-          <div class="registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
+          <div class="ms-4 registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
             <?php // Registered Users options
               if(/*isset($_SESSION['username']) && ($_SESSION['username'] !== '')*/ false){ ?>

@@ -1,4 +1,5 @@
 @media (min-width: 1921px) {
+  /* Limit body for large screens */
   body {
     border-right: 1px solid rgb(95 95 95 / 11%);
     border-left: 1px solid rgb(95 95 95 / 11%);
@@ -6,6 +7,7 @@
 }
 
 @media (max-width: 1367px){
+  /* Limit font sizes for usual desktop resolutions */
   body {
     font-size: 15px;
   }
@@ -30,9 +32,10 @@
   }
 
   .navbar-dark .navbar-brand {
-      margin-right: 2rem;
+    margin-right: 2rem;
   }
 
+  /* Expand header search bar */
   .header-search {
     width: auto;
     max-width: unset;
@@ -42,7 +45,7 @@
 
 
 @media (max-width: 1199.97px) {
-
+    /* Reduce margin on smaller desktop screens and in some tablets */
     .page-margin {
         padding: 3rem 2rem;
     }
@@ -64,7 +67,7 @@
         padding-left: 0;
     }
   
-    /*Toogle menu*/
+    /* Ressponsive Menu */
     
     .navbar-expand-xl .navbar-collapse{
       padding-top: 0.5rem;
@@ -111,7 +114,6 @@
   .page-margin {
     padding: 2rem 2em 3rem;
   }
-
 
   #side-bar {
       display: none;
@@ -247,6 +249,7 @@
 }
   
 @media (max-width: 450px) {
+    /* Smaller screens - Mobile */
     .page-margin {
         padding: 0;
     }

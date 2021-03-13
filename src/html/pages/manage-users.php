@@ -27,33 +27,57 @@
             </div>
         </form>
 
-            <div class="table-responsive w-100">
-                <div class="table-entries">Showing 1 to 2 of 2 entries</div>
-                <table class="table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col"><i class="fas fa-sort"></i>Username</th>
-                            <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
-                            <th scope="col"><i class="fas fa-sort"></i>Banned</th>
-                            <th scope="col"><i class="fas fa-sort"></i>Role</th>
-                            <th scope="col"><i class="fas fa-sort"></i>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">maria_albertina2</a></td>
-                            <td>12/01/2020</td>
-                            <td>N</td>
-                            <td>Moderator</td>
-                            <td>
+        <div class="table-responsive w-100">
+            <div class="table-entries">Showing 1 to 4 of 8 entries</div>
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"><i class="fas fa-sort"></i>Username</th>
+                        <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
+                        <th scope="col"><i class="fas fa-sort"></i>Banned</th>
+                        <th scope="col"><i class="fas fa-sort"></i>Role</th>
+                        <th scope="col"><i class="fas fa-sort"></i>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">maria_albertina2</a></td>
+                        <td>12/01/2020</td>
+                        <td>N</td>
+                        <td>Moderator</td>
+                        <td>
+                        <form>
+                            <div class="input-group flex-nowrap">
+                                <select class="form-select">
+                                    <option selected disabled value="none">Actions</option>
+                                    <option value="all">Make Administrator</option>
+                                    <option value="all">Demote</option>
+                                    <option value="users">Remove ban</option>
+                                    <option value="answer">Ban</option>
+                                </select>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">marcioRb34</a></td>
+                        <td>10/02/2020</td>
+                        <td>Y</td>
+                        <td>User</td>
+                        <td>
                             <form>
                                 <div class="input-group flex-nowrap">
                                     <select class="form-select">
                                         <option selected disabled value="none">Actions</option>
                                         <option value="all">Make Administrator</option>
-                                        <option value="all">Demote Moderator</option>
+                                        <option value="all">Make Moderator</option>
                                         <option value="users">Remove ban</option>
                                         <option value="answer">Ban</option>
                                     </select>
@@ -63,34 +87,62 @@
                                     </button>
                                 </div>
                             </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">marcioRb34</a></td>
-                            <td>10/02/2020</td>
-                            <td>Y</td>
-                            <td>User</td>
-                            <td>
-                                <form>
-                                    <div class="input-group flex-nowrap">
-                                        <select class="form-select">
-                                            <option selected disabled value="none">Actions</option>
-                                            <option value="all">Make Administrator</option>
-                                            <option value="all">Make Moderator</option>
-                                            <option value="users">Remove ban</option>
-                                            <option value="answer">Ban</option>
-                                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">vitor_manuel2</a></td>
+                        <td>15/06/2018</td>
+                        <td>N</td>
+                        <td>Administrator</td>
+                        <td>
+                            <form>
+                                <div class="input-group flex-nowrap">
+                                    <select class="form-select">
+                                        <option selected disabled value="none">Actions</option>
+                                        <option value="all">Demote</option>
+                                        <option value="answer">Ban</option>
+                                    </select>
 
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td><img class="rounded-circle" src="images/profile.png" alt="profile icon"><a href="profile.php">ferreira0cris</a></td>
+                        <td>20/04/2019</td>
+                        <td>N</td>
+                        <td>User</td>
+                        <td>
+                            <form>
+                                <div class="input-group flex-nowrap">
+                                    <select class="form-select">
+                                        <option selected disabled value="none">Actions</option>
+                                        <option value="all">Make Administrator</option>
+                                        <option value="all">Make Moderator</option>
+                                        <option value="answer">Ban</option>
+                                    </select>
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+            <li class="page-item page-1 active"><button class="page-link">1</button></li>
+            <li class="page-item page-2"><button class="page-link">2</button></li>
+            <li class="page-item page-3"><button class="page-link">3</button></li>
+        </ul>
     </div>
 </div>

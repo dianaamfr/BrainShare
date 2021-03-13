@@ -110,5 +110,12 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+            <li class="page-item page-1 active"><button class="page-link">1</button></li>
+            <li class="page-item page-2"><button class="page-link">2</button></li>
+            <li class="page-item page-3"><button class="page-link">3</button></li>
+        </ul>
     </div>
 </div>

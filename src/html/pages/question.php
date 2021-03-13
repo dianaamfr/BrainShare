@@ -167,7 +167,7 @@
             </div>
             <div class="comments">
                 <div class="collapse" id="collapseCommentForm">
-                    <form id="submit-comment" action="" method="">
+                    <form id="submit-comment">
                         <div class="mb-3 p-3">
                             <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                             <div class="d-grid gap-2 d-flex justify-content-end">
@@ -218,7 +218,7 @@
         </div>
     </section>
     <!-- Submit Answer Form -->
-    <form id="submit-answer" action="" method="">
+    <form id="submit-answer">
         <div class="mb-1 p-3">
             <label for="question-text-area" class="form-label">Post an Answer</label>
                 <div class="border form-control" id="submitAnswerTextarea">

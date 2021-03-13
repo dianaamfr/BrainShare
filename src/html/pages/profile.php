@@ -24,7 +24,7 @@
         </div>
         <section class="three profile-academic-info">
             <div class="row">
-                <section class="col-md mb-4">
+                <div class="col-md mb-4">
                     <h3>Academic Information</h3>
                     <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span>MIEIC</p>
                     <div>
@@ -39,7 +39,7 @@
                             </span>
                         </p>
                     </div>
-                </section>
+                </div>
                 <div class="col-md d-flex justify-content-end align-items-end">
                     <a class="btn btn-primary my-2" href="edit-profile.php">Edit Profile</a>
                 </div>
@@ -73,7 +73,7 @@
     <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Questions</h3>
         <?php questionPreview(); ?>
-        <ul id="pagination-questions" class="pagination justify-content-center">
+        <ul class="pagination justify-content-center">
             <li class="page-item page-1 active"><button class="page-link">1</button></li>
             <li class="page-item page-2"><button class="page-link">2</button></li>
             <li class="page-item page-3"><button class="page-link">3</button></li>

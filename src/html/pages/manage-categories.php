@@ -136,7 +136,7 @@ function tags_table(){ ?>
     </aside>
 
     <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
-        <!-- pagination -->
+        <!-- Tabs -->
         <ul class="nav nav-tabs">
             <li class="page-question active nav-item">
             <li class="page-question active nav-item">
@@ -165,6 +165,13 @@ function tags_table(){ ?>
 
             <!-- Tags -->
             <?php  tags_table(); ?>
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center">
+                <li class="page-item page-1 active"><button class="page-link">1</button></li>
+                <li class="page-item page-2"><button class="page-link">2</button></li>
+                <li class="page-item page-3"><button class="page-link">3</button></li>
+            </ul>
         </section>
 
         <!-- Manage courses -->
@@ -180,6 +187,14 @@ function tags_table(){ ?>
 
             <!-- Courses -->
             <?php  courses_table(); ?>
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center">
+                <li class="page-item page-1 active"><button class="page-link">1</button></li>
+                <li class="page-item page-2"><button class="page-link">2</button></li>
+                <li class="page-item page-3"><button class="page-link">3</button></li>
+            </ul>
         </section>
+
     </div>
 </div>

@@ -154,10 +154,10 @@
                    yesterday
                 </div>
                 <div class="dropdown ms-auto">
-                    <button class="btn dropdown-toggle rounded-circle" type="button" id="notifications-more" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       ...
                     </button>
-                    <ul class="dropdown-menu notification-list" aria-labelledby="notifications-more">
+                    <ul class="dropdown-menu notification-list">
                       <li class= dropdown-item>Mark as read</li>
                       <li class= dropdown-item>Remove Notification</li>
                     </ul>
@@ -177,10 +177,10 @@
                     3 days ago
                 </div>
                 <div class="dropdown ms-auto">
-                    <button class="btn dropdown-toggle rounded-circle" type="button" id="notifications-more" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       ...
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="notifications-more">
+                    <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Mark as read</a></li>
                       <li><a class="dropdown-item" href="#">Remove Notification</a></li>
                     </ul>
@@ -202,10 +202,10 @@
                    2 weeks ago
                 </div>
                 <div class="dropdown ms-auto">
-                    <button class="btn dropdown-toggle rounded-circle" type="button" id="notifications-more" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       ...
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="notifications-more">
+                    <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Mark as read</a></li>
                       <li><a class="dropdown-item" href="#">Remove Notification</a></li>
                     </ul>
