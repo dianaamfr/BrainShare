@@ -18,7 +18,7 @@ function tags_table(){ ?>
                     <th scope="col"><i class="fas fa-sort"></i>Tag</th>
                     <th scope="col"><i class="fas fa-sort"></i>Number of uses</th>
                     <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
-                    <th scope="col"><i class="fas fa-sort"></i>Delete</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,10 +76,10 @@ function tags_table(){ ?>
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col"><i class="fas fa-sort"></i>Tag</th>
+                    <th scope="col"><i class="fas fa-sort"></i>Course</th>
                     <th scope="col"><i class="fas fa-sort"></i>Number of uses</th>
                     <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
-                    <th scope="col"><i class="fas fa-sort"></i>Delete</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>

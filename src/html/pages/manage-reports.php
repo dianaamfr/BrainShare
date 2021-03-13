@@ -67,7 +67,7 @@
                         <th scope="col"><i class="fas fa-sort"></i>Summary</th>
                         <th scope="col"><i class="fas fa-sort"></i>Type</th>
                         <th scope="col" id="reports-number"><i class="fas fa-sort"></i>Reports</th>
-                        <th scope="col"><i class="fas fa-sort"></i>Actions</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

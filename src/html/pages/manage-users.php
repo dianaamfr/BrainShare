@@ -37,7 +37,7 @@
                         <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
                         <th scope="col"><i class="fas fa-sort"></i>Banned</th>
                         <th scope="col"><i class="fas fa-sort"></i>Role</th>
-                        <th scope="col"><i class="fas fa-sort"></i>Actions</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
