@@ -74,9 +74,10 @@ function editProfileForm($courses)
                         </div>
                     </section>
 
-                    <div class="button-align-right">
-                        <button type="submit" class="btn btn-outline-primary mt-3">Cancel</button>
+                    <div class="d-md-flex">
                         <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                        <button type="submit" class="btn btn-outline-primary mx-2 mt-3">Cancel</button>
+                        <button type="submit" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
                     </div>
                 </form>
             </div>
