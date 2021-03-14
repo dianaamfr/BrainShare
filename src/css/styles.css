@@ -318,6 +318,12 @@ button {
 }
 
 
+/* ---- Markdown editor */
+.editor-preview {
+  z-index: 1000!important;
+}
+
+
 /* ---- Header ---- */
 
 header.fixed-top {
