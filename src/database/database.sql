@@ -10,7 +10,7 @@ CREATE TABLE RegisteredUser (
     description TEXT,
     ban BOOLEAN NOT NULL,
 
-    CONSTRAINT birthdayDate CHECK (birthday) < GetDate(),
+    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
     CONSTRAINT weakPassword CHECK(length(password) > 8)
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE Moderator (
     description TEXT,
     ban BOOLEAN NOT NULL,
 
-    CONSTRAINT birthdayDate CHECK (birthday) < GetDate(),
+    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
     CONSTRAINT weakPassword CHECK(length(password) > 8)
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE Administrator (
     description TEXT,
     ban BOOLEAN NOT NULL,
 
-    CONSTRAINT birthdayDate CHECK (birthday) < GetDate(),
+    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
     CONSTRAINT weakPassword CHECK(length(password) > 8)
 );
 
