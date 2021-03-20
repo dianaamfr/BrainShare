@@ -18,14 +18,22 @@ CREATE TABLE Course(
 );
 
 CREATE TABLE QuestionCourse(
-    questionId INTEGER REFERENCES Question(questionId),
-	courseId INTEGER REFERENCES Course(courseId),
+    questionId INTEGER REFERENCES Question(questionId)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+	courseId INTEGER REFERENCES Course(courseId) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE,
     PRIMARY KEY(questionId, courseId)
 );
 
 CREATE TABLE QuestionTag(
-    questionId INTEGER REFERENCES Question(questionId),
-	tagId INTEGER REFERENCES Tag(tagId),
+    questionId INTEGER REFERENCES Question(questionId) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+	tagId INTEGER REFERENCES Tag(tagId) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE,
     PRIMARY KEY(questionId, tagId)
 );
 
