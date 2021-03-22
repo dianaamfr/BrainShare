@@ -1,6 +1,60 @@
 -- Types
 
 -- Tables
+DROP TABLE IF EXISTS Notification;  
+CREATE TABLE  Notification(
+    notificationId  serial, 
+    content         varchar(255) NOT NULL, 
+    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    viewed          boolean NOT NULL DEFAULT false, 
+
+    PRIMARY KEY(notificationId)
+); 
+
+DROP TABLE IF EXISTS NotificationUser; 
+CREATE TABLE NotificationUser(
+    userId          int REFERENCES User ON DELETE CASCADE, 
+    notificationId  int REFERENCES Notification ON DELETE CASCADE, 
+
+    PRIMARY KEY(userId, notificationId)
+); 
+
+DROP TABLE IF EXISTS Comment;  
+CREATE TABLE Comment(
+    commentId       serial, 
+    notificationId  int REFERENCES Notification ON DELETE SET NULL, 
+    commentOwnerId  int REFERENCES User ON DELETE SET NULL,  
+    answerId        int REFERENCES Answer ON DELETE CASCADE,
+    content         text NOT NULL, 
+    date            timestamp with time zone NOT NULL DEFAULT current_timestamp,
+
+    CHECK(date < current_timestamp()),  
+    PRIMARY KEY(commentId)
+
+); 
+
+DROP TABLE IF EXISTS ReportComment; 
+CREATE TABLE ReportComment(
+    commentId       int REFERENCES Comment ON DELETE CASCADE, 
+    userId          int REFERENCES User ON DELETE SET NULL, 
+
+    PRIMARY KEY(commentId, userId)
+); 
+
+DROP TABLE IF EXISTS Answer; 
+CREATE TABLE Answer(
+    answerId        serial, 
+    notificationId  int REFERENCES Notification ON DELETE SET NULL,  
+    questionId      int REFERENCES Question ON DELETE CASCADE, 
+    answerOwnerId   int REFERENCES User ON DELETE SET NULL,  
+    content         text NOT NULL, 
+    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    valid           boolean NOT NULL DEFAULT false, 
+
+    CHECK(date < current_timestamp()), 
+    PRIMARY KEY(answerId) 
+);  
+
 DROP TABLE IF EXISTS UserVotesAnswer;
 CREATE TABLE UserVotesAnswer(
     userId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
