@@ -1,22 +1,18 @@
-
 DROP TABLE IF EXISTS Tag;
-DROP TABLE IF EXISTS Couse;
-DROP TABLE IF EXISTS QuestionTag;
-DROP TABLE IF EXISTS QuestionCouse;
-DROP TABLE IF EXISTS User;
-
 CREATE TABLE Tag(
     tagId SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE, 
     creationDate TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS Course;
 CREATE TABLE Course(
     courseId SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE, 
     creationDate TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS QuestionTag;
 CREATE TABLE QuestionCourse(
     questionId INTEGER REFERENCES Question(questionId)
         ON DELETE CASCADE 
@@ -27,7 +23,8 @@ CREATE TABLE QuestionCourse(
     PRIMARY KEY(questionId, courseId)
 );
 
-CREATE TABLE QuestionTag(
+DROP TABLE IF EXISTS QuestionCourse;
+CREATE TABLE QuestionCourse(
     questionId INTEGER REFERENCES Question(questionId) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE,
@@ -37,6 +34,7 @@ CREATE TABLE QuestionTag(
     PRIMARY KEY(questionId, tagId)
 );
 
+DROP TABLE IF EXISTS User;
 CREATE TABLE User(
     userId SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
