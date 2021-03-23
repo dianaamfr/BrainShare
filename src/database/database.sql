@@ -58,27 +58,27 @@ CREATE TABLE question(
 
 CREATE TABLE answer(
     id SERIAL PRIMARY KEY,  
-    question_id     INTEGER REFERENCES question(id) ON DELETE CASCADE, 
+    question_id INTEGER REFERENCES question(id) ON DELETE CASCADE, 
     answer_owner_id INTEGER REFERENCES "user"(id) ON DELETE SET NULL,  
-    content         TEXT NOT NULL, 
-    "date"          timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    valid           boolean NOT NULL DEFAULT false
+    content TEXT NOT NULL, 
+    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    valid boolean NOT NULL DEFAULT false
 ); 
 
 CREATE TABLE comment(
-    id       SERIAL PRIMARY KEY,  
-    answer_id       INTEGER REFERENCES answer(id) ON DELETE CASCADE,
+    id SERIAL PRIMARY KEY,  
+    answer_id INTEGER REFERENCES answer(id) ON DELETE CASCADE,
     comment_owner_id INTEGER REFERENCES "user"(id) ON DELETE SET NULL,  
-    content         TEXT NOT NULL, 
-    "date"          timestamp with time zone NOT NULL DEFAULT current_timestamp
+    content TEXT NOT NULL, 
+    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
 ); 
 
 CREATE TABLE "notification"(
     id  SERIAL PRIMARY KEY, 
     user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
-    content         varchar(255) NOT NULL, 
-    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    viewed          boolean NOT NULL DEFAULT false
+    content varchar(255) NOT NULL, 
+    date timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    viewed boolean NOT NULL DEFAULT false
 ); 
 
 CREATE TABLE vote(
