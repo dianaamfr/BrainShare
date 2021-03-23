@@ -1,32 +1,39 @@
+DROP TABLE IF EXISTS tag CASCADE;
+DROP TABLE IF EXISTS course CASCADE; 
 DROP TABLE IF EXISTS "user" CASCADE;  
-DROP TABLE IF EXISTS registered_user CASCADE;  
-DROP TABLE IF EXISTS moderator CASCADE;  
-DROP TABLE IF EXISTS administrator CASCADE;  
-DROP TABLE IF EXISTS report_user CASCADE; 
-
-DROP TABLE IF EXISTS "notification" CASCADE;  
-
 DROP TABLE IF EXISTS question CASCADE;
-DROP TABLE IF EXISTS report_question CASCADE;
-DROP TABLE IF EXISTS user_votes_question CASCADE;  
-
 DROP TABLE IF EXISTS answer CASCADE;  
-DROP TABLE IF EXISTS report_answer CASCADE; 
-DROP TABLE IF EXISTS user_votes_answer CASCADE;  
-
-DROP TABLE IF EXISTS comment CASCADE;  
-DROP TABLE IF EXISTS report_comment CASCADE;  
-  
-DROP TABLE IF EXISTS tag CASCADE;  
-DROP TABLE IF EXISTS course CASCADE;  
+DROP TABLE IF EXISTS comment CASCADE; 
+DROP TABLE IF EXISTS "notification" CASCADE;  
+DROP TABLE IF EXISTS vote CASCADE;
+DROP TABLE IF EXISTS report CASCADE;  
 DROP TABLE IF EXISTS question_tag CASCADE;  
 DROP TABLE IF EXISTS question_course CASCADE;  
 
- 
+DROP TYPE IF EXISTS roles;
 
--- Tables
+-----------
+-- Types --
+-----------
+CREATE TYPE roles AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
+
+------------
+-- Tables --
+------------
+CREATE TABLE tag(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE, 
+    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE course(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE, 
+    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE "user"(
-    user_id SERIAL PRIMARY KEY,
+    id  SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     birthday DATE,
@@ -34,163 +41,72 @@ CREATE TABLE "user"(
 	password TEXT NOT NULL,
     description TEXT,
     ban BOOLEAN NOT NULL,
+    course INTEGER REFERENCES Course ON UPDATE CASCADE,
+    TYPE roles NOT NULL
     
     CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
     CONSTRAINT weak_password CHECK(length(password) > 8)
 );
 
-CREATE TABLE registered_user (
-    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
+CREATE TABLE question(
+    id SERIAL PRIMARY KEY,
+    question_owner_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    "date" TIMESTAMP WITH TIME zone DEFAULT now()
 );
 
-CREATE TABLE moderator (
-    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
-);
+CREATE TABLE answer(
+    id SERIAL PRIMARY KEY,  
+    question_id     INTEGER REFERENCES question(id) ON DELETE CASCADE, 
+    answer_owner_id INTEGER REFERENCES "user"(id) ON DELETE SET NULL,  
+    content         TEXT NOT NULL, 
+    "date"          timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    valid           boolean NOT NULL DEFAULT false
+); 
 
-CREATE TABLE administrator (
-    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
-);
-
-CREATE TABLE report_user (
-    user_id1 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
-    user_id2 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
-    PRIMARY KEY(user_id1, user_id2)
-);
+CREATE TABLE comment(
+    id       SERIAL PRIMARY KEY,  
+    answer_id       INTEGER REFERENCES answer(id) ON DELETE CASCADE,
+    comment_owner_id INTEGER REFERENCES "user"(id) ON DELETE SET NULL,  
+    content         TEXT NOT NULL, 
+    "date"          timestamp with time zone NOT NULL DEFAULT current_timestamp
+); 
 
 CREATE TABLE "notification"(
-    notification_id  serial PRIMARY KEY, 
-    user_id         integer NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    id  SERIAL PRIMARY KEY, 
+    user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     content         varchar(255) NOT NULL, 
     date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     viewed          boolean NOT NULL DEFAULT false
 ); 
 
-CREATE TABLE question(
-    question_id SERIAL PRIMARY KEY,
-    question_owner_id INTEGER NOT NULL REFERENCES "user"(user_id) ON UPDATE CASCADE,
-    title VARCHAR(255) NOT NULL,
-    content VARCHAR(255) NOT NULL,
-    "date" TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
+CREATE TABLE vote(
+    id SERIAL PRIMARY KEY,
+    upvote BOOLEAN NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
+    question_id INTEGER NOT NULL REFERENCES question(id) ON UPDATE CASCADE,
+    answer_id INTEGER NOT NULL REFERENCES answer(id) ON UPDATE CASCADE
 );
 
-CREATE TABLE report_question(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,question_id)
-);
-
-CREATE TABLE user_votes_question(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,question_id)
-);
-
-CREATE TABLE answer(
-    answer_id        serial, 
-    notification_id  int REFERENCES "notification" ON DELETE SET NULL,  
-    question_id      int REFERENCES question ON DELETE CASCADE, 
-    answer_owner_id   int REFERENCES "user"(user_id) ON DELETE SET NULL,  
-    content         text NOT NULL, 
-    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    valid           boolean NOT NULL DEFAULT false, 
-
-    CHECK(date < current_timestamp), 
-    PRIMARY KEY(answer_id) 
-);  
-
-CREATE TABLE user_votes_answer(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,answer_id)
-);
-
-CREATE TABLE report_answer(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,answer_id)
-);
-
-CREATE TABLE comment(
-    comment_id       serial, 
-    notification_id  int REFERENCES "notification" ON DELETE SET NULL, 
-    comment_owner_id  int REFERENCES "user"(user_id) ON DELETE SET NULL,  
-    answer_id        int REFERENCES answer ON DELETE CASCADE,
-    content         text NOT NULL, 
-    date            timestamp with time zone NOT NULL DEFAULT current_timestamp,
-
-    CHECK(date < current_timestamp),  
-    PRIMARY KEY(comment_id)
-
-); 
-
-CREATE TABLE report_comment(
-    comment_id       int REFERENCES comment ON DELETE CASCADE, 
-    user_id          int REFERENCES "user" ON DELETE SET NULL, 
-
-    PRIMARY KEY(comment_id, user_id)
-); 
-
-CREATE TABLE tag(
-    tag_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE report(
+    id SERIAL PRIMARY KEY,
+    viewed BOOLEAN NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
+    reported_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
+    question_id INTEGER NOT NULL REFERENCES question(id) ON UPDATE CASCADE,
+    answer_id INTEGER NOT NULL REFERENCES answer(id) ON UPDATE CASCADE,
+    comment_id INTEGER NOT NULL REFERENCES comment(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE question_tag(
-    question_id INTEGER REFERENCES question(question_id) 
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE,
-	tag_id INTEGER REFERENCES tag(tag_id) 
-        ON DELETE SET NULL 
-        ON UPDATE CASCADE,
+    question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	tag_id INTEGER REFERENCES tag(id) ON DELETE SET NULL ON UPDATE CASCADE,
     PRIMARY KEY(question_id, tag_id)
 );
 
-CREATE TABLE course(
-    course_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE question_course(
-    question_id INTEGER REFERENCES question(question_id)
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE,
-	course_id INTEGER REFERENCES Course(course_id) 
-        ON DELETE SET NULL 
-        ON UPDATE CASCADE,
+    question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	course_id INTEGER REFERENCES Course(id) ON DELETE SET NULL ON UPDATE CASCADE,
     PRIMARY KEY(question_id, course_id)
 );
