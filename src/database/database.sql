@@ -1,35 +1,30 @@
--- Types
+DROP TABLE IF EXISTS "user" CASCADE;  
+DROP TABLE IF EXISTS registered_user CASCADE;  
+DROP TABLE IF EXISTS moderator CASCADE;  
+DROP TABLE IF EXISTS administrator CASCADE;  
+DROP TABLE IF EXISTS report_user CASCADE; 
 
--- Drop Tables
-DROP TABLE IF EXISTS notification;  
-DROP TABLE IF EXISTS notification_user; 
-DROP TABLE IF EXISTS comment; 
-DROP TABLE IF EXISTS report_comment; 
-DROP TABLE IF EXISTS answer; 
-DROP TABLE IF EXISTS user_votes_answer;
-DROP TABLE IF EXISTS report_answer;
-DROP TABLE IF EXISTS question;
-DROP TABLE IF EXISTS user_votes_question;
-DROP TABLE IF EXISTS report_question;
-DROP TABLE IF EXISTS tag;
-DROP TABLE IF EXISTS course;
-DROP TABLE IF EXISTS question_tag;
-DROP TABLE IF EXISTS question_course;
-DROP TABLE IF EXISTS "user";
-DROP TABLE IF EXISTS registered_user;
-DROP TABLE IF EXISTS moderator;
-DROP TABLE IF EXISTS administrator;
-DROP TABLE IF EXISTS user_notification;
-DROP TABLE IF EXISTS report_user;
+DROP TABLE IF EXISTS "notification" CASCADE;  
+
+DROP TABLE IF EXISTS question CASCADE;
+DROP TABLE IF EXISTS report_question CASCADE;
+DROP TABLE IF EXISTS user_votes_question CASCADE;  
+
+DROP TABLE IF EXISTS answer CASCADE;  
+DROP TABLE IF EXISTS report_answer CASCADE; 
+DROP TABLE IF EXISTS user_votes_answer CASCADE;  
+
+DROP TABLE IF EXISTS comment CASCADE;  
+DROP TABLE IF EXISTS report_comment CASCADE;  
+  
+DROP TABLE IF EXISTS tag CASCADE;  
+DROP TABLE IF EXISTS course CASCADE;  
+DROP TABLE IF EXISTS question_tag CASCADE;  
+DROP TABLE IF EXISTS question_course CASCADE;  
+
+ 
 
 -- Tables
-CREATE TABLE "notification"(
-    notification_id  serial PRIMARY KEY, 
-    content         varchar(255) NOT NULL, 
-    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    viewed          boolean NOT NULL DEFAULT false
-); 
-
 CREATE TABLE "user"(
     user_id SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
@@ -44,11 +39,63 @@ CREATE TABLE "user"(
     CONSTRAINT weak_password CHECK(length(password) > 8)
 );
 
-CREATE TABLE notification_user(
-    user_id          serial REFERENCES "user" ON DELETE CASCADE, 
-    notification_id  int REFERENCES "notification" ON DELETE CASCADE, 
+CREATE TABLE registered_user (
+    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weak_password CHECK(length(password) > 8)
+);
 
-    PRIMARY KEY(user_id, notification_id)
+CREATE TABLE moderator (
+    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weak_password CHECK(length(password) > 8)
+);
+
+CREATE TABLE administrator (
+    user_id INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weak_password CHECK(length(password) > 8)
+);
+
+CREATE TABLE report_user (
+    user_id1 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
+    user_id2 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
+    PRIMARY KEY(user_id1, user_id2)
+);
+
+CREATE TABLE "notification"(
+    notification_id  serial PRIMARY KEY, 
+    user_id         integer NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    content         varchar(255) NOT NULL, 
+    date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
+    viewed          boolean NOT NULL DEFAULT false
 ); 
 
 CREATE TABLE question(
@@ -57,6 +104,18 @@ CREATE TABLE question(
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     "date" TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
+);
+
+CREATE TABLE report_question(
+    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
+    PRIMARY KEY (user_id,question_id)
+);
+
+CREATE TABLE user_votes_question(
+    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
+    PRIMARY KEY (user_id,question_id)
 );
 
 CREATE TABLE answer(
@@ -72,7 +131,17 @@ CREATE TABLE answer(
     PRIMARY KEY(answer_id) 
 );  
 
+CREATE TABLE user_votes_answer(
+    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
+    PRIMARY KEY (user_id,answer_id)
+);
 
+CREATE TABLE report_answer(
+    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
+    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
+    PRIMARY KEY (user_id,answer_id)
+);
 
 CREATE TABLE comment(
     comment_id       serial, 
@@ -94,38 +163,20 @@ CREATE TABLE report_comment(
     PRIMARY KEY(comment_id, user_id)
 ); 
 
-
-
-CREATE TABLE user_votes_answer(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,answer_id)
-);
-
-CREATE TABLE report_answer(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    answer_id INTEGER NOT NULL REFERENCES answer ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,answer_id)
-);
-
-
-
-CREATE TABLE user_votes_question(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,question_id)
-);
-
-CREATE TABLE report_question(
-    user_id INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE,
-    question_id INTEGER NOT NULL REFERENCES question ON UPDATE CASCADE,
-    PRIMARY KEY (user_id,question_id)
-);
-
 CREATE TABLE tag(
     tag_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE question_tag(
+    question_id INTEGER REFERENCES question(question_id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+	tag_id INTEGER REFERENCES tag(tag_id) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE,
+    PRIMARY KEY(question_id, tag_id)
 );
 
 CREATE TABLE course(
@@ -142,73 +193,4 @@ CREATE TABLE question_course(
         ON DELETE SET NULL 
         ON UPDATE CASCADE,
     PRIMARY KEY(question_id, course_id)
-);
-
-CREATE TABLE question_tag(
-    question_id INTEGER REFERENCES question(question_id) 
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE,
-	tag_id INTEGER REFERENCES tag(tag_id) 
-        ON DELETE SET NULL 
-        ON UPDATE CASCADE,
-    PRIMARY KEY(question_id, tag_id)
-);
-
-
-
-CREATE TABLE registered_user (
-    user_id SERIAL PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
-);
-
-CREATE TABLE moderator (
-    user_id SERIAL PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
-);
-
-CREATE TABLE administrator (
-    user_id SERIAL PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-	password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-    
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE),
-    CONSTRAINT weak_password CHECK(length(password) > 8)
-);
-
-CREATE TABLE user_notification (
-    user_id INTEGER REFERENCES "user" ON UPDATE CASCADE,
-    notification_id INTEGER REFERENCES Notification ON UPDATE CASCADE,
-    PRIMARY KEY(user_id, notification_id)
-);
-
-CREATE TABLE ReportUser (
-    user_id1 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
-    user_id2 INTEGER REFERENCES "user"(user_id) ON UPDATE CASCADE,
-    PRIMARY KEY(user_id1, user_id2)
 );
