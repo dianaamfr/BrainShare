@@ -1,7 +1,28 @@
 -- Types
 
--- Tables
+-- Drop Tables
 DROP TABLE IF EXISTS Notification;  
+DROP TABLE IF EXISTS NotificationUser; 
+DROP TABLE IF EXISTS Comment; 
+DROP TABLE IF EXISTS ReportComment; 
+DROP TABLE IF EXISTS Answer; 
+DROP TABLE IF EXISTS UserVotesAnswer;
+DROP TABLE IF EXISTS ReportAnswer;
+DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS UserVotesQuestion;
+DROP TABLE IF EXISTS ReportQuestion;
+DROP TABLE IF EXISTS Tag;
+DROP TABLE IF EXISTS Course;
+DROP TABLE IF EXISTS QuestionTag;
+DROP TABLE IF EXISTS QuestionCourse;
+DROP TABLE IF EXISTS "User";
+DROP TABLE IF EXISTS RegisteredUser;
+DROP TABLE IF EXISTS Moderator;
+DROP TABLE IF EXISTS Administrator;
+DROP TABLE IF EXISTS UserNotification;
+DROP TABLE IF EXISTS ReportUser;
+
+-- Tables
 CREATE TABLE  Notification(
     notificationId  serial, 
     content         varchar(255) NOT NULL, 
@@ -11,102 +32,90 @@ CREATE TABLE  Notification(
     PRIMARY KEY(notificationId)
 ); 
 
-DROP TABLE IF EXISTS NotificationUser; 
 CREATE TABLE NotificationUser(
-    userId          int REFERENCES User ON DELETE CASCADE, 
+    userId          int REFERENCES "User" ON DELETE CASCADE, 
     notificationId  int REFERENCES Notification ON DELETE CASCADE, 
 
     PRIMARY KEY(userId, notificationId)
 ); 
 
-DROP TABLE IF EXISTS Comment;  
 CREATE TABLE Comment(
     commentId       serial, 
     notificationId  int REFERENCES Notification ON DELETE SET NULL, 
-    commentOwnerId  int REFERENCES User ON DELETE SET NULL,  
+    commentOwnerId  int REFERENCES "User" ON DELETE SET NULL,  
     answerId        int REFERENCES Answer ON DELETE CASCADE,
     content         text NOT NULL, 
     date            timestamp with time zone NOT NULL DEFAULT current_timestamp,
 
-    CHECK(date < current_timestamp()),  
+    CHECK(date < current_timestamp),  
     PRIMARY KEY(commentId)
 
 ); 
 
-DROP TABLE IF EXISTS ReportComment; 
 CREATE TABLE ReportComment(
     commentId       int REFERENCES Comment ON DELETE CASCADE, 
-    userId          int REFERENCES User ON DELETE SET NULL, 
+    userId          int REFERENCES "User" ON DELETE SET NULL, 
 
     PRIMARY KEY(commentId, userId)
 ); 
 
-DROP TABLE IF EXISTS Answer; 
 CREATE TABLE Answer(
     answerId        serial, 
     notificationId  int REFERENCES Notification ON DELETE SET NULL,  
     questionId      int REFERENCES Question ON DELETE CASCADE, 
-    answerOwnerId   int REFERENCES User ON DELETE SET NULL,  
+    answerOwnerId   int REFERENCES "User" ON DELETE SET NULL,  
     content         text NOT NULL, 
     date            timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     valid           boolean NOT NULL DEFAULT false, 
 
-    CHECK(date < current_timestamp()), 
+    CHECK(date < current_timestamp), 
     PRIMARY KEY(answerId) 
 );  
 
-DROP TABLE IF EXISTS UserVotesAnswer;
 CREATE TABLE UserVotesAnswer(
-    userId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
+    userId INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     answerId INTEGER NOT NULL REFERENCES answer(id) ON UPDATE CASCADE,
     PRIMARY KEY (userId,answerId)
 );
 
-DROP TABLE IF EXISTS ReportAnswer;
 CREATE TABLE ReportAnswer(
-    userId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
+    userId INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     answerId INTEGER NOT NULL REFERENCES answer(id) ON UPDATE CASCADE,
     PRIMARY KEY (userId,answerId)
 );
 
-DROP TABLE IF EXISTS Question;
 CREATE TABLE Question(
     questionId SERIAL PRIMARY KEY,
-    questionOwnerId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
+    questionOwnerId INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     "date" TIMESTAMP WITH TIME zone DEFAULT now() NOT NULL
 );
 
-DROP TABLE IF EXISTS UserVotesQuestion;
 CREATE TABLE UserVotesQuestion(
-    userId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
+    userId INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     questionId INTEGER NOT NULL REFERENCES question(id) ON UPDATE CASCADE,
     PRIMARY KEY (userId,questionId)
 );
 
-DROP TABLE IF EXISTS ReportQuestion;
 CREATE TABLE ReportQuestion(
-    userId INTEGER NOT NULL REFERENCES user(id) ON UPDATE CASCADE,
+    userId INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     questionId INTEGER NOT NULL REFERENCES question(id) ON UPDATE CASCADE,
     PRIMARY KEY (userId,questionId)
 );
 
-DROP TABLE IF EXISTS Tag;
 CREATE TABLE Tag(
     tagId SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE, 
     creationDate TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS Course;
 CREATE TABLE Course(
     courseId SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE, 
     creationDate TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS QuestionTag;
 CREATE TABLE QuestionCourse(
     questionId INTEGER REFERENCES Question(questionId)
         ON DELETE CASCADE 
@@ -117,7 +126,6 @@ CREATE TABLE QuestionCourse(
     PRIMARY KEY(questionId, courseId)
 );
 
-DROP TABLE IF EXISTS QuestionCourse;
 CREATE TABLE QuestionCourse(
     questionId INTEGER REFERENCES Question(questionId) 
         ON DELETE CASCADE 
@@ -128,76 +136,73 @@ CREATE TABLE QuestionCourse(
     PRIMARY KEY(questionId, tagId)
 );
 
-DROP TABLE IF EXISTS User;
-CREATE TABLE User(
+CREATE TABLE "User"(
     userId SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     birthday DATE,
-    image TEXT,
-    password TEXT NOT NULL,
+    image TEXT, 
+	password TEXT NOT NULL,
     description TEXT,
     ban BOOLEAN NOT NULL,
-
-    CONSTRAINT birthdayDate CHECK (birthday) < GetDate(),
-    CONSTRAINT weakPassword CHECK(length(password) > 8)
-);
-
-DROP TABLE IF EXISTS RegisteredUser;
-CREATE TABLE RegisteredUser (
-    userId SERIAL PRIMARY KEY REFERENCES User ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-    password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-
-    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
-    CONSTRAINT weakPassword CHECK(length(password) > 8)
-);
-
-DROP TABLE IF EXISTS Moderator;
-CREATE TABLE Moderator (
-    userId SERIAL PRIMARY KEY REFERENCES User ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
-    password TEXT NOT NULL,
-    description TEXT,
-    ban BOOLEAN NOT NULL,
-
-    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
-    CONSTRAINT weakPassword CHECK(length(password) > 8)
-);
-
-DROP TABLE IF EXISTS Administrator;
-CREATE TABLE Administrator (
-    userId SERIAL PRIMARY KEY REFERENCES User ON UPDATE CASCADE,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT, 
-    birthday DATE,
-    image TEXT, 
     
-    CONSTRAINT birthdayDate CHECK (birthday) < CURRENT_DATE,
+    CONSTRAINT birthdayDate CHECK (birthday < CURRENT_DATE),
     CONSTRAINT weakPassword CHECK(length(password) > 8)
 );
 
-DROP TABLE IF EXISTS UserNotification;
+CREATE TABLE RegisteredUser (
+    userId SERIAL PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthdayDate CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weakPassword CHECK(length(password) > 8)
+);
+
+CREATE TABLE Moderator (
+    userId SERIAL PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthdayDate CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weakPassword CHECK(length(password) > 8)
+);
+
+CREATE TABLE Administrator (
+    userId SERIAL PRIMARY KEY REFERENCES "User" ON UPDATE CASCADE,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT, 
+    birthday DATE,
+    image TEXT, 
+	password TEXT NOT NULL,
+    description TEXT,
+    ban BOOLEAN NOT NULL,
+    
+    CONSTRAINT birthdayDate CHECK (birthday < CURRENT_DATE),
+    CONSTRAINT weakPassword CHECK(length(password) > 8)
+);
+
 CREATE TABLE UserNotification (
-    userId INTEGER REFERENCES User ON UPDATE CASCADE,
+    userId INTEGER REFERENCES "User" ON UPDATE CASCADE,
     notificationId INTEGER REFERENCES Notification ON UPDATE CASCADE,
     PRIMARY KEY(userId, notificationId)
 );
 
-DROP TABLE IF EXISTS ReportUser;
 CREATE TABLE ReportUser (
-    userId1 INTEGER REFERENCES User(userId) ON UPDATE CASCADE,
-    userId2 INTEGER REFERENCES User(userId) ON UPDATE CASCADE,
+    userId1 INTEGER REFERENCES "User"(userId) ON UPDATE CASCADE,
+    userId2 INTEGER REFERENCES "User"(userId) ON UPDATE CASCADE,
     PRIMARY KEY(userId1, userId2)
 );
