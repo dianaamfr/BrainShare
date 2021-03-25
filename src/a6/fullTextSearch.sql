@@ -22,24 +22,12 @@ GROUP BY question.id;*/
 
 DROP MATERIALIZED VIEW IF EXISTS search_content;
 CREATE MATERIALIZED VIEW search_content as
-SELECT question.id as search_id
+SELECT question.id as search_id, question.title as title, question.content as question_content, username, image, question_owner_id, question.date,
            setweight(to_tsvector('simple',question.title),'A') ||
            setweight(to_tsvector('simple',question.content),'B') || 
            Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
 FROM question left join answer on question.id = question_id join "user" on "user".id = question_owner_id
 GROUP BY question.id, username, image, question_owner_id, question.date
-
-
-DROP MATERIALIZED VIEW IF EXISTS search_content;
-CREATE MATERIALIZED VIEW search_content as
-SELECT search_id, question.title as title, question.content as question_content, username, image, question_owner_id, question.date
-FROM
-    SELECT question.id as search_id,
-           setweight(to_tsvector('simple',question.title),'A') ||
-           setweight(to_tsvector('simple',question.content),'B') || 
-           Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
-    FROM question left join answer on question.id = question_id join "user" on "user".id = question_owner_id
-    GROUP BY question.id
 
 
 CREATE INDEX search_idx ON search_content USING GIN("search");
