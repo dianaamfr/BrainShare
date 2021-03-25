@@ -63,7 +63,7 @@ WHERE question.id = "question_course".question_id
     AND question.id = vote.question_id  
     AND "question_course".course_id = course.id 
 GROUP BY question.id, username, image
-ORDER BY date DESC 
+ORDER BY date DESC;
 
 
 -- (10) Select questions with specific tag
@@ -74,7 +74,7 @@ WHERE question.id = "question_tag".question_id
     AND question.id = vote.question_id  
     AND tag_id = tag.id 
 GROUP BY question.id, username, image
-ORDER BY date DESC 
+ORDER BY date DESC;
 
 -- (11) NOTIFICATIONS 
 SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
@@ -84,40 +84,30 @@ UNION
 SELECT content, "notification".date, viewed, comment_id as content_id, question_id, 'comment' as "type"
 FROM "notification", "comment"
 WHERE content_id IS NOT NULL AND viewed = FALSE
-ORDER BY "notification".date DESC
+ORDER BY "notification".date DESC;
 
 
 
 -- (12) REPORTS  
-CREATE TEMP VIEW IF NOT EXISTS reported_users as 
 SELECT "user".id, username as summary, 'user' as "type", COUNT(report.id) as reports 
-FROM report, user 
-WHERE report_id = "user".id  
-GROUP BY "user".id
-
-CREATE TEMP VIEW IF NOT EXISTS reported_questions as 
+FROM report, "user"
+WHERE report.id = "user".id  
+GROUP BY "user".id 
+UNION 
 SELECT question.id, title as summary, 'question' as "type", COUNT(report.id) as reports
 FROM report, question 
 WHERE question_id = question.id  
-GROUP BY question.id 
-
-CREATE TEMP VIEW IF NOT EXISTS reported_answers as 
+GROUP BY question.id
+UNION
 SELECT answer.id, content as summary, 'answer' as "type", COUNT(report.id) as reports 
 FROM report, answer 
 WHERE answer_id = answer.id  
 GROUP BY answer.id
-
-CREATE TEMP VIEW IF NOT EXISTS reported_comments as 
+UNION
 SELECT "comment".id, content as summary, 'comment' as "type", COUNT(report.id) reports 
 FROM report, "comment"  
 WHERE comment_id = "comment".id  
-GROUP BY "comment".id
-
-SELECT summary, types, reports 
-FROM reported_users 
-UNION reported_questions 
-UNION reported_answers 
-UNION reported_comments 
+GROUP BY "comment".id;
 
 
 -- (13) MANAGE USERS   
