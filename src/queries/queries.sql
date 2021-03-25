@@ -34,48 +34,47 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 -- INITIAL PAGE  
 
 -- (6) Featured questions (we the biggest number of votes) 
-SELECT question.id, title, content, date, image, SUM(valid_vote) as votes, username, image, COUNT(answer.id) as answers
+SELECT question.id, title, "question".content, "question".date, "user".image, SUM(value_vote) as votes, username, image, COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
     AND question_owner_id = "user".id 
-GROUP BY question.id 
+GROUP BY question.id, "user".image, username
 ORDER BY votes DESC;  
 
 
 -- SEARCH PAGE 
 
 -- (7) Order by recent questions 
-SELECT question.id, title, content, date, username, image,  SUM(valid_vote) as votes, COUNT(answer.id) as answers
+SELECT question.id, title, "question".content, "question".date, username, image,  SUM(value_vote) as votes, COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
     AND question_owner_id = "user".id 
-GROUP BY question.id 
+GROUP BY question.id, username, image
 ORDER BY date DESC
 
 -- (8) Order by most voted questions : (6)
 
 -- (9) Get questions associated with the course:  
-SELECT question.id, title, content, date, username , 
-       image, COUNT(answer.id) as answers, SUM(valid_vote) as votes 
+SELECT question.id, title, "question".content, "question".date, username , 
+       image, COUNT(answer.id) as answers, SUM(value_vote) as votes 
 FROM question, course, question_course, "user", vote, answer 
-WHERE question.id = question_id  
+WHERE question.id = "question_course".question_id  
     AND question_owner_id = "user".id    
     AND question.id = vote.question_id  
-    AND course_id = course.id 
-GROUP BY question.id 
+    AND "question_course".course_id = course.id 
+GROUP BY question.id, username, image
 ORDER BY date DESC 
 
 
 -- (10) Select questions with specific tag
-SELECT question.id, title, content, date, username, image, SUM(valid_vote) as votes, COUNT(answer.id) as answers 
+SELECT question.id, title, "question".content, "question".date, username, image, SUM(value_vote) as votes, COUNT(answer.id) as answers 
 FROM question, tag, question_tag, "user", vote, answer 
-WHERE question.id = question_id  
+WHERE question.id = "question_tag".question_id  
     AND question_owner_id = "user".id    
     AND question.id = vote.question_id  
     AND tag_id = tag.id 
-GROUP BY question.id
+GROUP BY question.id, username, image
 ORDER BY date DESC 
-
 
 -- (11) NOTIFICATIONS 
 SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"

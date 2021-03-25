@@ -326,3 +326,14 @@ INSERT INTO question_tag (question_id, tag_id) VALUES (14, 7);
 INSERT INTO question_tag (question_id, tag_id) VALUES (15, 7);
 INSERT INTO question_tag (question_id, tag_id) VALUES (16, 7);
 INSERT INTO question_tag (question_id, tag_id) VALUES (17, 7);
+
+-- Question Votes  
+INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (1,96,4,'-1'),(2,51,4,'-1'),(3,57,2,'1'),(4,70,4,'1'),(5,37,1,'-1'),(6,37,4,'-1'),(7,99,4,'-1'),(8,83,1,'-1'),(9,93,4,'1'),(10,14,2,'-1');
+INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (11,17,1,'-1'),(12,34,2,'-1'),(13,93,5,'1'),(14,16,1,'1'),(15,81,5,'1'),(16,87,4,'-1'),(17,80,3,'1'),(18,45,1,'1'),(19,49,1,'-1'),(20,14,3,'1');
+
+
+-- Answer Votes 
+INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (31,90,1,'1'),(21,51,4,'1'),(22,22,2,'1'),(23,25,3,'-1'),(24,5,5,'-1'),(25,86,2,'-1'),(26,66,5,'-1'),(27,94,1,'1'),(28,90,2,'1'),(30,5,4,'-1');
+INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (41,76,3,'-1'),(32,43,2,'-1'),(33,8,5,'-1'),(34,61,1,'-1'),(35,81,3,'-1'),(36,7,2,'1'),(37,13,4,'-1'),(38,74,2,'1'),(39,38,3,'1'),(40,2,4,'-1');
+
+
