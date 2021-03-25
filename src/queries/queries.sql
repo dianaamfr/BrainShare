@@ -2,33 +2,33 @@
 -- PROFILE 
 
 -- (1) User profile with name 
-SELECT id, username, email, birthday, image, description, ban, "user".name as name, course.name as course
+SELECT "user".id, username, email, birthday, image, description, ban, "user".name as name, course.name as course
 FROM "user" JOIN course ON "user".course_id = course.id 
 WHERE "user".username = $username; 
 
  -- (2) User profile questions
-SELECT id, title, content, date, name 
-FROM question 
-WHERE question_owner_id = $user_id; 
+SELECT "question".id, title, content, date, "user".name 
+FROM question, "user"
+WHERE question_owner_id = $user_id AND "user".id = question_owner_id; 
 
  -- (3) User profile answers  
-SELECT question_id, content, date, valid, title, question_owner_id, image 
-FROM answer, question, "user" 
-WHERE answer_owner_id = $user_id 
+SELECT question_id, answer.content, answer.date, valid, title, question_owner_id, image, "user".username
+FROM answer, question, "user"
+WHERE answer_owner_id = $user_id
     AND question_id = question.id 
-    AND "user".id = question_owner_id; 
+	AND answer_owner_id = "user".id
 
 -- FOR ALL QUESTIONS
 
 -- (4) Get tags associated with a question
 SELECT name  
 FROM tag, question_tag
-WHERE question_id = $question_id AND tag_id = tag.tag_id; 
+WHERE question_id = $question_id AND tag_id = tag.id; 
 
 -- (5) Get courses associated with a question
 SELECT name 
 FROM course, question_course 
-WHERE question_id = $question_id AND question_course.course_id = course.course_id; 
+WHERE question_id = $question_id AND question_course.course_id = course.id; 
 
 
 -- INITIAL PAGE  
