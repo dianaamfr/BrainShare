@@ -194,19 +194,19 @@ INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (5,
 
 -- notifications
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (1, 7, 1, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (2, 5, 2, NULL, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (2, 5, 2, NULL, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (3, 5, 3, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (4, 5, 4, NULL, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (4, 5, 4, NULL, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (5, 5, 5, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (6, 1, NULL, 1, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (6, 1, NULL, 1, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (7, 9, NULL, 2, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (8, 5, NULL, 3, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (8, 5, NULL, 3, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (9, 3, NULL, 4, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (10, 5, NULL, 5, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (10, 5, NULL, 5, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (11, 11, NULL, 6, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (12, 17, NULL, 7, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (12, 17, NULL, 7, '2021-01-01', false);
 INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (13, 98, NULL, 8, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (14, 75, NULL, 9, '2021-01-01', TRUE);
+INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (14, 75, NULL, 9, '2021-01-01', false);
 
 -- Reported User 
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (1,'true',41,42);

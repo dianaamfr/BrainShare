@@ -76,8 +76,7 @@ WHERE question.id = "question_tag".question_id
 GROUP BY question.id, username, image
 ORDER BY date DESC;
 
--- (11) NOTIFICATIONS 
--- TODO: Acho que tá mal. 
+-- (11) NOTIFICATIONS:
 SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
 FROM "notification", answer
 WHERE answer_id IS NOT NULL AND viewed = FALSE
@@ -87,6 +86,15 @@ FROM "notification", "comment"
 WHERE comment_id IS NOT NULL AND viewed = FALSE
 ORDER BY date DESC;
 
+-- Find a notification for a user 
+SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
+FROM "notification", answer, 
+WHERE answer_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id 
+UNION
+SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
+FROM "notification", "comment"
+WHERE comment_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id
+ORDER BY date DESC;
 
 
 
