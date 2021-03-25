@@ -77,14 +77,16 @@ GROUP BY question.id, username, image
 ORDER BY date DESC;
 
 -- (11) NOTIFICATIONS 
+-- TODO: Acho que tá mal. 
 SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
 FROM "notification", answer
-WHERE content_id IS NOT NULL AND viewed = FALSE
+WHERE answer_id IS NOT NULL AND viewed = FALSE
 UNION
-SELECT content, "notification".date, viewed, comment_id as content_id, question_id, 'comment' as "type"
+SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
 FROM "notification", "comment"
-WHERE content_id IS NOT NULL AND viewed = FALSE
-ORDER BY "notification".date DESC;
+WHERE comment_id IS NOT NULL AND viewed = FALSE
+ORDER BY date DESC;
+
 
 
 
@@ -111,8 +113,8 @@ GROUP BY "comment".id;
 
 
 -- (13) MANAGE USERS   
-SELECT id, username, signup_date, ban, "role"  
-FROM users 
+SELECT id, username, signup_date, ban, TYPE 
+FROM "user"; 
 
 -- (13) MANAGE TAGS 
 SELECT id, name, creation_date, COUNT(question_id) as uses_number  
