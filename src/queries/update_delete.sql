@@ -1,7 +1,8 @@
 -- 1.3. Most frequent modifications
 
 -- (INSERT01) Create a new account
-
+INSERT INTO "user" (username, email, TYPE)
+VALUES ($username, $email,'RegisteredUser');
 
 -- PROFILE 
 
@@ -13,41 +14,53 @@ WHERE username = $username;
 -- (DELETE01) Remove Tag of interest
 -- TABLE MISSING
 
--- (INSERT01) Add Tag of interest
+-- (INSERT02) Add Tag of interest
 -- TABLE MISSING
 
--- (4) Update Academic Course
+-- (UPDATE02) Update Academic Course
 UPDATE "user"
 SET course_id = $course_id
 WHERE username = $username; 
 
 -- QUESTIONS
 
--- (5) Update question text fields
+-- (INSERTxx) Insert question text fields
+INSERT INTO question (question_owner_id, title, content) 
+VALUES ($user_id, $title, $content)
+RETURNING id;
+
+-- (INSERTxx) Insert question course
+INSERT INTO question_course (question_id, course_id) 
+VALUES ($question_id, $course_id);
+
+-- (INSERTxx) Insert question tag
+INSERT INTO question_tag (question_id, course_id) 
+VALUES ($question_id, $tag_id);
+
+-- (UPDATExx) Update question text fields
 UPDATE question
 SET title = $title, content = $content
 WHERE id = $id;
 
--- (DELETE01) Delete question course
-UPDATE question
-SET title = $title, content = $content
-WHERE id = $id;
+-- (DELETExx) Delete question course
+DELETE FROM question_course
+WHERE question_id = $question_id AND course_id = $course_id;
 
--- (6) Delete question course
-UPDATE question
-SET title = $title, content = $content
-WHERE id = $id;
+-- (DELETExx) Delete question tag
+DELETE FROM question_tag
+WHERE question_id = $question_id AND tag_id = $tag_id;
 
--- (5) Delete a question
-DELETE 
+-- (DELETExx) Delete a question
+DELETE FROM question
+WHERE question_id = $question_id;
 
--- (6) Delete an answer
+-- (DELETExx) Delete an answer
 
--- (7) Delete a comment
+-- (DELETExx) Delete a comment
 
 -- MANAGEMENT
 
--- () Change User Role
+-- (UPDATExx) Change User Role
 UPDATE "user"
 SET role = $role
 WHERE id = $id; 
