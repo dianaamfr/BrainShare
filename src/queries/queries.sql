@@ -33,7 +33,7 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 
 -- INITIAL PAGE  
 
--- (6) Featured questions (we the biggest number of votes) 
+-- (6) Featured questions (with the biggest number of votes) 
 SELECT question.id, title, "question".content, "question".date, "user".image, SUM(value_vote) as votes, username, image, COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
