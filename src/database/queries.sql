@@ -63,7 +63,8 @@ FROM question, course, question_course, "user", vote, answer
 WHERE question.id = "question_course".question_id  
     AND question_owner_id = "user".id    
     AND question.id = vote.question_id  
-    AND "question_course".course_id = course.id 
+    AND "question_course".course_id = course.id  
+    AND course.id = $course_id 
 GROUP BY question.id, username, image
 ORDER BY date DESC;
 
