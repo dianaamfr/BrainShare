@@ -6,16 +6,17 @@ FROM "user" JOIN course ON "user".course_id = course.id
 WHERE "user".username = $username; 
 
  -- (2) User profile questions
-SELECT "question".id, title, content, date, "user".name 
+SELECT "question".id, title, content, date 
 FROM question, "user"
 WHERE question_owner_id = $user_id AND "user".id = question_owner_id; 
 
  -- (3) User profile answers  
-SELECT question_id, answer.content, answer.date, valid, title, question_owner_id, image, "user".username
+SELECT answer.content, answer.date AS answer_date, valid, 
+question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, question."date" AS question_date
 FROM answer, question, "user"
 WHERE answer_owner_id = $user_id
     AND question_id = question.id 
-	AND answer_owner_id = "user".id
+	AND question_owner_id = "user".id;
 
 -- FOR ALL QUESTIONS
 
@@ -32,7 +33,7 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 
 -- INITIAL PAGE  
 
--- (6) Featured questions (we the biggest number of votes) 
+-- (6) Featured questions (with the biggest number of votes) 
 SELECT question.id, title, "question".content, "question".date, "user".image, SUM(value_vote) as votes, username, image, COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
