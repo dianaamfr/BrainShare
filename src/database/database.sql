@@ -10,10 +10,6 @@ DROP TABLE IF EXISTS report CASCADE;
 DROP TABLE IF EXISTS question_tag CASCADE;  
 DROP TABLE IF EXISTS question_course CASCADE;
 DROP TABLE IF EXISTS favourite_tag CASCADE;  
-DROP TRIGGER IF EXISTS search_question ON question CASCADE;
-DROP FUNCTION IF EXISTS update_search_question;
-DROP TRIGGER IF EXISTS search_answer ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_search_answer;
 DROP TYPE IF EXISTS "role";
 
 -----------
