@@ -122,3 +122,29 @@ CREATE TRIGGER update_vote_trigger
 -- INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
 SELECT * FROM "vote" WHERE "vote".id = 90;
+
+/* Update score of questions */
+DROP FUNCTION IF EXISTS score() CASCADE;
+DROP TRIGGER IF EXISTS score_trigger ON vote;
+
+CREATE FUNCTION score() RETURNS TRIGGER AS $$
+BEGIN
+	IF NEW.question_id IS NOT NULL
+	THEN
+		UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
+	ELSIF NEW.answer_id IS NOT NULL
+	THEN
+		UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;		
+	END IF;
+	RETURN NULL;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER score_trigger
+    AFTER INSERT ON vote
+    FOR EACH ROW
+    EXECUTE PROCEDURE score();
+	
+INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (101, 32, 6 ,'-1');
+SELECT * FROM question;

@@ -55,7 +55,8 @@ CREATE TABLE question(
     question_owner_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    "date" TIMESTAMP WITH TIME zone DEFAULT now()
+    "date" TIMESTAMP WITH TIME zone DEFAULT now(),
+    score INTEGER DEFAULT 0
 );
 
 CREATE TABLE answer(
@@ -64,7 +65,8 @@ CREATE TABLE answer(
     answer_owner_id INTEGER REFERENCES "user"(id) ON DELETE SET NULL,  
     content TEXT NOT NULL, 
     "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    valid boolean NOT NULL DEFAULT false
+    valid boolean NOT NULL DEFAULT false,
+    score INTEGER DEFAULT 0
 ); 
 
 CREATE TABLE comment(
