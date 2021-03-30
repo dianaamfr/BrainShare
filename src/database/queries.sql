@@ -8,7 +8,8 @@ WHERE "user".username = $username;
  -- (2) User profile questions
 SELECT "question".id, title, content, date 
 FROM question, "user"
-WHERE question_owner_id = $user_id AND "user".id = question_owner_id; 
+WHERE question_owner_id = $user_id AND "user".id = question_owner_id
+LIMIT $page_limit OFFSET $page_number; 
 
  -- (3) User profile answers  
 SELECT answer.content, answer.date AS answer_date, valid, 
@@ -16,7 +17,8 @@ question_id, title, question_owner_id, username AS question_owner_username, imag
 FROM answer, question, "user"
 WHERE answer_owner_id = $user_id
     AND question_id = question.id 
-	AND question_owner_id = "user".id;
+	AND question_owner_id = "user".id
+LIMIT $page_limit OFFSET $page_number; 
 
 -- FOR ALL QUESTIONS
 
