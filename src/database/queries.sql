@@ -83,48 +83,24 @@ GROUP BY question.id, username, image
 ORDER BY date DESC;
 
 -- (11) NOTIFICATIONS:(*)
-SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
-FROM "notification", answer
-WHERE answer_id IS NOT NULL AND viewed = FALSE
-UNION
-SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
-FROM "notification", "comment"
-WHERE comment_id IS NOT NULL AND viewed = FALSE
+SELECT "notification"."date", "noticiation".viewed, "notification".answer_id, "notification".comment_id 
+FROM "notification", answer, comment
+WHERE viewed = FALSE
 ORDER BY date DESC;
 
--- Find a notification for a user 
-SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
-FROM "notification", answer, 
-WHERE answer_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id 
-UNION
-SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
-FROM "notification", "comment"
-WHERE comment_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id
+SELECT "notification"."date", "noticiation".viewed, "notification".answer_id, "notification".comment_id 
+FROM "notification", answer, comment
+WHERE viewed = FALSE and "notification".user_id = $user_id
 ORDER BY date DESC;
-
 
 
 -- (12) REPORTS  
-SELECT "user".id, username as summary, 'user' as "type", COUNT(report.id) as reports 
-FROM report, "user"
-WHERE report.id = "user".id  
-GROUP BY "user".id 
-UNION 
-SELECT question.id, title as summary, 'question' as "type", COUNT(report.id) as reports
-FROM report, question 
-WHERE question_id = question.id  
-GROUP BY question.id
-UNION
-SELECT answer.id, content as summary, 'answer' as "type", COUNT(report.id) as reports 
-FROM report, answer 
-WHERE answer_id = answer.id  
-GROUP BY answer.id
-UNION
-SELECT "comment".id, content as summary, 'comment' as "type", COUNT(report.id) reports 
-FROM report, "comment"  
-WHERE comment_id = "comment".id  
-GROUP BY "comment".id;
-
+SELECT report.id as report_id, reported_id, question.id as question_id, answer.id as answer_id, comment.id as comment_id
+FROM report LEFT JOIN "user" ON report.reported_id = "user".id 
+            LEFT JOIN question ON report.question_id = question.id
+            LEFT JOIN answer ON report.answer_id = answer.id
+            LEFT JOIN "comment" ON report.comment_id = "comment".id
+ORDER BY report.id
 
 -- (13) MANAGE USERS   
 SELECT id, username, signup_date, ban, TYPE 
