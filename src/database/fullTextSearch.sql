@@ -8,8 +8,8 @@ FROM search_content
 WHERE "search" @@ to_tsquery('simple', 'lixivia | ano | velocidade')
 ORDER BY "rank" DESC;
 
-/* VIEW */
-/* !!PRESERVE!!*/
+/* (*) mudar para trigger */
+
 /*
 DROP MATERIALIZED VIEW IF EXISTS search_content;
 CREATE MATERIALIZED VIEW search_content as
@@ -27,7 +27,7 @@ SELECT question.id as search_id, question.title as title, question.content as qu
            setweight(to_tsvector('simple',question.content),'B') || 
            Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
 FROM question left join answer on question.id = question_id join "user" on "user".id = question_owner_id
-GROUP BY question.id, username, image, question_owner_id, question.date
+GROUP BY question.id, username, image, question_owner_id, question.date;
 
 /* With subquery
 

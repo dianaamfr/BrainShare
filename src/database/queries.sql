@@ -34,7 +34,8 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 -- INITIAL PAGE  
 
 -- (6) Featured questions (with the biggest number of votes) 
-SELECT question.id, title, "question".content, "question".date, "user".image, SUM(value_vote) as votes, username, image, COUNT(answer.id) as answers
+SELECT question.id, title, "question".content, "question".date, "user".image, SUM(value_vote) as votes, username,
+ image, COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
     AND question_owner_id = "user".id 
@@ -45,7 +46,8 @@ ORDER BY votes DESC;
 -- SEARCH PAGE 
 
 -- (7) Order by recent questions 
-SELECT question.id, title, "question".content, "question".date, username, image,  SUM(value_vote) as votes, COUNT(answer.id) as answers
+SELECT question.id, title, "question".content, "question".date, username, image,  SUM(value_vote) as votes, 
+COUNT(answer.id) as answers
 FROM question, vote, "user", answer
 WHERE question.id = vote.question_id 
     AND question_owner_id = "user".id 
@@ -54,7 +56,7 @@ ORDER BY date DESC
 
 -- (8) Order by most voted questions : (6)
 
--- (9) Get questions associated with the course:  
+-- (9) Get questions associated with the course:  (*)
 SELECT question.id, title, "question".content, "question".date, username , 
        image, COUNT(answer.id) as answers, SUM(value_vote) as votes 
 FROM question, course, question_course, "user", vote, answer 
@@ -66,8 +68,9 @@ GROUP BY question.id, username, image
 ORDER BY date DESC;
 
 
--- (10) Select questions with specific tag
-SELECT question.id, title, "question".content, "question".date, username, image, SUM(value_vote) as votes, COUNT(answer.id) as answers 
+-- (10) Select questions with specific tag (*)
+SELECT question.id, title, "question".content, "question".date, username, image, SUM(value_vote) as votes, 
+COUNT(answer.id) as answers 
 FROM question, tag, question_tag, "user", vote, answer 
 WHERE question.id = "question_tag".question_id  
     AND question_owner_id = "user".id    
@@ -76,7 +79,7 @@ WHERE question.id = "question_tag".question_id
 GROUP BY question.id, username, image
 ORDER BY date DESC;
 
--- (11) NOTIFICATIONS:
+-- (11) NOTIFICATIONS:(*)
 SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
 FROM "notification", answer
 WHERE answer_id IS NOT NULL AND viewed = FALSE

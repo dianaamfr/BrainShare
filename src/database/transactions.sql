@@ -23,7 +23,7 @@ WHERE id = $id;
 -- Remove Favourite Tag (as musch as necessary)
 DELETE FROM favourite_tag
 WHERE user_id = $user_id, tag_id = $tag_id;
-
+/* (*) */
 -- Add Favourite Tag (as much as necessary)
 INSERT INTO favourite_tag (user_id, tag_id)
 VALUES ($user_id, $tag_id);
