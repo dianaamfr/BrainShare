@@ -66,8 +66,21 @@ VALUES ($question_id, $course_id);
 
 COMMIT;  
 
+-- T3: Insert a question 
+-- JUSTIFICATION: This operation must be in one transaction since, it must be considered as atomic. The Isolation level
+-- must be repeatable read, once the table question_tag and question_course must not just have a snapshot from before the transaction,
+-- but must also be aware of the question inserted, once it will use its id as one of the primary keys of the table.
+-- ISOLATION LEVEL: Repeatable read. 
+BEGIN; 
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+INSERT INTO question(question_owner_id, title, content) VALUES($user_id, $title, $content);
+
+-- It's possible to insert as many tags as necessary 
+INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id1); 
+INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id2); 
+
+INSERT INTO question_course(question_id, course_id)  VALUES (currval(pg_get_serial_sequence('question', 'id')), $course_id);
 
 
-
-
-
+COMMIT; 
