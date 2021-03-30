@@ -18,20 +18,9 @@ DROP TYPE IF EXISTS "role";
 -----------
 CREATE TYPE "role" AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
 
-------------
+------------    
 -- Tables --
 ------------
-CREATE TABLE tag(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE course(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
 
 CREATE TABLE "user"(
     id  SERIAL PRIMARY KEY,
@@ -101,7 +90,7 @@ CREATE TABLE vote(
 
 CREATE TABLE report(
     id SERIAL PRIMARY KEY,
-    viewed BOOLEAN NOT NULL,
+    viewed BOOLEAN NOT NULL DEFAULT FALSE,
     user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE,
     question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE,
@@ -114,11 +103,24 @@ CREATE TABLE report(
         (reported_id IS NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NOT NULL)) 
     );
 
+CREATE TABLE tag(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE, 
+    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE question_tag(
     question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
     tag_id INTEGER REFERENCES tag(id) ON DELETE SET NULL ON UPDATE CASCADE,
     PRIMARY KEY(question_id, tag_id)
 );
+
+CREATE TABLE course(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE, 
+    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE question_course(
     question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
