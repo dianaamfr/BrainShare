@@ -37,8 +37,8 @@ CREATE TABLE "user"(
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     birthday DATE,
-    name TEXT, 
     signup_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    name TEXT, 
     image TEXT, 
     password TEXT,
     description TEXT,
@@ -83,9 +83,9 @@ CREATE TABLE "notification"(
     answer_id INTEGER REFERENCES answer(id) ON DELETE SET NULL, 
     date timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     viewed boolean NOT NULL DEFAULT false
+
+    CONSTRAINT exclusive_notification CHECK ((comment_id IS NULL AND answer_id IS NOT NULL) OR (comment_id IS NOT NULL AND answer_id IS NULL))
 ); 
-
-
 
 CREATE TABLE vote(
     id SERIAL PRIMARY KEY,
@@ -107,7 +107,7 @@ CREATE TABLE report(
     answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE,
     comment_id INTEGER  REFERENCES comment(id) ON UPDATE CASCADE
 
-    CHECK ((reported_id IS NOT NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NULL) OR 
+    CONSTRAINT exclusive_report CHECK ((reported_id IS NOT NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NULL) OR 
         (reported_id IS NULL AND question_id IS NOT NULL AND answer_id IS NULL and comment_id IS NULL) OR 
         (reported_id IS NULL AND question_id IS NULL AND answer_id IS NOT NULL and comment_id IS NULL) OR 
         (reported_id IS NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NOT NULL)) 
@@ -330,7 +330,6 @@ INSERT INTO question_tag (question_id, tag_id) VALUES (17, 7);
 -- Question Votes  
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (1,96,4,'-1'),(2,51,4,'-1'),(3,57,2,'1'),(4,70,4,'1'),(5,37,1,'-1'),(6,37,4,'-1'),(7,99,4,'-1'),(8,83,1,'-1'),(9,93,4,'1'),(10,14,2,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (11,17,1,'-1'),(12,34,2,'-1'),(13,93,5,'1'),(14,16,1,'1'),(15,81,5,'1'),(16,87,4,'-1'),(17,80,3,'1'),(18,45,1,'1'),(19,49,1,'-1'),(20,14,3,'1');
-
 
 -- Answer Votes 
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (31,90,1,'1'),(21,51,4,'1'),(22,22,2,'1'),(23,25,3,'-1'),(24,5,5,'-1'),(25,86,2,'-1'),(26,66,5,'-1'),(27,94,1,'1'),(28,90,2,'1'),(30,5,4,'-1');
