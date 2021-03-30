@@ -1,51 +1,61 @@
 /* FULL TEXT SEARCH*/
+CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        setweight(to_tsvector('simple',NEW.content),'B');
+    END IF;
 
-/* QUESTION PAGE main search bar*/
+    IF TG_OP = 'UPDATE' THEN
+        SELECT setweight(to_tsvector('simple',NEW.title),'A') ||
+        setweight(to_tsvector('simple',NEW.content),'B') || 
+        Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
+        INTO NEW.search
+        FROM question LEFT JOIN answer on question.id = question_id
+        WHERE question.id = NEW.id
+        GROUP BY question.id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
 
-/* SEARCH */
+-- (*)
+CREATE FUNCTION update_search_answer() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        UPDATE question 
+        SET search = 
+        (
+        SELECT setweight(to_tsvector('simple',question.title),'A') ||
+        setweight(to_tsvector('simple',question.content),'B') || 
+        Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
+        FROM question LEFT JOIN answer on question.id = question_id
+        WHERE question.id = NEW.question_id
+        GROUP BY question.id
+        )
+        WHERE question.id = NEW.question_id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+
+CREATE TRIGGER search_question
+BEFORE INSERT OR UPDATE ON question
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question();
+
+CREATE TRIGGER search_answer
+AFTER INSERT OR UPDATE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_answer();
+
+
 SELECT *, ts_rank("search",to_tsquery('simple','lixivia | ano | velocidade' )) as "rank"
 FROM search_content
 WHERE "search" @@ to_tsquery('simple', 'lixivia | ano | velocidade')
 ORDER BY "rank" DESC;
 
-/* (*) mudar para trigger */
-
-/*
-DROP MATERIALIZED VIEW IF EXISTS search_content;
-CREATE MATERIALIZED VIEW search_content as
-SELECT question.id as search_id, question.title as title, question.content as question_content,
-           setweight(to_tsvector('simple',question.title),'A') ||
-           setweight(to_tsvector('simple',question.content),'B') || 
-           Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
-FROM question left join answer on question.id = question_id
-GROUP BY question.id;*/
-
-DROP MATERIALIZED VIEW IF EXISTS search_content;
-CREATE MATERIALIZED VIEW search_content as
-SELECT question.id as search_id, question.title as title, question.content as question_content, username, image, question_owner_id, question.date,
-           setweight(to_tsvector('simple',question.title),'A') ||
-           setweight(to_tsvector('simple',question.content),'B') || 
-           Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
-FROM question left join answer on question.id = question_id join "user" on "user".id = question_owner_id
-GROUP BY question.id, username, image, question_owner_id, question.date;
-
-/* With subquery
-
-DROP MATERIALIZED VIEW IF EXISTS search_content;
-CREATE MATERIALIZED VIEW search_content as
-SELECT search_id, search, title, content as question_content, date, question_owner_id, username, image
-FROM question JOIN "user" ON question_owner_id = "user".id JOIN (
-	SELECT question.id as search_id,
-    setweight(to_tsvector('simple',question.title),'A') ||
-    setweight(to_tsvector('simple',question.content),'B') || 
-    Coalesce(setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C'),'') as search
-    FROM question LEFT JOIN answer on question.id = question_id join "user" on "user".id = question_owner_id
-    GROUP BY question.id) search_table ON search_id = question.id;
-
-*/
-
-
-CREATE INDEX search_idx ON search_content USING GIN("search");
 
 /* QUESTION PAGE tag - to ask */
 
