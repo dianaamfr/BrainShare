@@ -26,19 +26,6 @@ WHERE id = $id;
 
 -- QUESTIONS
 
--- (INSERTxx) Insert question text fields
-INSERT INTO question (question_owner_id, title, content) 
-VALUES ($user_id, $title, $content)
-RETURNING id;
-
--- (INSERTxx) Insert question course
-INSERT INTO question_course (question_id, course_id) 
-VALUES ($question_id, $course_id);
-
--- (INSERTxx) Insert question tag
-INSERT INTO question_tag (question_id, tag_id) 
-VALUES ($question_id, $tag_id);
-
 -- (UPDATExx) Update question text fields
 UPDATE question
 SET title = $title, content = $content
@@ -73,7 +60,6 @@ WHERE id = $id;
 -- User Management
 
 -- (UPDATExx) Change User Role
--- Doubt (Check if the enum value of the "user" table is correct, and if so how to update that value)
 UPDATE "user"
 SET user_role = $user_role
 WHERE id = $id;
