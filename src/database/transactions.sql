@@ -22,11 +22,21 @@ WHERE id = $id;
 
 -- Remove Favourite Tag (as musch as necessary)
 DELETE FROM favourite_tag
-WHERE user_id = $user_id, tag_id = $tag_id;
-/* (*) */
+WHERE user_id = $user_id, tag_id = $tag_id1;
+
+DELETE FROM favourite_tag
+WHERE user_id = $user_id, tag_id = $tag_id2;
+
 -- Add Favourite Tag (as much as necessary)
 INSERT INTO favourite_tag (user_id, tag_id)
-VALUES ($user_id, $tag_id);
+VALUES ($user_id, $tag_id3);
+
+INSERT INTO favourite_tag (user_id, tag_id)
+VALUES ($user_id, $tag_id4);
+
+INSERT INTO favourite_tag (user_id, tag_id)
+VALUES ($user_id, $tag_id5);
+
 
 -- Update Academic Course
 UPDATE "user"
@@ -50,24 +60,51 @@ WHERE id = $id;
  
 -- Add a tag (as much as necessary)
 INSERT INTO question_tag (question_id, tag_id) 
-VALUES ($question_id, $tag_id); 
+VALUES ($question_id, $tag_id1); 
+
+INSERT INTO question_tag (question_id, tag_id) 
+VALUES ($question_id, $tag_id2);  
 
 -- Remove a tag (as much as necessary)
 DELETE FROM question_tag
-WHERE question_id = $question_id AND tag_id = $tag_id; 
+WHERE question_id = $question_id AND tag_id = $tag_id3;  
+
+DELETE FROM question_tag
+WHERE question_id = $question_id AND tag_id = $tag_id4;  
+
+DELETE FROM question_tag
+WHERE question_id = $question_id AND tag_id = $tag_id5;  
+
+
+
+-- Insert question course
+INSERT INTO question_course (question_id, course_id) 
+VALUES ($question_id, $course_id); 
+
 
 -- Delete a question_course 
 DELETE FROM question_course
 WHERE question_id = $question_id AND course_id = $course_id; 
 
--- Insert question course
-INSERT INTO question_course (question_id, course_id) 
-VALUES ($question_id, $course_id);
+
 
 COMMIT;  
 
+-- T3: Insert a question 
+-- JUSTIFICATION: This operation must be in one transaction since, it must be considered as atomic. The Isolation level
+-- must be repeatable read, once the table question_tag and question_course must not just have a snapshot from before the transaction,
+-- but must also be aware of the question inserted, once it will use its id as one of the primary keys of the table.
+-- ISOLATION LEVEL: Repeatable read. 
+BEGIN; 
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+INSERT INTO question(question_owner_id, title, content) VALUES($user_id, $title, $content);
+
+-- It's possible to insert as many tags as necessary 
+INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id1); 
+INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id2); 
+
+INSERT INTO question_course(question_id, course_id)  VALUES (currval(pg_get_serial_sequence('question', 'id')), $course_id);
 
 
-
-
-
+COMMIT; 

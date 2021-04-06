@@ -8,7 +8,8 @@ WHERE "user".username = $username;
  -- (2) User profile questions
 SELECT "question".id, title, content, date 
 FROM question, "user"
-WHERE question_owner_id = $user_id AND "user".id = question_owner_id; 
+WHERE question_owner_id = $user_id AND "user".id = question_owner_id
+LIMIT $page_limit OFFSET $page_number; 
 
  -- (3) User profile answers  
 SELECT answer.content, answer.date AS answer_date, valid, 
@@ -16,7 +17,8 @@ question_id, title, question_owner_id, username AS question_owner_username, imag
 FROM answer, question, "user"
 WHERE answer_owner_id = $user_id
     AND question_id = question.id 
-	AND question_owner_id = "user".id;
+	AND question_owner_id = "user".id
+LIMIT $page_limit OFFSET $page_number; 
 
 -- FOR ALL QUESTIONS
 
@@ -63,7 +65,8 @@ FROM question, course, question_course, "user", vote, answer
 WHERE question.id = "question_course".question_id  
     AND question_owner_id = "user".id    
     AND question.id = vote.question_id  
-    AND "question_course".course_id = course.id 
+    AND "question_course".course_id = course.id  
+    AND course.id = $course_id 
 GROUP BY question.id, username, image
 ORDER BY date DESC;
 
@@ -80,48 +83,24 @@ GROUP BY question.id, username, image
 ORDER BY date DESC;
 
 -- (11) NOTIFICATIONS:(*)
-SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
-FROM "notification", answer
-WHERE answer_id IS NOT NULL AND viewed = FALSE
-UNION
-SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
-FROM "notification", "comment"
-WHERE comment_id IS NOT NULL AND viewed = FALSE
+SELECT "notification"."date", "noticiation".viewed, "notification".answer_id, "notification".comment_id 
+FROM "notification", answer, comment
+WHERE viewed = FALSE
 ORDER BY date DESC;
 
--- Find a notification for a user 
-SELECT content, "notification".date, viewed, answer_id as content_id, question_id, 'answer' as "type"
-FROM "notification", answer, 
-WHERE answer_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id 
-UNION
-SELECT content, "notification".date, viewed, comment_id as content_id, comment_id, 'comment' as "type"
-FROM "notification", "comment"
-WHERE comment_id IS NOT NULL AND viewed = FALSE AND $user_id = user_id
+SELECT "notification"."date", "noticiation".viewed, "notification".answer_id, "notification".comment_id 
+FROM "notification", answer, comment
+WHERE viewed = FALSE and "notification".user_id = $user_id
 ORDER BY date DESC;
-
 
 
 -- (12) REPORTS  
-SELECT "user".id, username as summary, 'user' as "type", COUNT(report.id) as reports 
-FROM report, "user"
-WHERE report.id = "user".id  
-GROUP BY "user".id 
-UNION 
-SELECT question.id, title as summary, 'question' as "type", COUNT(report.id) as reports
-FROM report, question 
-WHERE question_id = question.id  
-GROUP BY question.id
-UNION
-SELECT answer.id, content as summary, 'answer' as "type", COUNT(report.id) as reports 
-FROM report, answer 
-WHERE answer_id = answer.id  
-GROUP BY answer.id
-UNION
-SELECT "comment".id, content as summary, 'comment' as "type", COUNT(report.id) reports 
-FROM report, "comment"  
-WHERE comment_id = "comment".id  
-GROUP BY "comment".id;
-
+SELECT report.id as report_id, reported_id, question.id as question_id, answer.id as answer_id, comment.id as comment_id
+FROM report LEFT JOIN "user" ON report.reported_id = "user".id 
+            LEFT JOIN question ON report.question_id = question.id
+            LEFT JOIN answer ON report.answer_id = answer.id
+            LEFT JOIN "comment" ON report.comment_id = "comment".id
+ORDER BY report.id
 
 -- (13) MANAGE USERS   
 SELECT id, username, signup_date, ban, TYPE 
