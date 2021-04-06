@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS report CASCADE;
 DROP TABLE IF EXISTS question_tag CASCADE;  
 DROP TABLE IF EXISTS question_course CASCADE;
 DROP TABLE IF EXISTS favourite_tag CASCADE;  
-
 DROP TYPE IF EXISTS "role";
 
 -----------
@@ -45,7 +44,8 @@ CREATE TABLE question(
     question_owner_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    "date" TIMESTAMP WITH TIME zone DEFAULT now()
+    "date" TIMESTAMP WITH TIME zone DEFAULT now(),
+    search tsvector
 );
 
 CREATE TABLE answer(
@@ -68,9 +68,9 @@ CREATE TABLE comment(
 
 CREATE TABLE "notification"(
     id  SERIAL PRIMARY KEY, 
-    user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
-    comment_id INTEGER REFERENCES comment(id) ON DELETE SET NULL, 
-    answer_id INTEGER REFERENCES answer(id) ON DELETE SET NULL, 
+    user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE, 
+    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE, 
     date timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     viewed boolean NOT NULL DEFAULT false
 
@@ -80,9 +80,9 @@ CREATE TABLE "notification"(
 CREATE TABLE vote(
     id SERIAL PRIMARY KEY,
     value_vote INTEGER NOT NULL,
-    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
-    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE,
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,,
+    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
 
     CONSTRAINT value_vote CHECK (value_vote = 1 OR value_vote = -1),
     CONSTRAINT exclusive_vote CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL))
@@ -90,12 +90,12 @@ CREATE TABLE vote(
 
 CREATE TABLE report(
     id SERIAL PRIMARY KEY,
-    viewed BOOLEAN NOT NULL DEFAULT FALSE,
-    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE,
-    reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE,
-    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE,
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE,
-    comment_id INTEGER  REFERENCES comment(id) ON UPDATE CASCADE
+    viewed BOOLEAN NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    comment_id INTEGER  REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
 
     CONSTRAINT exclusive_report CHECK ((reported_id IS NOT NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NULL) OR 
         (reported_id IS NULL AND question_id IS NOT NULL AND answer_id IS NULL and comment_id IS NULL) OR 
@@ -133,6 +133,7 @@ CREATE TABLE favourite_tag(
 	tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(user_id, tag_id)
 );
+    
 
 INSERT INTO "tag" (name,creation_date,id) VALUES ('C#','2021-05-07 12:20:30',1),('php','2021-12-04 04:32:15',2),('Programming','2020-08-08 10:48:13',3),('Chemestry','2020-12-19 15:16:44',4),('Economy','2021-10-26 07:34:56',5),('MNUM','2020-12-01 01:01:18',6),('Numerical Methods','2020-03-30 22:08:52',7),('SQL','2021-04-19 07:32:59',8),('LBAW','2021-06-06 01:55:09',9),('Ponte','2022-01-26 21:15:05',10);
 INSERT INTO "tag" (name,creation_date,id) VALUES ('Technical_Draw','2021-11-02 14:45:30',11),('AMAT','2021-01-05 20:09:23',12),('Molecules','2020-06-24 02:41:29',13),('Biology','2020-12-02 07:17:17',14),('Genetics','2020-04-16 19:23:16',15),('Natural_Evolution','2021-11-01 02:36:56',16),('IART','2021-08-30 00:24:23',17),('Artificial_Itelligence','2021-09-09 14:38:57',18),('MIPS','2020-06-24 01:06:53',19),('COMP','2020-07-20 07:49:07',20);
@@ -177,7 +178,7 @@ INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (8, 
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (9, 75, 'Como contruir pontes como a da feup?', 'Alguem me ajude com materiais para contruir uma ponte', '2021-03-11');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (10, 16, 'Como fazer desenho tecnico', 'Content', '2021-03-08');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (11, 20, 'Preciso de ajuda a resolver equações diferenciais', 'Content', '2021-03-25');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (12, 21, 'Como alterar o RNA de uma molecula?', 'Tenho um trablaho prático de biologia', '2021-01-10');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (12, 21, 'Como alterar o RNA de uma molecula?', 'Tenho um trabalho prático de biologia', '2021-01-10');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (13, 25, 'Diferença entre crossover e mutation', 'Qual é a diferença entre crossover e mutação nos algoritmos geneticos', '2020-09-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (14, 29, 'Teoria de Darwin', 'Hoje o professor mencionou a teoria evolucionista de Darwin. Alguém me pode ajudar a perceber melhor a mesma?', '2020-11-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (15, 34, 'Devo usar stimulated ameling ou tabu search', 'Qual é o melhor para otimizar o problema do google hashcode 2018?', '2020-12-13');
