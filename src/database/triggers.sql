@@ -1,5 +1,5 @@
 /* Generate Notifications for Answer */
-DROP FUNCTION IF EXISTS generate_answer_notification() CASCADE;
+DROP FUNCTION IF EXISTS generate_answer_notification CASCADE;
 DROP TRIGGER IF EXISTS answer_notification ON answer;
 
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
@@ -21,7 +21,7 @@ INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VAL
 SELECT * FROM "notification";
 
 /* Generate Notifications for Comments */
-DROP FUNCTION IF EXISTS generate_comment_notification() CASCADE;
+DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
 DROP TRIGGER IF EXISTS comment_notification ON answer;
 
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
@@ -43,7 +43,7 @@ INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (6,
 SELECT * FROM "notification";
 
 /* Um user não pode dar upvote na própria questão */
-DROP FUNCTION IF EXISTS process_vote() CASCADE;
+DROP FUNCTION IF EXISTS process_vote CASCADE;
 DROP TRIGGER IF EXISTS vote_trigger ON vote;
 
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
@@ -85,7 +85,7 @@ INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,1,1,'-1')
 	
 /* When user votes a question we already voted with the same "score", the upvote disappear. 
 If the score is different, the score is updated */
-DROP FUNCTION IF EXISTS update_vote() CASCADE;
+DROP FUNCTION IF EXISTS update_vote CASCADE;
 DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
 
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
@@ -118,23 +118,35 @@ CREATE TRIGGER update_vote_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE update_vote();
 
-
 -- INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
 SELECT * FROM "vote" WHERE "vote".id = 90;
 
+/* */
+/* */
 /* Update score of questions */
-DROP FUNCTION IF EXISTS score() CASCADE;
+DROP FUNCTION IF EXISTS score CASCADE;
 DROP TRIGGER IF EXISTS score_trigger ON vote;
 
 CREATE FUNCTION score() RETURNS TRIGGER AS $$
 BEGIN
-	IF NEW.question_id IS NOT NULL
+	IF TG_OP = 'INSERT'
 	THEN
-		UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
-	ELSIF NEW.answer_id IS NOT NULL
-	THEN
-		UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;		
+		IF NEW.question_id IS NOT NULL
+		THEN
+			UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
+		ELSIF NEW.answer_id IS NOT NULL
+		THEN
+			UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;		
+		END IF;
+	ELSE
+		IF OLD.question_id IS NOT NULL
+		THEN
+			UPDATE question SET score = score - OLD.value_vote WHERE question.id = OLD.question_id;
+		ELSIF OLD.answer_id IS NOT NULL
+		THEN
+			UPDATE answer SET score = score - OLD.value_vote WHERE answer.id = OLD.answer_id;		
+		END IF;
 	END IF;
 	RETURN NULL;
 END
@@ -142,9 +154,38 @@ $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER score_trigger
-    AFTER INSERT ON vote
+    AFTER INSERT OR DELETE ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE score();
+
+DELETE FROM "vote" WHERE id = 101;
+--INSERT INTO "vote" (id, user_id, question_id, value_vote) VALUES (101, 32, 6 ,'-1');
+SELECT * FROM question;
+
+/* */
+/* */
+/* Update number of answer */
+DROP FUNCTION IF EXISTS number_answer_update CASCADE;
+DROP TRIGGER IF EXISTS action_answer ON answer;
+
+CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
+BEGIN
+	IF TG_OP = 'INSERT'
+	THEN
+		UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
+	ELSE
+		UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
+	END IF;
+	RETURN NEW;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER action_answer
+    AFTER INSERT OR DELETE ON answer
+    FOR EACH ROW
+    EXECUTE PROCEDURE number_answer_update();
 	
-INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (101, 32, 6 ,'-1');
+DELETE FROM answer WHERE answer.id = 98;
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (98, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
 SELECT * FROM question;
