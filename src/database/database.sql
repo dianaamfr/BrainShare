@@ -57,7 +57,8 @@ CREATE TABLE question(
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
-    score INTEGER DEFAULT 0
+    score INTEGER DEFAULT 0,
+    number_answer INTEGER DEFAULT 0,
     search tsvector
 );
 
