@@ -147,23 +147,25 @@ ORDER BY "rank" DESC;
 */
 
 
+DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
+DROP FUNCTION IF EXISTS update_summary_search;
 -- Management: To search by summary 
--- (*) TO TEST
-CREATE FUNCTION update_summary() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
-        NEW.summary = setweight(to_tsvector('simple',NEW.content),'A')
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
     END IF;
     RETURN NEW;
 END
 $BODY$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER answer_summary
-AFTER INSERT OR UPDATE ON answer
+CREATE TRIGGER answer_search
+BEFORE INSERT OR UPDATE ON answer
 FOR EACH ROW
-EXECUTE PROCEDURE update_summary();
+EXECUTE PROCEDURE update_summary_search();
 
-CREATE TRIGGER comment_summary
-AFTER INSERT OR UPDATE ON comment
+CREATE TRIGGER comment_search
+BEFORE INSERT OR UPDATE ON comment
 FOR EACH ROW
-EXECUTE PROCEDURE update_summary();
+EXECUTE PROCEDURE update_summary_search();
