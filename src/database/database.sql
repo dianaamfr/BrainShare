@@ -59,7 +59,8 @@ CREATE TABLE question(
     "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
     score INTEGER DEFAULT 0,
     number_answer INTEGER DEFAULT 0,
-    search tsvector
+    search tsvector,
+    answers_search tsvector
 );
 
 CREATE TABLE answer(
@@ -139,6 +140,79 @@ CREATE TABLE favourite_tag(
 	tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(user_id, tag_id)
 );
+
+DROP TRIGGER IF EXISTS search_question ON question CASCADE;
+DROP FUNCTION IF EXISTS update_search_question;
+DROP TRIGGER IF EXISTS search_answer ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_search_answer;
+DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
+DROP FUNCTION IF EXISTS update_summary_search;
+
+CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER answer_search
+BEFORE INSERT OR UPDATE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_summary_search();
+
+CREATE TRIGGER comment_search
+BEFORE INSERT OR UPDATE ON comment
+FOR EACH ROW
+EXECUTE PROCEDURE update_summary_search();
+
+-- Add the tsvector to a question when inserted
+-- Updates the tsvector of a question when its content or title are changed
+CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        setweight(to_tsvector('simple',NEW.content),'B');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+-- Updates the tsvector of a question when an answer to that question is inserted or updated
+CREATE FUNCTION update_search_answer() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as answers_search
+            FROM answer
+            WHERE question_id = NEW.question_id
+            GROUP BY question.id)
+        WHERE question.id = NEW.question_id;
+    ELSE -- ON DELETE
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as search
+            FROM answer
+            WHERE question_id = OLD.question_id
+            GROUP BY question.id)
+        WHERE question.id = OLD.question_id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER search_question
+BEFORE INSERT OR UPDATE ON question
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question();
+
+CREATE TRIGGER search_answer
+AFTER INSERT OR UPDATE OR DELETE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_answer();
 
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'C#','2021-05-07 12:20:30');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'php','2021-12-04 04:32:15');
@@ -307,7 +381,7 @@ INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEF
 
 -- "answer
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 3, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 5, 'Basta user a fórmula delta v = delta d sobre delta t', '2020-06-30', FALSE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 4, 31, 'Eu não tenho certeza, mas acho que lixivia é mais básico.', '2020-10-01', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 5, 45, 'Creio que não seja possível explicar como fazer isto aqui por texto. Mas Tenta dar uma olhada no site, eles tem um bom tutorial guiado.Boa sorte.', '2020-10-11', TRUE);
