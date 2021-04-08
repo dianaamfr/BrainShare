@@ -212,3 +212,24 @@ ORDER BY ts_rank(answer.search, to_tsquery('simple','estudante')) DESC;
 */
 
 -- MANAGE REPORTS
+-- TODO: falta pesquisar pelo utilizador
+SELECT report_stats.question_id, title, question.content as question_content,    --question
+       report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id, -- answer
+       report_stats.comment_id, comment.content as comment_content,                                             --comment
+       comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   --comment
+       reported_id, username,                                                                -- user
+       number_reports
+FROM (-- count number of reports for each distinct content
+    SELECT reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports
+    FROM report
+    GROUP BY question_id, answer_id, comment_id, reported_id) as report_stats
+
+    LEFT JOIN "user" ON report_stats.reported_id = "user".id 
+    LEFT JOIN question ON report_stats.question_id = question.id
+    LEFT JOIN answer ON report_stats.answer_id = answer.id
+    LEFT JOIN comment ON report_stats.comment_id = comment.id
+
+    LEFT JOIN answer as answer2 ON answer2.id = comment.answer_id
+WHERE Coalesce(question.search,'')||Coalesce(answer.search,'')||Coalesce(comment.search,'') @@ to_tsquery('simple','função')
+ORDER BY ts_rank(Coalesce(question.search,'')|| Coalesce(answer.search,'')||Coalesce(comment.search,''), to_tsquery('simple','função')) DESC
+LIMIT $page_limit OFFSET $page_number;
