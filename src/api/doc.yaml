@@ -1,0 +1,450 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/lbaw2152/Brainshare/1.0.0
+  - description: Website production server.
+    url: lbaw2152-piu.lbaw-prod.fe.up.pt/
+info:
+  version: "1.0.0"
+  title: Brainshare API
+  description: Web resources specification for Brainshare
+# tags:
+
+paths:
+  /login:
+    get:
+      operationId: R101
+      summary: "R101: Login form"
+      description: "Provides the login form. Access: PUB"
+      # tags:
+      responses:
+        "200":
+          description: "OK. Show the [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)"
+    post:
+      operationId: R102
+      summary: "R102: Login Action"
+      description: "Proccesses the login action. Access: PUB"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+
+      responses:
+        "302":
+          description: "Redirected. Login credentials processed."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Success authetication. Redirected to the questions page."
+                302Error:
+                  description: "Failed authetication. Redirected to the login page form."
+                  value: "/login"
+
+  /logout:
+    post:
+      operationId: R103
+      summary: "R103: Logout Action"
+      description: "Logout the current authenticated user. Access: USR, MOD, ADM"
+
+      responses:
+        "302":
+          description: "Redirect to the home page after logout."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful logout. Redirected to the home page."
+                # does it need to have a value?
+
+  /register:
+    get:
+      operationId: R104
+      summary: "R104: Register form"
+      description: "Provide the form for the user registration. Access: PUB"
+
+      responses:
+        "200":
+          description: "OK. Show the [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui07-register)"
+
+    post:
+      operationId: R105
+      summary: "R105: Register Action"
+      description: "Process the register form"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+
+              required:
+                - username
+                - email
+                - password
+                - image # Obrigatorio?
+      responses:
+        "302":
+          description: "Redirect after user register form has been processed."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                # does it need to have a value in the success?
+                302Success:
+                  description: "Successful authentication. Redirect to the questions page."
+                302Error:
+                  description: "Failed authentication. Redirect to the login page."
+                  value: "/login"
+
+  /user/{id}:
+    get:
+      operationId: R106
+      summary: "R106: View the user profile"
+      description: "Show the profile of a user. Access: USR"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile)"
+
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  birthday:
+                    type: string
+                  courses:
+                    type: array
+                    items:
+                      type: string
+                  tags:
+                    type: array
+                    items:
+                      type: string
+
+              example:
+                id: "1"
+                name: "joaquina"
+                email: "up201800123@fe.up.pt"
+                birthday: "09/02/1997"
+                courses: ["MIEIC", "MIEB"]
+                tags: ["c++", "php"]
+
+  /question/{id}:
+    get:
+      operationId: R107
+      summary: "R107: View a question"
+      description: "Shows the question. Access: PUB"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  text:
+                    type: string
+                  publication:
+                    type: string
+                  author_username:
+                    type: string
+                  courses:
+                    type: array
+                    items:
+                      type: string
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  votes:
+                    type: integer
+
+              example:
+                id: "1"
+                title: "How to solve this problem?"
+                text: "I have no idea how to solve this problem"
+                publication: "12/10/2020"
+                author_username: "joaquina123"
+                # is this ok?
+                course: [Course, ...]
+                tags: [Tags, ...]
+                votes: 4
+
+  /question/create:
+    post:
+      operationId: ---
+      summary: "---: Question being processed."
+      description: "Create new question. Access: USR"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                date:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                courses:
+                  type: array
+                  items:
+                    type: string
+
+              required:
+                - title
+                - content
+                - date
+
+        example:
+          title: "Is it hard to program in C?"
+          content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
+          date: "25/12/2020"
+          # ??
+          tags: [Tag, ...]
+          courses: [Course, ...]
+
+      reponses: 
+        '200': 
+          description: 'OK. Your question has been created.'
+        '302': 
+          description: ''
+
+  /answer/{id}:
+    get:
+      operationId: R109
+      summary: "R108: View an answer"
+      description: "Shows the answer. Access: PUB"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+            required: true
+
+      resposes:
+        "202":
+          # is this right?
+          description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              content:
+                type: string
+              date:
+                type: string
+              # is this a int?
+              author:
+                type: string
+              valid:
+                type: int
+
+          example:
+            id: "101"
+            content: "Acho que água alcalina é básica"
+            date: "10/07/2020"
+            author: "Joaquina"
+            valid: 1
+    delete: 
+      operationId: --- 
+      summary: "---: Delete an answer. " 
+      description: "Delete an answer. Access: OWN, ADM, MOD"
+
+      responses: 
+        '200': 
+          description: 'OK. Your answer has being accepted.'
+        '404':
+          description: "This id doesn't exist" 
+        
+      
+    /comment/{id}:
+      get:
+        operationId: R109
+        summary: "R108: View a comment"
+        description: "Shows the comment. Access: PUB"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      resposes:
+        "202":
+          description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              content:
+                type: string
+              date:
+                type: string
+              # is this a int?
+              author:
+                type: string
+
+          example:
+            id: "101"
+            content: "Mas é claro que é alcalina, duh."
+            date: "10/07/2020"
+            author: "Joaquina42"
+
+  /answer/create:
+    post:
+      operationId: ---
+      summary: "---: Answer being processed."
+      description: "Create new answer. Access: USR"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                date:
+                  type: string
+
+              required:
+                - content
+                - date
+
+        example:
+          content: "I think that C is easy. You're the one that is dumb."
+          date: "25/12/2020"
+
+  /comment/{id}:
+    get:
+      operationId: ---
+      summary: "R108: View a comment"
+      description: "Shows the answer. Access: PUB"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+            required: true
+      resposes:
+        "202":
+          # is this right?
+          description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              content:
+                type: string
+              date:
+                type: string
+              # is this a int?
+              author:
+                type: string
+
+          example:
+            id: "101"
+            content: "Claro que é básica, duh"
+            date: "10/07/2020"
+            author: "Joaquina123"
+  
+  /course/{id}:
+    get:
+      #Mudar depois o número do R
+      operationId: R101
+      summary: "R101: Course Form"
+      description: "Provide a user the functionality to find a course. Access: ADM"
+      responses:
+        "200":
+          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+  /course/create: 
+
+    post:
+      opereationId: R102
+      summary: "R102 : Search for a course. Access: ADM"
+      description: "Filter tags by name, using a search bar"
+      responses:
+        '200':
+          description: ""
+
+  /tags:
