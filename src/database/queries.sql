@@ -79,19 +79,41 @@ WHERE viewed = FALSE
 ORDER BY "notification"."date" DESC;
 /*LIMIT $page_limit OFFSET $page_number; Deveriamos limitar tmb o numero de notificações carregadas de cada vez?*/
 
--- (12) REPORTS  
-SELECT report.id as report_id, reported_id, question.id as question_id, answer.id as answer_id, comment.id as comment_id
-FROM report LEFT JOIN "user" ON report.reported_id = "user".id 
-            LEFT JOIN question ON report.question_id = question.id
-            LEFT JOIN answer ON report.answer_id = answer.id
-            LEFT JOIN "comment" ON report.comment_id = "comment".id
-ORDER BY report."date"
-LIMIT $page_limit OFFSET $page_number; 
 
--- (13) MANAGE USERS   
+-- (12) REPORTS  
+-- Get the id of the content (question, answer, comment or user) associated to a report, 
+-- ordered from the most to the least reported
+
+-- TODO: falta data
+SELECT report_stats.question_id, title, question.content as question_content, --question
+       report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id, -- answer
+       report_stats.comment_id, comment.content as comment_content,                                             --comment
+       comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   --comment
+       reported_id, username,                                                                -- user
+       number_reports
+FROM (-- count number of reports for each distinct content
+    SELECT reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports
+    FROM report
+    GROUP BY question_id, answer_id, comment_id, reported_id) as report_stats
+
+    LEFT JOIN "user" ON report_stats.reported_id = "user".id 
+    LEFT JOIN question ON report_stats.question_id = question.id
+    LEFT JOIN answer ON report_stats.answer_id = answer.id
+    LEFT JOIN comment ON report_stats.comment_id = comment.id
+
+    LEFT JOIN answer as answer2 ON answer2.id = comment.answer_id
+ORDER BY number_reports DESC
+LIMIT $page_limit OFFSET $page_number;
+
+-- TODO: queries to get the necessary data for each type of the report 
+
+
+-- (13) MANAGE USERS
 SELECT id, username, signup_date, ban, user_role 
 FROM "user"
 LIMIT $page_limit OFFSET $page_number; 
+
+-- TODO: queries to search a user by username 
 
 -- (13) MANAGE TAGS 
 SELECT id, name, creation_date, COUNT(question_id) as uses_number  
@@ -106,3 +128,5 @@ FROM course, question_course
 WHERE id = course_id 
 GROUP BY id
 LIMIT $page_limit OFFSET $page_number; 
+
+-- TODO: queries de search by tag
