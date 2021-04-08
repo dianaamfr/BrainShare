@@ -85,7 +85,7 @@ INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,1,1,'-1')
 	
 /* When user votes a question we already voted with the same "score", the upvote disappear. 
 If the score is different, the score is updated */
-DROP FUNCTION IF EXISTS update_vote() CASCADE;
+DROP FUNCTION IF EXISTS update_vote CASCADE;
 DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
 
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
@@ -124,7 +124,7 @@ INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
 SELECT * FROM "vote" WHERE "vote".id = 90;
 
 /* Update score of questions */
-DROP FUNCTION IF EXISTS score() CASCADE;
+DROP FUNCTION IF EXISTS score CASCADE;
 DROP TRIGGER IF EXISTS score_trigger ON vote;
 
 CREATE FUNCTION score() RETURNS TRIGGER AS $$

@@ -69,7 +69,8 @@ CREATE TABLE answer(
     content TEXT NOT NULL, 
     "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     valid boolean NOT NULL DEFAULT false,
-    score INTEGER DEFAULT 0
+    score INTEGER DEFAULT 0,
+    search tsvector
 ); 
 
 CREATE TABLE comment(
@@ -77,7 +78,8 @@ CREATE TABLE comment(
     answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
     comment_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,  
     content TEXT NOT NULL, 
-    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
+    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp,
+    search tsvector
 ); 
 
 

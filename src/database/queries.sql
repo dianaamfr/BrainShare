@@ -1,8 +1,3 @@
-/*
-    If the questions have the votes and number of answers pre calculated then,
-    in queries 2,3,6,7,9,10, the subquery will no longer need to exists.
-*/
-
 -- PROFILE 
 
 -- (1) User profile with name 
@@ -11,13 +6,9 @@ FROM "user" JOIN course ON "user".course_id = course.id
 WHERE "user".username = $username; 
 
  -- (2) User profile questions
-SELECT question.id, title, content, "date", answers, votes
-FROM question,
-    (SELECT question.id as question_id, SUM(value_vote) as votes, COUNT(answer.id) as answers
-    FROM question LEFT JOIN vote ON question.id = vote.question_id LEFT JOIN answer ON question.id = answer.question_id
-    WHERE question_owner_id = $user_id 
-    GROUP BY question.id) as question_stats
-WHERE question_id = question.id
+SELECT question.id, title, content, "date", score, number_answer
+FROM question
+WHERE question_owner_id = $user_id 
 ORDER BY "date" DESC
 LIMIT $page_limit OFFSET $page_number; 
 
@@ -47,33 +38,23 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 -- SEARCH PAGE 
 
 -- (6) Order by most voted questions (with the biggest number of votes) (Also in the initial page)
-SELECT question.id, title, content, "date", username, image, votes, answers 
-FROM question, "user", 
-    (SELECT question.id as question_id, SUM(value_vote) as votes, COUNT(answer.id) as answers
-    FROM question LEFT JOIN vote ON question.id = vote.question_id LEFT JOIN answer ON question.id = answer.question_id
-    GROUP BY question.id) as question_stats
-WHERE question_id = question.id AND question_owner_id = "user".id 
-ORDER BY votes DESC
+SELECT question.id, title, content, "date", username, image, score, number_answer 
+FROM question, "user"
+WHERE question_owner_id = "user".id 
+ORDER BY score DESC
 LIMIT $page_limit OFFSET $page_number;  
 
 -- (7) Order by recent questions
-SELECT question.id, title, content, "date", username, image, votes, answers 
-FROM question, "user",
-    (SELECT question.id as question_id, SUM(value_vote) as votes, COUNT(answer.id) as answers
-    FROM question LEFT JOIN vote ON question.id = vote.question_id LEFT JOIN answer ON question.id = answer.question_id
-    GROUP BY question.id) as question_stats
-WHERE question_stats.question_id = question.id AND question_owner_id = "user".id 
+SELECT question.id, title, content, "date", username, image, score, number_answer 
+FROM question, "user"
+WHERE question_owner_id = "user".id 
 ORDER BY question."date" DESC
 LIMIT $page_limit OFFSET $page_number; 
 
 -- (8) Get questions associated with the course:
-SELECT question.id, title, content, "date", username, image, votes, answers 
-FROM question, "user", course, question_course,
-    (SELECT question.id as question_id, SUM(value_vote) as votes, COUNT(answer.id) as answers
-    FROM question LEFT JOIN vote ON question.id = vote.question_id LEFT JOIN answer ON question.id = answer.question_id
-    GROUP BY question.id) as question_stats
-WHERE question_stats.question_id = question.id 
-    AND question_owner_id = "user".id 
+SELECT question.id, title, content, "date", username, image, score, number_answer 
+FROM question, "user", course, question_course
+WHERE question_owner_id = "user".id 
     AND question_course.course_id = course.id 
     AND question.id = question_course.question_id
     AND course.id = $course_id
@@ -81,16 +62,12 @@ ORDER BY question."date" DESC
 LIMIT $page_limit OFFSET $page_number; 
 
 -- (9) Select questions with specific tag
-SELECT question.id, title, content, "date", username, image, votes, answers 
-FROM question, "user", tag, question_tag,
-    (SELECT question.id as question_id, SUM(value_vote) as votes, COUNT(answer.id) as answers
-    FROM question LEFT JOIN vote ON question.id = vote.question_id LEFT JOIN answer ON question.id = answer.question_id
-    GROUP BY question.id) as question_stats
-	WHERE question_stats.question_id = question.id 
-        AND question_owner_id = "user".id 
-        AND question_tag.tag_id = tag.id 
-        AND question.id = question_tag.question_id
-        AND tag.id = $tag_id
+SELECT question.id, title, content, "date", username, image, score, number_answer
+FROM question, "user", tag, question_tag
+WHERE question_owner_id = "user".id 
+    AND question_tag.tag_id = tag.id 
+    AND question.id = question_tag.question_id
+    AND tag.id = $tag_id
 ORDER BY question."date" DESC
 LIMIT $page_limit OFFSET $page_number;
 
