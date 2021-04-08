@@ -13,7 +13,7 @@ ORDER BY "date" DESC
 LIMIT $page_limit OFFSET $page_number; 
 
  -- (3) User profile answers  
-SELECT answer.content, answer."date" AS answer_date, valid, 
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
 question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
 question."date" AS question_date
 FROM answer, question, "user"

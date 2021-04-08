@@ -85,7 +85,8 @@ EXECUTE PROCEDURE update_search_question_answers();
 SELECT question.id, title, content, "date", username, image, score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE search||Coalesce(answers_search,'') @@ to_tsquery('simple',$search)
-ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC;
+ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
 
 -- Test query
 /*
@@ -103,7 +104,8 @@ WHERE question.id IN (
 	FROM question_tag
 	WHERE tag_id IN ($tags))
 AND search||Coalesce(answers_search,'') @@ to_tsquery('simple',$search)
-ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC;
+ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
 
 -- Test query
 /*
@@ -125,7 +127,8 @@ WHERE question.id IN (
 	FROM question_course
 	WHERE course_id IN ($courses))
 AND search||Coalesce(answers_search,'') @@ to_tsquery('simple',$search)
-ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC;
+ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
 
 -- Test query
 /*
@@ -147,7 +150,8 @@ WHERE question.id IN (
 	FROM question_course JOIN question_tag USING(question_id)
 	WHERE course_id IN ($courses) AND tag_id IN ($tags))
 AND search||Coalesce(answers_search,'') @@ to_tsquery('simple',$search)
-ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC;
+ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
 
 
 -- Test query
@@ -167,3 +171,44 @@ ORDER BY "rank" DESC;
 
 -- PROFILE, MY QUESTIONS: full text search
 
+SELECT question.id, title, content, "date", score, number_answer
+FROM question
+WHERE question_owner_id = $user_id AND search @@ to_tsquery('simple',$search)
+ORDER BY ts_rank(search, to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
+
+-- Test query
+/*
+SELECT question.id, title, content, "date", score, number_answer
+FROM question
+WHERE question_owner_id = 5 AND search @@ to_tsquery('simple','autocad')
+ORDER BY ts_rank(search, to_tsquery('simple','autocad')) DESC;
+*/
+
+-- PROFILE, MY ANSWERS: full text search
+
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
+question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
+question."date" AS question_date
+FROM answer, question, "user"
+WHERE answer_owner_id = $user_id
+    AND question_id = question.id 
+	AND question_owner_id = "user".id
+    AND answer.search @@ to_tsquery('simple',$search)
+ORDER BY ts_rank(answer.search, to_tsquery('simple',$search)) DESC
+LIMIT $page_limit OFFSET $page_number; 
+
+-- Test query
+/*
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
+question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
+question."date" AS question_date
+FROM answer, question, "user"
+WHERE answer_owner_id = 64
+    AND question_id = question.id 
+	AND question_owner_id = "user".id
+    AND answer.search @@ to_tsquery('simple','estudante')
+ORDER BY ts_rank(answer.search, to_tsquery('simple','estudante')) DESC;
+*/
+
+-- MANAGE REPORTS

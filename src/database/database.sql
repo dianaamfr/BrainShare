@@ -365,7 +365,7 @@ INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEF
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Criar array em php, guardando quantas vezes uma string aparece', 'Bom Dia! Estou com um problema, eu tenho duas strings $procurar e $nome_das_maquinas, dentro de procurar eu tenho o texto completo, e dentro de $nome_das_maquinas as palavras que eu desejo procurar na variável $procurar.', '2021-01-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'Como calcular a velocidade média?', 'Sabendo que a distancia é 100m e o tempo 50s', '2020-06-21');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 3, 'Qual é o mais básico?', 'água ou lixivia?', '2020-09-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Como usar autocad', 'Preciso de saber usar autcad!', '2020-09-11');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Como usar autocad', 'Preciso de saber usar autocad!', '2020-09-11');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 11, 'Ajuda com economia', 'Uma taxa de juros a 1% é muito?', '2020-10-14');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 17, 'Metodos númericos, o que é o golden ratio', 'O stor falou de golden ratio, mas eu não percebi! Alguém me ajude!', '2021-02-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 98, 'LBAW, não sei fazer SQL ajudem', 'Como configuro postgresql?', '2021-02-27');
