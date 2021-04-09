@@ -172,6 +172,61 @@ paths:
                 courses: ["MIEIC", "MIEB"]
                 tags: ["c++", "php"]
 
+      # TODO: can be the update be inside of the same path?
+      update:
+        operationId: ---
+        summary: "---: Update a user profile."
+        description: "Update the user profile information. Access: OWN."
+
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+
+        requestBody:
+          required: true
+          # Why some of them is x-www-form and others are json?
+          content:
+            application/x-www-form-urlencoded:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  birthday:
+                    type: string
+                  about:
+                    type: string
+                  # TODO: for this object do we need to specify it?
+                  course:
+                    type: object
+                    items:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      date:
+                        type: string
+                  tags:
+                    type: object
+                    items:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      date:
+                        type: string
+
+              response:
+                "200":
+                  description: "OK. Update succeded."
+                "404":
+                  description: "Error. Id not found."
+
   /question/{id}:
     get:
       operationId: R107
@@ -226,6 +281,69 @@ paths:
                 tags: [Tags, ...]
                 votes: 4
 
+          "404":
+            description: "Error. Question not found."
+
+    update:
+      operationId: ---
+      summary: "---: Update a question"
+      description: "Update question. Access: OWN, ADM, MOD"
+      # do we need to put the operators for every.
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                courses:
+                  type: object
+                tags:
+                  type: object
+
+      example:
+        title: "I don't know python. Is it hard?"
+        content: "I would like to know if it's hard"
+        courses: [Course, ...]
+        tags: [Tag, ...]
+
+        responses:
+        "200":
+          description: "Ok. Request accepted to be processed."
+        "404":
+          description: "Error. Question id not found. "
+
+    # TODO: check the delete with the professor.
+    # Is it here and are the responses correct?
+    delete:
+      operationId: ---
+      summary: "---: Delete a question"
+      description: "Deletes a question. Access: OWN, ADM, MOD"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Request accepted to be processed."
+        "404":
+          description: "Error. Question id not found. "
+
   /question/create:
     post:
       operationId: ---
@@ -263,15 +381,13 @@ paths:
           title: "Is it hard to program in C?"
           content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
           date: "25/12/2020"
-          # ??
+          # TODO: Can we do that?
           tags: [Tag, ...]
           courses: [Course, ...]
 
-      reponses: 
-        '200': 
-          description: 'OK. Your question has been created.'
-        '302': 
-          description: ''
+      reponses:
+        "200":
+          description: "OK. Your question has been created."
 
   /answer/{id}:
     get:
@@ -314,18 +430,19 @@ paths:
             date: "10/07/2020"
             author: "Joaquina"
             valid: 1
-    delete: 
-      operationId: --- 
-      summary: "---: Delete an answer. " 
+    
+    delete:
+      operationId: ---
+      summary: "---: Delete an answer. "
       description: "Delete an answer. Access: OWN, ADM, MOD"
 
-      responses: 
-        '200': 
-          description: 'OK. Your answer has being accepted.'
-        '404':
-          description: "This id doesn't exist" 
-        
-      
+      responses:
+        "200":
+          description: "OK. Your answer has being accepted."
+          # TODO: Does is to redirect? How can it redirect?
+        "404":
+          description: "This id doesn't exist, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
     /comment/{id}:
       get:
         operationId: R109
@@ -339,7 +456,8 @@ paths:
             type: integer
           required: true
 
-      resposes:
+      # TODO:Is it supposed to be 202 or 200?
+      responses:
         "202":
           description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
 
@@ -402,7 +520,7 @@ paths:
           schema:
             type: integer
             required: true
-      resposes:
+      responses:
         "202":
           # is this right?
           description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
@@ -427,24 +545,419 @@ paths:
             content: "Claro que é básica, duh"
             date: "10/07/2020"
             author: "Joaquina123"
-  
+
+    delete:
+      operationId: ---
+      summary: "---: Delete a comment"
+      description: "Deletes a comment. Access: OWN, ADM, MOD"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Request accepted to be processed."
+        "404":
+          description: "Error. Comment id not found. "
+
   /course/{id}:
     get:
       #Mudar depois o número do R
-      operationId: R101
-      summary: "R101: Course Form"
-      description: "Provide a user the functionality to find a course. Access: ADM"
+      operationId: ---
+      summary: "---: View a Course"
+      description: "Shows the course. Access: PUB"
+
+      parameters:
+        -in: path
+        name: id
+        schema:
+          type: integer
+          required: true
+
+      responses:
+        #Is it 202? Check afterwards all
+        "200":
+          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              date:
+                type: string
+
+          example:
+            id: "10"
+            name: "MIEC"
+            date: "17/07/2010"
+
+        delete:
+        operationId: ---
+        summary: "---: Delete a course"
+        description: "Deletes a course. Access: ADM, MOD"
+
+        parameters:
+          - in: path
+            name: "id"
+            schema:
+              type: integer
+            required: true
+
+        response:
+          "200":
+            description: "Delete Sucessful, show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+          "404":
+            description: "Couldn't find course ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+  /course/create:
+    post:
+      opereationId: ---
+      summary: "--- : Course being processed."
+      description: "Create new course. Access: ADM, MOD"
       responses:
         "200":
           description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
-  /course/create: 
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              # Colocar o atributo date, que nunca é mandado mas fica com o default de now?
+              required:
+                - name
 
-    post:
-      opereationId: R102
-      summary: "R102 : Search for a course. Access: ADM"
-      description: "Filter tags by name, using a search bar"
+        example:
+          name: "MIEC"
+          date: "17/07/2020"
+
+  /tag/{id}:
+    get:
+      #Mudar depois o número do R
+      operationId: ---
+      summary: "---: View a Tag"
+      description: "Shows the Tag. Access: PUB"
+
+      parameters:
+        -in: path
+        name: id
+        schema:
+          type: integer
+          required: true
+
       responses:
-        '200':
-          description: ""
+        #Is it 202? Check afterwards all
+        "200":
+          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
 
-  /tags:
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              date:
+                type: string
+
+          example:
+            id: "50"
+            name: "Exam"
+            date: "10/01/2012"
+
+      delete:
+        operationId: ---
+        summary: "---: Delete a Tag"
+        description: "Deletes a Tag. Access: ADM, MOD"
+
+        parameters:
+          - in: path
+            name: "id"
+            schema:
+              type: integer
+            required: true
+
+        response:
+          "200":
+            description: "Delete Sucessful, show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+          "404":
+            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+  /tag/create:
+    post:
+      opereationId: ---
+      summary: "--- : Course being processed."
+      description: "Create new tag. Access: ADM, MOD"
+      responses:
+        "200":
+          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              # Colocar o atributo date, que nunca é mandado mas fica com o default de now?
+              required:
+                - name
+
+        example:
+          name: "Exam"
+
+  ##################
+  # Notification 
+  ################## 
+
+  /notification/{id}:
+    get:
+      operationId: ---
+      summary: "---: View a Notification"
+      description: "Shows the Notification. Access: USR"
+
+      parameters:
+        -in: path
+        name: id
+        schema:
+          type: integer
+          required: true
+
+      responses:
+        #Is it 202? Check afterwards all
+        "200":
+          description: "Ok, Show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
+        "404":
+          description: "Couldn't find notification ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+            properties:
+              id:
+                type: string
+              date:
+                type: string
+              viewed:
+                type: boolean
+
+          example:
+            id: "7592"
+            date: "9/01/2021"
+            viewed: false
+
+      delete:
+        operationId: ---
+        summary: "---: Delete a Notification"
+        description: "Deletes a Notification. Access: USR"
+
+        parameters:
+          - in: path
+            name: "id"
+            schema:
+              type: integer
+            required: true
+
+        response:
+          "200":
+            description: "Delete Sucessful, Show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
+          "404":
+            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+      update:
+        operationId: ---
+        summary: "---: Update a Notification"
+        description: "Updates a Notification, marking it as read. Access: USR"
+
+        parameters:
+          - in: path
+            name: "id"
+            schema:
+              type: integer
+            required: true
+
+        response:
+          "200":
+            description: "Sucessfully updated notification, Show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
+          "404":
+            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+  
+  /notification/create:
+    post:
+      opereationId: ---
+      summary: "--- : Notification being processed."
+      description: "Create new notification. Access: USR"
+      responses:
+        "200":
+          description: "Ok, Notification Added"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema: 
+              type: object
+              properties:
+                date:
+                  type: string
+                viewed:
+                  type: string
+              # Colocar o atributo date, que nunca é mandado mas fica com o default de now?
+
+        example:
+          date: "11/02/2019"
+          viewed: "false"
+
+  ##################
+  # REPORT 
+  ################## 
+
+  /report/user/{id}: 
+    operationId: 
+    summary: "--- : Number of reports in a user."  
+    description: "Retrieves the number of reports of a user. Access: ADM, MOD"  
+
+    parameters: 
+      - in: path 
+        userId: "id" 
+        schema: 
+          type: integer 
+        required: true 
+ 
+    responses: 
+      "200": 
+        description: "Ok. Retrieve the reports of user."   
+
+      content: 
+        application/json: 
+          schema: 
+            type: object 
+            properties:  
+              username: 
+                type: string  
+              numberReports:  
+                type: integer   
+        example: 
+          username: "Joaquina" 
+          numberReports: 12   
+
+      "404": 
+        description: "Error. This user doesn't exits" 
+ 
+  /report/question/{id}:  
+    operationId: --- 
+    summary: "---: Number of reports of a question. " 
+    description: "Retrieves the number of reports of a question. Access: ADM, MOD"  
+
+    parameters: 
+      - in: path 
+        questionId: "id"  
+        schema: 
+          type: integer 
+        required: true  
+
+    responses:  
+      "200": 
+        description: "Ok. Retrieve the report of a question." 
+
+      
+        
+
+
+  report/question/create: 
+     
+
+  /report/answer/{id}:   
+
+  /report/answer/create:   
+
+  /report/comment/{id}:
+    get:
+      operationId: ---
+      summary: "---: View a Reported Comment"
+      description: "Shows the Reported Comment. Access: ADM"
+
+      parameters:
+        -in: path
+        name: id
+        schema:
+          type: integer
+          required: true
+
+      responses:
+        #Is it 202? Check afterwards all
+        "200":
+          description: "Ok, Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-reports)"
+        "404":
+          description: "Couldn't find notification ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                count:
+                  type: integer
+
+          example:
+            id: "173"
+            date: "12/03/2019"
+            viewed: false
+            count:  12
+
+      update:
+        operationId: ---
+        summary: "---: Updates a Comment Report"
+        description: "Updates a Report From the Comment Table. Access: MOD, ADM"
+        parameters:
+          - in: path
+            name: "id"
+            schema:
+              type: integer
+            required: true
+
+        response:
+          "200":
+            description: "Ok, Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-reports)"
+          "404":
+            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+
+        requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                viewed:
+                  type: string
+                date:
+                  type: string
+          example: 
+            viewed: "true" 
+            date: 10/10/2010   
+
+        
+
+  /report/comment/create:  
+
+##############
+# BAN 
+##############
