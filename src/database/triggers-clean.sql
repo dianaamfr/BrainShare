@@ -17,9 +17,6 @@ CREATE TRIGGER answer_notification
     FOR EACH ROW
     EXECUTE PROCEDURE generate_answer_notification();
 	
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (11, 1, 6, 'TESTE', '2021-12-05', TRUE);  
-SELECT * FROM "notification";
-
 /* Generate Notifications for Comments */
 DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
 DROP TRIGGER IF EXISTS comment_notification ON answer;
@@ -38,9 +35,6 @@ CREATE TRIGGER comment_notification
     AFTER INSERT ON comment
     FOR EACH ROW
     EXECUTE PROCEDURE generate_comment_notification();
-	
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (6, 8, 5, 'Está na parte dos recursos de lbaw!', '2021-03-30');
-SELECT * FROM "notification";
 
 /* Um user não pode dar upvote na própria questão */
 DROP FUNCTION IF EXISTS process_vote CASCADE;
@@ -72,16 +66,6 @@ CREATE TRIGGER vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE process_vote();
-
-/*
-INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,2,4,'1');
-INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT, 45, 5,'1');
-*/
-
-/*
-INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,96,4,'-1');
-INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,1,1,'-1');
-*/
 	
 /* When user votes a question we already voted with the same "score", the upvote disappear. 
 If the score is different, the score is updated */
@@ -118,12 +102,6 @@ CREATE TRIGGER update_vote_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE update_vote();
 
--- INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
-INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (90, 32, 6 ,'-1');
-SELECT * FROM "vote" WHERE "vote".id = 90;
-
-/* */
-/* */
 /* Update score of questions */
 DROP FUNCTION IF EXISTS score CASCADE;
 DROP TRIGGER IF EXISTS score_trigger ON vote;
@@ -158,12 +136,6 @@ CREATE TRIGGER score_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE score();
 
-DELETE FROM "vote" WHERE id = 101;
---INSERT INTO "vote" (id, user_id, question_id, value_vote) VALUES (101, 32, 6 ,'-1');
-SELECT * FROM question;
-
-/* */
-/* */
 /* Update number of answer */
 DROP FUNCTION IF EXISTS number_answer_update CASCADE;
 DROP TRIGGER IF EXISTS action_answer ON answer;
@@ -185,10 +157,6 @@ CREATE TRIGGER action_answer
     AFTER INSERT OR DELETE ON answer
     FOR EACH ROW
     EXECUTE PROCEDURE number_answer_update();
-	
-DELETE FROM answer WHERE answer.id = 98;
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (98, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
-SELECT * FROM question;
 
 /* Limit the number of tags to 5 */
 DROP FUNCTION IF EXISTS tag_limit CASCADE;
@@ -213,9 +181,6 @@ CREATE TRIGGER tag_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE tag_limit();
 
-INSERT INTO question_tag(question_id, tag_id) VALUES (1, 16);
-SELECT * FROM question_tag;
-
 /* Limit the number of courses to 2 */
 DROP FUNCTION IF EXISTS course_limit CASCADE;
 DROP TRIGGER IF EXISTS course_trigger ON question_course;
@@ -238,6 +203,3 @@ CREATE TRIGGER course_limit
     AFTER INSERT ON question_course
     FOR EACH ROW
     EXECUTE PROCEDURE course_limit();
-
-INSERT INTO question_course (question_id, course_id) VALUES (1, 5);
-SELECT * FROM question_course;
