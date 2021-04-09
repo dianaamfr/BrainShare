@@ -100,7 +100,7 @@ SELECT report_stats.question_id, title, question.content as question_content,
        comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   --comment
        reported_id, username,                                                                -- user
        number_reports,
-       report_stats.date,
+       report_stats."date",
 FROM (-- count number of reports for each distinct content
     SELECT reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports
     FROM report
