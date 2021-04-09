@@ -23,14 +23,14 @@ CREATE TYPE "role" AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
 
 CREATE TABLE tag(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
+    name CITEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE course(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
+    name CITEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -59,7 +59,8 @@ CREATE TABLE question(
     "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
     score INTEGER DEFAULT 0,
     number_answer INTEGER DEFAULT 0,
-    search tsvector
+    search tsvector,
+    answers_search tsvector
 );
 
 CREATE TABLE answer(
@@ -69,7 +70,8 @@ CREATE TABLE answer(
     content TEXT NOT NULL, 
     "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     valid boolean NOT NULL DEFAULT false,
-    score INTEGER DEFAULT 0
+    score INTEGER DEFAULT 0,
+    search tsvector
 ); 
 
 CREATE TABLE comment(
@@ -77,7 +79,8 @@ CREATE TABLE comment(
     answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
     comment_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,  
     content TEXT NOT NULL, 
-    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
+    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp,
+    search tsvector
 ); 
 
 
@@ -138,6 +141,89 @@ CREATE TABLE favourite_tag(
 	tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(user_id, tag_id)
 );
+
+DROP TRIGGER IF EXISTS search_question ON question CASCADE;
+DROP FUNCTION IF EXISTS update_search_question;
+DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_search_question_answers;
+DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
+DROP FUNCTION IF EXISTS update_summary_search;
+
+-- Creating/Updating tsvector for a Question: with the title and the content
+
+-- Add the tsvector to a question when inserted
+-- Updates the tsvector of a question when its content or title are changed
+CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        setweight(to_tsvector('simple',NEW.content),'B');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+
+-- Creating/Updating tsvector for an Answer or Comment
+
+-- Insert/Update the tsvector of an answer or comment
+
+CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER answer_search
+BEFORE INSERT OR UPDATE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_summary_search();
+
+CREATE TRIGGER comment_search
+BEFORE INSERT OR UPDATE ON comment
+FOR EACH ROW
+EXECUTE PROCEDURE update_summary_search();
+
+
+-- SEARCH PAGE: full text search
+
+-- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
+CREATE FUNCTION update_search_question_answers() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as answers_search
+            FROM answer
+            WHERE question_id = NEW.question_id
+            GROUP BY question.id)
+        WHERE question.id = NEW.question_id;
+    ELSE -- ON DELETE
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as search
+            FROM answer
+            WHERE question_id = OLD.question_id
+            GROUP BY question.id)
+        WHERE question.id = OLD.question_id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER search_question
+BEFORE INSERT OR UPDATE ON question
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question();
+
+CREATE TRIGGER search_question_answers
+AFTER INSERT OR UPDATE OR DELETE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question_answers();
 
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'C#','2021-05-07 12:20:30');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'php','2021-12-04 04:32:15');
@@ -286,11 +372,11 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Gibson','nulla.Cras.eu@tacitisociosquad.ca', 'bb4f13803368267216b06e71f9ef29dcb70c763836787f53983699c2534b6dc1','2006-08-27','Benjamin','2005-10-22 01:22:56',3,'False','RegisteredUser');
 
 -- question
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'Converter a string 5.541,00 para int em C#', 'Qual a maneira correta de converter uma string com o texto 5.541,88 para int? Estou tentando fazer da seguinte maneira:', '2021-01-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'Converter a string 5.541,00 para int em C#', 'Qual a maneira correta de converter uma string com o texto 5.541,88 para int? Estou a tentar encontrar uma função para isso mas nada até agora.', '2021-01-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Criar array em php, guardando quantas vezes uma string aparece', 'Bom Dia! Estou com um problema, eu tenho duas strings $procurar e $nome_das_maquinas, dentro de procurar eu tenho o texto completo, e dentro de $nome_das_maquinas as palavras que eu desejo procurar na variável $procurar.', '2021-01-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'Como calcular a velocidade média?', 'Sabendo que a distancia é 100m e o tempo 50s', '2020-06-21');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 3, 'Qual é o mais básico?', 'água ou lixivia?', '2020-09-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Como usar autocad', 'Preciso de saber usar autcad!', '2020-09-11');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Como usar autocad', 'Preciso de saber usar autocad!', '2020-09-11');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 11, 'Ajuda com economia', 'Uma taxa de juros a 1% é muito?', '2020-10-14');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 17, 'Metodos númericos, o que é o golden ratio', 'O stor falou de golden ratio, mas eu não percebi! Alguém me ajude!', '2021-02-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 98, 'LBAW, não sei fazer SQL ajudem', 'Como configuro postgresql?', '2021-02-27');
@@ -306,7 +392,7 @@ INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEF
 
 -- "answer
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 3, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 5, 'Basta user a fórmula delta v = delta d sobre delta t', '2020-06-30', FALSE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 4, 31, 'Eu não tenho certeza, mas acho que lixivia é mais básico.', '2020-10-01', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 5, 45, 'Creio que não seja possível explicar como fazer isto aqui por texto. Mas Tenta dar uma olhada no site, eles tem um bom tutorial guiado.Boa sorte.', '2020-10-11', TRUE);
