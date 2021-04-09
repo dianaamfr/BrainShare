@@ -72,25 +72,33 @@ ORDER BY question."date" DESC
 LIMIT $page_limit OFFSET $page_number;
 
 -- (10) NOTIFICATIONS:
-SELECT "notification".id, "notification"."date", "notification".viewed, "notification".answer_id, 
-answer.question_id, "notification".comment_id, comment.answer_id 
-FROM "notification" LEFT JOIN answer ON "notification".answer_id = answer.id LEFT JOIN comment ON "notification".comment_id = comment.id
+SELECT "notification".id, 
+"notification"."date", 
+"notification".viewed, 
+answer_question.question_id
+"notification".answer_id, answer.answer_owner_id, answer.question_id, 
+"notification".comment_id, comment.answer_id, comment.comment_owner_id
+FROM "notification" 
+    LEFT JOIN answer AS answer_question ON comment.answer_id = answer_question.id
+    LEFT JOIN answer ON "notification".answer_id = answer.id
+    LEFT JOIN comment ON "notification".comment_id = comment.id
+
 WHERE viewed = FALSE
 ORDER BY "notification"."date" DESC;
 /*LIMIT $page_limit OFFSET $page_number; Deveriamos limitar tmb o numero de notificações carregadas de cada vez?*/
 
 
--- (12) REPORTS  
+-- (11) REPORTS  
 -- Get the id of the content (question, answer, comment or user) associated to a report, 
 -- ordered from the most to the least reported
 
--- TODO: falta data
-SELECT report_stats.question_id, title, question.content as question_content, --question
+SELECT report_stats.question_id, title, question.content as question_content, 
        report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id, -- answer
        report_stats.comment_id, comment.content as comment_content,                                             --comment
        comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   --comment
        reported_id, username,                                                                -- user
-       number_reports
+       number_reports,
+       report_stats.date,
 FROM (-- count number of reports for each distinct content
     SELECT reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports
     FROM report
@@ -108,7 +116,7 @@ LIMIT $page_limit OFFSET $page_number;
 -- TODO: queries to get the necessary data for each type of the report 
 
 
--- (13) MANAGE USERS
+-- (12) MANAGE USERS
 SELECT id, username, signup_date, ban, user_role 
 FROM "user"
 LIMIT $page_limit OFFSET $page_number; 
