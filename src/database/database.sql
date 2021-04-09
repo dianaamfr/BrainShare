@@ -36,7 +36,8 @@ CREATE TABLE course(
 
 CREATE TABLE "user"(
     id  SERIAL PRIMARY KEY,
-    username TEXT NOT NULL UNIQUE,
+    username CITEXT NOT NULL UNIQUE,
+    search tsvector,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     signup_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -148,6 +149,8 @@ DROP FUNCTION IF EXISTS update_search_question_answers;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
 DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
 DROP FUNCTION IF EXISTS update_summary_search;
+DROP TRIGGER IF EXISTS search_user ON "user" CASCADE;
+DROP FUNCTION IF EXISTS insert_search_user;
 
 -- Creating/Updating tsvector for a Question: with the title and the content
 
@@ -163,11 +166,15 @@ BEGIN
 END
 $BODY$ LANGUAGE 'plpgsql';
 
+CREATE TRIGGER search_question
+BEFORE INSERT OR UPDATE ON question
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question();
+
 
 -- Creating/Updating tsvector for an Answer or Comment
 
 -- Insert/Update the tsvector of an answer or comment
-
 CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
@@ -186,6 +193,21 @@ CREATE TRIGGER comment_search
 BEFORE INSERT OR UPDATE ON comment
 FOR EACH ROW
 EXECUTE PROCEDURE update_summary_search();
+
+-- Add the tsvector to a user when inserted
+CREATE FUNCTION insert_search_user() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.username),'A');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER search_user
+BEFORE INSERT ON "user"
+FOR EACH ROW
+EXECUTE PROCEDURE insert_search_user();
 
 
 -- SEARCH PAGE: full text search
@@ -213,11 +235,6 @@ BEGIN
     RETURN NEW;
 END
 $BODY$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER search_question
-BEFORE INSERT OR UPDATE ON question
-FOR EACH ROW
-EXECUTE PROCEDURE update_search_question();
 
 CREATE TRIGGER search_question_answers
 AFTER INSERT OR UPDATE OR DELETE ON answer

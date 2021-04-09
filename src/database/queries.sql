@@ -71,6 +71,8 @@ WHERE question_owner_id = "user".id
 ORDER BY question."date" DESC
 LIMIT $page_limit OFFSET $page_number;
 
+
+-- TODO: Está incompleta
 -- (10) NOTIFICATIONS:
 SELECT "notification".id, "notification"."date", "notification".viewed, "notification".answer_id, 
 answer.question_id, "notification".comment_id, comment.answer_id 
@@ -145,3 +147,12 @@ LIMIT $page_limit OFFSET $page_number;
 SELECT id, name
 FROM course
 WHERE name LIKE $course.'%';
+
+-- MANAGE USERS: Search users
+SELECT id, name
+FROM course
+WHERE name LIKE $course.'%';
+
+SELECT username, signup_date, ban, role
+FROM "user"
+WHERE username LIKE $user.'%';
