@@ -115,18 +115,33 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- TODO: queries to search a user by username 
 
--- (13) MANAGE TAGS 
+-- (13) MANAGE TAGS: 
+-- Get all tags
 SELECT id, name, creation_date, COUNT(question_id) as uses_number  
 FROM question_tag, tag 
 WHERE id = tag_id   
 GROUP BY id
 LIMIT $page_limit OFFSET $page_number; 
 
+/* CITEXT and INDEXES
+https://stackoverflow.com/questions/55606578/how-is-postgresql-citext-stored-in-a-b-tree-index-lower-case-or-as-it-is
+*/
+-- () MANAGE TAGS and SEARCH PAGE (Search a tag)
+-- Search tag 
+SELECT id, name
+FROM tag
+WHERE name LIKE $tag.'%';
+
+
 -- (14) MANAGE COURSES  
+-- Get all courses
 SELECT id, name, creation_date, COUNT(course_id) as uses_number
 FROM course, question_course 
 WHERE id = course_id 
 GROUP BY id
 LIMIT $page_limit OFFSET $page_number; 
 
--- TODO: queries de search by tag
+-- Search course
+SELECT id, name
+FROM course
+WHERE name LIKE $course.'%';

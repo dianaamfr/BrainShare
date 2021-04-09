@@ -1,7 +1,10 @@
 DROP TRIGGER IF EXISTS search_question ON question CASCADE;
 DROP FUNCTION IF EXISTS update_search_question;
-DROP TRIGGER IF EXISTS search_answer ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_search_answer;
+DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_search_question_answers;
+DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
+DROP FUNCTION IF EXISTS update_summary_search;
 
 -- Creating/Updating tsvector for a Question: with the title and the content
 
@@ -21,9 +24,6 @@ $BODY$ LANGUAGE 'plpgsql';
 -- Creating/Updating tsvector for an Answer or Comment
 
 -- Insert/Update the tsvector of an answer or comment
-DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
-DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
-DROP FUNCTION IF EXISTS update_summary_search;
 
 CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
 BEGIN

@@ -23,14 +23,14 @@ CREATE TYPE "role" AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
 
 CREATE TABLE tag(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
+    name CITEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE course(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
+    name CITEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -143,11 +143,30 @@ CREATE TABLE favourite_tag(
 
 DROP TRIGGER IF EXISTS search_question ON question CASCADE;
 DROP FUNCTION IF EXISTS update_search_question;
-DROP TRIGGER IF EXISTS search_answer ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_search_answer;
+DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_search_question_answers;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
 DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
 DROP FUNCTION IF EXISTS update_summary_search;
+
+-- Creating/Updating tsvector for a Question: with the title and the content
+
+-- Add the tsvector to a question when inserted
+-- Updates the tsvector of a question when its content or title are changed
+CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        setweight(to_tsvector('simple',NEW.content),'B');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+
+-- Creating/Updating tsvector for an Answer or Comment
+
+-- Insert/Update the tsvector of an answer or comment
 
 CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
 BEGIN
@@ -168,20 +187,11 @@ BEFORE INSERT OR UPDATE ON comment
 FOR EACH ROW
 EXECUTE PROCEDURE update_summary_search();
 
--- Add the tsvector to a question when inserted
--- Updates the tsvector of a question when its content or title are changed
-CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
-BEGIN
-    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
-        setweight(to_tsvector('simple',NEW.content),'B');
-    END IF;
-    RETURN NEW;
-END
-$BODY$ LANGUAGE 'plpgsql';
 
--- Updates the tsvector of a question when an answer to that question is inserted or updated
-CREATE FUNCTION update_search_answer() RETURNS TRIGGER AS $BODY$
+-- SEARCH PAGE: full text search
+
+-- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
+CREATE FUNCTION update_search_question_answers() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
         UPDATE question 
@@ -209,10 +219,10 @@ BEFORE INSERT OR UPDATE ON question
 FOR EACH ROW
 EXECUTE PROCEDURE update_search_question();
 
-CREATE TRIGGER search_answer
+CREATE TRIGGER search_question_answers
 AFTER INSERT OR UPDATE OR DELETE ON answer
 FOR EACH ROW
-EXECUTE PROCEDURE update_search_answer();
+EXECUTE PROCEDURE update_search_question_answers();
 
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'C#','2021-05-07 12:20:30');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'php','2021-12-04 04:32:15');
