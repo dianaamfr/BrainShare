@@ -20,24 +20,22 @@ CREATE TYPE "role" AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
 ------------    
 -- Tables --
 ------------
-
 CREATE TABLE tag(
     id SERIAL PRIMARY KEY,
-    name CITEXT NOT NULL UNIQUE, 
+    name TEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE course(
     id SERIAL PRIMARY KEY,
-    name CITEXT NOT NULL UNIQUE, 
+    name TEXT NOT NULL UNIQUE, 
     creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "user"(
     id  SERIAL PRIMARY KEY,
-    username CITEXT NOT NULL UNIQUE,
-    search tsvector,
+    username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     signup_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -80,8 +78,7 @@ CREATE TABLE comment(
     answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
     comment_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,  
     content TEXT NOT NULL, 
-    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp,
-    search tsvector
+    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
 ); 
 
 
@@ -148,10 +145,7 @@ DROP FUNCTION IF EXISTS update_search_question;
 DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
 DROP FUNCTION IF EXISTS update_search_question_answers;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
-DROP TRIGGER IF EXISTS comment_search ON comment CASCADE;
 DROP FUNCTION IF EXISTS update_summary_search;
-DROP TRIGGER IF EXISTS search_user ON "user" CASCADE;
-DROP FUNCTION IF EXISTS insert_search_user;
 
 -- Creating/Updating tsvector for a Question: with the title and the content
 
@@ -173,9 +167,9 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_search_question();
 
 
--- Creating/Updating tsvector for an Answer or Comment
+-- Creating/Updating tsvector for an Answer
 
--- Insert/Update the tsvector of an answer or comment
+-- Insert/Update the tsvector of an answer
 CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
@@ -189,26 +183,6 @@ CREATE TRIGGER answer_search
 BEFORE INSERT OR UPDATE ON answer
 FOR EACH ROW
 EXECUTE PROCEDURE update_summary_search();
-
-CREATE TRIGGER comment_search
-BEFORE INSERT OR UPDATE ON comment
-FOR EACH ROW
-EXECUTE PROCEDURE update_summary_search();
-
--- Add the tsvector to a user when inserted
-CREATE FUNCTION insert_search_user() RETURNS TRIGGER AS $BODY$
-BEGIN
-    IF TG_OP = 'INSERT' THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.username),'A');
-    END IF;
-    RETURN NEW;
-END
-$BODY$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER search_user
-BEFORE INSERT ON "user"
-FOR EACH ROW
-EXECUTE PROCEDURE insert_search_user();
 
 
 -- SEARCH PAGE: full text search
