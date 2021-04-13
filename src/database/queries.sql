@@ -17,8 +17,8 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- SELECT03
 -- Get the answers of a user.
-    --TODO: missing votes and number of comments (trigger and extra fields?)
-SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
+    --TODO: missing number of comments (decide how to do)
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, score
 question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
 question."date" AS question_date
 FROM answer, question, "user"
@@ -29,7 +29,7 @@ ORDER BY answer.id
 LIMIT $page_limit OFFSET $page_number; 
 
 
--- Questions
+-- For all Questions
 
 -- SELECT04
 -- Get tags associated with a question.
@@ -47,12 +47,24 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 -- Question Page
 
 -- SELECT
--- Get answers to a question
--- TODO
+-- Get a question by id.
+SELECT question.id, title, content, "date", username, image, score, number_answer
+FROM question JOIN "user" ON question_owner_id = "user".id
+WHERE question.id = $question_id; 
 
 -- SELECT
--- Get comments to an answer
--- TODO
+-- Get answers to a question ordered by score.
+SELECT answer.id, content, "date", valid, username, image, score
+FROM answer JOIN "user" ON answer_owner_id = "user".id
+WHERE question_id = $question_id
+ORDER BY score DESC; 
+
+-- SELECT
+-- Get comments to an answer.
+SELECT comment.id, content, "date", username, image
+FROM comment JOIN "user" ON comment_owner_id = "user".id
+WHERE answer_id = $answer_id
+ORDER BY comment.id DESC;
 
 
 -- Search Page

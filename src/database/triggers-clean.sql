@@ -67,7 +67,7 @@ CREATE TRIGGER vote_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE process_vote();
 	
-/* When user votes a question we already voted with the same "score", the upvote disappear. 
+/* When user votes a question we already voted with the same "score", the upvote disappears. 
 If the score is different, the score is updated */
 DROP FUNCTION IF EXISTS update_vote CASCADE;
 DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
@@ -136,7 +136,7 @@ CREATE TRIGGER score_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE score();
 
-/* Update number of answer */
+/* Update number of answers */
 DROP FUNCTION IF EXISTS number_answer_update CASCADE;
 DROP TRIGGER IF EXISTS action_answer ON answer;
 
