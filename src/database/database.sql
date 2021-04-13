@@ -43,6 +43,7 @@ CREATE TABLE "user"(
     name TEXT, 
     image TEXT, 
     description TEXT,
+    score INTEGER NOT NULL DEFAULT 0,
     ban BOOLEAN NOT NULL DEFAULT false,
     course_id INTEGER REFERENCES course ON UPDATE CASCADE ON DELETE SET NULL,
     user_role "role" NOT NULL DEFAULT 'RegisteredUser',
