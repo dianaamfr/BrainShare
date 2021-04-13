@@ -17,17 +17,18 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- SELECT03
 -- Get the answers of a user.
-    --TODO: missing number of comments (decide how to do)
-SELECT answer.id, answer.content, answer."date" AS answer_date, valid, score
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, answer.score, number_comment,
 question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
 question."date" AS question_date
-FROM answer, question, "user"
+FROM question, "user", answer LEFT JOIN
+    (SELECT answer_id, COUNT(comment.id) as number_comment
+    FROM comment
+    GROUP BY answer_id) AS answer_comments ON answer_id = answer.id
 WHERE answer_owner_id = $user_id
     AND question_id = question.id 
 	AND question_owner_id = "user".id
 ORDER BY answer.id
 LIMIT $page_limit OFFSET $page_number; 
-
 
 -- For all Questions
 
