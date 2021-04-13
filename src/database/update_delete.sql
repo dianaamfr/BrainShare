@@ -1,8 +1,9 @@
--- 1.3. Most frequent modifications
+/*
+    SQL UPDATES, INSERTES AND DELETES
+    Most frequent modifications
+*/
 
---
 -- UPDATE
---
 -- (UPDATE01) Update Personal Information
 UPDATE "user"
 SET name = $name, email = $email, birthday = $birthday, description = $description, image = $image
@@ -33,31 +34,30 @@ UPDATE "user"
 SET ban = false
 WHERE id = $id;
 
--- (UPDATE) Discard question reports
+-- (UPDATE07) Discard question reports
 UPDATE report
 SET viewed = true
-WHERE question_id = $question_id
+WHERE question_id = $question_id;
 
--- (UPDATE) Discard answer reports
+-- (UPDATE08) Discard answer reports
 UPDATE report
 SET viewed = true
-WHERE answer_id = $answer_id
+WHERE answer_id = $answer_id;
 
--- (UPDATE) Discard comment reports
+-- (UPDATE09) Discard comment reports
 UPDATE report
 SET viewed = true
-WHERE comment_id = $comment_id
+WHERE comment_id = $comment_id;
 
--- (UPDATE) Discard user reports
+-- (UPDATE10) Discard user reports
 UPDATE report
 SET viewed = true
-WHERE reported_id = $user_id
+WHERE reported_id = $user_id;
 
--- (UPDATE08) Mark Notification as Read
+-- (UPDATE11) Mark Notification as Read
 UPDATE "notification"
 SET viewed = true
 WHERE id = $id;
-
 
 --
 -- INSERT

@@ -1,5 +1,9 @@
--- User Profile
+/* 
+    SQL SELECT QUERIES
+    Most frequent queries and their usage 
+*/
 
+-- User Profile
 -- SELECT01
 -- Get user profile information.
     --TODO: missing points
@@ -47,20 +51,20 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 
 -- Question Page
 
--- SELECT
+-- SELECT06
 -- Get a question by id.
 SELECT question.id, title, content, "date", username, image, score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id = $question_id; 
 
--- SELECT
+-- SELECT07
 -- Get answers to a question ordered by score.
 SELECT answer.id, content, "date", valid, username, image, score
 FROM answer JOIN "user" ON answer_owner_id = "user".id
 WHERE question_id = $question_id
 ORDER BY score DESC; 
 
--- SELECT
+-- SELECT08
 -- Get comments to an answer.
 SELECT comment.id, content, "date", username, image
 FROM comment JOIN "user" ON comment_owner_id = "user".id
@@ -70,7 +74,7 @@ ORDER BY comment.id DESC;
 
 -- Search Page
 
--- SELECT06
+-- SELECT09
 -- Get questions ordered from the most to the least voted. (Also used in the home page)
 SELECT question.id, title, content, "date", username, image, score, number_answer 
 FROM question, "user"
@@ -78,7 +82,7 @@ WHERE question_owner_id = "user".id
 ORDER BY score DESC
 LIMIT $page_limit OFFSET $page_number;  
 
--- SELECT07
+-- SELECT10
 -- Get questions ordered from the most to the least recent.
 SELECT question.id, title, content, "date", username, image, score, number_answer 
 FROM question, "user"
@@ -86,7 +90,7 @@ WHERE question_owner_id = "user".id
 ORDER BY question.id DESC
 LIMIT $page_limit OFFSET $page_number; 
 
--- SELECT08
+-- SELECT11
 -- Get questions associated with a course.
 SELECT question.id, title, content, "date", username, image, score, number_answer 
 FROM question, "user", course, question_course
@@ -97,7 +101,7 @@ WHERE question_owner_id = "user".id
 ORDER BY question.id DESC
 LIMIT $page_limit OFFSET $page_number; 
 
--- SELECT09
+-- SELECT12
 -- Get questions associated with a tag.
 SELECT question.id, title, content, "date", username, image, score, number_answer
 FROM question, "user", tag, question_tag
@@ -108,7 +112,8 @@ WHERE question_owner_id = "user".id
 ORDER BY question.id DESC
 LIMIT $page_limit OFFSET $page_number;
 
--- (10) NOTIFICATIONS:
+-- SELECT13
+-- NOTIFICATIONS:
 SELECT "notification".id, 
 "notification"."date", 
 "notification".viewed, 
@@ -127,8 +132,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 
 -- Manage Reports
-
--- SELECT11
+-- SELECT14
 -- Get reports ordered from the most to the least reported.
 SELECT report_stats.question_id, title, question.content as question_content, 
        report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id, 
@@ -150,8 +154,7 @@ FROM (-- count number of reports for each distinct content
 ORDER BY number_reports DESC
 LIMIT $page_limit OFFSET $page_number;
 
-
--- SELECT12
+-- SELECT15
 -- Get all reports associated with a specific user.
 SELECT report_stats.question_id, title, question.content as question_content, 
        report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id,
@@ -181,7 +184,7 @@ WHERE "user".username ILIKE $username
 ORDER BY number_reports DESC
 LIMIT $page_limit OFFSET $page_number;
 
--- SELECT13
+-- SELECT16
 -- Get question reports.
 SELECT question_id, title, content as question_content, number_reports
 FROM (
@@ -191,7 +194,7 @@ FROM (
 ORDER BY number_reports DESC
 LIMIT $page_limit OFFSET $page_number;
 
--- SELECT14
+-- SELECT17
 -- Get answer reports.
 SELECT answer_id, content as answer_content, question_id as answer_question_id, number_reports
 FROM (
@@ -199,9 +202,9 @@ FROM (
     FROM report
     GROUP BY answer_id) as report_stats JOIN answer ON report_stats.answer_id = answer.id
 ORDER BY number_reports DESC
-LIMIT $page_limit OFFSET $page_number
+LIMIT $page_limit OFFSET $page_number;
 
--- SELECT15
+-- SELECT18
 -- Get comment reports.
 SELECT comment_id, comment.content as comment_content, answer_id as comment_answer_id, 
     question_id as comment_question_id, number_reports
@@ -212,9 +215,9 @@ FROM (
     JOIN comment ON report_stats.comment_id = comment.id 
     JOIN answer ON answer.id = answer_id
 ORDER BY number_reports DESC
-LIMIT $page_limit OFFSET $page_number
+LIMIT $page_limit OFFSET $page_number;
 
--- SELECT16
+-- SELECT19
 -- Get user reports.
 SELECT reported_id, username, number_reports
 FROM (
@@ -223,27 +226,24 @@ FROM (
     GROUP BY reported_id) as report_stats 
     JOIN "user" ON report_stats.reported_id = "user".id 
 ORDER BY number_reports DESC
-LIMIT $page_limit OFFSET $page_number
+LIMIT $page_limit OFFSET $page_number;
 
 
 -- Manage Users
-
--- SELECT17
+-- SELECT20
 -- Get all users.
 SELECT id, username, signup_date, ban, user_role 
 FROM "user"
 LIMIT $page_limit OFFSET $page_number; 
 
--- SELECT18
+-- SELECT21
 -- Search user by username.
 SELECT username, signup_date, ban, role
 FROM "user"
 WHERE username ILIKE $user.'%';
 
-
--- Manage Tags
-
--- SELECT19
+-- Manage Tags Queries
+-- SELECT22
 -- Get all tags.
 SELECT id, name, creation_date, COUNT(question_id) as uses_number  
 FROM question_tag, tag 
@@ -251,16 +251,14 @@ WHERE id = tag_id
 GROUP BY id
 LIMIT $page_limit OFFSET $page_number; 
 
--- SELECT20
+-- SELECT23
 -- Search tag by name.
 SELECT id, name
 FROM tag
 WHERE name ILIKE $tag.'%';
 
-
--- Manage Courses
-
--- SELECT21
+-- Manage Courses Queries
+-- SELECT24
 -- Get all courses.
 SELECT id, name, creation_date, COUNT(course_id) as uses_number
 FROM course, question_course 
@@ -268,13 +266,10 @@ WHERE id = course_id
 GROUP BY id
 LIMIT $page_limit OFFSET $page_number; 
 
---SELECT22
+--SELECT25
 -- Search course by name.
 SELECT id, name
 FROM course
 WHERE name LIKE $course.'%';
 
-SELECT username, signup_date, ban, user_role
--- Search User
-FROM "user"
-WHERE username LIKE $user.'%';
+
