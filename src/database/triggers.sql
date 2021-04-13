@@ -241,3 +241,5 @@ CREATE TRIGGER course_limit
 
 INSERT INTO question_course (question_id, course_id) VALUES (1, 5);
 SELECT * FROM question_course;
+
+/* */

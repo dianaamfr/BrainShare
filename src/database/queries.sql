@@ -75,11 +75,11 @@ LIMIT $page_limit OFFSET $page_number;
 SELECT "notification".id, 
 "notification"."date", 
 "notification".viewed, 
-answer_question.question_id
+answer_question.question_id,
 "notification".answer_id, answer.answer_owner_id, answer.question_id, 
 "notification".comment_id, comment.answer_id, comment.comment_owner_id
 FROM "notification" 
-    LEFT JOIN answer AS answer_question ON comment.answer_id = answer_question.id
+    LEFT JOIN answer AS answer_question ON answer_id = answer_question.id
     LEFT JOIN answer ON "notification".answer_id = answer.id
     LEFT JOIN comment ON "notification".comment_id = comment.id
 
@@ -153,3 +153,8 @@ LIMIT $page_limit OFFSET $page_number;
 SELECT id, name
 FROM course
 WHERE name LIKE $course.'%';
+
+-- Search User
+SELECT username, signup_date, ban, user_role
+FROM "user"
+WHERE username LIKE $user.'%';
