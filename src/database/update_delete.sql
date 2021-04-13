@@ -33,15 +33,31 @@ UPDATE "user"
 SET ban = false
 WHERE id = $id;
 
--- (UPDATE07) Discard Report
+-- (UPDATE) Discard question reports
 UPDATE report
 SET viewed = true
-WHERE id = $id;
+WHERE question_id = $question_id
+
+-- (UPDATE) Discard answer reports
+UPDATE report
+SET viewed = true
+WHERE answer_id = $answer_id
+
+-- (UPDATE) Discard comment reports
+UPDATE report
+SET viewed = true
+WHERE comment_id = $comment_id
+
+-- (UPDATE) Discard user reports
+UPDATE report
+SET viewed = true
+WHERE reported_id = $user_id
 
 -- (UPDATE08) Mark Notification as Read
 UPDATE "notification"
 SET viewed = true
 WHERE id = $id;
+
 
 --
 -- INSERT
@@ -56,7 +72,23 @@ VALUES ($user_id, $tag_id);
 
 -- (INSERT03) Insert answer
 INSERT INTO answer (question_id, answer_owner_id, content)
-VALUES $question_id, $user_id, $content;
+VALUES ($question_id, $user_id, $content);
+
+-- (INSERT) Insert question report
+INSERT INTO report(user_id,question_id)
+VALUES ($user_id,$question_id)
+
+-- (INSERT) Insert answer report
+INSERT INTO report(user_id,answer_id)
+VALUES ($user_id,$answer_id)
+
+-- (INSERT) Insert comment report
+INSERT INTO report(user_id,comment_id)
+VALUES ($user_id,$comment_id)
+
+-- (INSERT) Insert user report
+INSERT INTO report (user_id,reported_id)
+VALUES ($user_id,$reported_id)
 
 --
 -- DELETE
@@ -96,3 +128,4 @@ WHERE id = $id;
 -- (DELETE09) Delete Notification
 DELETE FROM "notification"
 WHERE id = $id;
+
