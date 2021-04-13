@@ -74,22 +74,33 @@ VALUES ($user_id, $tag_id);
 INSERT INTO answer (question_id, answer_owner_id, content)
 VALUES ($question_id, $user_id, $content);
 
--- (INSERT) Insert question report
+-- (INSERT) Insert comment
+INSERT INTO comment (answer_id, comment_owner_id, content)
+VALUES ($answer_id, $user_id, $content);
+
+-- (INSERT04) Insert question report
 INSERT INTO report(user_id,question_id)
-VALUES ($user_id,$question_id)
+VALUES ($user_id,$question_id);
 
--- (INSERT) Insert answer report
+-- (INSERT05) Insert answer report
 INSERT INTO report(user_id,answer_id)
-VALUES ($user_id,$answer_id)
+VALUES ($user_id,$answer_id);
 
--- (INSERT) Insert comment report
+-- (INSERT06) Insert comment report
 INSERT INTO report(user_id,comment_id)
-VALUES ($user_id,$comment_id)
+VALUES ($user_id,$comment_id);
 
--- (INSERT) Insert user report
+-- (INSERT07) Insert user report
 INSERT INTO report (user_id,reported_id)
-VALUES ($user_id,$reported_id)
+VALUES ($user_id,$reported_id);
 
+-- (INSERT ) Insert a course
+INSERT INTO course (name)
+VALUES ($name);
+
+-- (Insert ) Insert a tag
+INSERT INTO tag (name)
+VALUES ($name);
 --
 -- DELETE
 --

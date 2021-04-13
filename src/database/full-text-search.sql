@@ -3,7 +3,7 @@ DROP FUNCTION IF EXISTS update_search_question;
 DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
 DROP FUNCTION IF EXISTS update_search_question_answers;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_summary_search;
+DROP FUNCTION IF EXISTS update_answer_search;
 
 -- Creating/Updating tsvector for a Question: with the title and the content
 
@@ -28,7 +28,7 @@ EXECUTE PROCEDURE update_search_question();
 -- Creating/Updating tsvector for an Answer or Comment
 
 -- Insert/Update the tsvector of an answer or comment
-CREATE FUNCTION update_summary_search() RETURNS TRIGGER AS $BODY$
+CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
         NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
@@ -40,7 +40,7 @@ $BODY$ LANGUAGE 'plpgsql';
 CREATE TRIGGER answer_search
 BEFORE INSERT OR UPDATE ON answer
 FOR EACH ROW
-EXECUTE PROCEDURE update_summary_search();
+EXECUTE PROCEDURE update_answer_search();
 
 
 -- SEARCH PAGE: full text search
