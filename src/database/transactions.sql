@@ -15,7 +15,7 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 -- Update Personal Information
 UPDATE "user"
-SET name = $name, email = $email, birthday = $birthday, description = $description, image = $image
+SET name = $name, email = $email, birthday = $birthday, description = $description, image = $image, password = $password 
 WHERE id = $id; 
 
 -- Remove Favourite Tag (as musch as necessary)

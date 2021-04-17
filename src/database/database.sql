@@ -48,6 +48,7 @@ CREATE TABLE "user"(
     course_id INTEGER REFERENCES course ON UPDATE CASCADE ON DELETE SET NULL,
     user_role "role" NOT NULL DEFAULT 'RegisteredUser',
     
+	
     CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE)
 );
 
@@ -57,8 +58,8 @@ CREATE TABLE question(
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
-    score INTEGER DEFAULT 0,
-    number_answer INTEGER DEFAULT 0,
+    score INTEGER NOT NULL DEFAULT 0,
+    number_answer INTEGER NOT NULL DEFAULT 0,
     search tsvector,
     answers_search tsvector
 );
@@ -70,8 +71,9 @@ CREATE TABLE answer(
     content TEXT NOT NULL, 
     "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
     valid boolean NOT NULL DEFAULT false,
-    score INTEGER DEFAULT 0,
+    score INTEGER NOT NULL DEFAULT 0,
     search tsvector
+	
 ); 
 
 CREATE TABLE comment(
