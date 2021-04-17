@@ -1,18 +1,22 @@
 /*
-    SQL UPDATES, INSERTES AND DELETES
+    SQL UPDATES, INSERTS AND DELETES
     Most frequent modifications
 */
 
 -- UPDATE
+-- Manage users
+
 -- (UPDATE01) Change User Role
 UPDATE "user"
 SET user_role = $user_role
 WHERE id = $id;
 
--- (UPDATE02) Ban User
+-- (UPDATE02) Ban/Unban User
 UPDATE "user"
 SET ban = $value
 WHERE id = $id;
+
+-- Manage Reports
 
 -- (UPDATE03) Discard question reports
 UPDATE report
@@ -34,6 +38,8 @@ UPDATE report
 SET viewed = true
 WHERE reported_id = $user_id;
 
+-- Notifications
+
 -- (UPDATE7) Mark Notification as Read
 UPDATE "notification"
 SET viewed = true
@@ -42,9 +48,14 @@ WHERE id = $id;
 --
 -- INSERT
 --
+
+--Register
 -- (INSERT01) Create a new account
 INSERT INTO "user" (username, password, email)
 VALUES ($username, $password, $email);
+
+
+-- Question Page 
 
 -- (INSERT02) Insert answer
 INSERT INTO answer (question_id, answer_owner_id, content)
@@ -66,54 +77,56 @@ VALUES ($user_id,$answer_id);
 INSERT INTO report(user_id,comment_id)
 VALUES ($user_id,$comment_id);
 
+
+-- Profile
+
 -- (INSERT08) Insert user report
 INSERT INTO report (user_id,reported_id)
 VALUES ($user_id,$reported_id);
 
--- (INSERT09) Insert a course
+-- (Insert09) Insert a tag
+INSERT INTO tag (name)
+VALUES ($name);
+
+-- (INSERT10) Insert a course
 INSERT INTO course (name)
 VALUES ($name);
 
--- (Insert10) Insert a tag
-INSERT INTO tag (name)
-VALUES ($name);
 
 --
 -- DELETE
 --
--- (DELETE01) Remove Favourite Tag
-DELETE FROM favourite_tag
-WHERE user_id = $user_id AND tag_id = $tag_id;
+-- Question Page
 
--- (DELETE02) Delete question course
-DELETE FROM question_course
-WHERE question_id = $question_id AND course_id = $course_id;
-
--- (DELETE03) Delete question tag
-DELETE FROM question_tag
-WHERE question_id = $question_id AND tag_id = $tag_id;
-
--- (DELETE04) Delete a question
+-- (DELETE01) Delete a question
 DELETE FROM question
 WHERE id = $id;
 
--- (DELETE05) Delete an answer
+-- (DELETE02) Delete an answer
 DELETE FROM answer
 WHERE id = $id;
 
--- (DELETE06) Delete a comment
+-- (DELETE03) Delete a comment
 DELETE FROM comment
 WHERE id = $id;
 
--- (DELETE07) Delete a tag
+-- Manage Tags and courses
+
+-- (DELETE04) Delete a tag
 DELETE FROM tag
 WHERE id = $id;
 
--- (DELETE08) Delete a course
+-- (DELETE05) Delete a course
 DELETE FROM course
 WHERE id = $id;
 
--- (DELETE09) Delete Notification
+
+-- Notifications
+
+-- (DELETE06) Delete Notification
 DELETE FROM "notification"
 WHERE id = $id;
 
+-- (DELETE07) Delete User
+DELETE FROM "user"
+WHERE id = $id

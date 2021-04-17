@@ -25,6 +25,16 @@ DROP TRIGGER IF EXISTS tag_trigger ON question_course;
 DROP FUNCTION IF EXISTS course_limit CASCADE;
 DROP TRIGGER IF EXISTS course_trigger ON question_course;
 
+DROP TRIGGER IF EXISTS search_question ON question CASCADE;
+DROP FUNCTION IF EXISTS update_search_question;
+
+DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_search_question_answers;
+
+DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+DROP FUNCTION IF EXISTS update_answer_search;
+
+-- NOTIFICATIONS
 /* Generate Notifications for Answer */
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
@@ -41,6 +51,7 @@ CREATE TRIGGER answer_notification
     FOR EACH ROW
     EXECUTE PROCEDURE generate_answer_notification();
 	
+
 /* Generate Notifications for Comments */
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
@@ -56,6 +67,9 @@ CREATE TRIGGER comment_notification
     AFTER INSERT ON comment
     FOR EACH ROW
     EXECUTE PROCEDURE generate_comment_notification();
+
+
+-- VOTES
 
 /* Um user não pode dar upvote na própria questão */
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
@@ -78,13 +92,13 @@ END
 $$
 LANGUAGE plpgsql;
 
+/* When user votes a question we already voted with the same "score", the upvote disappears. 
+If the score is different, the score is updated */
 CREATE TRIGGER vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE process_vote();
 	
-/* When user votes a question we already voted with the same "score", the upvote disappears. 
-If the score is different, the score is updated */
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
 DECLARE old_vote_id INTEGER;
 BEGIN
@@ -110,12 +124,13 @@ END
 $$
 LANGUAGE plpgsql;
 
+
+/* Update score of questions, answer and of the owner */
 CREATE TRIGGER update_vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE update_vote();
 
-/* Update score of questions, answer and of the owner */
 CREATE FUNCTION score() RETURNS TRIGGER AS $$
 DECLARE user_id INTEGER;
 BEGIN
@@ -155,6 +170,9 @@ CREATE TRIGGER score_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE score();
 
+
+--COUNT ANSWERS
+
 /* Update number of answers */
 CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
 BEGIN
@@ -169,12 +187,13 @@ END
 $$
 LANGUAGE plpgsql;
 
+-- QUESTION COURSES AND TAGS
+/* Limit the number of tags to 5 */
 CREATE TRIGGER action_answer
     AFTER INSERT OR DELETE ON answer
     FOR EACH ROW
     EXECUTE PROCEDURE number_answer_update();
 
-/* Limit the number of tags to 5 */
 CREATE FUNCTION tag_limit() RETURNS TRIGGER AS $$
 DECLARE number_tags INTEGER;
 BEGIN
@@ -189,12 +208,12 @@ END
 $$
 LANGUAGE plpgsql;
 
+/* Limit the number of courses to 2 */
 CREATE TRIGGER tag_trigger
     AFTER INSERT ON question_tag
     FOR EACH ROW
     EXECUTE PROCEDURE tag_limit();
 
-/* Limit the number of courses to 2 */
 CREATE FUNCTION course_limit() RETURNS TRIGGER AS $$
 DECLARE number_courses INTEGER;
 BEGIN
@@ -213,3 +232,71 @@ CREATE TRIGGER course_limit
 AFTER INSERT ON question_course
 FOR EACH ROW
 EXECUTE PROCEDURE course_limit();
+
+-- FULL TEXT SEARCH
+
+-- Creating/Updating tsvector for a Question: with the title and the content
+-- Add the tsvector to a question when inserted
+-- Updates the tsvector of a question when its content or title are changed
+CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        setweight(to_tsvector('simple',NEW.content),'B');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER search_question
+BEFORE INSERT OR UPDATE ON question
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question();
+
+
+-- Creating/Updating tsvector for an Answer or Comment
+-- Insert/Update the tsvector of an answer or comment
+CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER answer_search
+BEFORE INSERT OR UPDATE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_answer_search();
+
+
+-- SEARCH PAGE: full text search
+-- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
+CREATE FUNCTION update_search_question_answers() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as answers_search
+            FROM answer
+            WHERE question_id = NEW.question_id
+            GROUP BY question.id)
+        WHERE question.id = NEW.question_id;
+    ELSE -- ON DELETE
+        UPDATE question 
+        SET answers_search = (
+            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as search
+            FROM answer
+            WHERE question_id = OLD.question_id
+            GROUP BY question.id)
+        WHERE question.id = OLD.question_id;
+    END IF;
+    RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER search_question_answers
+AFTER INSERT OR UPDATE OR DELETE ON answer
+FOR EACH ROW
+EXECUTE PROCEDURE update_search_question_answers();
