@@ -34,6 +34,9 @@ DROP FUNCTION IF EXISTS update_search_question_answers;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
 DROP FUNCTION IF EXISTS update_answer_search;
 
+DROP FUNCTION IF EXISTS already_reported_check CASCADE;
+DROP TRIGGER IF EXISTS already_reported ON question_course;
+
 -- NOTIFICATIONS
 /* Generate Notifications for Answer */
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
@@ -232,6 +235,55 @@ CREATE TRIGGER course_limit
 AFTER INSERT ON question_course
 FOR EACH ROW
 EXECUTE PROCEDURE course_limit();
+
+/* Limit Reports */
+CREATE FUNCTION already_reported_check() RETURNS TRIGGER AS $$
+DECLARE already_reported INTEGER;
+BEGIN
+	IF NEW.reported_id IS NOT NULL 
+	THEN
+		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.reported_id = NEW.reported_id;
+		IF already_reported IS NOT NULL
+		THEN
+			RAISE EXCEPTION 'Reported already reported';
+		ELSE
+			RETURN NEW;
+		END IF;
+    ELSIF NEW.question_id IS NOT NULL
+	THEN
+		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.question_id = NEW.question_id;
+		IF already_reported IS NOT NULL
+		THEN
+			RAISE EXCEPTION 'Question already reported';
+		ELSE
+			RETURN NEW;
+		END IF;
+    ELSIF NEW.answer_id IS NOT NULL
+	THEN
+		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.answer_id = NEW.answer_id;
+		IF already_reported IS NOT NULL
+		THEN
+			RAISE EXCEPTION 'Answer already reported';
+		ELSE
+			RETURN NEW;
+		END IF;
+	ELSE
+		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.comment_id = NEW.comment_id;
+		IF already_reported IS NOT NULL
+		THEN
+			RAISE EXCEPTION 'Comment already reported';
+		ELSE
+			RETURN NEW;
+		END IF;
+	END IF;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER already_reported_check
+BEFORE INSERT ON report
+FOR EACH ROW
+EXECUTE PROCEDURE already_reported_check();
 
 -- FULL TEXT SEARCH
 
