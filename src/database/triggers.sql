@@ -1,11 +1,31 @@
 /*
 	SQL DATABASE TRIGGERS
 */
-
-/* Generate Notifications for Answer */
 DROP FUNCTION IF EXISTS generate_answer_notification CASCADE;
 DROP TRIGGER IF EXISTS answer_notification ON answer;
 
+DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
+DROP TRIGGER IF EXISTS comment_notification ON answer;
+
+DROP FUNCTION IF EXISTS process_vote CASCADE;
+DROP TRIGGER IF EXISTS vote_trigger ON vote;
+
+DROP FUNCTION IF EXISTS update_vote CASCADE;
+DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
+
+DROP FUNCTION IF EXISTS score CASCADE;
+DROP TRIGGER IF EXISTS score_trigger ON vote;
+
+DROP FUNCTION IF EXISTS number_answer_update CASCADE;
+DROP TRIGGER IF EXISTS action_answer ON answer;
+
+DROP FUNCTION IF EXISTS tag_limit CASCADE;
+DROP TRIGGER IF EXISTS tag_trigger ON question_course;
+
+DROP FUNCTION IF EXISTS course_limit CASCADE;
+DROP TRIGGER IF EXISTS course_trigger ON question_course;
+
+/* Generate Notifications for Answer */
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
@@ -22,9 +42,6 @@ CREATE TRIGGER answer_notification
     EXECUTE PROCEDURE generate_answer_notification();
 	
 /* Generate Notifications for Comments */
-DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
-DROP TRIGGER IF EXISTS comment_notification ON answer;
-
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
@@ -41,9 +58,6 @@ CREATE TRIGGER comment_notification
     EXECUTE PROCEDURE generate_comment_notification();
 
 /* Um user não pode dar upvote na própria questão */
-DROP FUNCTION IF EXISTS process_vote CASCADE;
-DROP TRIGGER IF EXISTS vote_trigger ON vote;
-
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
 BEGIN
   IF 
@@ -56,8 +70,6 @@ BEGIN
   	NEW.question_id IS NOT NULL AND
   	EXISTS (SELECT * FROM question WHERE question.id = NEW.question_id AND 
 		NEW.user_id = question.question_owner_id)
-	 
-	 NOT EXISTS
   THEN
   	RAISE EXCEPTION 'Cant vote own question'; 
   END IF;
@@ -73,9 +85,6 @@ CREATE TRIGGER vote_trigger
 	
 /* When user votes a question we already voted with the same "score", the upvote disappears. 
 If the score is different, the score is updated */
-DROP FUNCTION IF EXISTS update_vote CASCADE;
-DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
-
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
 DECLARE old_vote_id INTEGER;
 BEGIN
@@ -107,9 +116,6 @@ CREATE TRIGGER update_vote_trigger
     EXECUTE PROCEDURE update_vote();
 
 /* Update score of questions, answer and of the owner */
-DROP FUNCTION IF EXISTS score CASCADE;
-DROP TRIGGER IF EXISTS score_trigger ON vote;
-
 CREATE FUNCTION score() RETURNS TRIGGER AS $$
 DECLARE user_id INTEGER;
 BEGIN
@@ -150,9 +156,6 @@ CREATE TRIGGER score_trigger
     EXECUTE PROCEDURE score();
 
 /* Update number of answers */
-DROP FUNCTION IF EXISTS number_answer_update CASCADE;
-DROP TRIGGER IF EXISTS action_answer ON answer;
-
 CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
 BEGIN
 	IF TG_OP = 'INSERT'
@@ -172,9 +175,6 @@ CREATE TRIGGER action_answer
     EXECUTE PROCEDURE number_answer_update();
 
 /* Limit the number of tags to 5 */
-DROP FUNCTION IF EXISTS tag_limit CASCADE;
-DROP TRIGGER IF EXISTS tag_trigger ON question_course;
-
 CREATE FUNCTION tag_limit() RETURNS TRIGGER AS $$
 DECLARE number_tags INTEGER;
 BEGIN
@@ -195,16 +195,13 @@ CREATE TRIGGER tag_trigger
     EXECUTE PROCEDURE tag_limit();
 
 /* Limit the number of courses to 2 */
-DROP FUNCTION IF EXISTS course_limit CASCADE;
-DROP TRIGGER IF EXISTS course_trigger ON question_course;
-
 CREATE FUNCTION course_limit() RETURNS TRIGGER AS $$
 DECLARE number_courses INTEGER;
 BEGIN
 	SELECT INTO number_courses count(question_id) FROM question_course WHERE (question_id = new.question_id);
 	IF number_courses > 2
 	THEN
-		RAISE EXCEPTION 'More than 2';
+		RAISE EXCEPTION 'More than 2 courses';
 	ELSE
 		RETURN NEW;
 	END IF;

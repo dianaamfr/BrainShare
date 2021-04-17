@@ -10,8 +10,6 @@
 -- compromised, once it would have mixed information from both submitions, which condenms our concept 
 -- of all or nothing.   
 -- ISOLATION LEVEL: Repeatable read. 
-
-
 BEGIN; 
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ; 
 
@@ -22,10 +20,10 @@ WHERE id = $id;
 
 -- Remove Favourite Tag (as musch as necessary)
 DELETE FROM favourite_tag
-WHERE user_id = $user_id, tag_id = $tag_id1;
+WHERE user_id = $user_id AND tag_id = $tag_id1;
 
 DELETE FROM favourite_tag
-WHERE user_id = $user_id, tag_id = $tag_id2;
+WHERE user_id = $user_id AND tag_id = $tag_id2;
 
 -- Add Favourite Tag (as much as necessary)
 INSERT INTO favourite_tag (user_id, tag_id)
@@ -36,7 +34,6 @@ VALUES ($user_id, $tag_id4);
 
 INSERT INTO favourite_tag (user_id, tag_id)
 VALUES ($user_id, $tag_id5);
-
 
 -- Update Academic Course
 UPDATE "user"
@@ -86,8 +83,6 @@ VALUES ($question_id, $course_id);
 DELETE FROM question_course
 WHERE question_id = $question_id AND course_id = $course_id; 
 
-
-
 COMMIT;  
 
 -- T3: Insert a question 
@@ -104,7 +99,7 @@ INSERT INTO question(question_owner_id, title, content) VALUES($user_id, $title,
 INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id1); 
 INSERT INTO question_tag(question_id, tag_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $tag_id2); 
 
-INSERT INTO question_course(question_id, course_id)  VALUES (currval(pg_get_serial_sequence('question', 'id')), $course_id);
+INSERT INTO question_course(question_id, course_id) VALUES (currval(pg_get_serial_sequence('question', 'id')), $course_id);
 
 
 COMMIT; 

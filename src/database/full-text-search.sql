@@ -6,7 +6,6 @@ DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
 DROP FUNCTION IF EXISTS update_answer_search;
 
 -- Creating/Updating tsvector for a Question: with the title and the content
-
 -- Add the tsvector to a question when inserted
 -- Updates the tsvector of a question when its content or title are changed
 CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
@@ -26,7 +25,6 @@ EXECUTE PROCEDURE update_search_question();
 
 
 -- Creating/Updating tsvector for an Answer or Comment
-
 -- Insert/Update the tsvector of an answer or comment
 CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
 BEGIN
@@ -44,7 +42,6 @@ EXECUTE PROCEDURE update_answer_search();
 
 
 -- SEARCH PAGE: full text search
-
 -- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
 CREATE FUNCTION update_search_question_answers() RETURNS TRIGGER AS $BODY$
 BEGIN
@@ -74,8 +71,8 @@ AFTER INSERT OR UPDATE OR DELETE ON answer
 FOR EACH ROW
 EXECUTE PROCEDURE update_search_question_answers();
 
--- (SELECTxx) Filter questions by title, body and answers
-SELECT question.id, title, content, "date", username, image, score, number_answer
+-- (SELECT16) Filter questions by title, body and answers
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE search||Coalesce(answers_search,'') @@ to_tsquery('simple',$search)
 ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',$search)) DESC
@@ -83,14 +80,14 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- Test query
 /*
-SELECT question.id, title, content, "date", username, image, score, number_answer
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE search||Coalesce(answers_search,'') @@ to_tsquery('simple','lixivia | ano | velocidade')
 ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple','lixivia | ano | velocidade')) DESC;
 */
 
--- (SELECTxx) Filter questions by title, body, answers and tags
-SELECT question.id, title, content, "date", username, image, score, number_answer
+-- (SELECT17) Filter questions by title, body, answers and tags
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
 	SELECT DISTINCT question_id
@@ -102,7 +99,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- Test query
 /*
-SELECT question.id, title, content, "date", username, image, score, number_answer
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
 	SELECT DISTINCT question_id
@@ -112,8 +109,8 @@ AND search||Coalesce(answers_search,'') @@ to_tsquery('simple', 'qual | a')
 ORDER BY ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple', 'qual | a')) DESC;
 */
 
--- (SELECTxx) Filter questions by title, body, answers and courses
-SELECT question.id, title, content, "date", username, image, score, number_answer
+-- (SELECT18) Filter questions by title, body, answers and courses
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
 	SELECT DISTINCT question_id
@@ -125,7 +122,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- Test query
 /*
-SELECT question.id, title, content, "date", username, image, score, number_answer, ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple', 'qual | problema')) as "rank"
+SELECT question.id, title, content, "date", username, image, question.score, number_answer, ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple', 'qual | problema')) as "rank"
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
 	SELECT DISTINCT question_id
@@ -135,8 +132,8 @@ AND search||Coalesce(answers_search,'') @@ to_tsquery('simple', 'qual | problema
 ORDER BY "rank" DESC;
 */
 
--- (SELECTxx) Filter questions by title, body, answers, tags and courses
-SELECT question.id, title, content, "date", username, image, score, number_answer
+-- (SELECT19) Filter questions by title, body, answers, tags and courses
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
 	SELECT DISTINCT question_id
@@ -149,7 +146,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- Test query
 /*
-SELECT question.id, title, content,  "date", username, image, score, number_answer,
+SELECT question.id, title, content,  "date", username, image, question.score, number_answer,
     ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple', 'qual | a')) as "rank"
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id IN (
@@ -162,9 +159,10 @@ ORDER BY "rank" DESC;
 */
 
 
+-- SELECT03 
 -- PROFILE, MY QUESTIONS: full text search
 
-SELECT question.id, title, content, "date", score, number_answer
+SELECT question.id, title, content, "date", question.score, number_answer
 FROM question
 WHERE question_owner_id = $user_id AND search @@ to_tsquery('simple',$search)
 ORDER BY ts_rank(search, to_tsquery('simple',$search)) DESC
@@ -172,31 +170,37 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- Test query
 /*
-SELECT question.id, title, content, "date", score, number_answer
+SELECT question.id, title, content, "date", question.score, number_answer
 FROM question
 WHERE question_owner_id = 5 AND search @@ to_tsquery('simple','autocad')
 ORDER BY ts_rank(search, to_tsquery('simple','autocad')) DESC;
 */
 
+-- SELECT05
 -- PROFILE, MY ANSWERS: full text search
-
-SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, answer.score, number_comment,
 question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
 question."date" AS question_date
-FROM answer, question, "user"
+FROM question, "user", answer LEFT JOIN
+    (SELECT answer_id, COUNT(comment.id) as number_comment
+    FROM comment
+    GROUP BY answer_id) AS answer_comments ON answer_id = answer.id
 WHERE answer_owner_id = $user_id
     AND question_id = question.id 
 	AND question_owner_id = "user".id
     AND answer.search @@ to_tsquery('simple',$search)
 ORDER BY ts_rank(answer.search, to_tsquery('simple',$search)) DESC
 LIMIT $page_limit OFFSET $page_number; 
-
+ 
 -- Test query
 /*
-SELECT answer.id, answer.content, answer."date" AS answer_date, valid, 
+SELECT answer.id, answer.content, answer."date" AS answer_date, valid, answer.score, number_comment,
 question_id, title, question_owner_id, username AS question_owner_username, image AS question_owner_image, 
 question."date" AS question_date
-FROM answer, question, "user"
+FROM question, "user", answer LEFT JOIN
+    (SELECT answer_id, COUNT(comment.id) as number_comment
+    FROM comment
+    GROUP BY answer_id) AS answer_comments ON answer_id = answer.id
 WHERE answer_owner_id = 64
     AND question_id = question.id 
 	AND question_owner_id = "user".id

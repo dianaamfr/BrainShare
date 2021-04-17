@@ -4,57 +4,37 @@
 */
 
 -- UPDATE
--- (UPDATE01) Update Personal Information
-UPDATE "user"
-SET name = $name, email = $email, birthday = $birthday, description = $description, image = $image
-WHERE id = $id; 
-
--- (UPDATE02) Update Academic Course
-UPDATE "user"
-SET course_id = $course_id
-WHERE id = $id; 
-
--- (UPDATE03) Update question text fields
-UPDATE question
-SET title = $title, content = $content
-WHERE id = $id;
-
--- (UPDATE04) Change User Role
+-- (UPDATE01) Change User Role
 UPDATE "user"
 SET user_role = $user_role
 WHERE id = $id;
 
--- (UPDATE05) Ban User
+-- (UPDATE02) Ban User
 UPDATE "user"
-SET ban = true
+SET ban = $value
 WHERE id = $id;
 
--- (UPDATE06) Unban User
-UPDATE "user"
-SET ban = false
-WHERE id = $id;
-
--- (UPDATE07) Discard question reports
+-- (UPDATE03) Discard question reports
 UPDATE report
 SET viewed = true
 WHERE question_id = $question_id;
 
--- (UPDATE08) Discard answer reports
+-- (UPDATE04) Discard answer reports
 UPDATE report
 SET viewed = true
 WHERE answer_id = $answer_id;
 
--- (UPDATE09) Discard comment reports
+-- (UPDATE05) Discard comment reports
 UPDATE report
 SET viewed = true
 WHERE comment_id = $comment_id;
 
--- (UPDATE10) Discard user reports
+-- (UPDATE6) Discard user reports
 UPDATE report
 SET viewed = true
 WHERE reported_id = $user_id;
 
--- (UPDATE11) Mark Notification as Read
+-- (UPDATE7) Mark Notification as Read
 UPDATE "notification"
 SET viewed = true
 WHERE id = $id;
@@ -63,18 +43,14 @@ WHERE id = $id;
 -- INSERT
 --
 -- (INSERT01) Create a new account
-INSERT INTO "user" (username, email, user_role)
-VALUES ($username, $email,'RegisteredUser');
+INSERT INTO "user" (username, password, email)
+VALUES ($username, $password, $email);
 
--- (INSERT02) Add Favourite Tag
-INSERT INTO favourite_tag (user_id, tag_id)
-VALUES ($user_id, $tag_id);
-
--- (INSERT03) Insert answer
+-- (INSERT02) Insert answer
 INSERT INTO answer (question_id, answer_owner_id, content)
 VALUES ($question_id, $user_id, $content);
 
--- (INSERT) Insert comment
+-- (INSERT03) Insert comment
 INSERT INTO comment (answer_id, comment_owner_id, content)
 VALUES ($answer_id, $user_id, $content);
 
@@ -82,31 +58,32 @@ VALUES ($answer_id, $user_id, $content);
 INSERT INTO report(user_id,question_id)
 VALUES ($user_id,$question_id);
 
--- (INSERT05) Insert answer report
+-- (INSERT06) Insert answer report
 INSERT INTO report(user_id,answer_id)
 VALUES ($user_id,$answer_id);
 
--- (INSERT06) Insert comment report
+-- (INSERT07) Insert comment report
 INSERT INTO report(user_id,comment_id)
 VALUES ($user_id,$comment_id);
 
--- (INSERT07) Insert user report
+-- (INSERT08) Insert user report
 INSERT INTO report (user_id,reported_id)
 VALUES ($user_id,$reported_id);
 
--- (INSERT ) Insert a course
+-- (INSERT09) Insert a course
 INSERT INTO course (name)
 VALUES ($name);
 
--- (Insert ) Insert a tag
+-- (Insert10) Insert a tag
 INSERT INTO tag (name)
 VALUES ($name);
+
 --
 -- DELETE
 --
 -- (DELETE01) Remove Favourite Tag
 DELETE FROM favourite_tag
-WHERE user_id = $user_id, tag_id = $tag_id;
+WHERE user_id = $user_id AND tag_id = $tag_id;
 
 -- (DELETE02) Delete question course
 DELETE FROM question_course

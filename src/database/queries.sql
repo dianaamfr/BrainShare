@@ -6,8 +6,7 @@
 -- User Profile
 -- SELECT01
 -- Get user profile information.
-    --TODO: missing points
-SELECT "user".id, username, email, birthday, image, description, ban, "user".name as name, course.name as course
+SELECT "user".id, username, email, birthday, image, description, ban, "user".name as name, course.name as course, score
 FROM "user" JOIN course ON "user".course_id = course.id 
 WHERE "user".username = $username; 
 
@@ -51,15 +50,15 @@ WHERE question_id = $question_id AND question_course.course_id = course.id;
 
 -- Question Page
 
--- SELECT06
+-- SELECT08
 -- Get a question by id.
-SELECT question.id, title, content, "date", username, image, score, number_answer
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question JOIN "user" ON question_owner_id = "user".id
 WHERE question.id = $question_id; 
 
 -- SELECT07
 -- Get answers to a question ordered by score.
-SELECT answer.id, content, "date", valid, username, image, score
+SELECT answer.id, content, "date", valid, username, image, question.score
 FROM answer JOIN "user" ON answer_owner_id = "user".id
 WHERE question_id = $question_id
 ORDER BY score DESC; 
@@ -76,15 +75,15 @@ ORDER BY comment.id DESC;
 
 -- SELECT09
 -- Get questions ordered from the most to the least voted. (Also used in the home page)
-SELECT question.id, title, content, "date", username, image, score, number_answer 
+SELECT question.id, title, content, "date", username, image, question.score, number_answer 
 FROM question, "user"
 WHERE question_owner_id = "user".id 
-ORDER BY score DESC
+ORDER BY question.score DESC
 LIMIT $page_limit OFFSET $page_number;  
 
 -- SELECT10
 -- Get questions ordered from the most to the least recent.
-SELECT question.id, title, content, "date", username, image, score, number_answer 
+SELECT question.id, title, content, "date", username, image, question.score, number_answer 
 FROM question, "user"
 WHERE question_owner_id = "user".id 
 ORDER BY question.id DESC
@@ -92,7 +91,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- SELECT11
 -- Get questions associated with a course.
-SELECT question.id, title, content, "date", username, image, score, number_answer 
+SELECT question.id, title, content, "date", username, image, question.score, number_answer 
 FROM question, "user", course, question_course
 WHERE question_owner_id = "user".id 
     AND question_course.course_id = course.id 
@@ -103,7 +102,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- SELECT12
 -- Get questions associated with a tag.
-SELECT question.id, title, content, "date", username, image, score, number_answer
+SELECT question.id, title, content, "date", username, image, question.score, number_answer
 FROM question, "user", tag, question_tag
 WHERE question_owner_id = "user".id 
     AND question_tag.tag_id = tag.id 
@@ -121,11 +120,9 @@ answer_question.question_id,
 "notification".answer_id, answer.answer_owner_id, answer.question_id, 
 "notification".comment_id, comment.answer_id, comment.comment_owner_id
 FROM "notification" 
-    LEFT JOIN answer AS answer_question ON answer_id = answer_question.id
     LEFT JOIN answer ON "notification".answer_id = answer.id
     LEFT JOIN comment ON "notification".comment_id = comment.id
     LEFT JOIN answer AS answer_question ON comment.answer_id = answer_question.id
-
 WHERE viewed = FALSE
 ORDER BY "notification"."date" DESC
 LIMIT $page_limit OFFSET $page_number;
@@ -238,7 +235,7 @@ LIMIT $page_limit OFFSET $page_number;
 
 -- SELECT21
 -- Search user by username.
-SELECT username, signup_date, ban, role
+SELECT username, signup_date, ban, user_role
 FROM "user"
 WHERE username ILIKE $user.'%';
 
