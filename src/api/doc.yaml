@@ -9,18 +9,22 @@ info:
   version: "1.0.0"
   title: Brainshare API
   description: Web resources specification for Brainshare
-# tags:
 
 paths:
+
+####################
+# REDIRECTS 
+#################### 
+
   /login:
     get:
       operationId: R101
       summary: "R101: Login form"
       description: "Provides the login form. Access: PUB"
-      # tags:
       responses:
         "200":
-          description: "OK. Show the [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)"
+          description: "OK. Show the [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)" 
+
     post:
       operationId: R102
       summary: "R102: Login Action"
@@ -62,7 +66,7 @@ paths:
 
       responses:
         "302":
-          description: "Redirect to the home page after logout."
+          description: "Redirect to the home page after logout. "
           headers:
             Location:
               schema:
@@ -70,7 +74,6 @@ paths:
               examples:
                 302Success:
                   description: "Successful logout. Redirected to the home page."
-                # does it need to have a value?
 
   /register:
     get:
@@ -86,7 +89,7 @@ paths:
       operationId: R105
       summary: "R105: Register Action"
       description: "Process the register form"
-
+      # browser submete informação de forma nativa., 
       requestBody:
         required: true
         content:
@@ -108,7 +111,6 @@ paths:
                 - username
                 - email
                 - password
-                - image # Obrigatorio?
       responses:
         "302":
           description: "Redirect after user register form has been processed."
@@ -310,8 +312,8 @@ paths:
                 courses:
                   type: object
                 tags:
-                  type: object
-
+                  type: object 
+      # meter certo 
       example:
         title: "I don't know python. Is it hard?"
         content: "I would like to know if it's hard"
@@ -566,7 +568,7 @@ paths:
 
   /course/{id}:
     get:
-      #Mudar depois o número do R
+      # Mudar depois o número do R
       operationId: ---
       summary: "---: View a Course"
       description: "Shows the course. Access: PUB"
