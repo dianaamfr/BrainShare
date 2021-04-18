@@ -163,7 +163,7 @@ INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEF
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 46, 'Como fazer um TSP', 'Preciso de fazer uma TSP para entregar daqui a 30minutos. Alguma dica? Se alguém tiver código em C++ que diga!', '2020-03-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 76, 'AJUDA COM MIPS URGENTE!', 'Eu não percebo nada de comp alguém que me ajudeeee! ', '2020-04-17');
 
--- "answer
+-- answer
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 5, 'Basta user a fórmula delta v = delta d sobre delta t', '2020-06-30', FALSE);
@@ -179,22 +179,6 @@ INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DE
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 3, 23, 'Qual é o ph de cada um deles?', '2021-04-03');
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 64, 'Podes especificar em que parte do site está?', '2021-03-30');
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 5, 'Está na parte dos recursos de lbaw!', '2021-03-30');
-
--- notifications
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 7, 1, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, 2, NULL, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, 3, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, 4, NULL, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, 5, NULL, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 1, NULL, 1, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 9, NULL, 2, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, NULL, 3, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 3, NULL, 4, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 5, NULL, 5, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 11, NULL, 6, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 17, NULL, 7, '2021-01-01', false);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 98, NULL, 8, '2021-01-01', TRUE);
-INSERT INTO "notification" (id, user_id, comment_id, answer_id, "date", viewed) VALUES (DEFAULT, 75, NULL, 9, '2021-01-01', false);
 
 -- Reported User 
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',41,42);
