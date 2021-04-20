@@ -372,13 +372,102 @@ paths:
 # M02 Questions #
 #################
 
-  # TODO: search 
+  # ASK: what to do with the button of search, like tags and etc?
+  /search/{text}: 
+    get: 
+      operationId: "R203"
+      summary: "R203: Shows the search page."
+      description: "Shows the search page. Access: PUB"
+      tags:  
+      - 'M02 - Questions'
+
+      parameters:
+        - in: path
+          name: "text"
+          description: "Content to be searched for."
+          schema:
+            type: string
+          required: false
+
+      responses: 
+        "200": 
+          description: "Ok. Show the search page [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)"
+
+  /question:
+    get: 
+      operationId: "R203"
+      summary: "R203: Shows the create question page."
+      description: "Create new question. Access: USR"
+      tags:  
+      - 'M02 - Questions'
+    
+
+      responses: 
+        "200": 
+          description: "Ok. Show the add question page [UI04](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui04-add-question)"
+
+
+    post:
+      operationId: "R204"
+      summary: "R204: Question being processed."
+      description: "Create new question. Access: USR"
+      tags:  
+      - 'M02 - Questions'
+      
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                courses:
+                  type: array
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                
+
+              required:
+                - title
+                - content
+                - date
+
+        example:
+          title: "Is it hard to program in C?"
+          content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
+          courses: ["MIEIC", "MIEEC"]
+          tags: ["c++", "php"]
+
+      reponses:
+        responses:
+        "302":
+            description: "Redirect after the question creation is processed."
+
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: "Successful, redirects to the question page."
+                    value: "/search"
+                  302Error:
+                    description: "Failed creation. Redirects to the same page."
+                    value: "/question/create"
 
   /question/{id}:
     get:
       operationId: R201
-      summary: "R201: View a question"
-      description: "Shows the question. Access: PUB"
+      summary: "R201: View and load the page of a question."
+      description: "Shows the question page, which contains the question, answers, respective comments and also text fields to add more answers and comments. Access: PUB"
       tags:  
         - 'M02 - Questions'
       
@@ -389,79 +478,11 @@ paths:
             type: integer
           required: true
 
-      responses:
-        "200":
-          description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
-
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                  text:
-                    type: string
-                  publication:
-                    type: string
-                  author_username:
-                    type: string
-                  courses:
-                    type: object
-                    items:
-                      id:  
-                        type: integer 
-                      name:  
-                        type: string 
-                      date:  
-                        type: string 
-                  tags:
-                    type: object
-                    items:
-                      id:  
-                        type: integer 
-                      name:  
-                        type: string 
-                      date:  
-                        type: string 
-
-                  votes:
-                    type: integer
-
-              example:
-                title: "How to solve this problem?"
-                text: "I have no idea how to solve this problem"
-                publication: "12/10/2020"
-                author_username: "joaquina123"
-                courses: [
-                  {
-                    id: "1",
-                    name: "MIEIC", 
-                    date: "12/04/2020" 
-                  },
-                  {
-                    id: "2", 
-                    name: "MIEEC",
-                    date: "12/05/2020" 
-                  }
-                ]
-                tags: [
-                 {
-                    id: "1",
-                    name: "c++", 
-                    date: "03/04/2020" 
-                  },
-                  {
-                    id: "2", 
-                    name: "php",
-                    date: "04/05/2020" 
-                  }
-                ]
-                votes: 4
-
+          "200": 
+            description: "Success. Show the question page [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
           "404":
             description: "Error. Id not found."
-
+          
     update:
       operationId: R202
       summary: "R202: Update a question"
@@ -554,133 +575,7 @@ paths:
                     description: "Failed delete. Redirects to the same page."
                     value: "/question/{id}"
 
-  /question/create:
-    get: 
-      operationId: "R203"
-      summary: "R203: shows the create question page."
-      description: "Create new question. Access: USR"
-      tags:  
-      - 'M02 - Questions'
-
-
-      responses: 
-        "200": 
-          description: "Ok. Show the add question page [UI04](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui04-add-question)"
-
-
-    post:
-      operationId: "R204"
-      summary: "R204: Question being processed."
-      description: "Create new question. Access: USR"
-      tags:  
-      - 'M02 - Questions'
-      
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                content:
-                  type: string
-                courses:
-                  type: array
-                  items:
-                    type: string
-                tags:
-                  type: array
-                  items:
-                    type: string
-                
-
-              required:
-                - title
-                - content
-                - date
-
-        example:
-          title: "Is it hard to program in C?"
-          content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
-          courses: ["MIEIC", "MIEEC"]
-          tags: ["c++", "php"]
-
-      reponses:
-        responses:
-        "302":
-            description: "Redirect after the question creation is processed."
-
-            headers:
-              Location:
-                schema:
-                  type: string
-                examples:
-                  302Success:
-                    description: "Successful, redirects to the question page."
-                    value: "/search"
-                  302Error:
-                    description: "Failed creation. Redirects to the same page."
-                    value: "/question/create"
-
-  /answer/{id}:
-    get:
-      operationId: R205
-      summary: "R205: View an answer"
-      description: "Shows the answer. Access: PUB"
-      tags:  
-      - 'M02 - Questions'
-      
-      parameters:
-        - in: path
-          name: "id"
-          schema:
-            type: integer
-            required: true
-
-      responses:
-        "200":
-          description: "Ok. Get the answer information."
-
-        content:
-          application/json:
-            schema:
-              type: "object"
-            properties:
-              content:
-                type: string
-              date:
-                type: string
-              author:
-                type: string
-              valid:
-                type: boolean
-
-          example:
-            content: "Acho que água alcalina é básica"
-            date: "10/07/2020"
-            author: "Joaquina"
-            valid: true 
-            
-   
-        "404":
-          description: "Error, Id not found"
-          
-    delete:
-      operationId: R206
-      summary: "R206: Delete an answer. "
-      description: "Delete an answer. Access: OWN, ADM, MOD"
-      tags:  
-      - 'M02 - Questions'
-
-      responses:
-        "200":
-          description: "OK. Your answer has being accepted."
-        "404":
-          description: "This id doesn't exist, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
-
-  /answer/create:
+  /question/{id}/answer:
     post:
       operationId: "R208"
       summary: "R208: Answer being processed."
@@ -688,7 +583,15 @@ paths:
       tags:  
       - 'M02 - Questions' 
 
-      # TODO: é necessário enviar o question id e o nsewr_owner id no request body, mesmo sabendo que já é informação da página
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+
       requestBody:
         required: true
         content:
@@ -707,46 +610,47 @@ paths:
 
         responses: 
           "202": 
-            description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+            description: "Ok. Use the new information to render the page."
 
-  /comment/{id}:
-    get:
-      operationId: "R209" 
-      summary: "R209: View a comment"
-      description: "Shows the comment. Access: PUB"
+    update:
+      operationId: "R208"
+      summary: "R208: Answer being processed."
+      description: "Update an answer. Access: USR"
       tags:  
       - 'M02 - Questions' 
+
 
       parameters:
         - in: path
           name: "id"
           schema:
             type: integer
-            required: true
-      responses:
-        "202":
-          description: "Ok. Get the comment information."
+          required: true
 
+
+      requestBody:
+        required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
-              type: "object"
-            properties:
-              content:
-                type: string
-              date:
-                type: string
-              author:
-                type: string
+              type: object
+              properties:
+                answerId: 
+                  type: integer
+                content:
+                  type: string 
 
-          example:
-            content: "Claro que é básica, duh"
-            date: "10/07/2020"
-            author: "Joaquina123"
+              required:
+                - content
 
-        "404":
-          description: "Error. Id not found."
+        example:
+          answerId: 1 
+          content: "I think that C is easy. You're the one that is dumb."
 
+      responses: 
+        "202": 
+          description: "Ok. Use the new information to render the page."
+    
     delete:
       operationId: R210
       summary: "R210: Delete a comment"
@@ -766,10 +670,10 @@ paths:
         "200":
           description: "Ok. Request accepted to be processed."
         "404":
-          description: "Error. Comment id not found. "
+          description: "Error. Answer id not found. "
 
-  /comment/create:
-   post:
+  /question/{id}/comment:
+    post:
       operationId: "R211"
       summary: "R211: Comment being processed."
       description: "Create new comment. Access: USR"
@@ -783,6 +687,8 @@ paths:
             schema:
               type: object
               properties:
+                commentId: 
+                  type: integer 
                 content:
                   type: string 
 
@@ -790,12 +696,87 @@ paths:
                 - content
 
         example:
+          commentId: 1 
+          content: "I think that C is easy. You're the one that is dumb."
+        
+
+        responses: 
+          "202": 
+            description: "Ok. Use the information to render the question page. " 
+   
+    update:
+      operationId: "R208"
+      summary: "R208: Comment being processed."
+      description: "Update a comment. Access: USR"
+      tags:  
+      - 'M02 - Questions' 
+
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                answerId: 
+                  type: integer
+                content:
+                  type: string 
+
+              required:
+                - content
+
+        example:
+          answerId: 1 
           content: "I think that C is easy. You're the one that is dumb."
 
         responses: 
           "202": 
-            description: "Ok. Show the [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)" 
+            description: "Ok. Use the new information to render the page."
+    
+    delete:
+      operationId: R210
+      summary: "R210: Delete a comment"
+      description: "Deletes a comment. Access: OWN, ADM, MOD"
+      tags:  
+      - 'M02 - Questions' 
+      
 
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              items: 
+                commentId: 
+                  type: integer  
+        
+        example: 
+          - commentId: 1   
+
+      responses:
+        "200":
+          description: "Ok. Request accepted to be processed."
+        "404":
+          description: "Error. Comment id not found. "
+  
 ###################
 # M03: Management #
 ###################
