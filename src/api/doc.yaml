@@ -34,7 +34,7 @@ paths:
 # M01: Authentication and User Profile #
 ########################################
 
-
+  # ASK: does the x-www-form-urlencoded must have an example? 
   /login:
     get:
       operationId: R101
@@ -149,7 +149,6 @@ paths:
               schema:
                 type: string
               examples:
-                # does it need to have a value in the success?
                 302Success:
                   description: "Successful authentication. Redirect to the questions page."
                   value: "/search"
@@ -157,11 +156,11 @@ paths:
                   description: "Failed authentication. Redirect to the login page."
                   value: "/login"
 
-  /user/{id}:
+  /user/{id}/questions:
     get:
-      operationId: R106
-      summary: "R106: View the user profile"
-      description: "Show the profile of a user. Access: USR"
+      operationId: R107
+      summary: "R107: View the user profile and questions."
+      description: "Show the user profile and the questions created by him. Access: USR"
       tags:  
         - 'M01 - Authentication and User Profile'
 
@@ -174,147 +173,124 @@ paths:
 
       responses:
         "404": 
-          description: "Error. Id not found."
+          description: "Error. User not found."
         "200":
-          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile)"
+          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile) with the question tab selected."
 
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  email:
-                    type: string
-                  birthday:
-                    type: string
-                  courses:
-                    type: array
-                    items:
-                      type: object
-                      items: 
-                        id:  
-                          type: integer  
-                        name:  
-                          type: string  
-                        date:  
-                          type: string 
-                  tags:
-                    type: array
-                    items:
-                      type: object  
-                      items: 
-                        id:  
-                          type: integer  
-                        name:  
-                          type: string  
-                        date:  
-                          type: string 
-
-              example:
-                name: "joaquina"
-                email: "up201800123@fe.up.pt"
-                birthday: "09/02/1997"
-                courses: [
-                  {
-                    id: "1",
-                    name: "MIEIC", 
-                    date: "12/04/2020" 
-                  },
-                  {
-                    id: "2", 
-                    name: "MIEEC",
-                    date: "12/05/2020" 
-                  }
-                ]
-                tags: [                 
-                 {
-                    id: "1",
-                    name: "c++", 
-                    date: "03/04/2020" 
-                  },
-                  {
-                    id: "2", 
-                    name: "php",
-                    date: "04/05/2020" 
-                  }
-                ] 
-
-      update:
-        operationId: R107
-        summary: "R107: Update a user profile."
-        description: "Update the user profile information. Access: OWN."
-        tags:  
+  /user/{id}/answers:
+    get:
+      operationId: R106
+      summary: "R106: View the user profile and answers."
+      description: "Show the user profile and the answers created by him. Access: USR"
+      tags:  
         - 'M01 - Authentication and User Profile'
 
-        parameters:
-          - in: path
-            name: id
-            schema:
-              type: integer
-            required: true
-
-        requestBody:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
           required: true
-          content:
-            application/x-www-form-urlencoded:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  email:
-                    type: string
-                  birthday:
-                    type: string
-                  about:
-                    type: string
-                  course:
-                    type: object
-                    items:
-                      id:
-                        type: string
-                      name:
-                        type: string
-                      date:
-                        type: string
-                  tags:
-                    type: object
-                    items:
-                      id:
-                        type: string
-                      name:
-                        type: string
-                      date:
-                        type: string
 
-              response:
-                "200":
-                  description: "OK. Update succeded."
-                "404":
-                  description: "Error. Id not found."
+      responses:
+        "404": 
+          description: "Error. User not found."
+        "200":
+          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile) with the answer tab selected."
 
-      delete:
-        operationId: R108
-        summary: "R108: Deletes a user profile."
-        description: "Update the user profile information. Access: OWN."
-        tags:  
+    # I don't know where it will be displayed
+  
+  /user/{id}/delete: 
+    delete:
+      operationId: R110
+      summary: "R110: Deletes a user profile."
+      description: "Update the user profile information. Access: OWN, MOD, ADM."
+      tags:  
+      - 'M01 - Authentication and User Profile'
+
+      response:
+        "200":
+          description: "OK. Update succeded."
+        "404":
+          description: "Error. Id not found." 
+
+  # ASK: to visualize the profile we are using the {id} configuration. Should we use it here? I don't think so...
+  /user/update: 
+    get:
+      operationId: R108
+      summary: "R108: View the update profile form of a user."
+      description: "Show the form to update the profile of a user. Access: OWN"
+      tags:  
         - 'M01 - Authentication and User Profile'
 
-        response:
-          "200":
-            description: "OK. Update succeded."
-          "404":
-            description: "Error. Id not found." 
+      responses:
+        "404": 
+          description: "Error. User not found."
+        "200":
+          description: "OK. Show [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-edit-profile)."
 
+    update:
+      operationId: R109
+      summary: "R109: Update a user profile."
+      description: "Update the user profile information. Access: OWN."
+      tags:  
+      - 'M01 - Authentication and User Profile'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                birthday:
+                  type: string
+                about:
+                  type: string
+                course:
+                  type: object
+                  items:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    date:
+                      type: string
+                tags:
+                  type: object
+                  items:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    date:
+                      type: string
+
+      
+      responses:
+        "302":
+          description: "Redirect after user edit profile form has been processed."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Success. Redirects to the user profile."
+                  value: "/user/{id}/questions"
+                302Error:
+                  description: "Failed authentication. The user stays on the page."
 
   # Notification  
-
-  /notification/{id}:
+  /user/notifications:
     get:
       operationId: "R109"
-      summary: "R109: View a Notification"
+      summary: "R109: Loads and view the user's notification."
       description: "Shows the Notification. Access: USR"
       tags:  
         - 'M01 - Authentication and User Profile'
@@ -329,59 +305,69 @@ paths:
       responses:
         "200":
           description: "Ok, show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
-        "404":
-          description: "Couldn't find notification ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
 
+    # ASK: is this todo ok. We are passing the id by json. We are also doing it on update.
+    delete:
+      operationId: "R110"
+      summary: "R110: Delete a Notification"
+      description: "Deletes a Notification. Access: USR"
+      tags:  
+      - 'M01 - Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: "object"
-            properties:
-              date:
-                type: string
-              viewed:
-                type: boolean
+              type: object
+              items: 
+                id: 
+                  type: integer  
+        
+        example: 
+          - id: 1   
 
-          example:
-            date: "09/01/2021"
-            viewed: false
+      response:
+        "200":
+          description: "Sucessfully deleted notification."
 
-      delete:
-        operationId: "R110"
-        summary: "R110: Delete a Notification"
-        description: "Deletes a Notification. Access: USR"
-        tags:  
+    update:
+      operationId: R111
+      summary: "R111: Update a Notification"
+      description: "Updates a Notification, marking it as read. Access: USR"
+      tags:  
         - 'M01 - Authentication and User Profile'
 
-        parameters:
-          - in: path
-            name: "id"
+      parameters:
+        - in: path
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
             schema:
-              type: integer
-            required: true
+              type: object
+              items: 
+                id: 
+                  type: integer  
+        
+        example: 
+          - id: 1   
 
-        response:
-          "200":
-            description: "Sucessfully deleted notification."
-
-      update:
-        operationId: R111
-        summary: "R111: Update a Notification"
-        description: "Updates a Notification, marking it as read. Access: USR"
-        tags:  
-          - 'M01 - Authentication and User Profile'
-
-
-        parameters:
-          - in: path
-            schema:
-              type: integer
-            required: true
-
-        response:
-          "200":
-            description: "Sucessfully updated notification"   
-   
+      response:
+        "200":
+          description: "Sucessfully updated notification"   
+  
 #################
 # M02 Questions #
 #################
@@ -1228,7 +1214,6 @@ paths:
       "202":
         description: "Ok. Show the home page [UI01](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui01-home)." 
 
-
   /about:
     get:
       operationId: R402
@@ -1239,18 +1224,16 @@ paths:
 
       responses:
       "202":
-        description: "Ok. Show the home page [UI013](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-about)." 
-    
+        description: "Ok. Show the about page [UI013](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-about)."   
       
-      
-  /error: 
+  /error:   
     get:
-      operationId: R402
-      summary: "R402: View the error page. "
+      operationId: R403
+      summary: "R403: View the error page. "
       description: "Shows the error page. Access: PUB"
       tags:
       - 'M04 - Static Pages'
 
       responses:
       "202":
-        description: "Ok. Show the home page [UI015](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)." 
+        description: "Ok. Show the error page [UI015](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)." 
