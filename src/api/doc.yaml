@@ -158,8 +158,8 @@ paths:
 
   /user/{id}/questions:
     get:
-      operationId: R107
-      summary: "R107: View the user profile and questions."
+      operationId: R106
+      summary: "R106: View the user profile and his questions."
       description: "Show the user profile and the questions created by him. Access: USR"
       tags:  
         - 'M01 - Authentication and User Profile'
@@ -172,15 +172,15 @@ paths:
           required: true
 
       responses:
-        "404": 
-          description: "Error. User not found."
         "200":
           description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile) with the question tab selected."
+        "404": 
+          description: "Error. User not found."
 
   /user/{id}/answers:
     get:
-      operationId: R106
-      summary: "R106: View the user profile and answers."
+      operationId: R107
+      summary: "R107: View the user profile and hist answers."
       description: "Show the user profile and the answers created by him. Access: USR"
       tags:  
         - 'M01 - Authentication and User Profile'
@@ -193,43 +193,29 @@ paths:
           required: true
 
       responses:
-        "404": 
-          description: "Error. User not found."
         "200":
           description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile) with the answer tab selected."
+        "404": 
+          description: "Error. User not found."
 
     # I don't know where it will be displayed
   
-  /user/{id}/delete: 
-    delete:
-      operationId: R110
-      summary: "R110: Deletes a user profile."
-      description: "Update the user profile information. Access: OWN, MOD, ADM."
-      tags:  
-      - 'M01 - Authentication and User Profile'
-
-      response:
-        "200":
-          description: "OK. Update succeded."
-        "404":
-          description: "Error. Id not found." 
-
   # ASK: to visualize the profile we are using the {id} configuration. Should we use it here? I don't think so...
-  /user/update: 
+  /user/edit-profile: 
     get:
       operationId: R108
-      summary: "R108: View the update profile form of a user."
-      description: "Show the form to update the profile of a user. Access: OWN"
+      summary: "R108: View the update profile form of the user."
+      description: "Show the form to edit the profile of a user. Access: OWN"
       tags:  
         - 'M01 - Authentication and User Profile'
 
       responses:
-        "404": 
-          description: "Error. User not found."
         "200":
           description: "OK. Show [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-edit-profile)."
+        "404": 
+          description: "Error. User not found."
 
-    update:
+    put:
       operationId: R109
       summary: "R109: Update a user profile."
       description: "Update the user profile information. Access: OWN."
@@ -252,24 +238,21 @@ paths:
                 about:
                   type: string
                 course:
-                  type: object
+                  type: array
                   items:
-                    id:
-                      type: string
-                    name:
-                      type: string
-                    date:
-                      type: string
+                    type: string
                 tags:
-                  type: object
+                  type: array
                   items:
-                    id:
-                      type: string
-                    name:
-                      type: string
-                    date:
-                      type: string
+                    type: string
 
+            example: 
+              name: "Joaquina"
+              email: "up201800123@edu.fe.up.pt"
+              birthday: "19/01/2000"
+              about: "Hello, it's Joaquina and I like to program!"
+              course: ["MIEIC", "MIEEC"]
+              tags: ["c++", "php"]
       
       responses:
         "302":
@@ -287,30 +270,24 @@ paths:
                   description: "Failed authentication. The user stays on the page."
 
   # Notification  
-  /user/notifications:
+  /user/notification:
     get:
-      operationId: "R109"
-      summary: "R109: Loads and view the user's notification."
+      operationId: "R110"
+      summary: "R110: Loads and view the user's notification."
       description: "Shows the Notification. Access: USR"
       tags:  
         - 'M01 - Authentication and User Profile'
-
-      parameters:
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
 
       responses:
         "200":
           description: "Ok, show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
 
+  /user/notification/{id}: 
     # ASK: is this todo ok. We are passing the id by json. We are also doing it on update.
     delete:
-      operationId: "R110"
-      summary: "R110: Delete a Notification"
-      description: "Deletes a Notification. Access: USR"
+      operationId: R111
+      summary: "R111: Delete a Notification"
+      description: "Delete a Notification. Access: OWN"
       tags:  
       - 'M01 - Authentication and User Profile'
 
@@ -321,27 +298,14 @@ paths:
             type: integer
           required: true
 
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              items: 
-                id: 
-                  type: integer  
-        
-        example: 
-          - id: 1   
-
       response:
         "200":
-          description: "Sucessfully deleted notification."
+          description: "Sucessfully deleted notification. Render the notification list without the deleted notification."
 
-    update:
-      operationId: R111
-      summary: "R111: Update a Notification"
-      description: "Updates a Notification, marking it as read. Access: USR"
+    put:
+      operationId: R112
+      summary: "R112: Mark as read"
+      description: "Updates a Notification, marking it as read. Access: OWN"
       tags:  
         - 'M01 - Authentication and User Profile'
 
@@ -349,25 +313,35 @@ paths:
         - in: path
           schema:
             type: integer
-          required: true
-
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              items: 
-                id: 
-                  type: integer  
-        
-        example: 
-          - id: 1   
+          required: true 
 
       response:
         "200":
-          description: "Sucessfully updated notification"   
+          description: "Sucessfully updated notification. Render the notification list with the refered notification marked as read."   
   
+  # Reports 
+  /user/{id}/report: 
+    post: 
+      operationId: R113
+      summary: "R113: Report a user."
+      description: "Proccess the report of a user. Access: USR"  
+      tags:  
+        - 'M01 - Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200": 
+          description: "Success. Feedback on success message."
+        "404": 
+          description: "Fail on report an user. Might occur if a user is deleted while trying to report him."
+  
+ 
 #################
 # M02 Questions #
 #################
@@ -611,8 +585,9 @@ paths:
         responses: 
           "202": 
             description: "Ok. Use the new information to render the page."
-
-    update:
+  
+  /question/{id}/answer/{id}: 
+    put:
       operationId: "R208"
       summary: "R208: Answer being processed."
       description: "Update an answer. Access: USR"
@@ -650,7 +625,7 @@ paths:
       responses: 
         "202": 
           description: "Ok. Use the new information to render the page."
-    
+  
     delete:
       operationId: R210
       summary: "R210: Delete a comment"
@@ -703,8 +678,9 @@ paths:
         responses: 
           "202": 
             description: "Ok. Use the information to render the question page. " 
-   
-    update:
+  
+  /question/{id}/comment/{id}:
+    put:
       operationId: "R208"
       summary: "R208: Comment being processed."
       description: "Update a comment. Access: USR"
@@ -775,95 +751,102 @@ paths:
         "200":
           description: "Ok. Request accepted to be processed."
         "404":
-          description: "Error. Comment id not found. "
-  
+          description: "Error. Comment id not found. " 
+
+  #R114 
+  /question/{id}/report: 
+    post: 
+      operationId: R114
+      summary: "R114: Report a question."
+      description: "Process the question report. Access: USR"  
+      tags:  
+        - 'M01 - Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200": 
+          description: "Success. Feedback on success message."
+        "404": 
+          description: "Fail on report a question. Might occur if the question is deleted while trying to report it."
+
+  # R115
+  /comment/{id}/report: 
+    post: 
+      operationId: R115
+      summary: "R115: Report a comment."
+      description: "Proccesses comment report. Access: USR"  
+      tags:  
+        - 'M01 - Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200": 
+          description: "Success. Feedback on success message."
+        "404": 
+          description: "Fail on report a comment. Might occur if the comment is deleted while trying to report it."
+
+  # R116
+  /answer/{id}/report: 
+      post: 
+      operationId: R116
+      summary: "R116: report an answer"
+      description: "Proccesses the report of an answer. Access: USR"  
+      tags:  
+        - 'M01 - Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "200": 
+          description: "Success. Feedback on success message."
+        "404": 
+          description: "Fail on report a answer. Might occur if the answer is deleted while trying to report it."
+
+
 ###################
 # M03: Management #
 ###################
-
+    
   # os dois ou só um? 
-  /manageCourses: 
-    get:
-      # Mudar depois o número do R
-      operationId: R301
-      summary: "R301: View a Course"
-      description: "Shows the course. Access: ADM, MOD"
-      tags:
-      - 'M03 - Management'
+  /manage/course/{text}: 
+    get: 
+      operationId: "R203"
+      summary: "R203: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Access: PUB"
+      tags:  
+      - 'M02 - Questions'
 
       parameters:
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
+        - in: path
+          name: "text"
+          description: "Content to be searched for."
+          schema:
+            type: string
+          required: false
 
-      responses:
-        "200":
-          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
-
-      content:
-          application/json:
-            schema:
-              type: "array"
-            properties:
-              type: object 
-              items:  
-                id: 
-                  type: integer
-                name:
-                  type: string
-                date:
-                  type: string
-
-          example:
-            [ 
-              {
-                id: 1,
-                name: "MIEC",
-                date: "17/07/2010"  
-              }, 
-              {
-                id: 2,
-                name: "MIEEC",
-                date: "18/07/2010"  
-              }
-            ]
-
-  /course/{id}:
-    get:
-      # Mudar depois o número do R
-      operationId: R302
-      summary: "R301: View a Course"
-      description: "Shows the course. Access: PUB"
-      tags:
-      - 'M03 - Management'
-
-      parameters:
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
-
-      responses:
-        "200":
-          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
-
-        content:
-          application/json:
-            schema:
-              type: "object"
-            properties:
-              name:
-                type: string
-              date:
-                type: string
-
-          example:
-            name: "MIEC"
-            date: "17/07/2010"
-
+      responses: 
+        "200": 
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+  
+  /manage/course/{id}:
     delete:
       operationId: "R303"
       summary: "R303: Delete a course"
@@ -871,19 +854,23 @@ paths:
       tags:
       - 'M03 - Management'
 
-
-      parameters:
-        - in: path
-          name: "id"
-          schema:
-            type: integer
-          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              items: 
+                id: 
+                  type: integer  
+        
+        example: 
+          - id: 1   
 
       response:
         "200":
-          description: "Delete Sucessful, show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
-
-  /course/create:
+          description: "Delete successfully. Use the information to render the page again with the course tab selected."
+    
     post:
       opereationId: R304
       summary: "R304 : Course being processed."
@@ -893,7 +880,8 @@ paths:
         
       responses:
         "200":
-          description: "Ok. Request accepted to be processed."
+          description: "Ok. Request accepted to be processed. Use the information to render the page."
+        
       requestBody:
         required: true
         content:
@@ -909,71 +897,58 @@ paths:
         example:
           name: "MIEC"
 
-  /tag/{id}:
-    get:
-      operationId: R305
-      summary: "R305: View a Tag"
-      description: "Shows the Tag. Access: PUB"
-      tags:
-      - 'M03 - Management' 
+  /manage/tag/{text}: 
+    get: 
+      operationId: "R203"
+      summary: "R203: Show the tags"
+      description: "Shows the categories page with the tag tab selected and result of the text search if defined. Access: PUB"
+      tags:  
+      - 'M02 - Questions'
 
       parameters:
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
+        - in: path
+          name: "text"
+          description: "Content to be searched for."
+          schema:
+            type: string
+          required: false
 
-      responses:
-        "200":
-          description: "Ok, Show [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+      responses: 
+        "200": 
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
 
-        content:
-          application/json:
-            schema:
-              type: "object"
-            properties:
-              name:
-                type: string
-              date:
-                type: string
-
-          example:
-            name: "Exam"
-            date: "10/01/2012"
-
-      delete:
-        operationId: R306
-        summary: "R306 - Delete a Tag"
-        description: "Deletes a Tag. Access: ADM, MOD"
-        tags:
-        - 'M03 - Management'
-
-        parameters:
-          - in: path
-            name: "id"
-            schema:
-              type: integer
-            required: true
-
-        response:
-          "200":
-            description: "Delete Sucessful"
-          "404":
-            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
-
-  /tag/create:
-    post:
-      opereationId: R307
-      summary: "R307 : Course being processed."
-      description: "Create new tag. Access: ADM, MOD"
+  /manage/tag/{id}: 
+    delete:
+      operationId: "R303"
+      summary: "R303: Delete a course"
+      description: "Deletes a course. Access: ADM, MOD"
       tags:
-      - 'M03 - Management' 
-      
+      - 'M03 - Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          description: "Id of the tag to be deleted"
+          schema:
+            type: integer
+          required: true
+        
+
+      response:
+        "200":
+          description: "Delete successfully. Use the information to render the page again with the course tab selected."
+    
+    post:
+      opereationId: R304
+      summary: "R304 : Course being processed."
+      description: "Create new course. Access: ADM, MOD"
+      tags:
+      - 'M03 - Management'
+        
       responses:
         "200":
-          description: "Ok. Tag successfully added"
-
+          description: "Ok. Request accepted to be processed. Use the information to render the page."
+        
       requestBody:
         required: true
         content:
@@ -987,197 +962,190 @@ paths:
                 - name
 
         example:
-          name: "Exam"
+          name: "MIEC"
 
 # Report  
-
-  /reports:
-     get:
-      # Mudar depois o número do R
-      operationId: R308
-      summary: "R308: View reports"
-      description: "Shows the course. Access: ADM, MOD"
-      tags:
-      - 'M03 - Management'
-
-      parameters: 
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
-
-      responses:
-        "200":
-          description: "Ok, Show Manage Reports [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-reports)."
-
-      content:
-          application/json:
-            schema:
-              type: "array"
-            properties:
-              type: array 
-              items: 
-                type: object 
-                items:  
-                  id: 
-                    type: integer
-                  summary:
-                    type: string
-                  numberReports:
-                    type: string 
-
-
-          example:
-            [ 
-              {
-                id: 1,
-                summary: "joaquina123", 
-                type: "user",
-                date: "17/07/2010"  
-              }, 
-              {
-                id: 2,
-                name: "I can",
-                date: "18/07/2010"  
-              }
-            ]
-
-  /report/user/{id}: 
-    operationId: "R308"
-    summary: "R308 : Number of reports in a user."  
-    description: "Retrieves the number of reports of a user. Access: ADM, MOD"
-    tags:
-      - 'M03 - Management'   
-
-    parameters: 
-      - in: path 
-        userId: "id" 
-        schema: 
-          type: integer 
-        required: true 
- 
-    responses: 
-      "200": 
-        description: "Ok. Retrieve the reports of user."   
-
-      content: 
-        application/json: 
-          schema: 
-            type: object 
-            properties:  
-              username: 
-                type: string  
-              numberReports:  
-                type: integer   
-        example: 
-          username: "Joaquina" 
-          numberReports: 12   
-
-      "404": 
-        description: "Error. This user doesn't exits" 
- 
-  /report/question/{id}:  
-    operationId: --- 
-    summary: "---: Number of reports of a question. " 
-    description: "Retrieves the number of reports of a question. Access: ADM, MOD"  
-
-    parameters: 
-      - in: path 
-        questionId: "id"  
-        schema: 
-          type: integer 
-        required: true  
-
-    responses:  
-      "200": 
-        description: "Ok. Retrieve the report of a question." 
-
-      
-        
-
-
-  report/question/create: 
-     
-
-  /report/answer/{id}:   
-
-  /report/answer/create:   
-
-  /report/comment/{id}:
-    get:
-      operationId: ---
-      summary: "---: View a Reported Comment"
-      description: "Shows the Reported Comment. Access: ADM"
+  
+  /manage/reports/{text}:
+    get: 
+      operationId: "R203"
+      summary: "R203: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Access: PUB"
+      tags:  
+      - 'M02 - Questions'
 
       parameters:
-        -in: path
-        name: id
-        schema:
-          type: integer
-          required: true
+        - in: path
+          name: "text"
+          description: "Content to be searched for."
+          schema:
+            type: string
+          required: false
 
-      responses:
-        #Is it 202? Check afterwards all
-        "200":
-          description: "Ok, Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-reports)"
-        "404":
-          description: "Couldn't find notification ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+      responses: 
+        "200": 
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+  
+  /manage/reports/user/{id}:
+    get:  
+      operationId: "R308"
+      summary: "R308 : Number of reports in a user."  
+      description: "Retrieves the number of reports of a user. Access: ADM, MOD"
+      tags:
+        - 'M03 - Management'   
 
-        content:
-          application/json:
-            schema:
-              type: "object"
-              properties:
-                count:
-                  type: integer
+      parameters: 
+        - in: path 
+          userId: "id" 
+          schema: 
+            type: integer 
+          required: true 
+  
+      responses: 
+        "200": 
+          description: "Ok. Retrieve the reports of user."   
 
-          example:
-            id: "173"
-            date: "12/03/2019"
-            viewed: false
-            count:  12
-
-      update:
-        operationId: ---
-        summary: "---: Updates a Comment Report"
-        description: "Updates a Report From the Comment Table. Access: MOD, ADM"
-        parameters:
-          - in: path
-            name: "id"
-            schema:
-              type: integer
-            required: true
-
-        response:
-          "200":
-            description: "Ok, Show [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-reports)"
-          "404":
-            description: "Couldn't find Tag ID, show [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
-
-        requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                viewed:
-                  type: string
-                date:
-                  type: string
+        content: 
+          application/json: 
+            schema: 
+              type: object 
+              properties:  
+                username: 
+                  type: string  
+                numberReports:  
+                  type: integer   
           example: 
-            viewed: "true" 
-            date: 10/10/2010   
+            username: "Joaquina" 
+            numberReports: 12   
 
-        
+        "404": 
+          description: "Error. This user doesn't exits" 
 
-  /report/comment/create:  
+  /manage/reports/question/{id}:
+    get:  
+      operationId: "R308"
+      summary: "R308 : Number of reports in a user."  
+      description: "Retrieves the number of reports of a user. Access: ADM, MOD"
+      tags:
+        - 'M03 - Management'   
+
+      parameters: 
+        - in: path 
+          userId: "id" 
+          schema: 
+            type: integer 
+          required: true 
+  
+      responses: 
+        "200": 
+          description: "Ok. Retrieve the reports of user."   
+
+        content: 
+          application/json: 
+            schema: 
+              type: object 
+              properties:  
+                username: 
+                  type: string  
+                numberReports:  
+                  type: integer   
+          example: 
+            username: "Joaquina" 
+            numberReports: 12   
+
+        "404": 
+          description: "Error. This user doesn't exits" 
+
+  /manage/reports/answer/{id}:
+    get:  
+      operationId: "R308"
+      summary: "R308 : Number of reports in a user."  
+      description: "Retrieves the number of reports of a user. Access: ADM, MOD"
+      tags:
+        - 'M03 - Management'   
+
+      parameters: 
+        - in: path 
+          userId: "id" 
+          schema: 
+            type: integer 
+          required: true 
+  
+      responses: 
+        "200": 
+          description: "Ok. Retrieve the reports of user."   
+
+        content: 
+          application/json: 
+            schema: 
+              type: object 
+              properties:  
+                username: 
+                  type: string  
+                numberReports:  
+                  type: integer   
+          example: 
+            username: "Joaquina" 
+            numberReports: 12   
+
+        "404": 
+          description: "Error. This user doesn't exits" 
+  
+  /manage/reports/comment/{id}:
+    get:  
+      operationId: "R308"
+      summary: "R308 : Number of reports in a user."  
+      description: "Retrieves the number of reports of a user. Access: ADM, MOD"
+      tags:
+        - 'M03 - Management'   
+
+      parameters: 
+        - in: path 
+          userId: "id" 
+          schema: 
+            type: integer 
+          required: true 
+  
+      responses: 
+        "200": 
+          description: "Ok. Retrieve the reports of user."   
+
+        content: 
+          application/json: 
+            schema: 
+              type: object 
+              properties:  
+                username: 
+                  type: string  
+                numberReports:  
+                  type: integer   
+          example: 
+            username: "Joaquina" 
+            numberReports: 12   
+
+        "404": 
+          description: "Error. This user doesn't exits" 
+
 
 ##############
 # BAN 
 ##############
+  /user/{id}/delete: 
+    delete:
+      operationId: R108
+      summary: "R108: Deletes a user profile."
+      description: "Update the user profile information. Access: OWN, MOD, ADM."
+      tags:  
+      - 'M01 - Authentication and User Profile'
 
+      response:
+        "200":
+          description: "OK. Update succeded."
+        "404":
+          description: "Error. Id not found." 
+##############
+# PROMOTE
+##############
 
 #####################
 # M04: Static Pages #
