@@ -11,7 +11,7 @@
 |
 */
 // Home
-Route::get('/', 'Auth\LoginController@home');
+Route::get('/', 'HomeController@show')->name('home');
 
 // Cards
 Route::get('cards', 'CardController@list');
@@ -30,3 +30,15 @@ Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+
+
+// ROUTES TO DO
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('about');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('add-question');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('edit-profile');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('edit-question');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('error');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-categories');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-reports');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('profile');
+Route::get('index', 'Auth\LoginController@showLoginForm')->name('search');

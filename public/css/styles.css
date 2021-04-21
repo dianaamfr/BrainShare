@@ -90,6 +90,7 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .page-margin {

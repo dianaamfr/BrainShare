@@ -8,8 +8,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'BrainShare') }}</title>
-
     <!-- Bootstrap Css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
@@ -47,15 +45,105 @@
   </head>
   <body>
     <main>
-    <header>
-        <h1><a href="{{ url('/cards') }}">BrainShare!</a></h1>
-        @if (Auth::check())
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-        @endif
+    <header class="fixed-top m-auto">
+      <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+        <div class="container-fluid">
+
+          <!-- Logo - link to Home Page -->
+          <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'BrainShare') }}</a>
+
+          <!-- Tablet Search Bar -->
+          <form class="header-search d-flex me-auto tablet-header-search" action="search.php" >
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Mobile Menu Icon -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Search Bar -->
+          <form class="header-search d-flex me-auto main-search" action="search.php" >
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+
+            <!-- Registration/Account -->
+            <div class="ms-4 registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
+
+              <!-- Registered Users options -->
+              @if (Auth::check()){
+                <a class="nav-link profile-button registration-button" href="profile.php">
+                    <img src="images/profile.png" alt="profile picture" class="rounded-circle">
+                    {{ Auth::user()->name }}
+                </a>
+                <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                  <button><i class="far fa-bell"></i></button>
+                  <button><i class="fas fa-bell"></i></button>
+                </div>
+                <a class="registration-button btn btn-outline-primary" href="#">Logout</a>
+              }
+              @else {
+                <a class="registration-button btn btn-primary" href="{{ route('login') }}">Login</a>
+                <a class="registration-button btn btn-primary" href="{{ route('register') }}">Register</a>
+              }
+              @endif
+            </div>
+
+          </div>
+        </div>
+      </nav>
+
     </header>
     <section id="content">
       @yield('content')
     </section>
     </main>
+
+    <footer class="pt-5 pb-3">
+        <nav class="row container m-auto">
+            <div class="col-6 col-md">
+                <h5>Who we are</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="index.php">Home</a></li>
+                    <li><a class="link-secondary" href="about.php">About us</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Authentication</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="login.php">Login</a></li>
+                    <li><a class="link-secondary" href="register.php">Register</a></li>
+                    <li><a class="link-secondary" href="profile.php">Profile</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="search.php">Search Questions</a></li>
+                    <li><a class="link-secondary" href="add-question.php">Add Question</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Management</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="manage-categories.php">Manage Categories</a></li>
+                    <li><a class="link-secondary" href="manage-reports.php">Manage Reports</a></li>
+                    <li><a class="link-secondary" href="manage-users.php">Manage Users</a></li>
+                </ul>
+            </div>
+        </nav>
+    </footer>
   </body>
 </html>
