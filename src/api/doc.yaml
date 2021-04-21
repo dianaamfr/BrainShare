@@ -346,11 +346,12 @@ paths:
 # M02 Questions #
 #################
 
-  # ASK: what to do with the button of search, like tags and etc?
+  # ASK: what to do with the button of search, like tags and etc? 
+  # R201
   /search/{text}: 
     get: 
-      operationId: "R203"
-      summary: "R203: Shows the search page."
+      operationId: "R201"
+      summary: "R201: Shows the search page."
       description: "Shows the search page. Access: PUB"
       tags:  
       - 'M02 - Questions'
@@ -367,7 +368,21 @@ paths:
         "200": 
           description: "Ok. Show the search page [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)"
 
-  /question:
+  #R202
+  /search/most-voted: 
+    get: 
+      operationId: "R202"
+      summary: "R202: Shows the search page with questiosn organized by the most voted."
+      description: "Shows the search page. Access: PUB"
+      tags:  
+      - 'M02 - Questions' 
+
+      responses: 
+        "200": 
+          description: "Ok. Show the search page [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)"
+
+  #R203
+  /add-question:
     get: 
       operationId: "R203"
       summary: "R203: Shows the create question page."
@@ -436,11 +451,12 @@ paths:
                   302Error:
                     description: "Failed creation. Redirects to the same page."
                     value: "/question/create"
-
+  
+  #204
   /question/{id}:
     get:
-      operationId: R201
-      summary: "R201: View and load the page of a question."
+      operationId: R204
+      summary: "R204: View and load the page of a question."
       description: "Shows the question page, which contains the question, answers, respective comments and also text fields to add more answers and comments. Access: PUB"
       tags:  
         - 'M02 - Questions'
@@ -548,11 +564,12 @@ paths:
                   302Error:
                     description: "Failed delete. Redirects to the same page."
                     value: "/question/{id}"
-
-  /question/{id}/answer:
+ 
+  #205 
+  /question/{id}/add-answer:
     post:
-      operationId: "R208"
-      summary: "R208: Answer being processed."
+      operationId: "R205"
+      summary: "R205: Answer being processed."
       description: "Create new answer. Access: USR"
       tags:  
       - 'M02 - Questions' 
@@ -578,6 +595,7 @@ paths:
 
               required:
                 - content
+            
 
         example:
           content: "I think that C is easy. You're the one that is dumb."
@@ -586,23 +604,28 @@ paths:
           "202": 
             description: "Ok. Use the new information to render the page."
   
-  /question/{id}/answer/{id}: 
+  #R206 and R207 
+  /question/{id-question}/answer/{id-answer}: 
     put:
-      operationId: "R208"
-      summary: "R208: Answer being processed."
-      description: "Update an answer. Access: USR"
+      operationId: "R206"
+      summary: "R206: Answer being processed."
+      description: "Update an answer. Access: OWN, MOD, ADM"
       tags:  
       - 'M02 - Questions' 
 
 
       parameters:
         - in: path
-          name: "id"
+          name: "id-question"
           schema:
             type: integer
           required: true
-
-
+        - in: path 
+          name: "id-answer"
+          schema: 
+            type: integer 
+          required: true 
+          
       requestBody:
         required: true
         content:
@@ -610,8 +633,6 @@ paths:
             schema:
               type: object
               properties:
-                answerId: 
-                  type: integer
                 content:
                   type: string 
 
@@ -619,7 +640,6 @@ paths:
                 - content
 
         example:
-          answerId: 1 
           content: "I think that C is easy. You're the one that is dumb."
 
       responses: 
@@ -627,8 +647,8 @@ paths:
           description: "Ok. Use the new information to render the page."
   
     delete:
-      operationId: R210
-      summary: "R210: Delete a comment"
+      operationId: R207
+      summary: "R207: Delete a comment"
       description: "Deletes a comment. Access: OWN, ADM, MOD"
       tags:  
       - 'M02 - Questions' 
@@ -636,10 +656,15 @@ paths:
 
       parameters:
         - in: path
-          name: "id"
+          name: "id-question"
           schema:
             type: integer
           required: true
+        - in: path 
+          name: "id-answer"
+          schema:
+            type: integer 
+          required: true 
 
       responses:
         "200":
@@ -647,10 +672,11 @@ paths:
         "404":
           description: "Error. Answer id not found. "
 
-  /question/{id}/comment:
+  #R208
+  /question/{id}/add-comment:
     post:
-      operationId: "R211"
-      summary: "R211: Comment being processed."
+      operationId: "R208"
+      summary: "R208: Comment being processed."
       description: "Create new comment. Access: USR"
       tags:  
       - 'M02 - Questions' 
@@ -674,27 +700,31 @@ paths:
           commentId: 1 
           content: "I think that C is easy. You're the one that is dumb."
         
-
-        responses: 
-          "202": 
-            description: "Ok. Use the information to render the question page. " 
+      responses: 
+        "202": 
+          description: "Ok. Use the information to render the question page. " 
   
-  /question/{id}/comment/{id}:
+  #R209 and R210
+  /question/{id-question}/comment/{id-comment}:
     put:
-      operationId: "R208"
-      summary: "R208: Comment being processed."
-      description: "Update a comment. Access: USR"
+      operationId: "R209"
+      summary: "R209: Comment being processed."
+      description: "Update a comment. Access: OWN, MOD, ADM"
       tags:  
       - 'M02 - Questions' 
 
 
       parameters:
         - in: path
-          name: "id"
+          name: "id-question"
           schema:
             type: integer
-          required: true
-
+          required: true 
+        - in: path 
+          name: "id-comment"
+          schema: 
+            type: integer  
+          requried: true 
 
       requestBody:
         required: true
@@ -703,8 +733,6 @@ paths:
             schema:
               type: object
               properties:
-                answerId: 
-                  type: integer
                 content:
                   type: string 
 
@@ -712,7 +740,6 @@ paths:
                 - content
 
         example:
-          answerId: 1 
           content: "I think that C is easy. You're the one that is dumb."
 
         responses: 
@@ -734,33 +761,20 @@ paths:
             type: integer
           required: true
 
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              items: 
-                commentId: 
-                  type: integer  
-        
-        example: 
-          - commentId: 1   
-
       responses:
         "200":
           description: "Ok. Request accepted to be processed."
         "404":
           description: "Error. Comment id not found. " 
 
-  #R114 
+  #R211
   /question/{id}/report: 
     post: 
-      operationId: R114
-      summary: "R114: Report a question."
+      operationId: R211
+      summary: "R211: Report a question."
       description: "Process the question report. Access: USR"  
       tags:  
-        - 'M01 - Authentication and User Profile'
+        - 'M02 - Questions'
 
       parameters:
         - in: path
@@ -775,14 +789,14 @@ paths:
         "404": 
           description: "Fail on report a question. Might occur if the question is deleted while trying to report it."
 
-  # R115
+  # R212
   /comment/{id}/report: 
     post: 
-      operationId: R115
-      summary: "R115: Report a comment."
+      operationId: R212
+      summary: "R212: Report a comment."
       description: "Proccesses comment report. Access: USR"  
       tags:  
-        - 'M01 - Authentication and User Profile'
+        - 'M02 - Questions'
 
       parameters:
         - in: path
@@ -797,14 +811,14 @@ paths:
         "404": 
           description: "Fail on report a comment. Might occur if the comment is deleted while trying to report it."
 
-  # R116
+  # R213
   /answer/{id}/report: 
       post: 
-      operationId: R116
-      summary: "R116: report an answer"
+      operationId: R213
+      summary: "R213: report an answer"
       description: "Proccesses the report of an answer. Access: USR"  
       tags:  
-        - 'M01 - Authentication and User Profile'
+        - 'M02 - Questions'
 
       parameters:
         - in: path
@@ -825,7 +839,6 @@ paths:
 # M03: Management #
 ###################
     
-  # os dois ou só um? 
   /manage/course/{text}: 
     get: 
       operationId: "R203"
