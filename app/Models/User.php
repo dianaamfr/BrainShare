@@ -11,6 +11,7 @@ class User extends Authenticatable
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
+    protected $table = 'user';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password',
     ];
 
     /**
@@ -30,10 +31,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The cards this user owns.
-     */
-     public function cards() {
-      return $this->hasMany('App\Models\Card');
+
+    public function questions() {
+        return $this->hasMany('App\Models\Question');
     }
 }

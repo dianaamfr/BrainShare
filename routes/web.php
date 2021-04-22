@@ -13,6 +13,9 @@
 // Home
 Route::get('/', 'HomeController@show')->name('home');
 
+// Search
+Route::get('search', 'QuestionController@getMostVoted')->name('search');
+
 // Cards
 Route::get('cards', 'CardController@list');
 Route::get('cards/{id}', 'CardController@show');
@@ -41,4 +44,3 @@ Route::get('index', 'Auth\LoginController@showLoginForm')->name('error');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-categories');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-reports');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('profile');
-Route::get('index', 'Auth\LoginController@showLoginForm')->name('search');
