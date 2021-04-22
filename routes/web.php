@@ -41,4 +41,4 @@ Route::get('index', 'Auth\LoginController@showLoginForm')->name('error');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-categories');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-reports');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('profile');
-Route::get('index', 'Auth\LoginController@showLoginForm')->name('search');
+Route::get('search', 'SearchController@show')->name('search');

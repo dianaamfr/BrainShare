@@ -18,40 +18,38 @@
         </div>
 
         <div class="mb-4">
-            <label for="username" class="form-label">Username*</label>
-            <input type="text" id="username" class="form-control" placeholder="Username" value="{{ old('name') }}" required autofocus>
-            @if ($errors->has('name'))
-              <span class="error">
-                  {{ $errors->first('name') }}
-              </span>
-            @endif
+          <label for="username" class="form-label">Username*</label>
+          <input id="username" type="text" name="username" value="{{ old('username') }}" class="form-control" placeholder="Username" required autofocus>
+          @if ($errors->has('username'))
+            <span class="error">
+                {{ $errors->first('username') }}
+            </span>
+          @endif
         </div>
-        
 
         <div class="mb-4">
-            <label for="email" class="form-label">Email*</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" data-error="That email address is invalid" required>
-            @if ($errors->has('email'))
-              <span class="error">
-                  {{ $errors->first('email') }}
-              </span>
-            @endif
+          <label for="email" class="form-label">E-Mail*</label>
+          <input id="email" class="form-control" placeholder="Email" type="email" name="email" value="{{ old('email') }}" data-error="That email address is invalid" required>
+          @if ($errors->has('email'))
+            <span class="error">
+                {{ $errors->first('email') }}
+            </span>
+          @endif
         </div>
         
         <div class="mb-4">
-          <label for="password" class="form-label">Password</label>
-          <input id="password" id="password" type="password" name="password" data-minlength="8" class="form-control" placeholder="Password" required>
-          <div id="questionBodyHelp" class="form-text">Password must have 8 letters</div>
+          <label for="password" class="form-label">Password*</label>
+          <input id="password" class="form-control" type="password" name="password" data-minlength="8" class="form-control" placeholder="Password" required>
           @if ($errors->has('password'))
             <span class="error">
                 {{ $errors->first('password') }}
             </span>
           @endif
         </div>
-
+        
         <div class="mb-4">
-            <label for="password2" class="form-label">Confirm Password*</label>
-            <input type="password" name="password_confirmation" id="password2" class="form-control" data-match="#password" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
+          <label for="password-confirm" class="form-label">Confirm Password*</label>
+          <input id="password-confirm" class="form-control" type="password"  data-match="#password" name="password_confirmation" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block btn-register">
@@ -62,4 +60,3 @@
   </section> 
 </div>
 @endsection
-
