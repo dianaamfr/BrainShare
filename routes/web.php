@@ -13,9 +13,12 @@
 // Home
 Route::get('/', 'HomeController@show')->name('home');
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+// Search
+Route::get('search', 'QuestionController@getMostVoted')->name('search');
+
+// Add Question
+Route::get('question/add', 'QuestionController@showQuestionForm')->name('question');
+Route::post('question/add', 'QuestionController@create')->name('question');
 
 // API
 Route::put('api/cards', 'CardController@create');
@@ -41,4 +44,3 @@ Route::get('index', 'Auth\LoginController@showLoginForm')->name('error');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-categories');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-reports');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('profile');
-Route::get('search', 'SearchController@show')->name('search');

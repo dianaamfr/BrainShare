@@ -23,7 +23,7 @@
     <script src="https://kit.fontawesome.com/cf05cece41.js" crossorigin="anonymous"></script>
 
     <!-- Pagination -->
-    <script type="text/javascript" src={{ asset('js/pagination.js') }} defer>
+    <script type="text/javascript" src={{ asset('js/pagination.js') }} defer></script>
 
     <!-- Rich Text -->
     <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
