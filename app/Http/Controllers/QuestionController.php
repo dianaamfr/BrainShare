@@ -8,25 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Question;
 use App\Models\Course;
+use App\Models\Tag;
 
 class QuestionController extends Controller
 {
-    /**
-     * Shows the search page
-     *
-     * @return Response
-     */
-    public function getMostVoted()
-    {
-      $questions = Question::paginate(10);
-      //$questions = Question::orderByRaw('score DESC')->paginate(10);
-      return view('pages.search', ['questions' => $questions]);
-    }
 
     public function showQuestionForm(){
       if (!Auth::check()) return redirect('/login');
+      
       $courses = Course::all();
-      return view('pages.add-question', ['courses' => $courses]);
+      $tags = Tag::all();
+      return view('pages.add-question', ['courses' => $courses, 'tags' => $tags]);
     }
 
     /**
@@ -38,15 +30,25 @@ class QuestionController extends Controller
     {
       $question = new Question();
       
-      //$this->authorize('create', Question::class);
+      $this->authorize('create', Question::class);
 
+      $validated = $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+      ]);
+
+      // Add Question
       $question->question_owner_id = Auth::user()->id;
-      $question->title = $request->input('title');
-      $question->content = 'dncnsd';
-
+      $question->title = $request->title;
+      $question->content = $request->content;
       $question->save();
-      $question->courses()->attach($request->course);
 
+      // Add Course
+      $question->courses()->attach($request->course);
+      
+      // Add Tag
+
+      // Go to the created question
       return view('pages.home');
     }
 }

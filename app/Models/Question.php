@@ -16,6 +16,15 @@ class Question extends Model
         'question_owner_id', 'title', 'content', 'date', 'score', 'number_answer','search', 'answers_search'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'search', 'answers_search',
+    ];
+
     public function owner(){
         return $this->belongsTo('App\Models\User', 'question_owner_id');
     }

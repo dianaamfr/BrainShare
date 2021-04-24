@@ -19,7 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'signup_date', 'birthday', 
+        'name', 'image', 'description', 'score', 'ban', 'course_id',
+        'user_role'
     ];
 
     /**
@@ -36,4 +38,15 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Question');
     }
 
+    public function course() {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function isAdmin() {
+        return $this->user_role === 'Administrator';
+    }
+
+    public function isModerator() {
+        return $this->user_role === 'Moderator';
+    }
 }

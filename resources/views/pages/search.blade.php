@@ -10,12 +10,9 @@
     <li class="nav-link nav-item">
       <select>
         <option selected disabled>Courses</option>
-        <option>MIEIC</option>
-        <option>MIB</option>
-        <option>MIEC</option>
-        <option>MIEGI</option>
-        <option>MIEEC</option>
-        <option>MIEM</option>
+        @foreach ($courses as $course)
+          <option value="{{$course->id}}">MIEIC</option>
+        @endforeach
       </select>
     </li>
     <li class="nav-link nav-item"><button>Tags</button></li>
@@ -28,14 +25,12 @@
   <aside id="side-bar" class="mt-5 col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
     <div class="accordion-item active">
       <h6 class="accordion-header">
-        <button type="button" class="blue">Recent Questions
-        </button>
+        <a href="{{route('search')}}" class={{ Route::currentRouteNamed('search') ? "blue" : '' }}>Recent Questions</a>
       </h6>
     </div>
     <div class="accordion-item">
       <h6 class="accordion-header">
-        <button type="button">Most Voted Questions
-        </button>
+        <a href="{{route('search/mostVoted')}}" class={{ Route::currentRouteNamed('search/mostVoted') ? "blue" : '' }}>Most Voted Questions</a>
       </h6>
     </div>
     <div class="accordion-item">
@@ -48,12 +43,11 @@
         <div class="accordion-body">
           <div>
             <nav class="list-group">
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEIC</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIB</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEC</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEGI</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEEC</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">MIEM</button>
+              @foreach ($courses as $course)
+                <button class="list-group-item list-group-item-action" data-bs-toggle="list" data-search-course="{{$course->id}}">
+                  {{$course->name}}
+                </button>      
+              @endforeach
             </nav>
           </div>
         </div>
@@ -113,7 +107,7 @@
     </div>
 
     <!-- Questions -->
-    <div class="container-md mt-5">
+    <div class="container-md mt-5 question-search-results">
         @each('partials.question-card', $questions, 'question')
         {{ $questions->links() }}
     </div>

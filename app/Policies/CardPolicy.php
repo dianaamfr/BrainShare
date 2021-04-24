@@ -35,4 +35,5 @@ class CardPolicy
       // Only a card owner can delete it
       return $user->id == $card->user_id;
     }
+    
 }

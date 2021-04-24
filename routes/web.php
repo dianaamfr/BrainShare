@@ -14,7 +14,9 @@
 Route::get('/', 'HomeController@show')->name('home');
 
 // Search
-Route::get('search', 'QuestionController@getMostVoted')->name('search');
+Route::get('search', 'SearchController@getMostRecentQuestions')->name('search');
+Route::get('search/mostVoted', 'SearchController@getMostVotedQuestions')->name('search/mostVoted');
+Route::get('search/query', 'SearchController@advancedSearch');
 
 // Add Question
 Route::get('question/add', 'QuestionController@showQuestionForm')->name('question');
