@@ -23,7 +23,7 @@
                 </div>
 
                 <!-- Question Title -->
-                <h4 class="card-title flex-grow-1"><a href="question.php">{{$question->title}}</a></h4>
+                <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}">{{$question->title}}</a></h4>
 
                 <!-- Desktop Question details -->
                 <div class="question-details d-flex">
@@ -38,7 +38,7 @@
             </div>
         </header>
         <div class="limited-text-3 card-body md-content md-remove"> 
-            {{Str::limit($question->content, 200)}}
+            {{ Str::limit($question->content, 400) }}
         </div>
 
         <!-- Tags and User -->

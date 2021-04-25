@@ -30,6 +30,7 @@
 <!-- Scripts -->
 <script type="text/javascript" src={{ asset('js/search.js') }} defer></script>
 <script type="text/javascript" src={{ asset('js/tags.js') }} defer></script>
+<script type="text/javascript" src={{ asset('js/courses.js') }} defer></script>
 <script type="text/javascript" src={{ asset('js/autocomplete.js') }} defer></script>
 <script type="text/javascript" src={{ asset('js/editor.js') }} defer></script>
 <script type="text/javascript" src={{ asset('js/parseMD.js') }} defer></script>

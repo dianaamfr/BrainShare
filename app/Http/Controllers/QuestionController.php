@@ -13,6 +13,11 @@ use App\Models\Tag;
 class QuestionController extends Controller
 {
 
+    public function show($id) {
+      $question = Question::find($id);
+      return view('pages.question', ['question' => $question]);
+    }
+
     public function showQuestionForm(){
       if (!Auth::check()) return redirect('/login');
       
@@ -35,6 +40,8 @@ class QuestionController extends Controller
       $validated = $request->validate([
         'title' => 'required',
         'content' => 'required',
+        'courseList' => 'max:2',
+        'tagList' => 'max:5'
       ]);
 
       // Add Question
@@ -44,11 +51,22 @@ class QuestionController extends Controller
       $question->save();
 
       // Add Course
-      $question->courses()->attach($request->course);
+      $courses = $request->get('courseList');
+      $tags = $request->get('tagList');
       
-      // Add Tag
+      if($courses != null) {
+        foreach ($courses as $course) {
+          $question->courses()->attach($course);
+        }
+      }
+
+      if($tags != null) {
+        foreach ($tags as $tag) {
+          $question->tags()->attach($tag);
+        }
+      }
 
       // Go to the created question
-      return view('pages.home');
+      return view('pages.question', ['question' => $question]);
     }
 }

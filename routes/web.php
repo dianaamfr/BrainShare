@@ -14,13 +14,14 @@
 Route::get('/', 'HomeController@show')->name('home');
 
 // Search
-Route::get('search', 'SearchController@getMostRecentQuestions')->name('search');
-Route::get('search/mostVoted', 'SearchController@getMostVotedQuestions')->name('search/mostVoted');
-Route::get('search/query', 'SearchController@advancedSearch');
+Route::get('search', 'SearchController@searchPage')->name('search');
+Route::get('search/query', 'SearchController@advancedSearch')->name('search/query');
 
 // Add Question
 Route::get('question/add', 'QuestionController@showQuestionForm')->name('question');
 Route::post('question/add', 'QuestionController@create')->name('question');
+// Show Question
+Route::get('question/{id}', 'QuestionController@show')->name('showQuestion');
 
 // API
 Route::put('api/cards', 'CardController@create');

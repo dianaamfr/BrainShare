@@ -1,24 +1,24 @@
 // Disable submit on enter
 window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
-var tagsClean = [];
-for(let i = 0; i < tags.length; i++) {
-    tagsClean.push(tags[i].name);
+var coursesClean = [];
+for(let i = 0; i < courses.length; i++) {
+    coursesClean.push(courses[i].name);
 }
 
-const tagContainer = document.querySelector('.tag-container');
-const tagInput = document.querySelector('#questionTagsSelect'); 
-let tagsList = [];
+const courseContainer = document.querySelector('.course-container');
+const courseInput = document.querySelector('#questionCoursesSelect');
+let coursesList = [];
 
-function createTags(label) {
+function createCourses(label) {
   let id;
-  for(let i = 0; i < tags.length; i++) {
-    if (tags[i].name == label)
-      id = tags[i].id;
+  for(let i = 0; i < courses.length; i++) {
+    if (courses[i].name == label)
+      id = courses[i].id;
   }
 
   const div = document.createElement('div');
-  div.setAttribute('class', 'tag card rounded-1 manage-tag-card px-3 py-2 mt-3 mx-1');
+  div.setAttribute('class', 'course card rounded-1 manage-tag-card px-3 py-2 mt-3 mx-1');
   const innerDiv = document.createElement('div');
   innerDiv.setAttribute('class', 'card-body d-flex p-0');
 
@@ -26,7 +26,7 @@ function createTags(label) {
   span.innerHTML = label
 
   const hiddenV = document.createElement('input');
-  hiddenV.setAttribute('name', 'tagList[]');
+  hiddenV.setAttribute('name', 'courseList[]');
   hiddenV.setAttribute('value', id);
   hiddenV.readOnly = true; 
   hiddenV.hidden = true;
@@ -36,11 +36,11 @@ function createTags(label) {
   closeIcon.setAttribute('title', 'Delete');
   
   closeIcon.addEventListener('click', function(e) {
-    clearTags();
+    clearCourses();
     const tagLabel = e.target.getAttribute('data-item');
-    const index = tagsList.indexOf(tagLabel);
-    tagsList = [...tagsList.slice(0, index), ...tagsList.slice(index+1)];
-    addTags();  
+    const index = coursesList.indexOf(tagLabel);
+    coursesList = [...coursesList.slice(0, index), ...coursesList.slice(index+1)];
+    addCourses();  
   });
 
   const buttonOne = document.createElement('button');
@@ -67,30 +67,31 @@ function createTags(label) {
   return div;
 }
 
-function clearTags() {
-  document.querySelectorAll('div .tag').forEach(tag => {
+function clearCourses() {
+  document.querySelectorAll('div .course').forEach(tag => {
     tag.parentElement.removeChild(tag);
   });
 }
 
-function addTags() {
-  clearTags();
-  tagsList.slice().reverse().forEach(tag => {
-    tagContainer.prepend(createTags(tag));
+function addCourses() {
+  clearCourses();
+  coursesList.slice().reverse().forEach(tag => {
+    courseContainer.prepend(createCourses(tag));
   });
 }
 
-tagInput.addEventListener('keyup', (e) => {
+courseInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
+        
       e.target.value.split(',').forEach(tag => {
         console.log(tag)
-        if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
-            tagsList.push(tag); 
+        if (tag != "" && coursesClean.includes(tag) && coursesList.length <= 1) {
+            coursesList.push(tag); 
         }
       });
       
-      addTags();
-      tagInput.value = '';
+      addCourses();
+      courseInput.value = '';
     }
 });
 

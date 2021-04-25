@@ -16,6 +16,17 @@ class Question extends Model
         'question_owner_id', 'title', 'content', 'date', 'score', 'number_answer','search', 'answers_search'
     ];
 
+    protected $appends = array('mimeType');
+
+    // code for $this->mimeType attribute
+    public function getMimeTypeAttribute($value) {
+        $mimeType = null;
+        if ($this->uploadMime) {
+            $mimeType = $this->uploadMime->type;
+        }
+        return $mimeType;
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

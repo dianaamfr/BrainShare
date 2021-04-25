@@ -33,7 +33,7 @@
                 <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
                     <div class="course-icon" id="course-icon1"></div>
                     <h3 class="mt-4">MIEIC</h3>
-                    <p class="mb-3">Matesters in Informatics and Computation Engineering</p>
+                    <p class="mb-3">Masters in Informatics and Computation Engineering</p>
                     <a href="search.php#" class="btn btn-outline-primary">Check questions</a>
                 </div>
                 <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">

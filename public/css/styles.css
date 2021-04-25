@@ -68,7 +68,6 @@
   border-bottom: none;
   border-top: none;
   z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
   right: 0;
@@ -303,7 +302,6 @@ button {
   box-shadow: unset;
   color: var(--main-blue);
 }
-
 
 /* ---- Mobile navbar ---- */
 
@@ -836,6 +834,34 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
+#search-filters {
+  justify-content: flex-end;
+}
+
+#search-filters li {
+  border: 1px solid var(--main-blue); 
+  border-radius: 0.25rem;
+  height: min-content;
+  margin-left: 0.5rem;
+}
+
+#search-filters li button {
+  color: var(--main-blue);
+}
+
+#search-filters li.active button {
+  color: var(--white);
+}
+
+#search-filters li.active {
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
+}
+
+button[name="reset-search"] {
+  color: var(--bs-gray);
+}
+
 .side-content {
   padding-right: 0 !important;
   padding-bottom: 3rem;
@@ -850,7 +876,7 @@ article.question .card-title {
 
 /*search bar*/
 #search-page header #questions-search-bar {
-  margin: 2rem 0;
+  margin: 2rem 0 0.5rem;
 }
 
 #search-page header #questions-search-bar .form-control,
@@ -949,19 +975,6 @@ article.question .card-title {
 
 #side-bar .accordion-body {
   padding: 0;
-}
-
-#side-bar > :first-child,
-#side-bar > :nth-child(2) {
-  padding: 1rem 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-bottom: unset;
-}
-
-#side-bar > :first-child button,
-#side-bar > :nth-child(2) button {
-  padding: 0;
-  font-weight: 500;
 }
 
 #side-bar h6 > button:hover {

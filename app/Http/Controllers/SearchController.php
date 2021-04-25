@@ -16,33 +16,32 @@ class SearchController extends Controller
      *
      * @return Response
      */
-    public function getMostRecentQuestions() {
+    public function searchPage() {
+
       $questions = Question::orderBy('id', 'desc')->paginate(10);
       $courses = Course::all();
       return view('pages.search', ['courses' => $courses, 'questions' => $questions]);
-    }
-
-    /**
-     * Show the most voted questions
-     */
-    public function getMostVotedQuestions(Request $request) {
-      $questions = Question::orderBy('score', 'desc')->paginate(10);
-      $courses = Course::all();
-      return view('pages.search', ['courses' => $courses, 'questions' => $questions]);
+      
     }
     
     /**
      * Show questions that match the advanced search
      */
     public function advancedSearch(Request $request){
+      
+      if($request->input('search-input') != ''){
+        $search = str_replace(' ',' | ', $request->input('search-input'));
+        $questions = Question::with(['owner','courses', 'tags'])->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
 
-      $search = str_replace(' ',' | ', $request->input('searchInput'));
-      //$courses = $request->$courses;
-      //$tags = $request->$tags;
+        if($request->input('filter') == 'votes') $questions = $questions->orderBy('score', 'desc');
+        else if($request->input('filter') == 'relevance') 
+          $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
+        else $questions = $questions->orderBy('id', 'desc');
+      }
+      else if($request->input('filter') == 'votes') $questions = Question::with(['owner','courses', 'tags'])->orderBy('score', 'desc');     
+      else $questions = Question::with(['owner','courses', 'tags'])->orderBy('id', 'desc');
 
-      $questions = Question::whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search])->get();
-
-      return json_encode($questions);
+      return json_encode($questions->paginate(10));
     }
 
 }

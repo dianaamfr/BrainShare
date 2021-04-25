@@ -23,16 +23,6 @@
 
   <!-- Sidebar -->
   <aside id="side-bar" class="mt-5 col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
-    <div class="accordion-item active">
-      <h6 class="accordion-header">
-        <a href="{{route('search')}}" class={{ Route::currentRouteNamed('search') ? "blue" : '' }}>Recent Questions</a>
-      </h6>
-    </div>
-    <div class="accordion-item">
-      <h6 class="accordion-header">
-        <a href="{{route('search/mostVoted')}}" class={{ Route::currentRouteNamed('search/mostVoted') ? "blue" : '' }}>Most Voted Questions</a>
-      </h6>
-    </div>
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#side-bar">
@@ -90,19 +80,33 @@
 
     <div class="container-md mt-md-5">
       <header>
+        <div id="search-header" class="d-flex">
         <h2>Search</h2>
-        <h5>by keyword </h5>
+
+        <!-- Filter -->
+        <ul class="nav ms-auto" id="search-filters">
+          <li>
+            <button class="nav-link" value="relevance" hidden>Relevance</button>
+          </li>
+          <li class="active">
+            <button class="nav-link" value="new">Newest</button>
+          </li>
+          <li>
+            <button class="nav-link" value="votes">Most Voted</button>
+          </li>
+        </ul>
+        </div>
 
         <!-- Search Bar -->
         <form class="d-flex me-auto" id="questions-search-bar">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control" type="search" name="search-input" value="{{ Route::currentRouteNamed('search/query') ? old('search-input') : ''}}" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
+            <button class="btn btn-primary" type="submit" name="search-submit" value="relevance">
               <i class="fas fa-search"></i>
             </button>
           </div>
         </form>
-
+        <button type="submit" name="reset-search" hidden>Reset search</button>
       </header>
     </div>
 

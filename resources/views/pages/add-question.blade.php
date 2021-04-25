@@ -13,7 +13,7 @@
             <!-- Question Title -->
             <div class="mb-3">
                 <label for="questionTitle" class="form-label">Question Title*</label>
-                <input type="text" class="form-control" name="title" id="questionTitle" placeholder="Write the title here" aria-describedby="questionTitleHelp" required>
+                <input type="text" class="form-control" name="title" id="questionTitle" value="{{ old('title') }}" placeholder="Write the title here" aria-describedby="questionTitleHelp" required>
                 @if ($errors->has('title'))
                     <span class="error">
                         {{ $errors->first('title') }}
@@ -27,8 +27,7 @@
             <div class="mb-3">
                 <label for="question-text-area" class="form-label">Question Body*</label>
                 <div class="border form-control">
-                    <textarea id="question-text-area" name="content" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp" required>
-                </textarea>
+                    <textarea id="question-text-area" name="content" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp" required> </textarea>
                 </div>
                 @if ($errors->has('content'))
                     <span class="error">
@@ -43,7 +42,7 @@
                 <label for="questionCourseSelect" class="form-label">Course</label>
 
                 <div class="d-flex flex-wrap course-container autocomplete">
-                    <input class="form-control autoCompleteCourses" id="questionCourseSelect" placeholder="Associate Courses here">
+                    <input class="form-control autoCompleteCourses" id="questionCoursesSelect" placeholder="Associate Courses here">
                 </div>
             </div>
             
