@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'BrainShare') }}</a>
 
         <!-- Tablet Search Bar -->
-        <form class="header-search d-flex me-auto tablet-header-search" action="search.php" >
+        <form class="header-search d-flex me-auto tablet-header-search" action="{{ route('search') }}" >
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit">
@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <!-- Search Bar -->
-        <form class="header-search d-flex me-auto main-search" action="search.php" >
+        <form class="header-search d-flex me-auto main-search" action="{{ route('search') }}" >
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit">

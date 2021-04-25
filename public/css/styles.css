@@ -68,9 +68,7 @@
   border-bottom: none;
   border-top: none;
   z-index: 99;
-  top: 100%;
-  left: 0;
-  right: 0;
+  width: 100%;
 }
 
 .autocomplete-items div {
@@ -81,12 +79,27 @@
 }
 
 .autocomplete-items div:hover {
-  background-color: #e9e9e9; 
+  background-color: #f8f9fa; 
 }
 
 .autocomplete-active {
-  background-color: DodgerBlue !important; 
+  background-color: var(--main-blue) !important; 
   color: #ffffff; 
+}
+
+#questionCoursesSelect, #questionTagsSelect {
+    border: 0;
+    outline: none;
+    flex: 1;
+    box-shadow: unset;
+    padding: 0.5rem;
+}
+
+.autocomplete {
+  padding: 6px;
+    overflow-x: scroll;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
 }
 
 /* ---- Body ---- */

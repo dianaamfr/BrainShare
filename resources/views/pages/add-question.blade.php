@@ -35,7 +35,7 @@
             </div>
 
             <!-- Course -->
-            <div class="mb-3" >
+            <div class="mb-3 position-relative" >
                 <label for="questionCourseSelect" class="form-label">Course</label>
 
                 <div class="d-flex flex-wrap course-container autocomplete">
@@ -49,7 +49,7 @@
             </div>
             
             <!-- Tags -->
-            <div class="mb-3" >
+            <div class="mb-3 position-relative" >
                 <label for="questionTagsSelect" class="form-label">Tags</label>
 
                 <div class="d-flex flex-wrap tag-container autocomplete">

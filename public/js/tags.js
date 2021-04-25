@@ -15,7 +15,7 @@ function createTags(label) {
   }
 
   const div = document.createElement('div');
-  div.setAttribute('class', 'tag card rounded-1 manage-tag-card px-3 py-2 mt-3 mx-1');
+  div.setAttribute('class', 'tag card rounded-1 manage-tag-card px-3 py-2 mx-1');
   const innerDiv = document.createElement('div');
   innerDiv.setAttribute('class', 'card-body d-flex p-0');
 
