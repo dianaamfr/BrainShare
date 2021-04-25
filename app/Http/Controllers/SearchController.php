@@ -16,9 +16,14 @@ class SearchController extends Controller
      *
      * @return Response
      */
-    public function searchPage() {
+    public function search(Request $request) {
 
-      $questions = Question::orderBy('id', 'desc')->paginate(10);
+      if($request->has('courses')){
+        $response = $this->advancedSearch($request);
+        return response()->json(array('success' => true, 'html'=>$response));;
+      }
+
+      $questions = Question::orderBy('id', 'desc')->simplePaginate(10);
       $courses = Course::all();
       return view('pages.search', ['courses' => $courses, 'questions' => $questions]);
       
@@ -63,7 +68,7 @@ class SearchController extends Controller
         else $questions = Question::with(['owner','courses', 'tags'])->orderBy('id', 'desc');
       }
       
-      return json_encode($questions->paginate(10));
+      return view('partials.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
     }
 
 }

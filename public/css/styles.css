@@ -276,6 +276,10 @@ button {
 }
 
 /* ---- Pagination ---- */
+.pagination {
+  justify-content: center;
+}
+
 .pagination .page-item.active .page-link{
   background-color: var(--main-blue);
   border-color: var(--main-blue);
@@ -861,6 +865,7 @@ article.question .card-title {
 #search-filters li label {
   color: var(--main-blue);
   padding: 0.5rem;
+  cursor: pointer;
 }
 
 #search-filters li input:checked + label {

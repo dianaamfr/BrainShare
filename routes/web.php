@@ -16,8 +16,8 @@ Route::get('/about', 'HomeController@showAbout')->name('about');
 Route::get('/error', 'HomeController@showError')->name('error');
 
 // Search
-Route::get('search', 'SearchController@searchPage')->name('search');
-Route::get('search/query', 'SearchController@advancedSearch')->name('search/query');
+Route::get('search', 'SearchController@search')->name('search');
+
 
 // Add Question
 Route::get('question/add', 'QuestionController@showQuestionForm')->name('question');
