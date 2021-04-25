@@ -41,7 +41,9 @@ class QuestionController extends Controller
         'title' => 'required',
         'content' => 'required',
         'courseList' => 'max:2',
-        'tagList' => 'max:5'
+        'courseList.*' => 'distinct',
+        'tagList' => 'max:5',
+        'tagList.*' => 'distinct',
       ]);
 
       // Add Question

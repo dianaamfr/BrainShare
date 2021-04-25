@@ -845,21 +845,24 @@ article.question .card-title {
   margin-left: 0.5rem;
 }
 
-#search-filters li button {
+#search-filters li label {
   color: var(--main-blue);
+  padding: 0.5rem;
 }
 
-#search-filters li.active button {
+#search-filters li input:checked + label {
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
   color: var(--white);
 }
 
-#search-filters li.active {
-  background-color: var(--main-blue);
-  border-color: var(--main-blue);
+#reset-search {
+  color: var(--main-blue);
+  text-decoration: none;
 }
 
-button[name="reset-search"] {
-  color: var(--bs-gray);
+#reset-search:hover {
+  text-decoration: underline;
 }
 
 .side-content {
@@ -981,9 +984,13 @@ button[name="reset-search"] {
   color: var(--main-blue);
 }
 
+#side-bar .accordion-button {
+  background-color: var(--clean-white);
+}
+
 #side-bar .accordion-button:not(.collapsed) {
   color: var(--main-blue);
-  background-color: #b8e5f3;
+  background-color: var(--clean-white);
 }
 
 #side-bar .accordion-button:focus {
@@ -1008,6 +1015,24 @@ button[name="reset-search"] {
 .accordion-button {
   font-weight: 500;
 }
+
+.course-filter {
+  border-top-left-radius:unset!important;
+  border-top-right-radius:unset!important;
+  cursor: pointer;
+}
+
+.course-filter:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.course-filter-input:checked + label { 
+  background-color: var(--main-blue);
+  opacity: 80%;
+  color: var(--white);
+}
+
 
 
 /* ---- About ---- */

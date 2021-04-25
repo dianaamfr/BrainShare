@@ -37,7 +37,11 @@ class Question extends Model
     ];
 
     public function owner(){
-        return $this->belongsTo('App\Models\User', 'question_owner_id');
+        return $this->belongsTo(User::class, 'question_owner_id');
+    }
+
+    public function answers(){
+        return $this->hasMany(Answer::class);
     }
 
     public function courses(){

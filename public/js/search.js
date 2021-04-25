@@ -14,40 +14,23 @@ function sendAjaxGetRequest(method, url, data, handler) {
     request.send();
 }
 
-function sendAdvancedSearchRequest(event) {
-    event.preventDefault();
-    
+function sendAdvancedSearchRequest() {
     let searchInput = searchBar.querySelector("input[type='search']").value;
-    let filter = this.value;
+    let filter = document.querySelector("#search-filters li input:checked");
 
-    let courses = 'todo';
-    let tags = 'todo';
+    let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value))
+    console.log(courses)
+    //let tags = '';
 
-    if(searchInput == '' && filter == 'relevance') return;
-
-    sendAjaxGetRequest('get', '/search/query', {'search-input': searchInput, 'filter': filter}, searchUpdateHandler);
-
-    for(searchFilter of searchFilters){
-        searchFilter.parentElement.classList.remove('active');
-    }
-
-    if(filter == 'relevance'){
-        resetSearchBtn.hidden = false;
-        searchFilters[0].hidden = false;
-        searchFilters[0].classList.add('active');
-    } else if (searchInput == '') {
-        resetSearchBtn.hidden = true;
-        searchFilters[0].hidden = true;
-    }
-
-
-    if(filter != 'relevance'){
-        this.classList.add('active');
-    }
+    sendAjaxGetRequest('get', '/search/query', 
+        {'search-input': searchInput, 
+        'filter': filter.value, 
+        'courses': courses}, 
+        searchUpdateHandler);
 }
 
 function searchUpdateHandler(){
-    if (this.status != 200) window.location = '/';
+    //if (this.status != 200) window.location = '/';
     let questions = JSON.parse(this.responseText);
     console.log(questions)
    
@@ -64,23 +47,30 @@ function searchUpdateHandler(){
 
 let searchBarBtn = document.querySelector('button[name="search-submit"]');
 let searchBar = document.getElementById('questions-search-bar');
-let searchFilters = document.querySelectorAll('#search-filters li button');
-let resetSearchBtn = document.querySelector('button[name="reset-search"]');
+let searchFilters = document.querySelectorAll('#search-filters li input');
+let resetSearchBtn = document.getElementById('reset-search');
 let questionsDiv = document.querySelector('#search-page .question-search-results');
+let courseFilters = document.getElementsByClassName("course-filter-input");
 
 if(searchBar){
-    searchBarBtn.addEventListener('click', sendAdvancedSearchRequest);
-    resetSearchBtn.addEventListener('click', resetSearch);
+    searchBarBtn.addEventListener('click', function(event){
+        event.preventDefault();
+
+        resetSearchBtn.hidden = false;
+        searchFilters[0].parentElement.hidden = false;
+        searchFilters[0].checked = true;
+        sendAdvancedSearchRequest();
+    });
 
     for(searchFilter of searchFilters){
-        searchFilter.addEventListener('click', sendAdvancedSearchRequest)
+        searchFilter.addEventListener('click', sendAdvancedSearchRequest);
     }
 
-}
+    for(courseFilter of courseFilters){
+        console.log(courseFilter.value)
+        courseFilter.addEventListener('click', sendAdvancedSearchRequest);
+    }
 
-
-function resetSearch(){
-    window.location = '/search';
 }
 
 function showQuestion(question) {

@@ -10,8 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Home
+// Home and Static
 Route::get('/', 'HomeController@show')->name('home');
+Route::get('/about', 'HomeController@showAbout')->name('about');
+Route::get('/error', 'HomeController@showError')->name('error');
 
 // Search
 Route::get('search', 'SearchController@searchPage')->name('search');
@@ -23,13 +25,6 @@ Route::post('question/add', 'QuestionController@create')->name('question');
 // Show Question
 Route::get('question/{id}', 'QuestionController@show')->name('showQuestion');
 
-// API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
-
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -37,13 +32,23 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+// API
+/*
+Route::put('api/cards', 'CardController@create');
+Route::delete('api/cards/{card_id}', 'CardController@delete');
+Route::put('api/cards/{card_id}/', 'ItemController@create');
+Route::post('api/item/{id}', 'ItemController@update');
+Route::delete('api/item/{id}', 'ItemController@delete');
+*/
 
 // ROUTES TO DO
-Route::get('index', 'Auth\LoginController@showLoginForm')->name('about');
+/*
+
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('add-question');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('edit-profile');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('edit-question');
-Route::get('index', 'Auth\LoginController@showLoginForm')->name('error');
+
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-categories');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('manage-reports');
 Route::get('index', 'Auth\LoginController@showLoginForm')->name('profile');
+*/

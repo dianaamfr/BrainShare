@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-<script>var tags = @json($tags);</script>
-<script>var courses = @json($courses);</script>
-
 @section('content')
 <div class="page-margin">
     <section class="background-light container-sm add-question card rounded-1">
@@ -27,7 +24,7 @@
             <div class="mb-3">
                 <label for="question-text-area" class="form-label">Question Body*</label>
                 <div class="border form-control">
-                    <textarea id="question-text-area" name="content" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp" required> </textarea>
+                    <textarea id="question-text-area" name="content" class="form-control" placeholder="Describe your problem here" style="height: 100px" aria-describedby="questionBodyHelp" required> {{ old('content') }} </textarea>
                 </div>
                 @if ($errors->has('content'))
                     <span class="error">
@@ -44,6 +41,11 @@
                 <div class="d-flex flex-wrap course-container autocomplete">
                     <input class="form-control autoCompleteCourses" id="questionCoursesSelect" placeholder="Associate Courses here">
                 </div>
+                @if ($errors->has('courseList'))
+                    <span class="error">
+                        Courses must be different and can't be more than 2!
+                    </span>
+                @endif
             </div>
             
             <!-- Tags -->
@@ -53,6 +55,12 @@
                 <div class="d-flex flex-wrap tag-container autocomplete">
                     <input class="form-control autoCompleteTags" id="questionTagsSelect" placeholder="Associate Tags here">
                 </div>
+
+                @if ($errors->has('tagList'))
+                    <span class="error">
+                        Tags must be different and can't be more than 5!
+                    </span>
+                @endif
             </div>
 
             <!--<button type="submit" class="btn btn-primary mt-3">Add Question</button>-->
@@ -60,4 +68,7 @@
         </form>
     </section>
 </div>
+
+<script>const tags = @json($tags);</script>
+<script>const courses = @json($courses);</script>
 @endsection

@@ -6,8 +6,6 @@ for(let i = 0; i < courses.length; i++) {
     coursesClean.push(courses[i].name);
 }
 
-const courseContainer = document.querySelector('.course-container');
-const courseInput = document.querySelector('#questionCoursesSelect');
 let coursesList = [];
 
 function createCourses(label) {
@@ -80,19 +78,23 @@ function addCourses() {
   });
 }
 
-courseInput.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter') {
-        
-      e.target.value.split(',').forEach(tag => {
-        console.log(tag)
-        if (tag != "" && coursesClean.includes(tag) && coursesList.length <= 1) {
-            coursesList.push(tag); 
-        }
-      });
-      
-      addCourses();
-      courseInput.value = '';
-    }
-});
+const courseContainer = document.querySelector('.course-container');
+const courseInput = document.querySelector('#questionCoursesSelect');
 
+if(courseContainer != null && courseInput != null) {
+  courseInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+          
+        e.target.value.split(',').forEach(tag => {
+          console.log(tag)
+          if (tag != "" && coursesClean.includes(tag) && coursesList.length <= 1) {
+              coursesList.push(tag); 
+          }
+        });
+        
+        addCourses();
+        courseInput.value = '';
+      }
+  });
+}
 

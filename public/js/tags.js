@@ -5,9 +5,6 @@ var tagsClean = [];
 for(let i = 0; i < tags.length; i++) {
     tagsClean.push(tags[i].name);
 }
-
-const tagContainer = document.querySelector('.tag-container');
-const tagInput = document.querySelector('#questionTagsSelect'); 
 let tagsList = [];
 
 function createTags(label) {
@@ -80,18 +77,23 @@ function addTags() {
   });
 }
 
-tagInput.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter') {
-      e.target.value.split(',').forEach(tag => {
-        console.log(tag)
-        if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
-            tagsList.push(tag); 
-        }
-      });
-      
-      addTags();
-      tagInput.value = '';
-    }
-});
+const tagContainer = document.querySelector('.tag-container');
+const tagInput = document.querySelector('#questionTagsSelect'); 
+
+if(tagInput != null && tagContainer != null) {
+  tagInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        e.target.value.split(',').forEach(tag => {
+          console.log(tag)
+          if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
+              tagsList.push(tag); 
+          }
+        });
+        
+        addTags();
+        tagInput.value = '';
+      }
+  });
+}
 
 

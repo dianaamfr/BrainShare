@@ -32,13 +32,12 @@
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#side-bar">
         <div class="accordion-body">
           <div>
-            <nav class="list-group">
+            <div class="list-group">
               @foreach ($courses as $course)
-                <button class="list-group-item list-group-item-action" data-bs-toggle="list" data-search-course="{{$course->id}}">
-                  {{$course->name}}
-                </button>      
+                  <input class="course-filter-input" type="checkbox" hidden id="course-filter-{{$course->id}}" value="{{$course->id}}">
+                  <label for="course-filter-{{$course->id}}" class="course-filter list-group-item">{{$course->name}}</label>
               @endforeach
-            </nav>
+              </div>
           </div>
         </div>
       </div>
@@ -85,14 +84,17 @@
 
         <!-- Filter -->
         <ul class="nav ms-auto" id="search-filters">
-          <li>
-            <button class="nav-link" value="relevance" hidden>Relevance</button>
-          </li>
-          <li class="active">
-            <button class="nav-link" value="new">Newest</button>
+          <li hidden>
+            <input id="order-filter-1" type="radio" name="filter" class="nav-link" value="relevance" hidden>
+            <label for="order-filter-1">Relevance</label>
           </li>
           <li>
-            <button class="nav-link" value="votes">Most Voted</button>
+            <input id="order-filter-2" type="radio" name="filter" class="nav-link" value="new" hidden checked>
+            <label for="order-filter-2">Newest</label>
+          </li>
+          <li>
+            <input id="order-filter-3" type="radio" name="filter" class="nav-link" value="votes" hidden>
+            <label for="order-filter-3">Most Voted</label>
           </li>
         </ul>
         </div>
@@ -106,7 +108,7 @@
             </button>
           </div>
         </form>
-        <button type="submit" name="reset-search" hidden>Reset search</button>
+        <a href="{{route('search')}}" id="reset-search" hidden>Reset search</a>
       </header>
     </div>
 

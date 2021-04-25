@@ -17,4 +17,14 @@ class HomeController extends Controller
     {
       return view('pages.home');
     }
+
+    public function showAbout()
+    {
+      return view('pages.about');
+    }
+
+    public function showError()
+    {
+      return view('pages.error');
+    }
 }

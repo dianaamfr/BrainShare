@@ -43,7 +43,7 @@
             @endif
             
             <!-- Administrator/Moderator -->
-            @if(  Auth::user()->isAdmin() || Auth::user()->isModerator())
+            @if( Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()))
               <li class="nav-item">
                 <a class="nav-link" href="manage-categories.php">Management</a>
               </li>

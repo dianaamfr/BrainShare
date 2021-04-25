@@ -20,7 +20,7 @@
                 <h2 class="mb-4 ">What is BrainShare? <span class="text-muted ">The way to learn.</span> </h2>
                 <p class="mb-5">BrainShare is a Q&A forum that allows FEUP students to answer their own doubts about about their courses!
                     All our features are completely free, since our goal is to be the center of information in our college.</p>
-                <a href="about.php" class="btn btn-outline-primary mb-4">About Us</a>
+                <a href="about" class="btn btn-outline-primary mb-4">About Us</a>
             </div>
             <div class="col-md-5 homepage-feature-image1">
             </div>

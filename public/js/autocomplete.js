@@ -78,5 +78,10 @@ for(let i = 0; i < courses.length; i++) {
 }
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.querySelector(".autoCompleteTags"), tagsClean);
-autocomplete(document.querySelector(".autoCompleteCourses"), coursesClean);
+if(document.querySelector(".autoCompleteTags") != null) {
+  autocomplete(document.querySelector(".autoCompleteTags"), tagsClean);
+}
+
+if(document.querySelector(".autoCompleteCourses") != null) {
+  autocomplete(document.querySelector(".autoCompleteCourses"), coursesClean);
+}
