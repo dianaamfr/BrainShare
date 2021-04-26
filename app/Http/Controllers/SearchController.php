@@ -17,15 +17,25 @@ class SearchController extends Controller
      * @return Response
      */
     public function search(Request $request) {
-
-      if($request->has('courses')){
+      
+      // Ajax requests
+      if ($request->ajax() || $request->isXmlHttpRequest()){
         $response = $this->advancedSearch($request);
-        return response()->json(array('success' => true, 'html'=>$response));;
+        return response()->json(array('success' => true, 'html' => $response));
       }
 
-      $questions = Question::orderBy('id', 'desc')->simplePaginate(10);
       $courses = Course::all();
-      return view('pages.search', ['courses' => $courses, 'questions' => $questions]);
+
+      if($request->has('nav-search-input') && $request->input('nav-search-input') != ''){
+        $search = str_replace(' ',' | ', $request->input('nav-search-input'));
+        $questions =  Question::whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search])->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
+      }
+      else {
+        $questions = Question::orderBy('id', 'desc');
+      }
+      
+      session()->flashInput($request->input());
+      return view('pages.search', ['courses' => $courses, 'questions' => $questions->simplePaginate(10)]);
       
     }
     
@@ -35,39 +45,33 @@ class SearchController extends Controller
     public function advancedSearch(Request $request){
 
       $courses = json_decode($request->input('courses'));
+      // $tags = json_decode($request->input('tags'));
+      $questions = Question::with(['owner','courses', 'tags']);
 
+      // Filter by course
       if(count($courses) > 0){
-        $questions = Question::with(['owner','courses', 'tags'])->whereHas('courses', function ($query) use ($courses){
+        $questions = $questions->whereHas('courses', function ($query) use ($courses){
           $query->whereIn('id', $courses);
         });   
-
-        // Text Search
-        if($request->input('search-input') != ''){
-          $search = str_replace(' ',' | ', $request->input('search-input'));
-          $questions = $questions->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
-        }
-
-        if($request->input('filter') == 'votes') $questions = $questions->orderBy('score', 'desc');
-        else if($request->input('filter') == 'relevance') 
-          $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
-        else $questions = $questions->orderBy('id', 'desc');
-
-      } else {
-        // Text Search
-        if($request->input('search-input') != ''){
-          $search = str_replace(' ',' | ', $request->input('search-input'));
-          $questions = Question::with(['owner','courses', 'tags'])->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
-
-          if($request->input('filter') == 'votes') $questions = $questions->orderBy('score', 'desc');
-          else if($request->input('filter') == 'relevance') 
-            $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
-          else $questions = $questions->orderBy('id', 'desc');
-        }
-        // Order By Simple Search
-        else if($request->input('filter') == 'votes') $questions = Question::with(['owner','courses', 'tags'])->orderBy('score', 'desc');     
-        else $questions = Question::with(['owner','courses', 'tags'])->orderBy('id', 'desc');
+      } 
+    
+      // Filter by text search
+      if($request->input('search-input') != ''){
+        $search = str_replace(' ',' | ', $request->input('search-input'));
+        $questions = $questions->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
       }
-      
+
+      // Order questions
+      if($request->input('filter') == 'votes'){
+        $questions = $questions->orderBy('score', 'desc');
+      }
+      else if($request->input('filter') == 'relevance'){
+        $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
+      }
+      else {
+        $questions = $questions->orderBy('id', 'desc');
+      } 
+  
       return view('partials.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
     }
 

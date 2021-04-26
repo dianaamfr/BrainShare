@@ -11,7 +11,7 @@
       <select>
         <option selected disabled>Courses</option>
         @foreach ($courses as $course)
-          <option value="{{$course->id}}">MIEIC</option>
+          <option value="{{$course->id}}">{{$course->name}}</option>
         @endforeach
       </select>
     </li>
@@ -84,12 +84,12 @@
 
         <!-- Filter -->
         <ul class="nav ms-auto" id="search-filters">
-          <li hidden>
-            <input id="order-filter-1" type="radio" name="filter" class="nav-link" value="relevance" hidden>
+          <li {{ old('nav-search-input') ? '' : 'hidden' }}>
+            <input id="order-filter-1" type="radio" name="filter" class="nav-link" value="relevance" hidden {{ old('nav-search-input') ? 'checked' : '' }}>
             <label for="order-filter-1">Relevance</label>
           </li>
           <li>
-            <input id="order-filter-2" type="radio" name="filter" class="nav-link" value="new" hidden checked>
+            <input id="order-filter-2" type="radio" name="filter" class="nav-link" value="new" hidden hidden {{ old('nav-search-input') ? '' : 'checked' }}>
             <label for="order-filter-2">Newest</label>
           </li>
           <li>
@@ -101,14 +101,14 @@
 
         <!-- Search Bar -->
         <form class="d-flex me-auto" id="questions-search-bar">
-          <input class="form-control" type="search" name="search-input" value="{{ Route::currentRouteNamed('search/query') ? old('search-input') : ''}}" placeholder="Search" aria-label="Search">
+          <input class="form-control" type="search" name="search-input" value="{{ old('nav-search-input') }}" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit" name="search-submit" value="relevance">
               <i class="fas fa-search"></i>
             </button>
           </div>
         </form>
-        <a href="{{route('search')}}" id="reset-search" hidden>Reset search</a>
+        <a href="{{route('search')}}" id="reset-search" {{ old('nav-search-input') ? '' : 'hidden' }}>Reset search</a>
       </header>
     </div>
 
