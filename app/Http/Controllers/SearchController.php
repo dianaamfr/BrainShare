@@ -45,13 +45,20 @@ class SearchController extends Controller
     public function advancedSearch(Request $request){
 
       $courses = json_decode($request->input('courses'));
-      // $tags = json_decode($request->input('tags'));
+      $tags = json_decode($request->input('tags'));
       $questions = Question::with(['owner','courses', 'tags']);
 
       // Filter by course
       if(count($courses) > 0){
         $questions = $questions->whereHas('courses', function ($query) use ($courses){
           $query->whereIn('id', $courses);
+        });   
+      } 
+
+      // Filter by tag
+      if(count($tags) > 0){
+        $questions = $questions->whereHas('tags', function ($query) use ($tags){
+          $query->whereIn('id', $tags);
         });   
       } 
     

@@ -19,14 +19,15 @@ function sendAdvancedSearchRequest(page = 1) {
     let searchInput = searchBar.querySelector("input[type='search']").value;
     let filter = document.querySelector("#search-filters li input:checked");
 
-    let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value))
-    //let tags = '';
+    let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value));
+    let tags = JSON.stringify([...document.querySelectorAll(".tag-filter-input:checked")].map(tag => tag.value));
 
     sendAjaxGetRequest('get', 'search', 
         {'page': page,
         'search-input': searchInput, 
         'filter': filter.value, 
-        'courses': courses}, 
+        'courses': courses, 
+        'tags': tags},
         searchUpdateHandler);
 }
 
@@ -39,6 +40,37 @@ function searchUpdateHandler(){
     updatePagination();
 }
 
+function sendSearchTagsRequest(e) {
+    if(this.value == ''){
+        tagsSearchResults.innerHTML = "";
+        return;
+    }
+    sendAjaxGetRequest('get', 'tags/search', {'tag-input': this.value}, tagsUpdateHandler);
+}
+
+function tagsUpdateHandler(){
+    let response = JSON.parse(this.responseText);
+    tagsSearchResults.innerHTML = "";
+
+    for(tag of response.tags){
+        let newTagLabel = document.createElement('label');
+        newTagLabel.setAttribute('for', `tag-filter-${tag.id}`);
+        newTagLabel.classList.add('list-group-item', 'tag-filter');
+        newTagLabel.innerHTML = tag.name;
+
+        let newTag = document.createElement('input');
+        newTag.setAttribute('type', 'checkbox');
+        newTag.setAttribute('hidden', true);
+        newTag.setAttribute('id', `tag-filter-${tag.id}`);
+        newTag.classList.add('tag-filter-input');
+        newTag.value = tag.id;
+
+        tagsSearchResults.append(newTag);
+        tagsSearchResults.append(newTagLabel);
+        newTag.addEventListener('click', function() {sendAdvancedSearchRequest();});
+    }
+    
+}
 
 // Search Page
 
@@ -49,6 +81,9 @@ let searchFilters = document.querySelectorAll('#search-filters li input');
 let resetSearchBtn = document.getElementById('reset-search');
 let questionsDiv = document.querySelector('#search-page .question-search-results');
 let courseFilters = document.querySelectorAll(".course-filter-input");
+
+let tagsInput = document.querySelector('input[name="tag-input"]');
+let tagsSearchResults = document.getElementById('tags-search-results');
 
 if(searchPage){
     // Text Search
@@ -70,6 +105,9 @@ if(searchPage){
 
     // Pagination
     updatePagination();
+
+    // Tags Search
+    tagsInput.addEventListener('keyup', sendSearchTagsRequest);
     
 }
 

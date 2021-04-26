@@ -25,7 +25,7 @@
   <aside id="side-bar" class="mt-5 col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#side-bar">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#side-bar">
           Courses
         </button>
       </h6>
@@ -44,9 +44,19 @@
     </div>
     <div class="accordion-item">
       <h6 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" data-bs-parent="#side-bar">
+        <div class="accordion-button collapsed">
           Tags
-        </button>
+        </div>
+        <form class="d-flex me-auto">
+          <input class="form-control" type="search" name="tag-input" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+        <div id="tags-search-results">
+        </div>
       </h6>
       <div id="collapseThree" class="accordion-collapse collapse accordion-search" aria-labelledby="headingThree" data-bs-parent="#side-bar">
         <!-- Search Bar -->
@@ -58,18 +68,8 @@
             </button>
           </div>
         </form>
-        <div class="accordion-body">
-          <div>
-            <div class="list-group">
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">PPIN</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">COMP</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">LBAW</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">IART</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">SDIS</button>
-              <button class="list-group-item list-group-item-action" data-bs-toggle="list">exam</button>
-            </div>
-          </div>
-        </div>
+        <ul>
+        </ul>
       </div>
     </div>
   </aside>

@@ -15,8 +15,10 @@ Route::get('/', 'HomeController@show')->name('home');
 Route::get('/about', 'HomeController@showAbout')->name('about');
 Route::get('/error', 'HomeController@showError')->name('error');
 
-// Search
+// Search Questions
 Route::get('search', 'SearchController@search')->name('search');
+// Search Tags
+Route::get('tags/search', 'TagController@search')->name('tagSearch');
 
 
 // Add Question
