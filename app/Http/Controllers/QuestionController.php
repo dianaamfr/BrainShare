@@ -33,8 +33,6 @@ class QuestionController extends Controller
      */
     public function create(Request $request)
     {
-      $question = new Question();
-      
       $this->authorize('create', Question::class);
 
       $validated = $request->validate([
@@ -45,30 +43,41 @@ class QuestionController extends Controller
         'tagList' => 'max:5',
         'tagList.*' => 'distinct',
       ]);
-
-      // Add Question
-      $question->question_owner_id = Auth::user()->id;
-      $question->title = $request->title;
-      $question->content = $request->content;
-      $question->save();
-
-      // Add Course
-      $courses = $request->get('courseList');
-      $tags = $request->get('tagList');
       
-      if($courses != null) {
-        foreach ($courses as $course) {
-          $question->courses()->attach($course);
-        }
-      }
+      $result = DB::transaction(function() use($request) {
+        $question = new Question();
 
-      if($tags != null) {
-        foreach ($tags as $tag) {
-          $question->tags()->attach($tag);
+        // Add Question
+        $question->question_owner_id = Auth::user()->id;
+        $question->title = $request->title;
+        $question->content = $request->content;
+        $question->save();
+
+        // Add Courses and tags
+        $tags = $request->get('tagList');
+        $courses = $request->get('courseList');
+        
+        if($tags != null) {
+          foreach ($tags as $tag) {
+            $question->tags()->attach($tag);
+          }
         }
-      }
+
+        if($courses != null) {
+          foreach ($courses as $course) {
+            $question->courses()->attach($course);
+          }
+        }
+
+        return 1;
+      });
 
       // Go to the created question
-      return view('pages.question', ['question' => $question]);
+      if ($result !== null) {
+        return redirect()->route('showQuestion', ['id' => $result]);
+      }
+      else {
+        return redirect()->route('question');
+      }
     }
 }
