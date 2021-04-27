@@ -17,12 +17,6 @@ class SearchController extends Controller
      * @return Response
      */
     public function search(Request $request) {
-      
-      // Ajax requests
-      if ($request->ajax() || $request->isXmlHttpRequest()){
-        $response = $this->advancedSearch($request);
-        return response()->json(array('success' => true, 'html' => $response));
-      }
 
       $courses = Course::all();
 
@@ -79,7 +73,8 @@ class SearchController extends Controller
         $questions = $questions->orderBy('id', 'desc');
       } 
   
-      return view('partials.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
+      $response = view('partials.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
+      return response()->json(array('success' => true, 'html' => $response));
     }
 
 }

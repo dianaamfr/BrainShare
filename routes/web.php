@@ -17,6 +17,7 @@ Route::get('/error', 'HomeController@showError')->name('error');
 
 // Search Questions
 Route::get('search', 'SearchController@search')->name('search');
+Route::get('api/search', 'SearchController@advancedSearch')->name('api/search');
 // Search Tags
 Route::get('tags/search', 'TagController@search')->name('tagSearch');
 

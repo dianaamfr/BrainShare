@@ -22,7 +22,7 @@ function sendAdvancedSearchRequest(page = 1) {
     let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value));
     let tags = JSON.stringify([...document.querySelectorAll(".tag-filter-input:checked")].map(tag => tag.value));
 
-    sendAjaxGetRequest('get', 'search', 
+    sendAjaxGetRequest('get', 'api/search', 
         {'page': page,
         'search-input': searchInput, 
         'filter': filter.value, 
