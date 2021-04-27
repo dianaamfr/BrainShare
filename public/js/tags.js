@@ -84,7 +84,6 @@ if(typeof tags !== 'undefined') {
     tagInput.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
           e.target.value.split(',').forEach(tag => {
-            console.log(tag)
             if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
                 tagsList.push(tag); 
             }

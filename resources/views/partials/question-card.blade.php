@@ -52,7 +52,7 @@
                 @endforeach
             </div>
             <div class="question-author d-inline-flex align-items-center">
-                <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
+                <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile image"> <!-- Small Profile Image -->
                 <div class="d-flex flex-wrap">
                     <span>{{$question->owner->username}}</span> <!-- Username -->
                     <span> {{ date('d-m-Y H:i', strtotime($question->date)) }} </span> <!-- Date -->

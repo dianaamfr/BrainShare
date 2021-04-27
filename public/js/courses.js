@@ -56,15 +56,15 @@ function createCourses(label) {
 }
 
 function clearCourses() {
-  document.querySelectorAll('div .course').forEach(tag => {
-    tag.parentElement.removeChild(tag);
+  document.querySelectorAll('div .course').forEach(course => {
+    tcourse.parentElement.removeChild(course);
   });
 }
 
 function addCourses() {
   clearCourses();
-  coursesList.slice().reverse().forEach(tag => {
-    courseContainer.prepend(createCourses(tag));
+  coursesList.slice().reverse().forEach(course => {
+    courseContainer.prepend(createCourses(course));
   });
 }
 
@@ -86,10 +86,9 @@ if(typeof courses !== 'undefined') {
     courseInput.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
             
-          e.target.value.split(',').forEach(tag => {
-            console.log(tag)
-            if (tag != "" && coursesClean.includes(tag) && coursesList.length <= 1) {
-                coursesList.push(tag); 
+          e.target.value.split(',').forEach(course => {
+            if (course != "" && coursesClean.includes(course) && coursesList.length <= 1) {
+                coursesList.push(course); 
             }
           });
           

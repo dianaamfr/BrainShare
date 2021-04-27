@@ -12,8 +12,8 @@
 */
 // Home and Static
 Route::get('/', 'HomeController@show')->name('home');
-Route::get('/about', 'HomeController@showAbout')->name('about');
-Route::get('/error', 'HomeController@showError')->name('error');
+Route::get('/about', 'StaticController@showAbout')->name('about');
+Route::get('/notfound', 'StaticController@showNotFound')->name('notfound');
 
 // Search Questions
 Route::get('search', 'SearchController@search')->name('search');

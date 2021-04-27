@@ -27,50 +27,36 @@
         </div>
 
         <!-- Courses -->
-        <section class="homepage-course position-relative"> 
+        <!-- <section class="homepage-course position-relative"> 
             <h2 class="mb-4 text-center">Courses</h2>
             <div class="row gx-0 ">
                 <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
                     <div class="course-icon" id="course-icon1"></div>
                     <h3 class="mt-4">MIEIC</h3>
                     <p class="mb-3">Masters in Informatics and Computation Engineering</p>
-                    <a href="search.php#" class="btn btn-outline-primary">Check questions</a>
+                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
                 </div>
                 <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
                     <div class="course-icon" id="course-icon2"></div>
                     <h3 class="mt-4">MIEC</h3>
                     <p class="mb-3">Masters in Civil Engineering</p>
-                    <a href="search.php#" class="btn btn-outline-primary">Check questions</a>
+                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
                 </div>
                 <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
                     <div class="course-icon" id="course-icon3"></div>
                     <h3 class="mt-4">MIEEC</h3>
                     <p class="mb-3">Master in Electrical and Computers Engineering</p>
-                    <a href="search.php#" class="btn btn-outline-primary">Check questions</a>
+                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
                 </div>
             </div>
-
-            <!-- Arrows -->
-            <button class="carousel-control-prev" data-slide="prev">
-                <span class="display-4 text-dark"> &lt; </span>
-                <span class="sr-only">Next</span>
-            </button>
-            <button class="carousel-control-next" data-slide="next">
-                <span class="display-4 text-dark"> &gt; </span>
-                <span class="sr-only">Previous</span>
-            </button>
-        </section>
+        </section> -->
 
         <section class="feature questions">
             <h2 class="mb-4 text-center">Featured Questions</h2>
             <div class="my-5">
                 <!-- first question -->
+                @each('partials.question-card', $questions, 'question')
             </div> 
-            <ul class="pagination justify-content-center">
-                <li class="page-item page-1 active"><button class="page-link">1</button></li>
-                <li class="page-item page-2"><button class="page-link">2</button></li>
-                <li class="page-item page-3"><button class="page-link">3</button></li>
-            </ul>
         </section>
     </div>
 </div>
