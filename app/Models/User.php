@@ -48,5 +48,7 @@ class User extends Authenticatable
 
     public function isModerator() {
         return $this->user_role === 'Moderator';
-    }
+    } 
+
+    
 }

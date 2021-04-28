@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class StaticController extends Controller
 {
+    /**
+     * Shows the home page
+     *
+     * @return Response
+     */
+
     public function showAbout()
     {
       return view('pages.about');
@@ -17,4 +23,22 @@ class StaticController extends Controller
     {
       return view('errors.404');
     }
+
+    public function showEditProfile(){
+      //return view('pages.profile');
+    }
+
+    public function showTags(){
+      //return view('pages.tags');
+    }
+
+    public function showCourses(){
+      //return view('pages.courses');
+    }
+
+    public function showReports(){
+      //return view('pages.reports');
+    }
+
+    
 }

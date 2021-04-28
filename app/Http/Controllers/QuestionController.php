@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
 use App\Models\Course;
 use App\Models\Tag;
+use App\Models\User;
 
 class QuestionController extends Controller
 {
@@ -24,6 +25,19 @@ class QuestionController extends Controller
       $courses = Course::all();
       $tags = Tag::all();
       return view('pages.add-question', ['courses' => $courses, 'tags' => $tags]);
+    }
+    
+    public function showEditQuestionForm($id){   
+
+      // TODO: read more about authorize  
+
+      $question = Question::find($id); 
+      $question_owner_id = $question['question_owner_id']; 
+      if (!Auth::check()) return redirect('/login');
+      else if (!(Auth::user()->id == $question_owner_id || Auth::user()->isModerator() || Auth::user()->isAdmin())) return redirect('/error');    
+      $courses = Course::all(); 
+      $tags = Tag::all();  
+      return view('pages.edit-question', ['question'=> $question, 'courses' => $courses, 'tags' => $tags]); 
     }
 
     /**
@@ -80,4 +94,26 @@ class QuestionController extends Controller
         return redirect()->route('question');
       }
     }
+
+    // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
+    public function deleteQuestion($questionId){
+
+        $question = Question::find($questionId);
+        $user = User::find($question->question_owner_id); 
+        
+        // If you are not logged in, redirect to the login page 
+        if(!Auth::check()) return redirect('login');
+
+        // If you hav eno permissions to delete de questions, redirect to the same page 
+        if (!(Auth::user()->id == $ownerId || Auth::user()->isModerator() || Auth::user()->isAdmin()) || !$this->authorize($user,$question)) 
+            return redirect('/question/{' . $questionId . '}');
+            //return redirect()->back();
+        
+        // Delete the question from the table
+        $question->delete();
+
+        // Return to the search page if the question is sucessfull deleted
+        return view('pages.search');
+    }
+
 }

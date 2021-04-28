@@ -95,4 +95,20 @@ if(typeof tags !== 'undefined') {
     });
   }
 }
+/**
+ * Function used to populate courses in edit question. 
+ * @param {List} oldCoursesEdit - Courses of the question in the edit page. 
+ */
+ function addTags(){
+  if (oldTagsEdit !== null){
+    oldTagsEdit.slice().forEach(tag => {
+      tagContainer.prepend(createTags(tag['name'])); 
+    }); 
+  }
+}
 
+
+/**
+ * When the page loads adds the courses in the edit.  
+ */
+window.addEventListener('load', ()=> addTags()); 
