@@ -10,12 +10,12 @@
         </div>
     </div>
 
-    <div class="navbar justify-content-start mt-3 flex-nowrap align-items-start">
+    <div class="navbar py-0 justify-content-start mt-3 flex-nowrap align-items-start">
         <!-- Filter by Course -->
         @include('partials.search.courses', ['selected' => json_decode(app('request')->get('courses'))])
 
         <!-- Filter by Tag -->
         @include('partials.search.tags', ['selected' => json_decode(app('request')->get('tags'))])
     </div>
-    <a href="{{route('search')}}" id="reset-search">Reset search</a>
+    <a class="d-block my-1" href="{{route('search')}}" id="reset-search">Reset search</a>
 </form>

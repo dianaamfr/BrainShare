@@ -1,4 +1,4 @@
-<div id="courses-tags-search">
+<div class="courses-tags-search">
     <h6>Filter by Course</h6>
     <div class="dropdown">
         <button class="dropdown-toggle" type="button" id="courses-dropdown">{{$selected != null ? count($selected) : '0'}} selected</button>

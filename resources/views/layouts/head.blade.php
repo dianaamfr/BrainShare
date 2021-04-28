@@ -21,6 +21,9 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/cf05cece41.js" crossorigin="anonymous"></script>
 
+<!-- Iconify -->
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 <!-- Pagination -->
 <script type="text/javascript" src={{ asset('js/pagination.js') }} defer></script>
 

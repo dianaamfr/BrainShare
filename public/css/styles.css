@@ -858,8 +858,14 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
+#search-page {
+  max-width: 1400px;
+  margin: auto;
+}
+
 #order-filters {
   justify-content: flex-end;
+  align-items: center;
 }
 
 #order-filters li {
@@ -1000,7 +1006,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   box-shadow: rgb(221 221 221) 0px 1px 3px inset;
   display: flex;
   align-items: center;
-  padding: 0 0.35rem;
+  padding-right: 0.5rem;
   overflow-x: auto;
 }
 
@@ -1044,14 +1050,17 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   font-weight: 500;
 }
 
-#courses-tags-search {
-  min-width: 200px;   
+#mobile-search-filters {
+  display: none;
+}
+
+.courses-tags-search {   
+  position: relative;
 }
 
 #courses-dropdown {
   display: flex;
-  width: 100%;
-  padding: .375rem 0.75rem .375rem .75rem;
+  padding: .375rem 0.5rem .375rem .5rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -1059,14 +1068,14 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: .25rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   justify-content: space-between;
   align-items: center;
   box-shadow: rgb(221 221 221) 0px 1px 3px inset;
-  width: 100%;
   color: var(--bs-gray);
+}
+
+#courses-dropdown.dropdown-toggle::after {
+  margin-left: 2rem;
 }
 
 #courses-dropdown-list {
@@ -1084,9 +1093,10 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 #questions-search-bar .dropdown-menu {
   padding: unset;
   border-top: unset;
+  min-width: unset;
 }
 
-#questions-search-bar .navbar > div {
+#questions-search-bar .navbar > div:first-child {
   margin-right: 1rem;
   position: relative;
 }

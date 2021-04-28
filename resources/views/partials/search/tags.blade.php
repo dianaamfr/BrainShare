@@ -1,4 +1,4 @@
-<div>
+<div class="courses-tags-search">
     <h6>Tags</h6>
     <div id="tags-selected">
         <input class="form-control" name="tag-input" type="search" placeholder="Search tags">

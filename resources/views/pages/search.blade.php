@@ -2,31 +2,28 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between page-margin" id="search-page">
+<div class="page-margin" id="search-page">
 
   <!-- Questions Results -->
-  <section class="container-sm">
+  <div class="mt-md-5">
+    <header>
+      <div id="search-header" class="d-flex">
+        <h2>Search</h2>
 
-    <div class="container-md mt-md-5">
-      <header>
-        <div id="search-header" class="d-flex">
-          <h2>Search</h2>
+        <!-- Search Results Order -->
+        @include('partials.search.order')
+      </div>
 
-          <!-- Search Results Order -->
-          @include('partials.search.order')
-        </div>
+      <!-- Search Filters -->
+      @include('partials.search.filters')
 
-        <!-- Search Filters -->
-       @include('partials.search.filters')
+    </header>
+  </div>
 
-      </header>
-    </div>
-
-    <!-- Questions -->
-    <div class="container-md mt-5 question-search-results">
-        @include('partials.search.search-questions', $questions)
-    </div>
-  </section>
+  <!-- Questions -->
+  <div class="mt-5 question-search-results">
+      @include('partials.search.search-questions', $questions)
+  </div>
 
 </div>
 @endsection

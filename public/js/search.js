@@ -125,11 +125,18 @@ function tagSelect(){
 }
 
 
-function toogleDropdown(){
+function toggleDropdown(){
     if(coursesDropdown.style.display == "block")
         coursesDropdown.style.display = "none";
     else
         coursesDropdown.style.display = "block";
+}
+
+function toggleMobileFilters(){
+    if(mobileFilters.style.display == "block")
+        mobileFilters.style.display = "none";
+    else
+        mobileFilters.style.display = "block";
 }
 
 // Search Page
@@ -143,11 +150,14 @@ let questionsDiv = document.querySelector('#search-page .question-search-results
 
 let courseFilters = document.querySelectorAll(".course-filter-input");
 let coursesDropdown = document.getElementById('courses-dropdown-list');
-let coursesDropdownToogle =  document.getElementById('courses-dropdown');
+let coursesDropdownToggle =  document.getElementById('courses-dropdown');
 
 let tagsInput = document.querySelector('input[name="tag-input"]');
 let tagsSearchResults = document.getElementById('tags-search-results');
 let tagsSelected = document.getElementById('tags-selected');
+
+let mobileFilters = document.querySelector('#questions-search-bar .navbar');
+let mobileFiltersToggle = document.getElementById('mobile-search-filters');
 
 if(searchPage){
     // Text Search
@@ -176,13 +186,13 @@ if(searchPage){
     courseFilters.forEach(courseFilter => {
         courseFilter.addEventListener('click', function() {
             let coursesSelected = document.querySelectorAll(".course-filter-input:checked").length;
-            coursesDropdownToogle.innerHTML = coursesSelected + ' selected';
+            coursesDropdownToggle.innerHTML = coursesSelected + ' selected';
 
             updateResetBtn();
             sendAdvancedSearchRequest();
         });});
 
-    coursesDropdownToogle.addEventListener('click', toogleDropdown);
+    coursesDropdownToggle.addEventListener('click', toggleDropdown);
 
     // Pagination
     updatePagination();
@@ -210,9 +220,10 @@ if(searchPage){
         });
     })
 
+    mobileFiltersToggle.addEventListener('click', toggleMobileFilters);
+
     // Reset Search Button
     updateResetBtn();
-
 }
 
 function updateResetBtn(){
