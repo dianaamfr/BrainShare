@@ -17,6 +17,5 @@
         <!-- Filter by Tag -->
         @include('partials.search.tags', ['selected' => json_decode(app('request')->get('tags'))])
     </div>
-    <a href="{{route('search')}}" id="reset-search" 
-        {{ app('request')->get('search-input') || app('request')->get('courses') || app('request')->get('tags') ? '' : 'hidden'  }}>Reset search</a>
+    <a href="{{route('search')}}" id="reset-search">Reset search</a>
 </form>

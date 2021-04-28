@@ -113,6 +113,7 @@ function tagSelect(){
     tagBadge.addEventListener('click', function(){
         this.remove();
         sendAdvancedSearchRequest();
+        updateResetBtn();
     });
 
     tagsInput.value='';
@@ -120,6 +121,7 @@ function tagSelect(){
     tagsSearchResults.style.display = 'none';
 
     sendAdvancedSearchRequest();
+    updateResetBtn();
 }
 
 
@@ -146,7 +148,6 @@ let coursesDropdownToogle =  document.getElementById('courses-dropdown');
 let tagsInput = document.querySelector('input[name="tag-input"]');
 let tagsSearchResults = document.getElementById('tags-search-results');
 let tagsSelected = document.getElementById('tags-selected');
-let tagBadges = document.querySelectorAll('.selected-tag');
 
 if(searchPage){
     // Text Search
@@ -158,11 +159,17 @@ if(searchPage){
         searchFilters[0].parentElement.hidden = false;
         searchFilters[0].checked = true;
         sendAdvancedSearchRequest();
+
+        updateResetBtn();
     });
 
     // Order 
     searchFilters.forEach(searchFilter => {
-        searchFilter.addEventListener('click', function() {sendAdvancedSearchRequest()});});
+        searchFilter.addEventListener('click', 
+            function() {
+                updateResetBtn();
+                sendAdvancedSearchRequest()
+            });});
     
   
     // Courses
@@ -170,6 +177,8 @@ if(searchPage){
         courseFilter.addEventListener('click', function() {
             let coursesSelected = document.querySelectorAll(".course-filter-input:checked").length;
             coursesDropdownToogle.innerHTML = coursesSelected + ' selected';
+
+            updateResetBtn();
             sendAdvancedSearchRequest();
         });});
 
@@ -191,14 +200,30 @@ if(searchPage){
             sendSearchTagsRequest();
         });
 
+    let tagBadges = document.querySelectorAll('.selected-tag');
     tagBadges.forEach(badge => {
         getTagByIdRequest(badge);
         badge.addEventListener('click', function(){
             this.remove();
             sendAdvancedSearchRequest();
+            updateResetBtn();
         });
     })
 
+    // Reset Search Button
+    updateResetBtn();
+
+}
+
+function updateResetBtn(){
+    let coursesSelected = document.querySelectorAll(".course-filter-input:checked").length;
+    let tagBadges = document.querySelectorAll('.selected-tag').length;
+    let filter = document.querySelector("#order-filters li input:checked");
+    let textInput = searchBar.querySelector("input[type='search']");
+
+    if(coursesSelected == 0 && tagBadges == 0 && textInput.value == '' && filter.value == 'new' ){
+        resetSearchBtn.hidden = true;
+    } else resetSearchBtn.hidden = false;
 }
 
 function searchPagination(event) {
