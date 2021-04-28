@@ -57,15 +57,17 @@ class QuestionController extends Controller
         'tagList' => 'max:5',
         'tagList.*' => 'distinct',
       ]);
-      
+        
       $result = DB::transaction(function() use($request) {
-        $question = new Question();
+        $question = new Question(); 
+
 
         // Add Question
         $question->question_owner_id = Auth::user()->id;
         $question->title = $request->title;
         $question->content = $request->content;
-        $question->save();
+        $question->save(); 
+
 
         // Add Courses and tags
         $tags = $request->get('tagList');
@@ -83,14 +85,14 @@ class QuestionController extends Controller
           }
         }
 
-        return 1;
-      });
+        return $question;
+      }); 
 
       // Go to the created question
-      if ($result !== null) {
-        return redirect()->route('showQuestion', ['id' => $result]);
+      if ($result !== null) { 
+        return redirect()->route('showQuestion', ['id' => $result->id]);
       }
-      else {
+      else { 
         return redirect()->route('question');
       }
     }

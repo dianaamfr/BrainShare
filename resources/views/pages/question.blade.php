@@ -24,7 +24,7 @@
                                 <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
                             <div class="icon-hover" title="Delete">
-                                <button><i class="far fa-trash-alt"></i></button>
+                                <button  onclick="window.location='{{ route("delete-question",array("25")) }}'"><i class="far fa-trash-alt"></i></button>
                                 <button><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>

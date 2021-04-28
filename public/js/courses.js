@@ -1,3 +1,7 @@
+// Disable submit on enter
+window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
+
 function createCourses(label) {
   let id;
   for(let i = 0; i < courses.length; i++) {
@@ -66,10 +70,7 @@ function addCourses() {
   coursesList.slice().reverse().forEach(course => {
     courseContainer.prepend(createCourses(course));
   });
-} 
-
-// Disable submit on enter
-window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+}  
 
 if(typeof courses !== 'undefined') {
   var coursesClean = [];
@@ -78,7 +79,6 @@ if(typeof courses !== 'undefined') {
   }
 
   let coursesList = [];
-
 
   const courseContainer = document.querySelector('.course-container');
   const courseInput = document.querySelector('#questionCoursesSelect');
@@ -97,7 +97,7 @@ if(typeof courses !== 'undefined') {
           courseInput.value = '';
         }
     });
-  }
+  } 
 }
 
 /**

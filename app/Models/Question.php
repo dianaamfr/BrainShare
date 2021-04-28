@@ -35,6 +35,10 @@ class Question extends Model
     protected $hidden = [
         'search', 'answers_search',
     ];
+    
+    public function getId(){
+        return $this->getId(); 
+    }
 
     public function owner(){
         return $this->belongsTo(User::class, 'question_owner_id');
