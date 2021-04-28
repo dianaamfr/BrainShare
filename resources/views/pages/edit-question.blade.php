@@ -41,7 +41,7 @@
             <div class="mb-3 position-relative" >
                 <label for="questionCourseSelect" class="form-label">Course</label>
 
-                <div class="d-flex flex-wrap course-container autocomplete">
+                <div class="d-flex flex-wrap course-container autocomplete overflow-hidden">
                     <input class="form-control autoCompleteCourses" id="questionCoursesSelect" placeholder="Associate Courses here">
                 </div>
                 @if ($errors->has('courseList'))
@@ -55,7 +55,7 @@
             <div class="mb-3 position-relative" >
                 <label for="questionTagsSelect" class="form-label">Tags</label>
 
-                <div class="d-flex flex-wrap tag-container autocomplete">
+                <div class="d-flex flex-wrap tag-container autocomplete overflow-hidden">
                     <input class="form-control autoCompleteTags" id="questionTagsSelect" placeholder="Associate Tags here">
                 </div>
 

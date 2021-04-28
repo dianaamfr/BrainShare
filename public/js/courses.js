@@ -1,118 +1,141 @@
 // Disable submit on enter
-window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
 var coursesClean = [];
-for(let i = 0; i < courses.length; i++) {
+for (let i = 0; i < courses.length; i++) {
     coursesClean.push(courses[i].name);
 }
 
-let coursesList = []; 
+let coursesList = [];
 
-const courseContainer = document.querySelector('.course-container');
-const courseInput = document.querySelector('#questionCoursesSelect');
-populateOldCourses(); 
+const courseContainer = document.querySelector(".course-container");
+const courseInput = document.querySelector("#questionCoursesSelect");
+populateOldCourses();
+selectCourse();
 
 
-if(courseContainer != null && courseInput != null) {
-  courseInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') {
-          
-        e.target.value.split(',').forEach(course => {
-          console.log(course)
-          if (course != "" && coursesClean.includes(course) && coursesList.length <= 1) {
-              coursesList.push(course); 
-          }
+function selectCourse() {
+    if (courseContainer != null && courseInput != null) {
+
+        // Case the course is selected using the keyboard.
+        courseInput.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") processCourse();
+
+            suggestionList = document.getElementById(
+                "questionCoursesSelectautocomplete-list"
+            );
+
+            // Case the course is selected using the mouse.
+            if (suggestionList !== null) {
+                suggestionList.addEventListener("click", () => processCourse());
+            }
         });
-        
-        addCourses();
-        courseInput.value = '';
-      }
-  });
+    }
 }
 
-
-function populateOldCourses(){
-  if (typeof oldCoursesList !== 'undefined') {
-    oldCoursesList.forEach(course => { 
-      coursesList.push(course['name']); 
+function processCourse() {
+    courseInput.value.split(",").forEach((course) => {
+        if (
+            course != "" &&
+            coursesClean.includes(course) &&
+            coursesList.length <= 1
+        ) {
+            coursesList.push(course);
+        }
     });
-    addCourses(); 
-  }
+
+    addCourses();
+    courseInput.value = "";
+}
+
+function populateOldCourses() {
+    if (typeof oldCoursesList !== "undefined") {
+        oldCoursesList.forEach((course) => {
+            coursesList.push(course["name"]);
+        });
+        addCourses();
+    }
 }
 
 /**
- * Creates the card of a course for the given label. 
- * @param {String} label - name of the course. 
- * @returns 
+ * Creates the card of a course for the given label.
+ * @param {String} label - name of the course.
+ * @returns
  */
 function createCourse(label) {
-  let id;
-  for(let i = 0; i < courses.length; i++) {
-    if (courses[i].name == label)
-      id = courses[i].id;
-  }
+    let id;
+    for (let i = 0; i < courses.length; i++) {
+        if (courses[i].name == label) id = courses[i].id;
+    }
 
-  const div = document.createElement('div');
-  div.setAttribute('class', 'course card rounded-1 manage-tag-card px-3 py-2 mx-1');
-  const innerDiv = document.createElement('div');
-  innerDiv.setAttribute('class', 'card-body d-flex p-0');
+    const div = document.createElement("div");
+    div.setAttribute(
+        "class",
+        "course card rounded-1 manage-tag-card px-3 py-2 mx-1"
+    );
+    const innerDiv = document.createElement("div");
+    innerDiv.setAttribute("class", "card-body d-flex p-0");
 
-  const span = document.createElement('span');
-  span.innerHTML = label
+    const span = document.createElement("span");
+    span.innerHTML = label;
 
-  const hiddenV = document.createElement('input');
-  hiddenV.setAttribute('name', 'courseList[]');
-  hiddenV.setAttribute('value', id);
-  hiddenV.readOnly = true; 
-  hiddenV.hidden = true;
+    const hiddenV = document.createElement("input");
+    hiddenV.setAttribute("name", "courseList[]");
+    hiddenV.setAttribute("value", id);
+    hiddenV.readOnly = true;
+    hiddenV.hidden = true;
 
-  const closeIcon = document.createElement('span');
-  closeIcon.setAttribute('class', 'icon-hover');
-  closeIcon.setAttribute('title', 'Delete');
-  
-  closeIcon.addEventListener('click', function(e) {
-    clearCourses();
-    const courseLabel = e.target.getAttribute('data-item');
-    const index = coursesList.indexOf(courseLabel);
-    coursesList = [...coursesList.slice(0, index), ...coursesList.slice(index+1)];
-    addCourses();  
-  });
+    const closeIcon = document.createElement("span");
+    closeIcon.setAttribute("class", "icon-hover");
+    closeIcon.setAttribute("title", "Delete");
 
-  const buttonOne = document.createElement('button');
-  buttonOne.setAttribute('class', 'p-0');
-  const iOne = document.createElement('i');
-  iOne.setAttribute('class', 'far fa-trash-alt');
+    closeIcon.addEventListener("click", function (e) {
+        clearCourses();
+        const courseLabel = e.target.getAttribute("data-item");
+        const index = coursesList.indexOf(courseLabel);
+        coursesList = [
+            ...coursesList.slice(0, index),
+            ...coursesList.slice(index + 1),
+        ];
+        addCourses();
+    });
 
-  const buttonTwo = document.createElement('button');
-  buttonTwo.setAttribute('class', 'p-0');
-  const iTwo = document.createElement('i');
-  iTwo.setAttribute('class', 'fas fa-trash-alt');
-  iTwo.setAttribute('data-item', label);
+    const buttonOne = document.createElement("button");
+    buttonOne.setAttribute("class", "p-0");
+    const iOne = document.createElement("i");
+    iOne.setAttribute("class", "far fa-trash-alt");
 
-  div.appendChild(innerDiv);
-  div.appendChild(hiddenV);
-  innerDiv.appendChild(span);
-  innerDiv.appendChild(closeIcon);
+    const buttonTwo = document.createElement("button");
+    buttonTwo.setAttribute("class", "p-0");
+    const iTwo = document.createElement("i");
+    iTwo.setAttribute("class", "fas fa-trash-alt");
+    iTwo.setAttribute("data-item", label);
 
-  closeIcon.appendChild(buttonOne);
-  closeIcon.appendChild(buttonTwo);
-  buttonOne.appendChild(iOne);
-  buttonTwo.appendChild(iTwo);
-  
-  return div;
+    div.appendChild(innerDiv);
+    div.appendChild(hiddenV);
+    innerDiv.appendChild(span);
+    innerDiv.appendChild(closeIcon);
+
+    closeIcon.appendChild(buttonOne);
+    closeIcon.appendChild(buttonTwo);
+    buttonOne.appendChild(iOne);
+    buttonTwo.appendChild(iTwo);
+
+    return div;
 }
-
 
 function clearCourses() {
-  document.querySelectorAll('div .course').forEach(course => {
-    course.parentElement.removeChild(course);
-  });
+    document.querySelectorAll("div .course").forEach((course) => {
+        course.parentElement.removeChild(course);
+    });
 }
 
-
 function addCourses() {
-  clearCourses();
-  coursesList.slice().reverse().forEach(course => {
-    courseContainer.prepend(createCourse(course));
-  });
+    clearCourses();
+    coursesList
+        .slice()
+        .reverse()
+        .forEach((course) => {
+            courseContainer.prepend(createCourse(course));
+        });
 }
