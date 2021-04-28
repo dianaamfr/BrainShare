@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Question;
+
 class HomeController extends Controller
 {
     /**
@@ -15,16 +17,8 @@ class HomeController extends Controller
      */
     public function show()
     {
-      return view('pages.home');
-    }
-
-    public function showAbout()
-    {
-      return view('pages.about');
-    }
-
-    public function showError()
-    {
-      return view('pages.error');
+      $questions = Question::with(['owner','courses', 'tags']);
+      $questions = $questions->orderBy('score', 'desc');
+      return view('pages.home', ['questions' => $questions->simplePaginate(5)]);
     }
 }

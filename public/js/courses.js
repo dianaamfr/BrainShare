@@ -1,13 +1,3 @@
-// Disable submit on enter
-window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
-
-var coursesClean = [];
-for(let i = 0; i < courses.length; i++) {
-    coursesClean.push(courses[i].name);
-}
-
-let coursesList = [];
-
 function createCourses(label) {
   let id;
   for(let i = 0; i < courses.length; i++) {
@@ -66,35 +56,45 @@ function createCourses(label) {
 }
 
 function clearCourses() {
-  document.querySelectorAll('div .course').forEach(tag => {
-    tag.parentElement.removeChild(tag);
+  document.querySelectorAll('div .course').forEach(course => {
+    tcourse.parentElement.removeChild(course);
   });
 }
 
 function addCourses() {
   clearCourses();
-  coursesList.slice().reverse().forEach(tag => {
-    courseContainer.prepend(createCourses(tag));
+  coursesList.slice().reverse().forEach(course => {
+    courseContainer.prepend(createCourses(course));
   });
 }
 
-const courseContainer = document.querySelector('.course-container');
-const courseInput = document.querySelector('#questionCoursesSelect');
+// Disable submit on enter
+window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
-if(courseContainer != null && courseInput != null) {
-  courseInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') {
+if(typeof courses !== 'undefined') {
+  var coursesClean = [];
+  for(let i = 0; i < courses.length; i++) {
+      coursesClean.push(courses[i].name);
+  }
+
+  let coursesList = [];
+
+  const courseContainer = document.querySelector('.course-container');
+  const courseInput = document.querySelector('#questionCoursesSelect');
+
+  if(courseContainer != null && courseInput != null) {
+    courseInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            
+          e.target.value.split(',').forEach(course => {
+            if (course != "" && coursesClean.includes(course) && coursesList.length <= 1) {
+                coursesList.push(course); 
+            }
+          });
           
-        e.target.value.split(',').forEach(tag => {
-          console.log(tag)
-          if (tag != "" && coursesClean.includes(tag) && coursesList.length <= 1) {
-              coursesList.push(tag); 
-          }
-        });
-        
-        addCourses();
-        courseInput.value = '';
-      }
-  });
+          addCourses();
+          courseInput.value = '';
+        }
+    });
+  }
 }
-

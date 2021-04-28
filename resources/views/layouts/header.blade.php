@@ -7,12 +7,7 @@
 
         <!-- Tablet Search Bar -->
         <form class="header-search d-flex me-auto tablet-header-search" action="{{ route('search') }}" >
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
-            <i class="fas fa-search"></i>
-            </button>
-          </div>
+          @include('partials.header-search-bar')
         </form>
 
         <!-- Mobile Menu Icon -->
@@ -24,12 +19,7 @@
 
           <!-- Search Bar -->
         <form class="header-search d-flex me-auto main-search" action="{{ route('search') }}" >
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
-            <i class="fas fa-search"></i>
-            </button>
-          </div>
+          @include('partials.header-search-bar')
         </form>
 
         <!-- Main Pages -->
@@ -43,7 +33,7 @@
             @endif
             
             <!-- Administrator/Moderator -->
-            @if( Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()))
+            @if(Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()))
               <li class="nav-item">
                 <a class="nav-link" href="manage-categories.php">Management</a>
               </li>

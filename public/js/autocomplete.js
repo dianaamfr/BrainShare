@@ -1,4 +1,5 @@
-/* FROM GEEKS FOR GEEKS
+/* 
+*  Autocomplete function, from geeks for geeks
 *  https://www.w3schools.com/howto/howto_js_autocomplete.asp
 */
 function autocomplete(inp, arr) {
@@ -67,21 +68,27 @@ function autocomplete(inp, arr) {
     });
   }
   
-var tagsClean = [];
-for(let i = 0; i < tags.length; i++) {
-    tagsClean.push(tags[i].name);
+/* 
+ * Tags and Courses AutoComplete 
+*/
+if(typeof tags !== 'undefined') {
+  var tagsClean = [];
+  for(let i = 0; i < tags.length; i++) {
+      tagsClean.push(tags[i].name);
+  }
+
+  if(document.querySelector(".autoCompleteTags") != null) {
+    autocomplete(document.querySelector(".autoCompleteTags"), tagsClean);
+  }
 }
 
-var coursesClean = [];
-for(let i = 0; i < courses.length; i++) {
-    coursesClean.push(courses[i].name);
-}
+if(typeof courses !== 'undefined') {
+  var coursesClean = [];
+  for(let i = 0; i < courses.length; i++) {
+      coursesClean.push(courses[i].name);
+  }
 
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-if(document.querySelector(".autoCompleteTags") != null) {
-  autocomplete(document.querySelector(".autoCompleteTags"), tagsClean);
-}
-
-if(document.querySelector(".autoCompleteCourses") != null) {
-  autocomplete(document.querySelector(".autoCompleteCourses"), coursesClean);
+  if(document.querySelector(".autoCompleteCourses") != null) {
+    autocomplete(document.querySelector(".autoCompleteCourses"), coursesClean);
+  }
 }

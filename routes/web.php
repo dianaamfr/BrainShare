@@ -12,12 +12,15 @@
 */
 // Home and Static
 Route::get('/', 'HomeController@show')->name('home');
-Route::get('/about', 'HomeController@showAbout')->name('about');
-Route::get('/error', 'HomeController@showError')->name('error');
+Route::get('/about', 'StaticController@showAbout')->name('about');
+Route::get('/notfound', 'StaticController@showNotFound')->name('notfound');
 
-// Search
-Route::get('search', 'SearchController@searchPage')->name('search');
-Route::get('search/query', 'SearchController@advancedSearch')->name('search/query');
+// Search Questions
+Route::get('search', 'SearchController@search')->name('search');
+Route::get('api/search', 'SearchController@advancedSearch')->name('api/search');
+// Search Tags
+Route::get('tags/search', 'TagController@search')->name('tagSearch');
+
 
 // Add Question
 Route::get('question/add', 'QuestionController@showQuestionForm')->name('question');

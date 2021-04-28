@@ -1,6 +1,6 @@
 <div class="card-body card">
     <header class="question-author pagination align-items-center justify-content-end card-header">
-        <img class="rounded-circle" src="images/profile.png" alt="Profile Image"> <!-- Small Profile Image -->
+        <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image"> <!-- Small Profile Image -->
         <div class="d-flex flex-wrap">
             <span> {{$answer->owner->username}}</span> <!-- Username -->
             <span> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
