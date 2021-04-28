@@ -2,8 +2,16 @@
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
 var coursesClean = [];
-for (let i = 0; i < courses.length; i++) {
-    coursesClean.push(courses[i].name);
+var toastElListCourse = [].slice.call(document.querySelectorAll('.toast'));
+let toastBodyCourse = document.querySelector('.toast-body');
+var toastListCourse = toastElListCourse.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl);
+});
+
+if (typeof courses !== 'undefined'){
+    for (let i = 0; i < courses.length; i++) {
+        coursesClean.push(courses[i].name);
+    }
 }
 
 let coursesList = [];
@@ -16,18 +24,16 @@ selectCourse();
 
 function selectCourse() {
     if (courseContainer != null && courseInput != null) {
-
         // Case the course is selected using the keyboard.
         courseInput.addEventListener("keyup", (e) => {
             if (e.key === "Enter") processCourse();
 
-            suggestionList = document.getElementById(
+            let suggestionListCourse = document.getElementById(
                 "questionCoursesSelectautocomplete-list"
             );
-
             // Case the course is selected using the mouse.
-            if (suggestionList !== null) {
-                suggestionList.addEventListener("click", () => processCourse());
+            if (suggestionListCourse !== null) {
+                suggestionListCourse.addEventListener("click", () => processCourse());
             }
         });
     }
@@ -35,12 +41,14 @@ function selectCourse() {
 
 function processCourse() {
     courseInput.value.split(",").forEach((course) => {
-        if (
-            course != "" &&
-            coursesClean.includes(course) &&
-            coursesList.length <= 1
-        ) {
+        if ( course != "" && coursesClean.includes(course) && coursesList.length <= 1 && !coursesList.includes(course)) {
             coursesList.push(course);
+        } else if (course != "" && coursesList.includes(course)){
+            toastBodyCourse.innerText = "Course already included.";
+            toastListCourse[0].show();
+        } else if (course != "") {
+            toastBodyCourse.innerText = "Number of courses must be less than 3.";
+            toastListCourse[0].show();
         }
     });
 

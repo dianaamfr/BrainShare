@@ -6,7 +6,7 @@
         <h2 class="mb-4">Add Question</h2>
         <form method="POST" action="{{ route('question') }}" class="text-start" data-toggle="validator" autocomplete="off">
             {{ csrf_field() }}
-    
+
             <!-- Question Title -->
             <div class="mb-3">
                 <label for="questionTitle" class="form-label">Question title*</label>
@@ -18,7 +18,7 @@
                 @endif
                 <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
             </div>
-            
+
 
             <!-- Question Body -->
             <div class="mb-3">
@@ -38,7 +38,7 @@
             <div class="mb-3 position-relative" >
                 <label for="questionCourseSelect" class="form-label">Course</label>
 
-                <div class="d-flex flex-wrap course-container autocomplete">
+                <div class="d-flex flex-wrap course-container autocomplete overflow-hidden">
                     <input class="form-control autoCompleteCourses" id="questionCoursesSelect" placeholder="Associate Courses here">
                 </div>
                 @if ($errors->has('courseList'))
@@ -47,12 +47,12 @@
                     </span>
                 @endif
             </div>
-            
+
             <!-- Tags -->
             <div class="mb-3 position-relative" >
                 <label for="questionTagsSelect" class="form-label">Tags</label>
 
-                <div class="d-flex flex-wrap tag-container autocomplete">
+                <div class="d-flex flex-wrap tag-container autocomplete overflow-hidden">
                     <input class="form-control autoCompleteTags" id="questionTagsSelect" placeholder="Associate Tags here">
                 </div>
 
@@ -63,6 +63,14 @@
                 @endif
             </div>
 
+            <!-- Toast -->
+            <div class="toast position-fixed bottom-0 end-0 p-3 bg-warning" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body">
+                 </div>
+                  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
             <!--<button type="submit" class="btn btn-primary mt-3">Add Question</button>-->
             <button type="submit" class="btn btn-primary btn-block btn-register" value="Add Question">Add Question</button>
         </form>
@@ -70,6 +78,6 @@
 </div>
 
 <script>const tags = @json($tags);</script>
-<script>const courses = @json($courses);</script> 
+<script>const courses = @json($courses);</script>
 
 @endsection

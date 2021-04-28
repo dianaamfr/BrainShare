@@ -1,9 +1,19 @@
 // Disable submit on enter
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
+// init toast
+var toastElListTag = [].slice.call(document.querySelectorAll('.toast'));
+let toastBodyTag = document.querySelector('.toast-body');
+var toastListTag = toastElListTag.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl);
+});
+
+
 var tagsClean = [];
-for (let i = 0; i < tags.length; i++) {
-    tagsClean.push(tags[i].name);
+if (typeof tags !== 'undefined'){
+    for (let i = 0; i < tags.length; i++) {
+        tagsClean.push(tags[i].name);
+    }
 }
 
 let tagsList = [];
@@ -13,15 +23,16 @@ const tagInput = document.querySelector("#questionTagsSelect");
 populateOldTags();
 selectTag();
 
+
+
 function selectTag() {
     if (tagInput != null && tagContainer != null) {
         // Case the tag is selected using the keyboard.
-        tagInput.addEventListener("keyup", () => {
+        tagInput.addEventListener("keyup", (e) => {
             if (e.key === "Enter")
                 processTag();
-
             // Case the tag is selected using the mouse.
-            suggestionList = document.getElementById(
+            let suggestionList = document.getElementById(
                 "questionTagsSelectautocomplete-list"
             );
             if (suggestionList !== null) {
@@ -33,8 +44,15 @@ function selectTag() {
 
 function processTag() {
     tagInput.value.split(",").forEach((tag) => {
-        if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
+        if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4 && !tagsList.includes(tag)) {
             tagsList.push(tag);
+        } else if (tag != "" && tagsList.includes(tag)){
+            toastBodyTag.innerText = "Tag already included.";
+            toastListTag[0].show();
+        }
+        else if (tag != "") {
+            toastBodyTag.innerText = "Number of tags must be less than 5.";
+            toastListTag[0].show();
         }
     });
 
