@@ -1,3 +1,49 @@
+// Disable submit on enter
+window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+
+var tagsClean = [];
+for(let i = 0; i < tags.length; i++) {
+    tagsClean.push(tags[i].name);
+} 
+let tagsList = []; 
+ 
+const tagContainer = document.querySelector('.tag-container');
+const tagInput = document.querySelector('#questionTagsSelect');  
+
+populateOldTags();  
+
+if(tagInput != null && tagContainer != null) {
+  tagInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        e.target.value.split(',').forEach(tag => {
+          console.log(tag)
+          if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
+              tagsList.push(tag); 
+          }
+        });
+        
+        addTags();
+        tagInput.value = '';
+      }
+  });
+}
+ 
+
+
+function populateOldTags(){ 
+  if (typeof oldTagsList !== 'undefined') {
+    oldTagsList.forEach(tag => {
+      tagsList.push(tag['name']); 
+    }); 
+    addTags();
+  }
+}
+
+/**
+ * Creates the card of a tag for the given label. 
+ * @param {String} label - name of the tag. 
+ * @returns 
+ */
 function createTags(label) {
   let id;
   for(let i = 0; i < tags.length; i++) {
@@ -68,47 +114,4 @@ function addTags() {
   });
 }
 
-window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
-if(typeof tags !== 'undefined') {
-  var tagsClean = [];
-  for(let i = 0; i < tags.length; i++) {
-      tagsClean.push(tags[i].name);
-  }
-  let tagsList = [];
-
-  const tagContainer = document.querySelector('.tag-container');
-  const tagInput = document.querySelector('#questionTagsSelect'); 
-
-  if(tagInput != null && tagContainer != null) {
-    tagInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-          e.target.value.split(',').forEach(tag => {
-            if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4) {
-                tagsList.push(tag); 
-            }
-          });
-          
-          addTags();
-          tagInput.value = '';
-        }
-    });
-  }
-}
-/**
- * Function used to populate courses in edit question. 
- * @param {List} oldCoursesEdit - Courses of the question in the edit page. 
- */
- function addTags(){
-  if (oldTagsEdit !== null){
-    oldTagsEdit.slice().forEach(tag => {
-      tagContainer.prepend(createTags(tag['name'])); 
-    }); 
-  }
-}
-
-
-/**
- * When the page loads adds the courses in the edit.  
- */
-window.addEventListener('load', ()=> addTags()); 

@@ -1,10 +1,11 @@
+ 
 @extends('layouts.app')
 
 @section('content')
 
 <div class="page-margin">
     <section class="background-light container-sm add-question card rounded-1">
-        <h2 class="mb-4">Add Question</h2>
+        <h2 class="mb-4">Edit Question</h2>
         <form method="POST" action="{{ route('question') }}" class="text-start" data-toggle="validator" autocomplete="off">
             {{ csrf_field() }}
     
@@ -68,11 +69,11 @@
             <button type="submit" class="btn btn-primary btn-block btn-register" value="Add Question">Add Question</button>
         </form>
     </section>
-</div> 
+</div>  
 
-<script> const oldTagsEdit= @json($question->tags); </script> 
-<script>const tags = @json($tags);</script> 
-<script> const oldCoursesEdit = @json($question->courses); </script> 
-<script>const courses = @json($courses);</script>
+<script> const tags = @json($tags);</script> 
+<script> const courses = @json($courses);</script> 
 
+<script> const oldTagsList = @json($question->tags); </script> 
+<script> const oldCoursesList = @json($question->courses);</script>
 @endsection 

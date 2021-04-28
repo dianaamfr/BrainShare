@@ -70,5 +70,6 @@
 </div>
 
 <script>const tags = @json($tags);</script>
-<script>const courses = @json($courses);</script>
+<script>const courses = @json($courses);</script> 
+
 @endsection

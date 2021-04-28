@@ -1,8 +1,51 @@
 // Disable submit on enter
 window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
 
+var coursesClean = [];
+for(let i = 0; i < courses.length; i++) {
+    coursesClean.push(courses[i].name);
+}
 
-function createCourses(label) {
+let coursesList = []; 
+
+const courseContainer = document.querySelector('.course-container');
+const courseInput = document.querySelector('#questionCoursesSelect');
+populateOldCourses(); 
+
+
+if(courseContainer != null && courseInput != null) {
+  courseInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+          
+        e.target.value.split(',').forEach(course => {
+          console.log(course)
+          if (course != "" && coursesClean.includes(course) && coursesList.length <= 1) {
+              coursesList.push(course); 
+          }
+        });
+        
+        addCourses();
+        courseInput.value = '';
+      }
+  });
+}
+
+
+function populateOldCourses(){
+  if (typeof oldCoursesList !== 'undefined') {
+    oldCoursesList.forEach(course => { 
+      coursesList.push(course['name']); 
+    });
+    addCourses(); 
+  }
+}
+
+/**
+ * Creates the card of a course for the given label. 
+ * @param {String} label - name of the course. 
+ * @returns 
+ */
+function createCourse(label) {
   let id;
   for(let i = 0; i < courses.length; i++) {
     if (courses[i].name == label)
@@ -29,8 +72,8 @@ function createCourses(label) {
   
   closeIcon.addEventListener('click', function(e) {
     clearCourses();
-    const tagLabel = e.target.getAttribute('data-item');
-    const index = coursesList.indexOf(tagLabel);
+    const courseLabel = e.target.getAttribute('data-item');
+    const index = coursesList.indexOf(courseLabel);
     coursesList = [...coursesList.slice(0, index), ...coursesList.slice(index+1)];
     addCourses();  
   });
@@ -59,57 +102,17 @@ function createCourses(label) {
   return div;
 }
 
+
 function clearCourses() {
   document.querySelectorAll('div .course').forEach(course => {
-    tcourse.parentElement.removeChild(course);
+    course.parentElement.removeChild(course);
   });
 }
+
 
 function addCourses() {
   clearCourses();
   coursesList.slice().reverse().forEach(course => {
-    courseContainer.prepend(createCourses(course));
+    courseContainer.prepend(createCourse(course));
   });
-}  
-
-if(typeof courses !== 'undefined') {
-  var coursesClean = [];
-  for(let i = 0; i < courses.length; i++) {
-      coursesClean.push(courses[i].name);
-  }
-
-  let coursesList = [];
-
-  const courseContainer = document.querySelector('.course-container');
-  const courseInput = document.querySelector('#questionCoursesSelect');
-
-  if(courseContainer != null && courseInput != null) {
-    courseInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            
-          e.target.value.split(',').forEach(course => {
-            if (course != "" && coursesClean.includes(course) && coursesList.length <= 1) {
-                coursesList.push(course); 
-            }
-          });
-          
-          addCourses();
-          courseInput.value = '';
-        }
-    });
-  } 
 }
-
-/**
- * Function used to populate courses in edit question. 
- * @param {List} oldCoursesEdit - Courses of the question in the edit page. 
- */
-function addCourses(){
-  if (oldCoursesEdit !== null){
-    oldCoursesEdit.slice().forEach(course => {
-      courseContainer.prepend(createCourses(course['name'])); 
-    }); 
-  }
-}
-
-window.addEventListener('load', ()=> addCourses()); 

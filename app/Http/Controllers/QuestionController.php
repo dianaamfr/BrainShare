@@ -28,9 +28,6 @@ class QuestionController extends Controller
     }
     
     public function showEditQuestionForm($id){   
-
-      // TODO: read more about authorize  
-
       $question = Question::find($id); 
       $question_owner_id = $question['question_owner_id']; 
       if (!Auth::check()) return redirect('/login');
