@@ -24,7 +24,7 @@
 
     <!-- Questions -->
     <div class="container-md mt-5 question-search-results">
-        @include('partials.search-questions', $questions)
+        @include('partials.search.search-questions', $questions)
     </div>
   </section>
 

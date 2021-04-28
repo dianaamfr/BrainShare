@@ -1066,6 +1066,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   align-items: center;
   box-shadow: rgb(221 221 221) 0px 1px 3px inset;
   width: 100%;
+  color: var(--bs-gray);
 }
 
 #courses-dropdown-list {

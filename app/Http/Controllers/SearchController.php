@@ -12,21 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class SearchController extends Controller
 {
     /**
-     * Show the most recent questions
+     * Show the search page with the results that match the search
      *
      * @return Response
      */
     public function search(Request $request) {
 
-      $courses = Course::all();
+      $courses = Course::has('questions')->get();
 
-      if($request->has('nav-search-input') && $request->input('nav-search-input') != ''){
-        $search = str_replace(' ',' | ', $request->input('nav-search-input'));
-        $questions =  Question::whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search])->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
-      }
-      else {
-        $questions = Question::orderBy('id', 'desc');
-      }
+      $questions = $this->filterQuestions($request);
       
       session()->flashInput($request->input());
       return view('pages.search', ['courses' => $courses, 'questions' => $questions->simplePaginate(10)]);
@@ -34,23 +28,32 @@ class SearchController extends Controller
     }
     
     /**
-     * Show questions that match the advanced search
+     * Get the rendered questions that match the search for Ajax calls
      */
     public function advancedSearch(Request $request){
 
+      $questions = $this->filterQuestions($request);
+  
+      $response = view('partials.search.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
+      return response()->json(array('success' => true, 'html' => $response));
+    }
+
+    public function filterQuestions(Request $request){
+
       $courses = json_decode($request->input('courses'));
       $tags = json_decode($request->input('tags'));
+
       $questions = Question::with(['owner','courses', 'tags']);
 
       // Filter by course
-      if(count($courses) > 0){
+      if($courses != null && count($courses) > 0){
         $questions = $questions->whereHas('courses', function ($query) use ($courses){
           $query->whereIn('id', $courses);
         });   
       } 
 
       // Filter by tag
-      if(count($tags) > 0){
+      if($tags != null && count($tags) > 0){
         $questions = $questions->whereHas('tags', function ($query) use ($tags){
           $query->whereIn('id', $tags);
         });   
@@ -72,9 +75,8 @@ class SearchController extends Controller
       else {
         $questions = $questions->orderBy('id', 'desc');
       } 
-  
-      $response = view('partials.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
-      return response()->json(array('success' => true, 'html' => $response));
+
+      return $questions;
     }
 
 }
