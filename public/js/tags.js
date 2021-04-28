@@ -29,7 +29,6 @@ if(tagInput != null && tagContainer != null) {
 }
  
 
-
 function populateOldTags(){ 
   if (typeof oldTagsList !== 'undefined') {
     oldTagsList.forEach(tag => {

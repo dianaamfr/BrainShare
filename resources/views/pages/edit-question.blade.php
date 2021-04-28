@@ -1,4 +1,4 @@
- 
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,9 +6,10 @@
 <div class="page-margin">
     <section class="background-light container-sm add-question card rounded-1">
         <h2 class="mb-4">Edit Question</h2>
-        <form method="POST" action="{{ route('question') }}" class="text-start" data-toggle="validator" autocomplete="off">
-            {{ csrf_field() }}
-    
+        <form action="{{ route('edit-question', $question->id) }}" method="post"  class="text-start" data-toggle="validator" autocomplete="off">
+            @method('PUT')
+            @csrf
+
             <!-- Question Title -->
             <div class="mb-3">
                 <label for="questionTitle" class="form-label">Question title*</label>
@@ -20,7 +21,7 @@
                 @endif
                 <div id="questionTitleHelp" class="form-text">Try to make the question as clear as possible.</div>
             </div>
-            
+
 
             <!-- Question Body -->
             <div class="mb-3">
@@ -49,7 +50,7 @@
                     </span>
                 @endif
             </div>
-            
+
             <!-- Tags -->
             <div class="mb-3 position-relative" >
                 <label for="questionTagsSelect" class="form-label">Tags</label>
@@ -64,16 +65,15 @@
                     </span>
                 @endif
             </div>
-
-            <!--<button type="submit" class="btn btn-primary mt-3">Add Question</button>-->
-            <button type="submit" class="btn btn-primary btn-block btn-register" value="Add Question">Add Question</button>
+            <input value="{{$question->id}}" name="id" hidden>
+            <button type="submit" class="btn btn-primary btn-block btn-register" value="Update Question">Update Question</button>
         </form>
     </section>
-</div>  
+</div>
 
-<script> const tags = @json($tags);</script> 
-<script> const courses = @json($courses);</script> 
+<script> const tags = @json($tags);</script>
+<script> const courses = @json($courses);</script>
 
-<script> const oldTagsList = @json($question->tags); </script> 
+<script> const oldTagsList = @json($question->tags); </script>
 <script> const oldCoursesList = @json($question->courses);</script>
-@endsection 
+@endsection

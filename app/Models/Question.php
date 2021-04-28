@@ -35,10 +35,6 @@ class Question extends Model
     protected $hidden = [
         'search', 'answers_search',
     ];
-    
-    public function getId(){
-        return $this->getId(); 
-    }
 
     public function owner(){
         return $this->belongsTo(User::class, 'question_owner_id');
@@ -55,5 +51,5 @@ class Question extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class, 'question_tag');
     }
-    
+
 }
