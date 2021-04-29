@@ -33,6 +33,7 @@ class QuestionController extends Controller
      */
     public function create(Request $request)
     {
+      
       $question = new Question();
       
       $this->authorize('create', Question::class);

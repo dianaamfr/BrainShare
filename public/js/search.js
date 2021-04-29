@@ -165,7 +165,6 @@ if(searchPage){
         event.preventDefault();
         if(searchBar.querySelector("input[type='search']").value == '') return;
 
-        resetSearchBtn.hidden = false;
         searchFilters[0].parentElement.hidden = false;
         searchFilters[0].checked = true;
         sendAdvancedSearchRequest();
@@ -233,8 +232,12 @@ function updateResetBtn(){
     let textInput = searchBar.querySelector("input[type='search']");
 
     if(coursesSelected == 0 && tagBadges == 0 && textInput.value == '' && filter.value == 'new' ){
-        resetSearchBtn.hidden = true;
-    } else resetSearchBtn.hidden = false;
+        resetSearchBtn.classList.remove('d-block');
+        resetSearchBtn.classList.add('d-none');
+    } else {
+        resetSearchBtn.classList.add('d-block');
+        resetSearchBtn.classList.remove('d-none');
+    }
 }
 
 function searchPagination(event) {
@@ -247,3 +250,13 @@ function updatePagination() {
     document.querySelectorAll('.pagination a').forEach(
         paginationLink => { paginationLink.addEventListener('click', searchPagination);});
 }
+
+// Main search bar
+let mainSearch = document.querySelector('.main-search');
+mainSearch.addEventListener('submit', function(event){
+    event.preventDefault();
+    if(mainSearch.children[0].value == '')
+        mainSearch.children[1].value = 'new';
+    
+    mainSearch.submit();
+});

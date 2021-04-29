@@ -40,6 +40,7 @@ class SearchController extends Controller
 
     public function filterQuestions(Request $request){
 
+      $hasTextSearch = trim($request->input('search-input')) != '';
       $courses = json_decode($request->input('courses'));
       $tags = json_decode($request->input('tags'));
 
@@ -60,7 +61,7 @@ class SearchController extends Controller
       } 
     
       // Filter by text search
-      if($request->input('search-input') != ''){
+      if($hasTextSearch){
         $search = str_replace(' ',' | ', $request->input('search-input'));
         $questions = $questions->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
       }
@@ -69,7 +70,8 @@ class SearchController extends Controller
       if($request->input('filter') == 'votes'){
         $questions = $questions->orderBy('score', 'desc');
       }
-      else if($request->input('filter') == 'relevance'){
+      else if($request->input('filter') == 'relevance' && $hasTextSearch){
+        $search = str_replace(' ',' | ', $request->input('search-input'));
         $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
       }
       else {
