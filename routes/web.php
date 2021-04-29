@@ -40,16 +40,16 @@ Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
 
 // Deletes
-Route::delete('/question/{id}', 'QuestionController@deleteQuestion')->name('delete-question');
+Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
 //Route::delete('/question/{id-q}/answer/{id-a}','QuestionController@deleteComment')->name('delete-comment');
-Route::delete('/user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
+Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
 // Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('showProfile');
 

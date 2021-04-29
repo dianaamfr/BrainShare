@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'signup_date', 'birthday', 
+        'username', 'email', 'password', 'signup_date', 'birthday',
         'name', 'image', 'description', 'score', 'ban', 'course_id',
         'user_role'
     ];
@@ -48,7 +48,6 @@ class User extends Authenticatable
 
     public function isModerator() {
         return $this->user_role === 'Moderator';
-    } 
+    }
 
-    
 }

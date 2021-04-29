@@ -140,7 +140,7 @@ class QuestionController extends Controller
     }
 
     // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
-    public function deleteQuestion($questionId){
+    public function delete($questionId){
 
         $question = Question::find($questionId);
         $user = User::find($question->question_owner_id);
@@ -148,16 +148,13 @@ class QuestionController extends Controller
         // If you are not logged in, redirect to the login page
         if(!Auth::check()) return redirect('login');
 
-        // If you hav eno permissions to delete de questions, redirect to the same page
-        if (!(Auth::user()->id == $ownerId || Auth::user()->isModerator() || Auth::user()->isAdmin()) || !$this->authorize($user,$question))
-            return redirect('/question/{' . $questionId . '}');
-            //return redirect()->back();
+        $this->authorize('delete', $question);
 
         // Delete the question from the table
         $question->delete();
 
         // Return to the search page if the question is sucessfull deleted
-        return view('pages.search');
+        return redirect()->route('search');
     }
 
 }

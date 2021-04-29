@@ -17,19 +17,19 @@
                         @endforeach
 
                         <!-- Edit/Delete: only for Registred Users -->
-                        @if (Auth::check())
+                        @can('delete', $question) <!--Only checks for registratin, doenst check if it is the owner -->
                         <div class="edit-question ms-auto">
                             <div class="icon-hover" title="Edit">
                                 <a href="edit-question.php"><i class="far fa-edit"></i></a>
                                 <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
                             <div class="icon-hover" title="Delete">
-                            
-                                <button ><i class="far fa-trash-alt"></i></button>
+
+                                <button type="submit"><i class="far fa-trash-alt"></i></button>
                                 <button ><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
-                        @endif
+                        @endcan
                     </div>
 
                     <!-- Question Title -->
@@ -37,27 +37,25 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
-                        <!-- Course -->
-                        @foreach ($question->courses as $course)
-                        <span class="category course badge rounded-pill bg-secondary">
-                            <i class="fas fa-graduation-cap"></i>
-                            {{$course->name}}
-                        </span>
-                        @endforeach
+
 
                         <!-- Edit/Delete: only for Registered Users -->
-                        @if (Auth::check())
+                        @can('delete', $question) <!--Only checks for registratin, doenst check if it is the owner -->
                         <div class="edit-question">
                             <div class="icon-hover" title="Edit">
                                 <a href="edit-question.php"><i class="far fa-edit"></i></a>
                                 <a href="edit-question.php"><i class="fas fa-edit"></i></a>
                             </div>
-                            <div class="icon-hover" title="Delete">
-                                <button><i class="far fa-trash-alt"></i></button>
-                                <button><i class="fas fa-trash-alt"></i></button>
-                            </div>
+                            <form method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
+                                @method('DELETE')
+                                @csrf
+                                <div class="icon-hover">
+                                    <button type="submit"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </form>
                         </div>
-                        @endif
+                        @endcan
                     </div>
                 </div>
 

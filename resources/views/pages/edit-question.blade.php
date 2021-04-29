@@ -2,7 +2,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="page-margin">
     <section class="background-light container-sm add-question card rounded-1">
         <h2 class="mb-4">Edit Question</h2>
