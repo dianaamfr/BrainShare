@@ -28,7 +28,7 @@
             </div>
         </header>
 
-        <div class="limited-text-3 card-body md-content md-remove">
+        <div class="limited-text-3 card-body md-remove">
             {{ Str::limit($question->content, 400) }}
         </div>
 
