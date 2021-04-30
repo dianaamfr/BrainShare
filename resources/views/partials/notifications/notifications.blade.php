@@ -11,7 +11,7 @@
               <li class="list-group-item list-group-item-action container">
                 <div class="d-flex align-items-center">
                   <a href="question.php" >
-                    <img src="images/profile.png" alt="profile picture" class="rounded-circle">
+                    <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                     <span class="fw-bold">pedrov111</span>
                     <span>has answered your question.</span>
                   </a>
@@ -36,7 +36,7 @@
               
               <li class="list-group-item list-group-item-action container">
                 <a href="question.php">
-                <img src="images/profile.png" alt="profile picture" class="rounded-circle">
+                <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                     <span class="fw-bold">carlos123</span>
                     <span>has commented your answer.</span>
                 </a>
@@ -59,7 +59,7 @@
               <li class="list-group-item list-group-item-action container">
               <div class="d-flex align-items-center">
                   <a href="question.php">
-                    <img src="images/profile.png" alt="profile picture" class="rounded-circle">
+                    <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                     <span class="fw-bold">diaaaana2003</span>
                     <span>has answered your question.</span>
                   </a>

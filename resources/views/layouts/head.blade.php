@@ -25,7 +25,7 @@
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 
 <!-- Pagination -->
-<script type="text/javascript" src={{ asset('js/pagination.js') }} defer></script>
+<script  src={{ asset('js/pagination.js') }} defer></script>
 
 <!-- Rich Text -->
 <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
@@ -33,13 +33,13 @@
 <script src="https://lab.lepture.com/editor/marked.js" defer></script>
 
 <!-- Scripts -->
-<script type="text/javascript" src={{ asset('js/search.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/tags.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/courses.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/autocomplete.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/editor.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/parseMD.js') }} defer></script>
-<script type="text/javascript" src={{ asset('js/removeMD.js') }} defer></script>
+<script  src={{ asset('js/search.js') }} defer></script>
+<script  src={{ asset('js/tags.js') }} defer></script>
+<script  src={{ asset('js/courses.js') }} defer></script>
+<script  src={{ asset('js/autocomplete.js') }} defer></script>
+<script  src={{ asset('js/editor.js') }} defer></script>
+<script  src={{ asset('js/parseMD.js') }} defer></script>
+<script  src={{ asset('js/removeMD.js') }} defer></script>
 
 <!-- Carousel -->
 <!-- <script src="js/homepage-carousel.js" defer></script> -->

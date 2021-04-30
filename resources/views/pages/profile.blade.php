@@ -6,7 +6,7 @@
         <div class="one">
             <h3 class="nickname mb-4">joaquina123</h3>
             <div class="profile-pic col-md mb-4">
-                <img class="rounded-circle img-thumbnail" src="images/profile.png" alt="Profile Image">
+                <img class="rounded-circle img-thumbnail" src="{{asset('images/profile.png')}}" alt="Profile Image">
             </div>
             <p><span class="score">User Score:</span> <span class="points">17 points</span></p>
         </div>

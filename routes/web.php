@@ -43,7 +43,7 @@ Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('ed
 // Deletes
 Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
 //Route::delete('/question/{id-q}/answer/{id-a}','QuestionController@deleteComment')->name('delete-comment');
-Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
+//Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
 // Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -8,7 +8,7 @@
         {{ csrf_field() }}
 
         <div class="mb-4 text-center">
-            <img class="bd-placeholder-img img-thumbnail rounded-circle mb-3" id="register-image" src="images/profile.png" alt="profile image">
+            <img class="bd-placeholder-img img-thumbnail rounded-circle mb-3" id="register-image" src="{{asset('images/profile.png')}}" alt="profile image">
             <div class="mb-4">
             <input type="file" id="register-file" class="form-control-file">
             <label for="register-file" class="custom-file-upload btn-link">

@@ -36,7 +36,7 @@
 
             <!-- Course -->
             <div class="mb-3 position-relative" >
-                <label for="questionCourseSelect" class="form-label">Course</label>
+                <label for="questionCoursesSelect" class="form-label">Course</label>
 
                 <div class="d-flex flex-wrap course-container autocomplete overflow-hidden">
                     <input class="form-control autoCompleteCourses" id="questionCoursesSelect" placeholder="Associate Courses here">
