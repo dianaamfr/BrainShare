@@ -14,12 +14,7 @@
                 <!-- Mobile Question details -->
                 <div class="d-none question-details d-flex mb-3">
                      <!-- Courses -->
-                    @foreach ($question->courses as $course)
-                        <span class="category course badge rounded-pill bg-secondary">
-                            <i class="fas fa-graduation-cap"></i>
-                            {{$course->name}}
-                        </span>
-                    @endforeach
+                    @include('partials.question.courses')
                 </div>
 
                 <!-- Question Title -->
@@ -28,36 +23,23 @@
                 <!-- Desktop Question details -->
                 <div class="question-details d-flex">
                     <!-- Courses -->
-                    @foreach ($question->courses as $course)
-                        <span class="category course badge rounded-pill bg-secondary">
-                            <i class="fas fa-graduation-cap"></i>
-                            {{$course->name}}
-                        </span>
-                    @endforeach
+                    @include('partials.question.courses')
                 </div>
             </div>
         </header>
-        <div class="limited-text-3 card-body md-content md-remove"> 
+
+        <div class="limited-text-3 card-body md-content md-remove">
             {{ Str::limit($question->content, 400) }}
         </div>
 
         <!-- Tags and User -->
         <footer class="card-footer d-flex align-items-center flex-wrap">
             <div class="flex-grow-1 mb-1">
-                @foreach ($question->tags as $tag)
-                <span class="category tag badge bg-secondary">
-                    <i class="fas fa-hashtag"></i>
-                    {{$tag->name}}
-                </span>
-                @endforeach
+                @include('partials.question.tags')
             </div>
-            <div class="question-author d-inline-flex align-items-center">
-                <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile image"> <!-- Small Profile Image -->
-                <div class="d-flex flex-wrap">
-                    <span>{{$question->owner->username}}</span> <!-- Username -->
-                    <span> {{ date('d-m-Y H:i', strtotime($question->date)) }} </span> <!-- Date -->
-                </div>
-            </div>
+
+            @include('partials.question.author')
+
         </footer>
     </div>
     <div class="counts-mobile">
