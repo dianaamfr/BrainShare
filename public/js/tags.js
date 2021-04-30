@@ -1,3 +1,5 @@
+import createButtonTrash from './common.js';
+
 // Disable submit on enter
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
@@ -47,7 +49,7 @@ function addTags() {
 }
 
 /**
- * If it is the edit page, then populate the input field with the desired tags.
+ * If it is at the edit page, then populate the input field with the desired tags.
  */
 function populateOldTags() {
     if (typeof oldTagsList !== "undefined") {
@@ -129,7 +131,7 @@ function createTagCard(label) {
     hiddenV.hidden = true;
 
     let buttonClose = createButtonTrash();
-    clickButtonTrash(buttonClose);
+    clickButtonTrashTag(buttonClose);
 
     div.appendChild(innerDiv);
     div.appendChild(hiddenV);
@@ -139,30 +141,12 @@ function createTagCard(label) {
     return div;
 }
 
-/**
- * Adds the trash button in the tag card.
- * @returns Returns the button.
- */
-function createButtonTrash(){
-    const buttonClose = document.createElement("button");
-    buttonClose.setAttribute("class", "p-0 icon-hover");
 
-    const iTrashFar = document.createElement("i");
-    iTrashFar.setAttribute("class", "far fa-trash-alt");
-
-    const iTrashFas = document.createElement("i");
-    iTrashFas.setAttribute("class", "fas fa-trash-alt");
-
-    buttonClose.appendChild(iTrashFar);
-    buttonClose.appendChild(iTrashFas);
-
-    return buttonClose;
-}
 
 /**
  * Handles the action of pressing the trash click button.
  */
-function clickButtonTrash(buttonClose){
+function clickButtonTrashTag(buttonClose){
     buttonClose.addEventListener("click", function (e) {
         clearTags();
         let cardElement = e.target.parentElement.parentElement;
@@ -170,7 +154,6 @@ function clickButtonTrash(buttonClose){
         const index = tagsList.indexOf(tagLabel);
         tagsList.splice(index, 1);
         addTags();
-        console.log(tagsList);
     });
 }
 
