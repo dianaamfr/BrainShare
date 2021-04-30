@@ -21,7 +21,7 @@
         </div>
 
         <div class="col align-self-start ps-4">
-            {{$answer->content}}
+            {{ $answer->content }}
         </div>
 
         <div class="d-flex flex-column justify-content-center col-auto">

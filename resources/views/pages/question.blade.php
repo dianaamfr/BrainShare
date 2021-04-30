@@ -40,7 +40,12 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
-
+                        @foreach ($question->courses as $course)
+                            <span class="category course badge rounded-pill bg-secondary">
+                                <i class="fas fa-graduation-cap"></i>
+                                {{$course->name}}
+                            </span>
+                        @endforeach
 
                         <!-- Edit/Delete: only for Registered Users -->
                         @can('delete', $question)
@@ -85,7 +90,7 @@
                     </button>
                 </div>
                 <div class="question-content md-content col align-self-start ps-4">
-                    {{$question->content}}
+                    {{ htmlentities($question->content) }}
                 </div>
             </div>
 

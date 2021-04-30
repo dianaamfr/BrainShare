@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="my-bg-main-blue mb-4 error text-center">
-    <h1>404!</h1>
+    <h1>404</h1>
     <p class="lead"> Nothing to find here! Try to find your questions in another page.</p>
 </div>
 

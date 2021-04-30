@@ -26,8 +26,8 @@
                 <p class="lead mb-5 about-text">In order to enjoy all the provided features, we recommend you to create an account. Once you join our community you can not only search for questions but you can also customize your profile and start questioning and answering.
                 </p>
                 <div class="mb-3">
-                    <a href="register" class="btn btn-primary mx-2">Register</a>
-                    <a href="search" class="btn btn-outline-primary mx-2">Search</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary mx-2">Register</a>
+                    <a href="{{ route('search') }}" class="btn btn-outline-primary mx-2">Search</a>
                 </div>
             </div>
             <div class="col-md-5 feature-image order-md-1" id="about-image2">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\Course;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,15 @@ class SearchController extends Controller
      *
      * @return Response
      */
+
     public function search(Request $request) {
 
-      $courses = Course::has('questions')->get();
+      $validated = $request->validate([
+        'filter' => Rule::in(['votes', 'new', 'relevance']),
+        'page' => 'integer',
+      ]); 
 
+      $courses = Course::has('questions')->get();
       $questions = $this->filterQuestions($request);
       
       session()->flashInput($request->input());
@@ -31,6 +37,12 @@ class SearchController extends Controller
      * Get the rendered questions that match the search for Ajax calls
      */
     public function advancedSearch(Request $request){
+      
+      $validated = $request->validate([
+        'filter' => Rule::in(['votes', 'new', 'relevance']),
+        'page' => 'integer'
+      ]);
+      
 
       $questions = $this->filterQuestions($request);
   
@@ -40,9 +52,13 @@ class SearchController extends Controller
 
     public function filterQuestions(Request $request){
 
-      $hasTextSearch = trim($request->input('search-input')) != '';
+      $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "",$request->input('search-input'))));
+      $hasTextSearch = $stripSearch != '';
       $courses = json_decode($request->input('courses'));
       $tags = json_decode($request->input('tags'));
+
+      $rules = array('courses'=>'numericarray',
+                    'tags'=>'numericarray');
 
       $questions = Question::with(['owner','courses', 'tags']);
 
@@ -62,7 +78,7 @@ class SearchController extends Controller
     
       // Filter by text search
       if($hasTextSearch){
-        $search = str_replace(' ',' | ', $request->input('search-input'));
+        $search = str_replace(' ',' | ', $stripSearch);
         $questions = $questions->whereRaw("search||Coalesce(answers_search,'') @@ to_tsquery('simple',?)", [$search]);
       }
 
@@ -71,7 +87,7 @@ class SearchController extends Controller
         $questions = $questions->orderBy('score', 'desc');
       }
       else if($request->input('filter') == 'relevance' && $hasTextSearch){
-        $search = str_replace(' ',' | ', $request->input('search-input'));
+        $search = str_replace(' ',' | ', $stripSearch);
         $questions = $questions->orderByRaw("ts_rank(search||Coalesce(answers_search,''),to_tsquery('simple',?)) DESC", [$search]);
       }
       else {

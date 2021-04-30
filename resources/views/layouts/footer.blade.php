@@ -4,7 +4,7 @@
             <h5>Who we are</h5>
             <ul class="list-unstyled text-small">
                 <li><a class="link-secondary" href="{{ route('home') }}">Home</a></li>
-                <li><a class="link-secondary" href="about.php">About us</a></li>
+                <li><a class="link-secondary" href="{{route('about')}}">About us</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">
@@ -12,7 +12,7 @@
             <ul class="list-unstyled text-small">
                 <li><a class="link-secondary" href="{{ route('login') }}">Login</a></li>
                 <li><a class="link-secondary" href="{{ route('register') }}">Register</a></li>
-                <li><a class="link-secondary" href="profile.php">Profile</a></li>
+                <li><a class="link-secondary" href="/user/1/profile">Profile</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">
@@ -25,9 +25,9 @@
         <div class="col-6 col-md">
             <h5>Management</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="link-secondary" href="manage-categories.php">Manage Categories</a></li>
-                <li><a class="link-secondary" href="manage-reports.php">Manage Reports</a></li>
-                <li><a class="link-secondary" href="manage-users.php">Manage Users</a></li>
+                <li><a class="link-secondary" href="{{route('manage-categories')}}">Manage Categories</a></li>
+                <li><a class="link-secondary" href="{{route('manage-reports')}}">Manage Reports</a></li>
+                <li><a class="link-secondary" href="{{route('manage-users')}}">Manage Users</a></li>
             </ul>
         </div>
     </nav>

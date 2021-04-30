@@ -17,8 +17,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-      $questions = Question::with(['owner','courses', 'tags']);
-      $questions = $questions->orderBy('score', 'desc');
+      $questions = Question::with(['owner','courses', 'tags'])->orderBy('score', 'desc');
       return view('pages.home', ['questions' => $questions->simplePaginate(5)]);
     }
-}
+  }

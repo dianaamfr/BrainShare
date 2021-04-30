@@ -35,7 +35,7 @@
             <!-- Administrator/Moderator -->
             @if(Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()))
               <li class="nav-item">
-                <a class="nav-link" href="manage-categories.php">Management</a>
+                <a class="nav-link" href="{{ route('manage-categories') }}">Management</a>
               </li>
             @endif
             
@@ -45,8 +45,8 @@
           <div class="ms-4 registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
             <!-- Registered Users options -->
-            @if (Auth::check())
-              <a class="nav-link profile-button registration-button" href="profile.php">
+            @if (Auth::check()) 
+              <a class="nav-link profile-button registration-button" href="/user/1/profile">
                   <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>

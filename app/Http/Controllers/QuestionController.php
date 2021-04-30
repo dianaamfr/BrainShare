@@ -59,11 +59,10 @@ class QuestionController extends Controller
       $result = DB::transaction(function() use($request) {
         $question = new Question();
 
-
         // Add Question
         $question->question_owner_id = Auth::user()->id;
-        $question->title = $request->title;
-        $question->content = $request->content;
+        $question->title = htmlentities($request->title);
+        $question->content = htmlentities($request->content);
         $question->save();
 
 
@@ -99,6 +98,7 @@ class QuestionController extends Controller
      * Updates an existing question.
      */
     public function updateQuestion(Request $request){
+
       $validated = $request->validate([
         'title' => 'required',
         'content' => 'required',
@@ -108,12 +108,12 @@ class QuestionController extends Controller
         'tagList.*' => 'distinct',
       ]);
 
-
       $result = DB::transaction(function() use($request) {
         $question = Question::find(intval($request->id));
+        
         // Edit Question
-        $question->title = $request->title;
-        $question->content = $request->content;
+        $question->title = htmlentities($request->title);
+        $question->content = htmlentities($request->content);
         $question->save();
 
 

@@ -20,41 +20,16 @@
                 <h2 class="mb-4 ">What is BrainShare? <span class="text-muted ">The way to learn.</span> </h2>
                 <p class="mb-5">BrainShare is a Q&A forum that allows FEUP students to answer their own doubts about about their courses!
                     All our features are completely free, since our goal is to be the center of information in our college.</p>
-                <a href="about" class="btn btn-outline-primary mb-4">About Us</a>
+                <a href="{{ route('about') }}" class="btn btn-outline-primary mb-4">About Us</a>
             </div>
             <div class="col-md-5 homepage-feature-image1">
             </div>
         </div>
 
-        <!-- Courses -->
-        <!-- <section class="homepage-course position-relative"> 
-            <h2 class="mb-4 text-center">Courses</h2>
-            <div class="row gx-0 ">
-                <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
-                    <div class="course-icon" id="course-icon1"></div>
-                    <h3 class="mt-4">MIEIC</h3>
-                    <p class="mb-3">Masters in Informatics and Computation Engineering</p>
-                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
-                </div>
-                <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
-                    <div class="course-icon" id="course-icon2"></div>
-                    <h3 class="mt-4">MIEC</h3>
-                    <p class="mb-3">Masters in Civil Engineering</p>
-                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
-                </div>
-                <div class="col-md-4 homepage-course-container my-5 d-flex flex-column align-items-center text-center">
-                    <div class="course-icon" id="course-icon3"></div>
-                    <h3 class="mt-4">MIEEC</h3>
-                    <p class="mb-3">Master in Electrical and Computers Engineering</p>
-                    <a href="search#" class="btn btn-outline-primary">Check questions</a>
-                </div>
-            </div>
-        </section> -->
-
         <section class="feature questions">
             <h2 class="mb-4 text-center">Featured Questions</h2>
             <div class="my-5">
-                <!-- first question -->
+                <!-- First questions -->
                 @each('partials.question-card', $questions, 'question')
             </div> 
         </section>

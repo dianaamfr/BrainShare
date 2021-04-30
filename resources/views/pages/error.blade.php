@@ -7,7 +7,7 @@
 </div>
 
 <div class="d-flex justify-content-center my-4">
-    <a href="search" class="btn btn-primary mx-3">Search</a>
-    <a href="question/add" class="btn btn-primary mx-3">Add Question</a>
+    <a href="{{ route('search') }}" class="btn btn-primary mx-3">Search</a>
+    <a href="{{ route('add-question') }}" class="btn btn-primary mx-3">Add Question</a>
 </div>
 @endsection

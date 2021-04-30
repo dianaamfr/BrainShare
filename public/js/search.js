@@ -8,7 +8,7 @@ function encodeForAjax(data) {
   
 function sendAjaxGetRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
-
+    
     request.open(method, url + '?' + encodeForAjax(data), true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.addEventListener('load', handler);
@@ -47,12 +47,12 @@ function searchUpdateHandler(){
 
 function sendSearchTagsRequest() {
 
-    sendAjaxGetRequest('get', 'api/tags/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
+    sendAjaxGetRequest('get', 'api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 
 function getTagByIdRequest(badge) {
-    console.log('api/tags/' + badge.getAttribute('data-tag-id'),)
-    sendAjaxGetRequest('get', 'api/tags/' + badge.getAttribute('data-tag-id'), null, 
+    console.log('api/tag/' + badge.getAttribute('data-tag-id'),)
+    sendAjaxGetRequest('get', 'api/tag/' + badge.getAttribute('data-tag-id'), null, 
         function(){
             let response = JSON.parse(this.responseText);
             badge.innerHTML = response.name + badge.innerHTML;
