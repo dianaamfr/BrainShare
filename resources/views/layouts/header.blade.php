@@ -65,3 +65,5 @@
       </div>
     </nav>
 </header>
+
+@include('partials.notifications.notifications')
