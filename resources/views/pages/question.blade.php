@@ -19,14 +19,17 @@
                         <!-- Edit/Delete: only for Registred Users -->
                         @can('delete', $question) <!--Only checks for registratin, doenst check if it is the owner -->
                         <div class="edit-question ms-auto">
-                            <div class="icon-hover" title="Edit">
-                                <a href="edit-question.php"><i class="far fa-edit"></i></a>
-                                <a href="edit-question.php"><i class="fas fa-edit"></i></a>
-                            </div>
-                            <div class="icon-hover" title="Delete">
-
-                                <button type="submit"><i class="far fa-trash-alt"></i></button>
-                                <button ><i class="fas fa-trash-alt"></i></button>
+                            <a class="icon-hover" title="Edit"  href="{{route('edit-question', $question->id)}}">
+                                <i class="far fa-edit"></i>
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <div method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
+                                @method('DELETE')
+                                @csrf
+                                <button class="icon-hover" type="submit">
+                                    <i class="far fa-trash-alt"></i>
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                         @endcan
@@ -40,19 +43,19 @@
 
 
                         <!-- Edit/Delete: only for Registered Users -->
-                        @can('delete', $question) <!--Only checks for registratin, doenst check if it is the owner -->
+                        @can('delete', $question)
                         <div class="edit-question">
-                            <div class="icon-hover" title="Edit">
-                                <a href="edit-question.php"><i class="far fa-edit"></i></a>
-                                <a href="edit-question.php"><i class="fas fa-edit"></i></a>
-                            </div>
+                            <a class="icon-hover" title="Edit" href="{{route('edit-question', $question->id)}}">
+                                <i class="far fa-edit"></i>
+                                <i class="fas fa-edit"></i>
+                            </a>
                             <form method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
                                 @method('DELETE')
                                 @csrf
-                                <div class="icon-hover">
-                                    <button type="submit"><i class="far fa-trash-alt"></i></button>
-                                    <button type="submit"><i class="fas fa-trash-alt"></i></button>
-                                </div>
+                                <button class="icon-hover" type="submit">
+                                    <i class="far fa-trash-alt"></i>
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </form>
                         </div>
                         @endcan
@@ -70,16 +73,16 @@
 
             <!-- Question Text -->
             <div class="row align-items-center px-3">
-                <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+                <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
                     <p class="points m-0">{{$question->score}}</p>
-                    <div class="icon-hover vote_btn" title="Up Vote">
-                        <button><i class="bi bi-caret-up"></i></button>
-                        <button><i class="bi bi-caret-up-fill"></i></button>
-                    </div>
-                    <div class="icon-hover vote_btn" title="Down Vote">
-                        <button><i class="bi bi-caret-down"></i></button>
-                        <button><i class="bi bi-caret-down-fill"></i></button>
-                    </div>
+                    <button class="icon-hover vote_btn" title="Up Vote">
+                        <i class="bi bi-caret-up"></i>
+                        <i class="bi bi-caret-up-fill"></i>
+                    </button>
+                    <button class="icon-hover vote_btn" title="Down Vote">
+                       <i class="bi bi-caret-down"></i>
+                       <i class="bi bi-caret-down-fill"></i>
+                    </button>
                 </div>
                 <div class="question-content md-content col align-self-start ps-4">
                     {{$question->content}}
@@ -98,10 +101,10 @@
                 </div>
 
                 <div class="ms-auto report-icon" title="Report">
-                    <div class="icon-hover">
-                        <button><i class="far fa-flag"></i></button>
-                        <button><i class="fas fa-flag"></i></button>
-                    </div>
+                    <button class="icon-hover">
+                        <i class="far fa-flag"></i>
+                        <i class="fas fa-flag"></i>
+                    </button>
                 </div>
             </footer>
 

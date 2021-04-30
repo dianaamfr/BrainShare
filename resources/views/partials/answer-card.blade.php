@@ -8,16 +8,16 @@
     </header>
 
     <div class="row align-items-center px-3">
-        <div class="col-auto d-flex flex-column justify-content-center align-items-center">
+        <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
             <p class="points m-0">{{$answer->score}}</p>
-            <div class="icon-hover vote_btn" title="Up Vote">
-                <button><i class="bi bi-caret-up"></i></button>
-                <button><i class="bi bi-caret-up-fill"></i></button>
-            </div>
-            <div class="icon-hover vote_btn" title="Down Vote">
-                <button><i class="bi bi-caret-down"></i></button>
-                <button><i class="bi bi-caret-down-fill"></i></button>
-            </div>
+            <button class="icon-hover vote_btn" title="Up Vote">
+                <i class="bi bi-caret-up"></i>
+                <i class="bi bi-caret-up-fill"></i>
+            </button>
+            <button class="icon-hover vote_btn" title="Down Vote">
+                <i class="bi bi-caret-down"></i>
+                <i class="bi bi-caret-down-fill"></i>
+            </button>
         </div>
 
         <div class="col align-self-start ps-4">
@@ -33,10 +33,10 @@
         <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
 
         <div class="report-icon" title="Report">
-            <div class="icon-hover">
-                <button><i class="far fa-flag"></i></button>
-                <button><i class="fas fa-flag"></i></button>
-            </div>
+            <button class="icon-hover">
+                <i class="far fa-flag"></i>
+                <i class="fas fa-flag"></i>
+            </button>
         </div>
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm" role="button" aria-expanded="false" aria-controls="collapseCommentForm">Add Comment</a>

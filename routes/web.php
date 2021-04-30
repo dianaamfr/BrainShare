@@ -62,8 +62,3 @@ Route::post('api/item/{id}', 'ItemController@update');
 Route::delete('api/item/{id}', 'ItemController@delete');
 */
 
-// ROUTES TO DO
-/*
-
-
-*/

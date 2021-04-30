@@ -482,16 +482,16 @@ a.profile-button {
   padding-right: unset;
 }
 
-.icon-hover button:last-child,
-.icon-hover button:last-child,
-.icon-hover:hover button:first-child,
+.icon-hover :last-child,
+.icon-hover :last-child,
+.icon-hover:hover :first-child,
 .icon-hover a:last-child,
 .icon-hover a:last-child,
 .icon-hover:hover a:first-child {
   display: none;
 }
 
-.icon-hover:hover button:last-child,
+.icon-hover:hover :last-child,
 .icon-hover:hover a:last-child {
   display: inline-block;
 }

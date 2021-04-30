@@ -50,10 +50,10 @@
                   <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>
-              <div class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
-                <button><i class="far fa-bell"></i></button>
-                <button><i class="fas fa-bell"></i></button>
-              </div>
+              <button class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                <i class="far fa-bell"></i>
+                <i class="fas fa-bell"></i>
+              </button>
               <a class="registration-button btn btn-outline-primary" href="{{ route('logout') }}">Logout</a>
             @else 
               <a class="registration-button btn btn-primary" href="{{ route('login') }}">Login</a>

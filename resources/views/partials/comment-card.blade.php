@@ -8,10 +8,10 @@
             <span> {{ date('d-m-Y H:i', strtotime($comment->date)) }} </span> <!-- Date -->
         </div>
         <div class="ms-auto report-icon" title="Report">
-            <div class="icon-hover">
-                <button><i class="far fa-flag"></i></button>
-                <button><i class="fas fa-flag"></i></button>
-            </div>
+            <button class="icon-hover">
+                <i class="far fa-flag"></i>
+                <i class="fas fa-flag"></i>
+            </button>
         </div>
     </div>
 </div>
