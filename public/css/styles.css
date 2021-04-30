@@ -852,7 +852,7 @@ article.question .card-title {
   font-size: 1.1rem;
 }
 
-.manage-tag-card span.icon-hover button {
+.manage-tag-card .icon-hover {
     color: var(--main-blue);
 }
 
