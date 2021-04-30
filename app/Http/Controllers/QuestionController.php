@@ -143,7 +143,6 @@ class QuestionController extends Controller
     public function delete($questionId){
 
         $question = Question::find($questionId);
-        $user = User::find($question->question_owner_id);
 
         // If you are not logged in, redirect to the login page
         if(!Auth::check()) return redirect('login');
