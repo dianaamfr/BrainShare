@@ -183,6 +183,11 @@
 
 @media (max-width: 767px) {
 
+    #search-page #tags-selected {
+      width: unset;
+      flex: 1;
+    }
+
     /* Header */
   
     .navbar-dark .navbar-brand {
@@ -247,6 +252,42 @@
     display: none;
   }
 }
+
+@media (max-width: 600px) {
+  #search-header {
+    display: block!important;
+  }
+
+  #search-page input, .courses-tags-search h6, #courses-dropdown {
+    font-size: 0.9rem;
+  }
+
+  #order-filters {
+    margin-top: 2rem;
+    justify-content: flex-start;
+  }
+
+  .courses-tags-search:last-child {
+    margin-top: 0.75rem;
+  }
+
+  #order-filters li {
+    margin-left: unset;
+    margin-right: 0.5rem;
+  }
+
+  #questions-search-bar .navbar {
+    display: block;
+  }
+
+  .courses-tags-search{
+    min-width: 
+  }
+
+  #order-filters li label {
+    padding: 0.1rem 0.4rem;
+  }
+}
   
 @media (max-width: 450px) {
     /* Smaller screens - Mobile */
@@ -257,6 +298,10 @@
     /* Management */
 
     .management {
+      padding: 0 1rem;
+    }
+
+    #search-page {
       padding: 0 1rem;
     }
 
@@ -279,6 +324,17 @@
   
     #search-page {
       padding-top: unset;
+    }
+
+    #order-filters li#mobile-search-filters{
+      display: block;
+      border: unset;
+      margin-left: auto;
+      font-size: 1.2rem;
+    }
+
+    #order-filters li#mobile-search-filters svg {
+      color: var(--main-blue);
     }
   
     .bd-subnavbar .nav-link {
@@ -313,9 +369,14 @@
     .question-preview.card, 
     .answer.card .card-body {
         box-shadow: unset;
-        border-radius: 0;
-        border-left: 0;
-        border-right: 0;
+    }
+
+    .question-preview.card .question-header > h4 > a {
+      font-size: 1.2rem;
+    }
+
+    #questions-search-bar .navbar {
+       display: none;
     }
 
     .question-preview.card {

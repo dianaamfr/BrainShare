@@ -17,8 +17,12 @@ class TagController extends Controller
      */
     public function search(Request $request)
     {
-      $tags = Tag::where('name', 'ILIKE', $request->input('tag-input') . '%')->get();
+      $tags = Tag::has('questions')->where('name', 'ILIKE', $request->input('tag-input') . '%')->get();
       return response()->json(['tags' => $tags]);
+    }
+
+    public function find(Request $request, $id){
+      return Tag::find($id);
     }
 
 }

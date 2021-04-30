@@ -60,6 +60,10 @@
 .autocomplete {
   position: relative;
   display: inline-block;
+  padding: 6px;
+  overflow-x: auto;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
 }
 
 .autocomplete-items {
@@ -87,19 +91,13 @@
   color: #ffffff; 
 }
 
-#questionCoursesSelect, #questionTagsSelect {
+#questionCoursesSelect, #questionTagsSelect, #search-page input[name="tag-input"] {
     border: 0;
     outline: none;
     flex: 1;
     box-shadow: unset;
-    padding: 0.5rem;
-}
-
-.autocomplete {
-  padding: 6px;
-    overflow-x: scroll;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
+    background-color: unset;
+    min-width: 150px;
 }
 
 /* ---- Body ---- */
@@ -293,6 +291,15 @@ button {
 
 .badge {
   font-weight: 400;
+}
+
+.bg-primary {
+  background-color: var(--main-blue)!important;
+  cursor: pointer;
+}
+
+.bg-primary:hover {
+  background-color: rgb(216, 56, 56)!important;
 }
 
 .bg-secondary {
@@ -851,24 +858,30 @@ article.question .card-title {
 
 /* ----- Search Page ---- */
 
-#search-filters {
-  justify-content: flex-end;
+#search-page {
+  max-width: 1400px;
+  margin: auto;
 }
 
-#search-filters li {
+#order-filters {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#order-filters li {
   border: 1px solid var(--main-blue); 
   border-radius: 0.25rem;
   height: min-content;
   margin-left: 0.5rem;
 }
 
-#search-filters li label {
+#order-filters li label {
   color: var(--main-blue);
   padding: 0.5rem;
   cursor: pointer;
 }
 
-#search-filters li input:checked + label {
+#order-filters li input:checked + label {
   background-color: var(--main-blue);
   border-color: var(--main-blue);
   color: var(--white);
@@ -900,13 +913,13 @@ article.question .card-title {
   margin: 2rem 0 0.5rem;
 }
 
-#search-page header #questions-search-bar .form-control,
+#search-page input[name="search-input"],
 #profile-search .form-control {
   border-radius: 0.25rem 0 0 0.25rem;
   border-right: unset;
 }
 
-#search-page header #questions-search-bar .btn,
+#search-page button[name="search-submit"],
 #profile-search .btn {
   border-radius: 0 0.25rem 0.25rem 0;
 }
@@ -969,80 +982,46 @@ article.question .card-title {
 }
 
 
-/* Search side bar */
-
-/* Accordion with search*/ 
-.accordion-search button[type="submit"]{
-  padding-bottom: 0.5rem;
-}
-.accordion-search input , .accordion-search button[type="submit"]{
-  border-radius: 0; 
-}
-
-.accordion-search .list-group button:first-of-type{
-  border-radius: 0; 
-}
-
-#side-bar {
-  padding: 0;
-  height: min-content;
-  max-width: 40%;
-}
-
-#side-bar a {
-  color: var(--black);
-  text-decoration: unset;
-}
-
-#side-bar .accordion-body {
-  padding: 0;
-}
-
-#side-bar h6 > button:hover {
-  color: var(--main-blue);
-}
-
-#side-bar .accordion-button {
-  background-color: var(--clean-white);
-  border-bottom: unset;
-}
-
-#side-bar .accordion-button:not(.collapsed) {
-  color: var(--main-blue);
-  background-color: var(--clean-white);
-}
-
-#side-bar .accordion-button:focus {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  outline: unset;
-  box-shadow: unset;
-}
-
-#side-bar .accordion-button:not(.collapsed)::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='dimgray'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-}
-
-#side-bar .accordion-item:nth-child(2) .accordion-button::after {
-  background-image: unset;
-}
-
-.accordion-item:last-of-type .accordion-button.collapsed {
-  border-bottom-right-radius: unset;
-  border-bottom-left-radius: unset;
-}
-
-input[name='tag-input'] {
-  border-radius: 0;
-  box-shadow: unset;
-}
+/* Search filters */
 
 input[name='tag-input'] + .input-group-append .btn-primary {
   border-radius: 0;
 }
 
+#tags-selected {
+  display: block;
+  width: 400px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  box-shadow: rgb(221 221 221) 0px 1px 3px inset;
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+  overflow-x: auto;
+}
+
+#tags-selected .fa-times {
+  margin-left: 0.2rem;
+}
+
 #tags-search-results {
   padding: 0;
   font-weight: 400;
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid rgba(0,0,0,.15);
+  display: none;
 }
 
 #tags-search-results:first-child {
@@ -1051,19 +1030,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 .form-control:focus {
   box-shadow: unset;
-}
-
-#side-bar .list-group {
-  border-radius: 0.25rem;
-}
-
-#side-bar .list-group-item.active {
-  background-color: var(--main-blue);
-  border-color: var(--main-blue);
-}
-
-.accordion-button {
-  font-weight: 500;
 }
 
 .course-filter, .tag-filter{
@@ -1078,12 +1044,73 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 }
 
 .course-filter-input:checked + label, .tag-filter-input:checked + label { 
-  background-color: var(--main-blue);
-  opacity: 80%;
+  background-color: rgb(158, 201, 236);
   color: var(--white);
+  background-color: #c1c2c34a;
+  font-weight: 500;
 }
 
+#mobile-search-filters {
+  display: none;
+}
 
+.courses-tags-search {   
+  position: relative;
+}
+
+#courses-dropdown {
+  display: flex;
+  padding: .375rem 0.5rem .375rem .5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-black);
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgb(221 221 221) 0px 1px 3px inset;
+  color: var(--bs-gray);
+}
+
+#courses-dropdown.dropdown-toggle::after {
+  margin-left: 2rem;
+}
+
+#courses-dropdown-list {
+  width: 100%;
+}
+
+#questions-search-bar .navbar .dropdown-item {
+  padding: unset;
+}
+
+#questions-search-bar .dropdown-menu[data-bs-popper] {
+  margin-top: 0;
+}
+
+#questions-search-bar .dropdown-menu {
+  padding: unset;
+  border-top: unset;
+  min-width: unset;
+}
+
+#questions-search-bar .navbar > div:first-child {
+  margin-right: 1rem;
+  position: relative;
+}
+
+#questions-search-bar  .list-group-item {
+  border-left: unset;
+  border-right: unset;
+  border-top: unset;
+  color: var(--text-black);
+}
+
+#courses-dropdown .list-group-item:last-child {
+  border-bottom: unset;
+}
 
 /* ---- About ---- */
 
