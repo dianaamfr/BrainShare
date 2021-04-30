@@ -23,14 +23,14 @@
                                 <i class="far fa-edit"></i>
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <div method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
+                            <form method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
                                 @method('DELETE')
                                 @csrf
                                 <button class="icon-hover" type="submit">
                                     <i class="far fa-trash-alt"></i>
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                            </div>
+                            </form>
                         </div>
                         @endcan
                     </div>
