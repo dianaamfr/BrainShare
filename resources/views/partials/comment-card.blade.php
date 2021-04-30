@@ -1,6 +1,6 @@
 <div class="comment">
     <div class="comment-text d-inline-block">
-        {{ htmlentities($comment->content) }}
+        {{ $comment->content }}
     </div>
     <div class="d-flex">
         <div class="comment-author">

@@ -1,3 +1,5 @@
+import createButtonTrash from './common.js';
+
 // Disable submit on enter
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
@@ -24,25 +26,65 @@ populateOldTags();
 selectTag();
 
 
+/**
+ * Remove all tags from the input bar.
+ */
+function clearTags() {
+    document.querySelectorAll("div .tag").forEach((tag) => {
+        tag.parentElement.removeChild(tag);
+    });
+}
 
+/**
+ * Add tags in the tagList array to the input bar.
+ */
+function addTags() {
+    clearTags();
+    tagsList
+        .slice()
+        .reverse()
+        .forEach((tag) => {
+            tagContainer.prepend(createTagCard(tag));
+        });
+}
+
+/**
+ * If it is at the edit page, then populate the input field with the desired tags.
+ */
+function populateOldTags() {
+    if (typeof oldTagsList !== "undefined") {
+        oldTagsList.forEach((tag) => {
+            tagsList.push(tag["name"]);
+        });
+        addTags();
+    }
+}
+
+
+/**
+ * Handle events to add the selected tag to the input.
+ */
 function selectTag() {
     if (tagInput != null && tagContainer != null) {
         // Case the tag is selected using the keyboard.
         tagInput.addEventListener("keyup", (e) => {
             if (e.key === "Enter")
-                processTag();
+                addTagOnInput();
             // Case the tag is selected using the mouse.
             let suggestionList = document.getElementById(
                 "questionTagsSelectautocomplete-list"
             );
             if (suggestionList !== null) {
-                suggestionList.addEventListener("click", () => processTag());
+                suggestionList.addEventListener("click", () => addTagOnInput());
             }
         });
     }
 }
 
-function processTag() {
+/**
+ * Adds the selected tag to the input.
+ */
+function addTagOnInput() {
     tagInput.value.split(",").forEach((tag) => {
         if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4 && !tagsList.includes(tag)) {
             tagsList.push(tag);
@@ -60,21 +102,12 @@ function processTag() {
     tagInput.value = "";
 }
 
-function populateOldTags() {
-    if (typeof oldTagsList !== "undefined") {
-        oldTagsList.forEach((tag) => {
-            tagsList.push(tag["name"]);
-        });
-        addTags();
-    }
-}
-
 /**
  * Creates the card of a tag for the given label.
  * @param {String} label - name of the tag.
  * @returns
  */
-function createTags(label) {
+function createTagCard(label) {
     let id;
     for (let i = 0; i < tags.length; i++) {
         if (tags[i].name == label) id = tags[i].id;
@@ -97,54 +130,30 @@ function createTags(label) {
     hiddenV.readOnly = true;
     hiddenV.hidden = true;
 
-    const closeIcon = document.createElement("span");
-    closeIcon.setAttribute("class", "icon-hover");
-    closeIcon.setAttribute("title", "Delete");
-
-    closeIcon.addEventListener("click", function (e) {
-        clearTags();
-        const tagLabel = e.target.getAttribute("data-item");
-        const index = tagsList.indexOf(tagLabel);
-        tagsList = [...tagsList.slice(0, index), ...tagsList.slice(index + 1)];
-        addTags();
-    });
-
-    const buttonOne = document.createElement("button");
-    buttonOne.setAttribute("class", "p-0");
-    const iOne = document.createElement("i");
-    iOne.setAttribute("class", "far fa-trash-alt");
-
-    const buttonTwo = document.createElement("button");
-    buttonTwo.setAttribute("class", "p-0");
-    const iTwo = document.createElement("i");
-    iTwo.setAttribute("class", "fas fa-trash-alt");
-    iTwo.setAttribute("data-item", label);
+    let buttonClose = createButtonTrash();
+    clickButtonTrashTag(buttonClose);
 
     div.appendChild(innerDiv);
     div.appendChild(hiddenV);
     innerDiv.appendChild(span);
-    innerDiv.appendChild(closeIcon);
-
-    closeIcon.appendChild(buttonOne);
-    closeIcon.appendChild(buttonTwo);
-    buttonOne.appendChild(iOne);
-    buttonTwo.appendChild(iTwo);
+    innerDiv.appendChild(buttonClose);
 
     return div;
 }
 
-function clearTags() {
-    document.querySelectorAll("div .tag").forEach((tag) => {
-        tag.parentElement.removeChild(tag);
+
+
+/**
+ * Handles the action of pressing the trash click button.
+ */
+function clickButtonTrashTag(buttonClose){
+    buttonClose.addEventListener("click", function (e) {
+        clearTags();
+        let cardElement = e.target.parentElement.parentElement;
+        let tagLabel = cardElement.querySelector("span").innerText;
+        const index = tagsList.indexOf(tagLabel);
+        tagsList.splice(index, 1);
+        addTags();
     });
 }
 
-function addTags() {
-    clearTags();
-    tagsList
-        .slice()
-        .reverse()
-        .forEach((tag) => {
-            tagContainer.prepend(createTags(tag));
-        });
-}

@@ -1,3 +1,5 @@
+import createButtonTrash from './common.js';
+
 // Disable submit on enter
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
@@ -21,25 +23,63 @@ const courseInput = document.querySelector("#questionCoursesSelect");
 populateOldCourses();
 selectCourse();
 
+/**
+ * Remove all courses from the input bar.
+ */
+function clearCourses() {
+    document.querySelectorAll("div .course").forEach((course) => {
+        course.parentElement.removeChild(course);
+    });
+}
 
+/**
+ * Add courses in the courseList array to the input bar.
+ */
+function addCourses() {
+    clearCourses();
+    coursesList
+        .slice()
+        .reverse()
+        .forEach((course) => {
+            courseContainer.prepend(createCourseCard(course));
+        });
+}
+/**
+ * If it is at the edit page, populate the input field with the desired courses.
+ */
+function populateOldCourses() {
+    if (typeof oldCoursesList !== "undefined") {
+        oldCoursesList.forEach((course) => {
+            coursesList.push(course["name"]);
+        });
+        addCourses();
+    }
+}
+
+/**
+ * Handle events to add the selected course to the input.
+ */
 function selectCourse() {
     if (courseContainer != null && courseInput != null) {
         // Case the course is selected using the keyboard.
         courseInput.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") processCourse();
+            if (e.key === "Enter") addCourseOnInput();
 
             let suggestionListCourse = document.getElementById(
                 "questionCoursesSelectautocomplete-list"
             );
             // Case the course is selected using the mouse.
             if (suggestionListCourse !== null) {
-                suggestionListCourse.addEventListener("click", () => processCourse());
+                suggestionListCourse.addEventListener("click", () => addCourseOnInput());
             }
         });
     }
 }
 
-function processCourse() {
+/**
+ * Adds the selected course to the input.
+ */
+function addCourseOnInput() {
     courseInput.value.split(",").forEach((course) => {
         if ( course != "" && coursesClean.includes(course) && coursesList.length <= 1 && !coursesList.includes(course)) {
             coursesList.push(course);
@@ -56,21 +96,13 @@ function processCourse() {
     courseInput.value = "";
 }
 
-function populateOldCourses() {
-    if (typeof oldCoursesList !== "undefined") {
-        oldCoursesList.forEach((course) => {
-            coursesList.push(course["name"]);
-        });
-        addCourses();
-    }
-}
 
 /**
  * Creates the card of a course for the given label.
  * @param {String} label - name of the course.
  * @returns
  */
-function createCourse(label) {
+function createCourseCard(label) {
     let id;
     for (let i = 0; i < courses.length; i++) {
         if (courses[i].name == label) id = courses[i].id;
@@ -93,57 +125,30 @@ function createCourse(label) {
     hiddenV.readOnly = true;
     hiddenV.hidden = true;
 
-    const closeIcon = document.createElement("span");
-    closeIcon.setAttribute("class", "icon-hover");
-    closeIcon.setAttribute("title", "Delete");
 
-    closeIcon.addEventListener("click", function (e) {
-        clearCourses();
-        const courseLabel = e.target.getAttribute("data-item");
-        const index = coursesList.indexOf(courseLabel);
-        coursesList = [
-            ...coursesList.slice(0, index),
-            ...coursesList.slice(index + 1),
-        ];
-        addCourses();
-    });
+    let buttonClose = createButtonTrash();
+    clickButtonTrashCourse(buttonClose);
 
-    const buttonOne = document.createElement("button");
-    buttonOne.setAttribute("class", "p-0");
-    const iOne = document.createElement("i");
-    iOne.setAttribute("class", "far fa-trash-alt");
-
-    const buttonTwo = document.createElement("button");
-    buttonTwo.setAttribute("class", "p-0");
-    const iTwo = document.createElement("i");
-    iTwo.setAttribute("class", "fas fa-trash-alt");
-    iTwo.setAttribute("data-item", label);
 
     div.appendChild(innerDiv);
     div.appendChild(hiddenV);
     innerDiv.appendChild(span);
-    innerDiv.appendChild(closeIcon);
+    innerDiv.appendChild(buttonClose);
 
-    closeIcon.appendChild(buttonOne);
-    closeIcon.appendChild(buttonTwo);
-    buttonOne.appendChild(iOne);
-    buttonTwo.appendChild(iTwo);
-
-    return div;
+     return div;
 }
 
-function clearCourses() {
-    document.querySelectorAll("div .course").forEach((course) => {
-        course.parentElement.removeChild(course);
+
+/**
+ * Handles the action of pressing the trash click button.
+ */
+function clickButtonTrashCourse(buttonClose){
+    buttonClose.addEventListener("click", function (e) {
+        clearCourses();
+        let cardElement = e.target.parentElement.parentElement;
+        let courseLabel = cardElement.querySelector("span").innerText;
+        const index = coursesList.indexOf(courseLabel);
+        coursesList.splice(index, 1);
+        addCourses();
     });
-}
-
-function addCourses() {
-    clearCourses();
-    coursesList
-        .slice()
-        .reverse()
-        .forEach((course) => {
-            courseContainer.prepend(createCourse(course));
-        });
 }

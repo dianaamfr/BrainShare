@@ -33,10 +33,7 @@
         <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
 
         <div class="report-icon" title="Report">
-            <button class="icon-hover">
-                <i class="far fa-flag"></i>
-                <i class="fas fa-flag"></i>
-            </button>
+            @include('partials.question.report', ['margin' => ''])
         </div>
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm" role="button" aria-expanded="false" aria-controls="collapseCommentForm">Add Comment</a>

@@ -33,16 +33,17 @@
 <script src="https://lab.lepture.com/editor/marked.js" defer></script>
 
 <!-- Scripts -->
+<script  src={{ asset('js/parseMD.js') }} type="module" defer></script>
+<script  src={{ asset('js/removeMD.js') }} type="module" defer></script>
 <script  src={{ asset('js/search.js') }} defer></script>
-<script  src={{ asset('js/tags.js') }} defer></script>
-<script  src={{ asset('js/courses.js') }} defer></script>
+<script  src={{ asset('js/tags.js') }} type="module" defer></script>
+<script  src={{ asset('js/courses.js') }} type="module" defer></script>
 <script  src={{ asset('js/autocomplete.js') }} defer></script>
-<script  src={{ asset('js/editor.js') }} defer></script>
-<script  src={{ asset('js/parseMD.js') }} defer></script>
-<script  src={{ asset('js/removeMD.js') }} defer></script>
+<script  src={{ asset('js/editor.js') }}  defer></script>
+
 
 <!-- Carousel -->
 <!-- <script src="js/homepage-carousel.js" defer></script> -->
 
-<!-- Library to translate MD to html --> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script> 
+<!-- Library to translate MD to html -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous"></script>

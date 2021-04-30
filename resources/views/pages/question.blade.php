@@ -9,30 +9,11 @@
                     <!-- Mobile Question details -->
                     <div class="d-none question-details d-flex mb-3">
                         <!-- Course -->
-                        @foreach ($question->courses as $course)
-                        <span class="category course badge rounded-pill bg-secondary">
-                            <i class="fas fa-graduation-cap"></i>
-                            {{$course->name}}
-                        </span>
-                        @endforeach
+                        @include('partials.question.courses')
 
                         <!-- Edit/Delete: only for Registred Users -->
-                        @can('delete', $question) <!--Only checks for registratin, doenst check if it is the owner -->
-                        <div class="edit-question ms-auto">
-                            <a class="icon-hover" title="Edit"  href="{{route('edit-question', $question->id)}}">
-                                <i class="far fa-edit"></i>
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
-                                @method('DELETE')
-                                @csrf
-                                <button class="icon-hover" type="submit">
-                                    <i class="far fa-trash-alt"></i>
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
-                        @endcan
+                        @include('partials.question.editDelete', ['margin' => 'ms-auto'])
+
                     </div>
 
                     <!-- Question Title -->
@@ -40,77 +21,34 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
-                        @foreach ($question->courses as $course)
-                            <span class="category course badge rounded-pill bg-secondary">
-                                <i class="fas fa-graduation-cap"></i>
-                                {{$course->name}}
-                            </span>
-                        @endforeach
 
-                        <!-- Edit/Delete: only for Registered Users -->
-                        @can('delete', $question)
-                        <div class="edit-question">
-                            <a class="icon-hover" title="Edit" href="{{route('edit-question', $question->id)}}">
-                                <i class="far fa-edit"></i>
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post" action="{{ route('delete-question', $question->id) }}" title="Delete">
-                                @method('DELETE')
-                                @csrf
-                                <button class="icon-hover" type="submit">
-                                    <i class="far fa-trash-alt"></i>
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
-                        @endcan
+                        @include('partials.question.courses')
+
+                        <!-- Edit/Delete: only for Registred Users -->
+                        @include('partials.question.editDelete', ['margin' => ''])
                     </div>
                 </div>
 
-                <div class="question-author d-inline-flex align-items-center">
-                    <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image"> <!-- Small Profile Image -->
-                    <div class="d-flex flex-wrap">
-                        <span>{{$question->owner->username}}</span> <!-- Username -->
-                        <span> {{ date('d-m-Y H:i', strtotime($question->date)) }} </span> <!-- Date -->
-                    </div>
-                </div>
+                <!-- Question Owner details -->
+                @include('partials.question.author')
+
             </header>
 
             <!-- Question Text -->
             <div class="row align-items-center px-3">
-                <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
-                    <p class="points m-0">{{$question->score}}</p>
-                    <button class="icon-hover vote_btn" title="Up Vote">
-                        <i class="bi bi-caret-up"></i>
-                        <i class="bi bi-caret-up-fill"></i>
-                    </button>
-                    <button class="icon-hover vote_btn" title="Down Vote">
-                       <i class="bi bi-caret-down"></i>
-                       <i class="bi bi-caret-down-fill"></i>
-                    </button>
-                </div>
-                <div class="question-content md-content col align-self-start ps-4">
-                    {{ htmlentities($question->content) }}
-                </div>
+                @include('partials.question.questionText')
             </div>
 
-            <!-- Tags -->
-            <footer class="d-flex">
-                <div class="question-tags">
-                    @foreach ($question->tags as $tag)
-                    <span class="category tag badge bg-secondary">
-                        <i class="fas fa-hashtag"></i>
-                        {{$tag->name}}
-                    </span>
-                    @endforeach
-                </div>
 
-                <div class="ms-auto report-icon" title="Report">
-                    <button class="icon-hover">
-                        <i class="far fa-flag"></i>
-                        <i class="fas fa-flag"></i>
-                    </button>
-                </div>
+            <!-- Footer -->
+            <footer class="d-flex">
+
+                <!-- Tags -->
+                @include('partials.question.tags')
+
+                <!-- Report Button -->
+                @include('partials.question.report',['margin' => 'ms-auto'])
+
             </footer>
 
         </div>
@@ -131,16 +69,7 @@
 
     <!-- Submit Answer Form -->
     <form id="submit-answer">
-        <div class="mb-1 p-3">
-            <label for="question-text-area" class="form-label">Post an Answer</label>
-                <div class="border form-control" id="submitAnswerTextarea">
-                    <textarea id="question-text-area" class="form-control" placeholder="Type your answer here"></textarea>
-                </div>
-        <button class="btn btn-primary mt-3" type="submit">Submit Answer</button>
-        </div>
-        <div class="back-top">
-            <a class="btn btn-outline-primary mb-5" href=#page-top>Back to Top</a>
-        </div>
+       @include('partials.question.answer-form')
     </form>
 </div>
 @endsection

@@ -1,28 +1,51 @@
 
 /**
- * @usage The elements that need to be parsed to markdown 
- * must be envolved in a <div class="md-content"></div> with just 
- * text inside. 
- * New lines must be declared as <br>. In the case of this project, 
- * the text editor already handles this operation. 
+ * @usage The elements that need to be parsed to markdown
+ * must be envolved in a <div class="md-content"></div> with just
+ * text inside.
+ * New lines must be declared as <br>. In the case of this project,
+ * the text editor already handles this operation.
  */
 
-const converter = new showdown.Converter(); 
+const converter = new showdown.Converter();
 // Must not set id's on elements, due the possibility of conflicts.
-converter.setOption('noHeaderId', true);             
-// Style. 
-converter.setFlavor('github'); 
+converter.setOption('noHeaderId', true);
+// Style.
+converter.setFlavor('github');
 
-try { 
-  const md_element_list = document.getElementsByClassName("md-content"); 
-  
-  // Convert all the text marked as .md-content to html. 
-  for (let i = 0; i < md_element_list .length; i++) { 
-    const md_item = md_element_list[i]; 
-    const html_text = converter.makeHtml(md_item.innerText);  
-    md_item.innerHTML = html_text; 
-  } 
+convertMD("md-content");
 
-} catch (e) {
-  console.warn("No content to parse to MD");
+/**
+ * Converts a text to markDown.
+ */
+export default function convertMD(className){
+    try {
+    const md_element_list = document.getElementsByClassName(className);
+    // Convert all the text marked as .md-content to html.
+    for (let i = 0; i < md_element_list .length; i++) {
+        let md_item = md_element_list[i];
+        let text = removeTab(md_item);
+        const html_text = converter.makeHtml(text);
+        md_item.innerHTML = html_text;
+    }
+
+    } catch (e) {
+    console.warn("No content to parse to MD");
+    }
+}
+
+/**
+ * Remove tab in the first line.
+ */
+function removeTab(md_item ){
+    let md_list = md_item.innerHTML.split("\n");
+    let text = "";
+
+    md_list[1] = md_list[1].trim();
+
+    md_item.innerHTML = "";
+    md_list.forEach((element) => text+= element + "\n");
+
+    return text;
+
 }
