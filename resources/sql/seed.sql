@@ -646,40 +646,93 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Gibson','nulla.Cras.eu@tacitisociosquad.ca', 'bb4f13803368267216b06e71f9ef29dcb70c763836787f53983699c2534b6dc1','2006-08-27','Benjamin','2005-10-22 01:22:56',3,'False','RegisteredUser');
 
 -- question
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'Converter a string 5.541,00 para int em C#', 'Qual a maneira correta de converter uma string com o texto 5.541,88 para int? Estou a tentar encontrar uma função para isso mas nada até agora.', '2021-01-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Criar array em php, guardando quantas vezes uma string aparece', 'Bom Dia! Estou com um problema, eu tenho duas strings $procurar e $nome_das_maquinas, dentro de procurar eu tenho o texto completo, e dentro de $nome_das_maquinas as palavras que eu desejo procurar na variável $procurar.', '2021-01-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'Como calcular a velocidade média?', 'Sabendo que a distancia é 100m e o tempo 50s', '2020-06-21');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 3, 'Qual é o mais básico?', 'água ou lixivia?', '2020-09-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Como usar autocad', 'Preciso de saber usar autocad!', '2020-09-11');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 11, 'Ajuda com economia', 'Uma taxa de juros a 1% é muito?', '2020-10-14');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 17, 'Metodos númericos, o que é o golden ratio', 'O stor falou de golden ratio, mas eu não percebi! Alguém me ajude!', '2021-02-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 98, 'LBAW, não sei fazer SQL ajudem', 'Como configuro postgresql?', '2021-02-27');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 75, 'Como contruir pontes como a da feup?', 'Alguem me ajude com materiais para contruir uma ponte', '2021-03-11');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 16, 'Como fazer desenho tecnico', 'Content', '2021-03-08');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 20, 'Preciso de ajuda a resolver equações diferenciais', 'Content', '2021-03-25');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 21, 'Como alterar o RNA de uma molecula?', 'Tenho um trablaho prático de biologia', '2021-01-10');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 25, 'Diferença entre crossover e mutation', 'Qual é a diferença entre crossover e mutação nos algoritmos geneticos', '2020-09-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 29, 'Teoria de Darwin', 'Hoje o professor mencionou a teoria evolucionista de Darwin. Alguém me pode ajudar a perceber melhor a mesma?', '2020-11-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 34, 'Devo usar stimulated ameling ou tabu search', 'Qual é o melhor para otimizar o problema do google hashcode 2018?', '2020-12-13');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 46, 'Como fazer um TSP', 'Preciso de fazer uma TSP para entregar daqui a 30minutos. Alguma dica? Se alguém tiver código em C++ que diga!', '2020-03-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 76, 'AJUDA COM MIPS URGENTE!', 'Eu não percebo nada de comp alguém que me ajudeeee! ', '2020-04-17');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', '
+I like very much css grid because of its simplicity. But there seems to be a performance issue with css grid that flexbox does not have.
+I have implemented a two column full screen page both columns having a form with input box and a list of items with overflow-y:auto. One example where the left and right panel are implemented using flexbox and one where left and right panel are implemented with css grid.
+this is the flexbox version : https://web-platform-wtfgmj.stackblitz.io/
+and this is the css grid version : https://web-platform-wtfgmj.stackblitz.io/index2.html
+Open the developper tools in chrome and enable paint flashing (tools/rendering has to be enabled). When typing in one of the input boxes, the css grid version will repaint all items in the list. The flexbox version does not have this problem.
+I would like to understand why css grid repaints all items in the list when typing in the input box ? And can it somehow be avoided ?', '2021-01-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B', '
+A particle traveling with velocity va
+in the medium A and with velocity vb in the medium B. The particle starts at time t=0 from the point Pi and has to get in the minimum time to the point Pj.
+How can i determine the trajectory that this particle must follow to reach the point Pf
+in minimum time.', '2020-06-21');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Best way to initialize (empty) array in PHP', 'In certain other languages (AS3 for example), it has been noted that initializing a new array is faster if done like this var foo = [] rather than var foo = new Array() for reasons of object creation and instantiation. I wonder whether there are any equivalences in PHP?', '2021-01-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 3, 'Building bridges problem - how to apply longest increasing subsequence?', 'The building bridges problem is stated as follows:
+There is a river that runs horizontally through an area. There are a set of cities above and below the river. Each city above the river is matched with a city below the river, and you are given this matching as a set of pairs.
+You are interested in building a set of bridges across the river to connect the largest number of the matching pairs of cities, but you must do so in a way that no two bridges intersect one another.
+Devise an algorithm to solve this problem as efficiently as possible.', '2020-09-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'How can i run code on autocad', 'Hello this is my code and i dont know how to run and get output of this code. Please suggest me the answer for this.And I want to create command for autocad using this code so suggest me according to this requirement.', '2020-09-11');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 11, 'How is AVC(Average Variable Cost) ‘U’ shaped because of the principle of variable Proportions?', '
+How is AVC(Average Variable Cost) ‘U’ shaped because of the principle of variable Proportions?
+How are average variable cost(AVC) and marginal product(MP) related?
+', '2020-10-14');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 17, 'Is the golden ratio defined in Python?', '
+Is there a way to get the golden ratio, phi, in the standard python module? I know of e and pi in the math module, but I might have missed phi defined somewhere.
+', '2021-02-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 98, 'Learning SQL. Where to get started?', 'I want to start learning sql? Where should I get started from? I am looking specific answers for: Platform - Windows/ Linux RDBMS - MSSQL/ Oracle/ MySQL Books - that goes along with some real world case studies (not the boring author/books relationship) Online resources - tutorials/ real world projects', '2021-02-27');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 75, 'How to build like a feup engineer?', 'I wanna know which engineers built the feup bridge that is always bouncing. Tó ferreira already explained something but i want to know more', '2021-03-11');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 16, 'How to draw the Stack Overflow icon with TikZ?', 'How would you draw the Stack Overflow icon with TikZ?', '2021-03-08');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 20, 'drawing individuals parameters in mlogit', '
+I am analyzing a conjoint survey with a mixed logit model through R with mlogit.
+Im wondering if there is any function that gives me parameters for individual respondents, like mixlbeta from STATA. (Im trying to work on a simulation) Ive read the documentation by Croissant and seems like there is no specific function for that matter?
+Am I missing something? or would you be kind enough to share your experience with me?
+Thank you for your time :)', '2021-03-25');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 21, 'Can you modify RNA?', 'I  have a pratical work to my biology class and i had to question this', '2021-01-10');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 25, 'Genetic Algorithms - Crossover and Mutation operators for paths', 'I was wondering if anyone knew any intuitive crossover and mutation operators for paths within a graph? Thanks!', '2020-09-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 29, 'What are good examples of genetic algorithms/genetic programming solutions?', 'Id like to know about specific problems you have solved using GA/GP and what libraries/frameworks you used if you didnt roll your own.
+Questions:
+    What problems have you used GA/GP to solve?
+    What libraries/frameworks did you use?
+Im looking for first-hand experiences, so please do not answer unless you have that.', '2020-11-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 34, 'Understanding simulated annealing- conceptually', '
+i have just been introduced to simulated annealing and would like to understand it better before delving into the code again as I feel like I dont quite get it despite reading the code from the resources I have so far. So please feel free to correct my current understanding of the algorithm:
+    Simulated annealing algorithm has an overall goal of achieving the minimum(or maximum) score based on some predefined method of computation (like distance travelled in TSP or codon pair distribution in bioinformatics). However, to avoid being trapped in a local optima, a temporary lower (or higher) score is accepted so as to achieve a better global solution.
+An additional question: How is the local optima overcome? Is it by accepting a higher score based on some probability? (quite hazy from here on)
+Thank you very much for looking into this..
+', '2020-12-13');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 46, 'Data for simple TSP', 'I wrote a simple genetic algorithm that can solve traveling salesman problem with 5 cities. 
+I want to see how it does on a problem with more cities, something like 10, 25, 50, 100, but I cant find a sample date for the problem to try it on. Basically, I am looking for 2D lists or matrices with distances between cities. It would be nice if there is a solution. Where should I look?', '2020-03-01');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 76, 'MIPS: Using the stack', 'I was reading in a MIPS manual that: "Notice we use the “unsigned” version of the “add immediate” instruction because we are dealing with an address, which is an unsigned binary number. We wouldn’t want to generate an exception just because a computed address crossed over the mid-point of the memory space."
+What does this mean exactly? Specifically crossing over the mid-point of the memory space.
+And also, in the following code, I dont understand why it skips from 8($sp) to 20($sp). The code loads from 12($sp) and 16($sp) later but when is it doing something with these portions of memory. I was thinking possible in jal JILL, but there isnt really much explanation given.', '2020-04-17');
 
 -- answer
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Basta usar a função da library de c para mudar de string para int!', '2021-12-05', TRUE);  
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 20, 'Tens de fazer 100-50', '2021-01-08', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 5, 'Basta user a fórmula delta v = delta d sobre delta t', '2020-06-30', FALSE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 4, 31, 'Eu não tenho certeza, mas acho que lixivia é mais básico.', '2020-10-01', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 5, 45, 'Creio que não seja possível explicar como fazer isto aqui por texto. Mas Tenta dar uma olhada no site, eles tem um bom tutorial guiado.Boa sorte.', '2020-10-11', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 6, 70, 'Olá, poderia fornecer mais informações? A taxa de juros depende qual a o intervalo de tempo esta taxa será aplicada. Se for uma taxa de 1% ao dia, posso dizer que isto é muito, mas se for ao ano e dependendo da quantia, talvez não seja. ', '2020-11-05', TRUE); 
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 14, 64, 'Eu também não sei e gostava de saber!', '2021-03-12', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 7, 5, 'Eles forneceram um guião no gitlab. Está disponível no site do jlopes. Aquilo não tem erro. É só seguir as instruções.', '2021-03-28', TRUE); 
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 8, 64, 'Não tem como, tens de ser estudante para saber.', '2021-03-12', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Since you dont use absolute values for the height of the containers, I suspect it happens due to the calculation of the height and whether the scrollbar needs to be displayed. Chrome seems to behave differently here than other browsers.', '2021-12-05', TRUE);  
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 20, 'Assuming that no force is acting on the particle, the time to go from Pi to Pj is T
+where P is some point at the interface between the two mediums and lPiP, lPPj denotes their lengths. Now, let the Interface denotes x axis and the points Pi,Pj have coordinates (0,h), (s,−m) respectively. Let P has coordinate (x,0).
+So, T is minimized if dTdx=0, d2TdT2>0.', '2021-01-08', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 5, 'i found that the trajectory in minimum time is T=h/va+(h+m)/vb', '2020-06-30', FALSE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 5, 31, 'Did you read the comments in the original source ?
+This code is a example of using a third part application name Universal Document Converter (UDC) to build a standalone application (exe) to print the active space of a dwg file into a pdf file. It requires the UDC software to be installed. It cannot be transformed into an AutoCAD plugin (dll with CommandMethod). You certainly can get more informations about this with the UDC Support.
+You will not learn .NET and AutoCAD API by copying codes found on the web that you do not understand and asking someone here or elsewhere to modify them to suit your needs.', '2020-10-01', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 5, 45, 'first: add a using to the runtime.
+using Autodesk.AutoCAD.Runtime;
+next: Add an attribute to your method.
+[CommandMethod("YOURCOMMANDNAMEINAUTOCAD")]
+Last: Your class and method need to be public, for AutoCAD to see them.
+Update: (Very last): your Method cannot take parameters.', '2020-10-11', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 6, 70, 'AVC is U shaped because of the principle of variable Proportions, which explains the three phases of the curve: Increasing returns to the variable factors, which cause average costs to fall, followed by: Constant returns, followed by: Diminishing returns, which cause costs to rise.', '2020-11-05', TRUE); 
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 14, 64, '
+In January 2004, I was contacted by Philips New Display Technologies who were creating the electronics for the first ever commercial e-ink, the Sony Librie, who had only been released in Japan, years before Amazon Kindle and the others hit the market in US an Europe.
+The Philips engineers had a major problem. A few months before the product was supposed to hit the market, they were still getting ghosting on the screen when changing pages. The problem was the 200 drivers that were creating the electrostatic field. Each of these drivers had a certain voltage that had to be set right between zero and 1000 mV or something like this. But if you changed one of them, it would change everything.
+So optimizing each drivers voltage individually was out of the question. The number of possible combination of values was in billions,and it took about 1 minute for a special camera to evaluate a single combination. The engineers had tried many standard optimization techniques, but nothing would come close.
+The head engineer contacted me because I had previously released a Genetic Programming library to the open-source community. He asked if GP/GAs would help and if I could get involved. I did, and for about a month we worked together, me writing and tuning the GA library, on synthetic data, and him integrating it into their system. Then, one weekend they let it run live with the real thing.
+The following Monday I got these glowing emails from him and their hardware designer, about how nobody could believe the amazing results the GA found. This was it. Later that year the product hit the market.
+I didnt get paid one cent for it, but I got bragging rights. They said from the beginning they were already over budget, so I knew what the deal was before I started working on it. And its a great story for applications of GAs. :)', '2021-03-12', TRUE);
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 7, 5, 'scipy.constants defines the golden ratio as scipy.constants.golden. It is nowhere defined in the standard library, presumably because it could lead to bad values and it is easy to define yourself: golden = (1 + 5 ** 0.5) / 2', '2021-03-28', TRUE); 
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 8, 64, '
+1) Get a base understanding of what a database is (Google, Wikipedia)
+2) Learn what a RDBMS is (Relational Database Management System)
+3) Learn what a normal form is.
+4) Read an easy to read primer book. I suggest this book:', '2021-03-12', TRUE);
 -- comment
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 1, 54, 'Podias dizer o nome da função', '2021-12-30');
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 3, 80, 'Melhor que a resposta selcionada como válida! Eu quero aprender a fazer! Obrigado!', '2021-06-30');
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 3, 23, 'Qual é o ph de cada um deles?', '2021-04-03');
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 64, 'Podes especificar em que parte do site está?', '2021-03-30');
-INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 5, 'Está na parte dos recursos de lbaw!', '2021-03-30');
+INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 1, 54, 'However with flexbox alone this is not necessary, it works without applying heights . and thus is more flexible', '2021-12-30');
+INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 3, 80, 'really ty!!!, now i understand it :D', '2021-06-30');
+INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 9, 23, 'Thanks! Good answer!', '2021-04-03');
+INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 64, 'The wording of this answer makes it sound like the limited precision of math.pi is a bug. Its not a bug. Python uses doubles internally. Thats why the docs say to available precision. 4*math.atan(1) will not give you a "better approximation", because youre still using doubles underneath. Yes, even if you have a supercomputer. :) You dont need a supercomputer to generate more than 53 bits of pi', '2021-03-30');
+INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 5, 'Will update the answer to acknowledge my mistake.', '2021-03-30');
 
 -- Reported User 
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',41,42);
