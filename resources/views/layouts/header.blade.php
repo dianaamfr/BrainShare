@@ -54,7 +54,10 @@
                 <i class="far fa-bell"></i>
                 <i class="fas fa-bell"></i>
               </button>
-              <a class="registration-button btn btn-outline-primary" href="{{ route('logout') }}">Logout</a>
+              <form method="post" action="{{ route('logout')}}">
+                {{ csrf_field() }}
+                <button class="registration-button btn btn-outline-primary">Logout</button>
+              </form>
             @else 
               <a class="registration-button btn btn-primary" href="{{ route('login') }}">Login</a>
               <a class="registration-button btn btn-primary" href="{{ route('register') }}">Register</a>
