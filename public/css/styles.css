@@ -389,7 +389,7 @@ header.fixed-top {
   border-bottom: var(--black);
 }
 
-body > header .container-fluid {
+body > main > header .container-fluid {
   padding-right: 2rem;
   padding-left: 2rem;
 }

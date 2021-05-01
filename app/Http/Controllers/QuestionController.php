@@ -90,7 +90,7 @@ class QuestionController extends Controller
 
         // Go to the created question
         if ($result !== null) {
-            return redirect()->route('showQuestion', ['id' => $result]);
+            return redirect()->route('show-question', ['id' => $result]);
         } else {
             return redirect()->route('question');
         }
@@ -137,7 +137,7 @@ class QuestionController extends Controller
       });
 
       if ($result !== null){
-        return redirect()->route('showQuestion',  $result->id);
+        return redirect()->route('show-question',  $result->id);
       } else redirect()->route('edit-question', $request->id);
     }
 

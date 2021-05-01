@@ -22,14 +22,13 @@ Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search')
 // Search Tags
 Route::get('api/tag/search', 'TagController@search');
 Route::get('api/tag/{id}', 'TagController@find');
-Route::get('/user/{id}/edit', 'StaticController@showEditProfile')->name('edit-profile');
 
 // Add Question
-Route::get('/question/add', 'QuestionController@showQuestionForm')->name('question-show');
+Route::get('/question/add', 'QuestionController@showQuestionForm');
 Route::post('/question/add', 'QuestionController@create')->name('question');
 
 // Show Question
-Route::get('/question/{id}', 'QuestionController@show')->name('showQuestion');
+Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
@@ -48,8 +47,8 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('r
 Route::post('register', 'Auth\RegisterController@register');
 
 // Profile: change in A9
-Route::get('/user/{id}/profile', "StaticController@showProfile")->name('showProfile');
-Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('showProfile');
+Route::get('/user/{id}/profile', "StaticController@showProfile");
+Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories
 //Route::get('/admin/tag', 'StaticController@showTags')->name('manage-tags');
