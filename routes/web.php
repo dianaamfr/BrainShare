@@ -39,10 +39,10 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 //Route::delete('/question/{id-q}/answer/{id-a}','QuestionController@deleteComment')->name('delete-comment');
 //Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
-// Authentication
+// Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
@@ -56,7 +56,6 @@ Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit
 Route::get('/admin/categories', 'StaticController@showCategories')->name('manage-categories');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 Route::get('/admin/users', 'StaticController@showUsers')->name('manage-users');
-
 
 
 // API
