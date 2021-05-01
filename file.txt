@@ -1,4 +1,12 @@
-----------
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[08006] [7] could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432? (SQL: ----------
 -- Drop --
 ----------
 DROP TABLE IF EXISTS tag CASCADE;
@@ -644,7 +652,6 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Wyatt','vel@magnisdisparturient.edu', 'cd3e5e0d022519e6c20b753aa4f2f1a5db24214d3d704b55fcb0655f7c6d9949','2001-07-27','Hedley','2018-02-04 03:47:13',2,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Morrow','Nunc.ut.erat@Inornaresagittis.com', 'f731fec079fca8fc75658c19b05a12f1d422196997555b9bfd8b38f29b0b0dc7','2002-02-09','Rinah','2002-01-09 11:04:28',9,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Gibson','nulla.Cras.eu@tacitisociosquad.ca', 'bb4f13803368267216b06e71f9ef29dcb70c763836787f53983699c2534b6dc1','2006-08-27','Benjamin','2005-10-22 01:22:56',3,'False','RegisteredUser');
-INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test User','lbaw2152@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'UserTest', '2010-01-14 22:33:13', 5, 'True', 'RegisteredUser');
 
 -- question
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', '
@@ -905,4 +912,23 @@ INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,7,2,'1');
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,13,4,'-1');
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,74,2,'1');
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,38,3,'1');
-INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,2,4,'-1');
+INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,2,4,'-1');)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:678
+    674▕         // If an exception occurs when attempting to run a query, we'll format the error
+    675▕         // message to include the bindings with SQL, which will make this exception a
+    676▕         // lot more helpful to the developer instead of just the database's errors.
+    677▕         catch (Exception $e) {
+  ➜ 678▕             throw new QueryException(
+    679▕                 $query, $this->prepareBindings($bindings), $e
+    680▕             );
+    681▕         }
+    682▕
+
+      [2m+13 vendor frames [22m
+  14  database/seeders/DatabaseSeeder.php:18
+      Illuminate\Support\Facades\Facade::__callStatic()
+
+      [2m+22 vendor frames [22m
+  37  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
