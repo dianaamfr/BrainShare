@@ -8,22 +8,24 @@
             {{ csrf_field() }}
 
             <div class="mb-4">
-            <label for="email" class="form-label">E-mail</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" data-error="That email address is invalid" required autofocus>
-            @if ($errors->has('email'))
-                <span class="error">
-                {{ $errors->first('email') }}
-                </span>
-            @endif
+                <label for="email" class="form-label">E-mail</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" data-error="That email address is invalid" required autofocus>
+                @if ($errors->has('email'))
+                    <span class="error">
+                    {{ $errors->first('email') }}
+                    </span>
+                @endif
             </div>
 
-            <label for="password" class="form-label">Password<a href="#" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
-            <input id="password" type="password" name="password" placeholder="Password" class="form-control" required>
-            @if ($errors->has('password'))
-                <span class="error">
-                    {{ $errors->first('password') }}
-                </span>
-            @endif
+            <div class="mb-4">
+                <label for="password" class="form-label">Password<a href="#" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
+                <input id="password" type="password" name="password" placeholder="Password" class="form-control" required>
+                @if ($errors->has('password'))
+                    <span class="error">
+                        {{ $errors->first('password') }}
+                    </span>
+                @endif
+            </div>
 
             <button type="submit"  class="btn btn-primary btn-login">
                 Login
