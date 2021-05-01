@@ -56,14 +56,3 @@ Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit
 Route::get('/admin/categories', 'StaticController@showCategories')->name('manage-categories');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 Route::get('/admin/users', 'StaticController@showUsers')->name('manage-users');
-
-
-// API
-/*
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
-*/
-

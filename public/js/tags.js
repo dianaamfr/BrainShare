@@ -92,7 +92,7 @@ function addTagOnInput() {
             toastBodyTag.innerText = "Tag already included.";
             toastListTag[0].show();
         }
-        else if (tag != "") {
+        else if (tagsList.length > 4) {
             toastBodyTag.innerText = "Number of tags must be less than 5.";
             toastListTag[0].show();
         }

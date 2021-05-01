@@ -86,7 +86,7 @@ function addCourseOnInput() {
         } else if (course != "" && coursesList.includes(course)){
             toastBodyCourse.innerText = "Course already included.";
             toastListCourse[0].show();
-        } else if (course != "") {
+        } else if (coursesList.length > 1) {
             toastBodyCourse.innerText = "Number of courses must be less than 3.";
             toastListCourse[0].show();
         }

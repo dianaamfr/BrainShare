@@ -124,15 +124,18 @@ class QuestionController extends Controller
         $courses = $request->get('courseList');
 
         $question->tags()->detach();
-        foreach ($tags as $tag) {
-            $question->tags()->attach($tag);
+        if ($tags != null) {
+            foreach ($tags as $tag) {
+                $question->tags()->attach($tag);
+            }
         }
-
+       
         $question->courses()->detach();
-        foreach ($courses as $course) {
-            $question->courses()->attach($course);
+        if ($courses != null) {
+            foreach ($courses as $course) {
+                $question->courses()->attach($course);
+            }
         }
-
         return $question;
       });
 
