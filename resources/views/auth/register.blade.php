@@ -39,7 +39,7 @@
         
         <div class="mb-4">
           <label for="password" class="form-label">Password*</label>
-          <input id="password" class="form-control" type="password" name="password" data-minlength="8" class="form-control" placeholder="Password" required>
+          <input id="password" class="form-control" type="password" name="password" data-minlength="8" placeholder="Password" required>
           @if ($errors->has('password'))
             <span class="error">
                 {{ $errors->first('password') }}
