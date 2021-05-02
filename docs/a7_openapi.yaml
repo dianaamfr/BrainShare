@@ -1,19 +1,18 @@
 openapi: 3.0.0
-servers:
 
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/lbaw2152/Brainshare/1.0.0
-  - description: Website production server.
-    url: lbaw2152-piu.lbaw-prod.fe.up.pt/
 info:
   version: "1.0.0"
   title: Brainshare API
   description: Web resources specification for Brainshare
 
+servers:
+  - description: Website production server.
+    url: lbaw2152-piu.lbaw-prod.fe.up.pt/
+
 
 externalDocs:
   description: It's possible to find more information here.
-  url: https://app.swaggerhub.com/apis/lbaw2152/Brainshare/1.0.0#/
+  url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/blob/master/docs/a7_openapi.yaml
 
 
 tags:
@@ -1541,6 +1540,7 @@ components:
         username:
           type: string
         date:
+          type: string
           description: "Date the user has registered in the platform"
         banned:
           description: "If the user if banned or not"
