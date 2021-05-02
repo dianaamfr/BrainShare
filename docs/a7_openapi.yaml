@@ -1520,6 +1520,11 @@ components:
           type: integer
         date:
           type: string
+        
+      required: 
+        - course 
+        - num_occur
+        - date 
 
 
     report:
@@ -1533,6 +1538,11 @@ components:
         reports:
           description: "Number of reports until now"
           type: string
+      
+      required: 
+        - summary 
+        - type 
+        - reports 
 
     user:
       type: object
@@ -1548,3 +1558,11 @@ components:
         role:
           description: "Can be user, moderator or administrator"
           type: string
+      
+      required: 
+        - username 
+        - date
+        - banned 
+        - role 
+
+
