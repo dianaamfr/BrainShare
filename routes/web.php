@@ -55,4 +55,6 @@ Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit
 //Route::get('/admin/course', 'StaticController@showCourses')->name('manage-courses');
 Route::get('/admin/categories', 'StaticController@showCategories')->name('manage-categories');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
-Route::get('/admin/users', 'ManageUsersController@show')->name('manage-users');
+Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
+Route::put('api/admin/user/{id}', 'ManageUsersController@update');
+Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');

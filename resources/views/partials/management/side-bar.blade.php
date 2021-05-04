@@ -4,6 +4,6 @@
         <!-- TODO: manage categories class -->
         <li><a href="{{route('manage-categories')}}">Manage Categories</a></li>
         <li><a href="{{route('manage-reports')}}" class="{{ Request::is('admin/reports') ? 'blue' : ''}}">Manage Reports</a></li>
-        <li><a href="{{route('manage-users')}}" class="{{ Request::is('admin/users') ? 'blue' : ''}}">Manage Users</a></li>
+        <li><a href="{{route('manage-users')}}" class="{{ Request::is('admin/user') ? 'blue' : ''}}">Manage Users</a></li>
     </ul>
 </aside>

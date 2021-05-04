@@ -41,7 +41,7 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr>
+                            <tr data-user-id="{{$user->id}}">
                                 <th>{{$loop->index + $users->perpage() * ($users->currentpage()-1)}}</th>
                                 <td>
                                     <!-- TODO: get profile image -->
@@ -51,10 +51,10 @@
                                     </a>
                                 </td>
                                 <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
-                                <td>{{$user->ban == 1 ? 'T' : 'F'}}</td>
-                                <td>{{$user->user_role == 'RegisteredUser' ? 'Registered User' : $user->user_role }}</td>
+                                <td class="ban-td">{{$user->ban == 1 ? 'T' : 'F'}}</td>
+                                <td class="role-td">{{$user->user_role == 'RegisteredUser' ? 'Registered User' : $user->user_role }}</td>
                                 <td>
-                                    @include('partials.management.users.user-actions')
+                                    @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                                 </td>
                             </tr>
                         @endforeach
@@ -62,7 +62,7 @@
                 </table>
             </div>
   
-            <!-- TODO: Get pagination -->
+            <!-- Get pagination -->
             {{ $users->links() }}
         </div>
     </div>
