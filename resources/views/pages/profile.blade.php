@@ -74,13 +74,7 @@
 
     <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Questions</h3>
-        @if (@count($questions) > 0)
-            @each('partials.question-card', $questions, 'question')
-        @else
-            <p>Empty</p>
-        @endif
-
-        {{ $questions->links() }}
+            @include('partials.profile.question', $questions)
     </section>
 
     <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
@@ -91,7 +85,6 @@
             <p>Empty</p>
         @endif
         
-
         {{ $answers->links() }}
     </section>
 </div>

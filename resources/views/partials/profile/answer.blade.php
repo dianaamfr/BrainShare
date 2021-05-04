@@ -23,7 +23,7 @@
             <!-- Question Text -->
             <div class="answer-content col-lg">
                 <div class="limited-text-3 md-content md-remove">
-                {{ Str::limit($answer->content, 400) }}
+                    {{ Str::limit($answer->content, 400) }}
                 </div>
             </div>
 
