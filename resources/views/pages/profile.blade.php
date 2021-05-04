@@ -39,10 +39,12 @@
                         </p>
                     </div>
                 </div>
-                <!-- Check if its user page -->
+
+                @if (Auth::id() == $user->id) 
                 <div class="col-md d-flex justify-content-end align-items-end">
                     <a class="btn btn-primary my-2" href="/user/profile/edit">Edit Profile</a>
                 </div>
+                @endif
             </div>
         </section>
     </section>
@@ -72,23 +74,25 @@
 
     <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Questions</h3>
-        @each('partials.question-card', $user->questions, 'question')
-        <ul class="pagination justify-content-center">
-            <li class="page-item page-1 active"><button class="page-link">1</button></li>
-            <li class="page-item page-2"><button class="page-link">2</button></li>
-            <li class="page-item page-3"><button class="page-link">3</button></li>
-        </ul>
+        @if (@count($questions) > 0)
+            @each('partials.question-card', $questions, 'question')
+        @else
+            <p>Empty</p>
+        @endif
+
+        {{ $questions->links() }}
     </section>
 
     <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Answers</h3>
-        @each('partials.answer-card', $user->answers, 'answer')
-        <ul id="pagination-answers" class="pagination justify-content-center profile-answers">
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-        </ul>
+        @if (@count($answers) > 0)
+            @each('partials.profile.answer', $answers, 'answer')
+        @else
+            <p>Empty</p>
+        @endif
+        
+
+        {{ $answers->links() }}
     </section>
 </div>
 @endsection

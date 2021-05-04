@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Question;
+use App\Models\Answer;
 
 class UserController extends Controller
 {
@@ -15,8 +17,10 @@ class UserController extends Controller
   
       if (!Auth::check()) return redirect('/login');
       $user = User::find($id);
-      
-      return view('/pages.profile', ['user' => $user]);
+      $questions = Question::where('question_owner_id', $id)->simplePaginate(5);
+      $answers = Answer::where('answer_owner_id', $id)->simplePaginate(5);
+
+      return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
     }
 
     public function deleteUser($id){

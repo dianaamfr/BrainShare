@@ -46,7 +46,7 @@
 
             <!-- Registered Users options -->
             @if (Auth::check()) 
-              <a class="nav-link profile-button registration-button" href="/user/1/profile">
+              <a class="nav-link profile-button registration-button" href="/user/{{ Auth::id() }}/profile">
                   <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>
