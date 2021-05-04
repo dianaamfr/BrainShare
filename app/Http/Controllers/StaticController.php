@@ -26,7 +26,7 @@ class StaticController extends Controller
 
     // In A9 implement this in UserController
     public function showProfile($id){
-      
+
       if (!Auth::check()) return redirect('/login');
       //$user = User::find($id);
 
@@ -54,10 +54,6 @@ class StaticController extends Controller
 
     public function showUsers(){
       return view('pages.manage-users');
-    }
-
-    public function showCategories(){
-      return view('pages.manage-categories');
     }
 
 }

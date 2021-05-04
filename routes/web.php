@@ -39,6 +39,16 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 //Route::delete('/question/{id-q}/answer/{id-a}','QuestionController@deleteComment')->name('delete-comment');
 //Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
+// Answer
+Route::post('/api/question/{id}/answer/add','AnswerController@addAnswer')->name('add-answer');
+Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@EditAnswer')->name('edit-answer');
+Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@DeleteAnswer')->name('delete-answer');
+
+// Comment
+Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
+Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
+Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
+
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -51,8 +61,11 @@ Route::get('/user/{id}/profile', "StaticController@showProfile");
 Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories
+
 //Route::get('/admin/tag', 'StaticController@showTags')->name('manage-tags');
 //Route::get('/admin/course', 'StaticController@showCourses')->name('manage-courses');
-Route::get('/admin/categories', 'StaticController@showCategories')->name('manage-categories');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 Route::get('/admin/users', 'ManageUsersController@show')->name('manage-users');
+// Manage categories
+Route::get('/admin/categories/tags', 'CategoriesController@showTags')->name('manage-tags');
+Route::get('/admin/categories/courses', 'CategoriesController@showCourses')->name('manage-courses');
