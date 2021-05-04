@@ -13,8 +13,7 @@ class Tag extends Model
 
   protected $fillable = ['name', 'creation_date'];  
 
-  public function questions(){
+  public function questions() {
     return $this->belongsToMany(Question::class, 'question_tag');
   }
-
 }

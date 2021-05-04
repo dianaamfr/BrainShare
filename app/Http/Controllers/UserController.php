@@ -10,6 +10,14 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    // In A9 implement this in UserController
+    public function showProfile($id){
+  
+      if (!Auth::check()) return redirect('/login');
+      $user = User::find($id);
+      
+      return view('/pages.profile', ['user' => $user]);
+    }
 
     public function deleteUser($id){
 
