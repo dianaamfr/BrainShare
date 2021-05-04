@@ -48,8 +48,8 @@ Route::post('register', 'Auth\RegisterController@register');
 
 // Profile: change in A9
 Route::get('/user/{id}/profile', "UserController@showProfile");
-Route::get('/api/user', 'UserController@pagination')->name('api/user');
-
+Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
+Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories

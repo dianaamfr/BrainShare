@@ -4,4 +4,4 @@
     <p>Empty</p>
 @endif
 
-{{ $questions->links() }}
+<div class="profile-questions-paginate">{{ $questions->links() }} </div>

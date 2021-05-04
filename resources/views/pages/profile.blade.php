@@ -13,6 +13,7 @@
         <div class="two row">
             <section class="profile-info col-md mb-4">
                 <h3>Personal</h3>
+                <p id="profile-id" hidden>{{ $user->id }}</p>
                 <p><span class="profile-small-title"><i class="fas fa-user"></i> Name:</span> {{ $user->name }}</p>
                 <p><span class="profile-small-title"><i class="fas fa-at"></i> E-mail:</span> {{ $user->email }}</p>
                 <p><span class="profile-small-title"><i class="fa fa-calendar" aria-hidden="true"></i> Birthday:</span> {{ $user->birthday }}</p>
@@ -79,13 +80,7 @@
 
     <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Answers</h3>
-        @if (@count($answers) > 0)
-            @each('partials.profile.answer', $answers, 'answer')
-        @else
-            <p>Empty</p>
-        @endif
-        
-        {{ $answers->links() }}
+            @include('partials.profile.answer', $answers)
     </section>
 </div>
 @endsection
