@@ -68,4 +68,6 @@ Route::get('/admin/reports', 'StaticController@showReports')->name('manage-repor
 Route::get('/admin/users', 'ManageUsersController@show')->name('manage-users');
 // Manage categories
 Route::get('/admin/categories/tags', 'CategoriesController@showTags')->name('manage-tags');
+Route::post('/api/admin/tag/add', 'TagController@addTag')->name('manage-tags-add');
 Route::get('/admin/categories/courses', 'CategoriesController@showCourses')->name('manage-courses');
+

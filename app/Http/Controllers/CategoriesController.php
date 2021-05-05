@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Course;
 
+// TODO : create the authorization for do these actions.
 class CategoriesController extends Controller
 {
     public function showTags(){
@@ -16,4 +17,5 @@ class CategoriesController extends Controller
         $courses = Course::paginate(5);
         return view('pages.manage-courses', ['courses' => $courses]);
     }
+
 }

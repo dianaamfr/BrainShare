@@ -40,9 +40,11 @@
 <script  src={{ asset('js/courses.js') }} type="module"></script>
 <script  src={{ asset('js/autocomplete.js') }} defer></script>
 <script  src={{ asset('js/editor.js') }}  defer></script>
+<script  src={{ asset('js/manage-categories/tags.js') }} type="module"></script>
 
 
 <!-- Carousel -->
+
 <!-- <script src="js/homepage-carousel.js" defer></script> -->
 
 <!-- Library to translate MD to html -->

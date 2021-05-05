@@ -1,6 +1,8 @@
-<!-- Tags -->
 <div class="table-responsive">
-    <div class="table-entries">Showing 1 to 6 of 11 entries</div>
+{{--    How many elements are in a page. --}}
+    <span style="display: none" id="perPage">{{$categories->perPage()}}</span>
+
+    <div class="table-entries">Showing {{sizeof($categories)}} of {{$categories->total()}} entries</div>
     <table class="table table-hover align-middle w-100">
         <thead>
             <tr>

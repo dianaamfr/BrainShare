@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,6 @@ class TagController extends Controller
 {
     /**
      * Search tags
-     *
      * @return Response
      */
     public function search(Request $request)
@@ -23,6 +23,15 @@ class TagController extends Controller
 
     public function find(Request $request, $id){
       return Tag::find($id);
+    }
+
+    public function addTag(Request $request){
+        $tag = new Tag();
+        $jsonTag = json_decode($request->getContent(), true);
+        $tag->name = $jsonTag['input'];
+        $tag->setAttribute('creation_date', Carbon::now());
+        $tag->save();
+        return response()->json(['category'=>$tag]);
     }
 
 }
