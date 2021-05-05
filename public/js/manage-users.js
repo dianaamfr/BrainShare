@@ -20,9 +20,15 @@ function updateUser(event){
 
 function userDeletedHandler(){
     let response = JSON.parse(this.responseText);
-    console.log(response);
 
-    let element = document.querySelector('tr[data-user-id="' + response.user.id + '"]');
+    if(response.hasOwnProperty('error')){
+        showAlert(response.error, "error");
+        return;
+    } else {
+        showAlert(response.success, "success");
+    }
+
+    let element = document.querySelector('tr[data-user-id="' + response.id + '"]');
     element.remove();
 }
 
@@ -30,19 +36,46 @@ function userUpdatedHandler(){
     let response = JSON.parse(this.responseText);
     
     if(response.hasOwnProperty('error')){
-        // TODO: change to beautiful alert
-        alert(response.error);
+        showAlert(response.error, "error");
         return;
+    } else {
+        showAlert(response.success, "success");
     }
 
     let element = document.querySelector('tr[data-user-id="' + response.id + '"]');
-    while (element.children.length > 2) {
+    while (element.children.length > 3) {
         element.removeChild(element.lastChild);
     }
 
     // Update Available Actions
     element.innerHTML = element.innerHTML + response.html;
     manageUsers();
+}
+
+function showAlert(message, type){
+    console.log(manageUsersAlert)
+    
+    let alert = document.createElement('div');
+    alert.classList.add('alert','alert-dismissible','fade','show');
+    alert.innerHTML = message;
+
+    let closeBtn = document.createElement('button');
+    closeBtn.classList.add('btn-close');
+    closeBtn.setAttribute('data-bs-dismiss', 'alert');
+
+    alert.appendChild(closeBtn);
+
+    if(type == "error"){
+        alert.classList.remove('alert-success');
+        alert.classList.add('alert-danger');
+    }
+    else {
+        alert.classList.remove('alert-danger')
+        alert.classList.add('alert-success');
+    }
+
+    manageUsersAlert.innerHTML = '';
+    manageUsersAlert.appendChild(alert);
 }
 
 function encodeForAjax(data) {
@@ -62,4 +95,5 @@ function sendAjaxPostRequest(method, url, data, handler) {
     request.send(encodeForAjax(data));
 }
 
+let manageUsersAlert = document.getElementById('manage-users-alert');
 manageUsers();

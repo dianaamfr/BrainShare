@@ -19,10 +19,13 @@
                     <button class="btn btn-primary">Search</button>
                 </div>
             </form>
+
+            <div id="manage-users-alert">    
+            </div>
             
             <!-- Table -->
             <div class="table-responsive w-100">
-                <!-- TODO: get number of entries -->
+         
                 <div class="table-entries">
                     Showing {{$users->perpage() * ($users->currentpage()-1)}} 
                     to {{$users->perpage() * ($users->currentpage()) - 1 }} 
@@ -50,6 +53,7 @@
                                         <span>{{$user->username}}</span>
                                     </a>
                                 </td>
+                                <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
                                 @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                             </tr>
                         @endforeach

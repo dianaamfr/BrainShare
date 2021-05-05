@@ -38,10 +38,10 @@ class ManageUsersController extends Controller {
 
       // Avoid deleting all Administrators
       if($id == Auth::user()->id && Auth::user()->isAdmin() ) {
+        return response()->json(['error'=>'You are the only Administrator. To change your role or delete your account you must first promote other Administrator.']);
         $admins = User::where('user_role','Admnistrator')->count();
         if($admins == 1){
-          return response()->json(['error'=>'You are the only Administrator. To change you\'re role or delete your account
-          you must first promote other Administrator.']);
+          return response()->json(['error'=>'You are the only Administrator. To change your role or delete your account you must first promote other Administrator.']);
         }
       }
 
@@ -70,8 +70,17 @@ class ManageUsersController extends Controller {
       $user = User::find($id);
 
       $this->authorize('delete', $user);
+
+      // Avoid deleting all Administrators
+      if($id == Auth::user()->id && Auth::user()->isAdmin() ) {
+        $admins = User::where('user_role','Admnistrator')->count();
+        if($admins == 1){
+          return response()->json(['error'=>'You are the only Administrator. To change you\'re role or delete your account
+          you must first promote other Administrator.']);
+        }
+      }
       $user->delete();
       
-      return $user;
+      return response()->json(['success'=> 'Your request was completed', 'id'=> $user->id]);
     }
   }
