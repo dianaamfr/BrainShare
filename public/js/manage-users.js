@@ -1,7 +1,10 @@
-let userActions =  document.getElementsByClassName('user-actions');
 
-if(userActions) {
-    Array.from(userActions).forEach(userActionForm => { userActionForm.addEventListener('submit', updateUser);});
+function manageUsers(){
+    let userActions =  document.getElementsByClassName('user-actions');
+
+    if(userActions) {
+        Array.from(userActions).forEach(userActionForm => { userActionForm.addEventListener('submit', updateUser);});
+    }
 }
 
 function updateUser(event){
@@ -16,21 +19,30 @@ function updateUser(event){
 }
 
 function userDeletedHandler(){
-    if (this.status != 200) return;
-    let user = JSON.parse(this.responseText);
-    let element = document.querySelector('tr[data-user-id="' + user.id + '"]');
+    let response = JSON.parse(this.responseText);
+    console.log(response);
+
+    let element = document.querySelector('tr[data-user-id="' + response.user.id + '"]');
     element.remove();
 }
 
 function userUpdatedHandler(){
-    if (this.status != 200) return;
-    let user = JSON.parse(this.responseText);
-    let element = document.querySelector('tr[data-user-id="' + user.id + '"]');
+    let response = JSON.parse(this.responseText);
+    
+    if(response.hasOwnProperty('error')){
+        // TODO: change to beautiful alert
+        alert(response.error);
+        return;
+    }
 
-    element.querySelector('.ban-td').innerHTML = (user.ban == 1) ? 'T' : 'F';
-    element.querySelector('.role-td').innerHTML = (user.user_role == 'RegisteredUser') ? 'Registered User' : user.user_role;
+    let element = document.querySelector('tr[data-user-id="' + response.id + '"]');
+    while (element.children.length > 2) {
+        element.removeChild(element.lastChild);
+    }
 
-    // TODO: Update Available Actions
+    // Update Available Actions
+    element.innerHTML = element.innerHTML + response.html;
+    manageUsers();
 }
 
 function encodeForAjax(data) {
@@ -49,3 +61,5 @@ function sendAjaxPostRequest(method, url, data, handler) {
     request.addEventListener('load', handler);
     request.send(encodeForAjax(data));
 }
+
+manageUsers();

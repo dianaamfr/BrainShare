@@ -21,22 +21,14 @@ class UserPolicy
 
     public function delete(User $user, User $deleted){
 
-      $deletedIsAdminOrModerator = $deleted->isAdmin() || $deleted->isModerator();
-      $userIsAdminOrModerator = $user->isAdmin() || $user->isModerator();
-
-      // Administrators can delete other Administrators or Moderators
-      if($deletedIsAdminOrModerator && $user->isAdmin()){
-
-        // Avoid deleting all Administrators
-        if($deleted->id == $user->id) {
-          $admins = User::where('user_role','Admnistrator')->count();
-          return $admins > 1;
-        }
+      // Administrators can delete any user
+      if($user->isAdmin()){
         return true;
       }
       
-      // Admnistrators and Moderators can delete Registered Users
-      if(!$deletedIsAdminOrModerator && $userIsAdminOrModerator)
+      // Moderators can only delete Registered Users
+      $deletedIsRegisteredUser = !$deleted->isAdmin() && !$deleted->isModerator();
+      if($deletedIsRegisteredUser && $user->isModerator())
         return true;
 
       // The own user may delete his account
@@ -45,21 +37,13 @@ class UserPolicy
 
     public function updateState(User $user, User $updated){
 
-      $updatedIsAdminOrModerator = $updated->isAdmin() || $updated->isModerator();
-      $userIsAdminOrModerator = $user->isAdmin() || $user->isModerator();
-
-      // Administrators can change the role of other Administrators or Moderators
-      if($updatedIsAdminOrModerator && $user->isAdmin()){
-
-        // Avoid deleting all Administrators
-        if($updated->id == $user->id) {
-          $admins = User::where('user_role','Admnistrator')->count();
-          return $admins > 1;
-        }
+      // Administrators can change the role of any user
+      if($user->isAdmin()){
         return true;
       }
 
-      // Admnistrators and Moderators can change the role of Registered Users
-      return(!$updatedIsAdminOrModerator && $userIsAdminOrModerator);
+      // Moderators can only change the role of Registered Users
+      $updatedIsRegisteredUser = !$updated->isAdmin() && !$updated->isModerator();
+      return($updatedIsRegisteredUser && $user->isModerator());
     }
 }

@@ -50,12 +50,7 @@
                                         <span>{{$user->username}}</span>
                                     </a>
                                 </td>
-                                <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
-                                <td class="ban-td">{{$user->ban == 1 ? 'T' : 'F'}}</td>
-                                <td class="role-td">{{$user->user_role == 'RegisteredUser' ? 'Registered User' : $user->user_role }}</td>
-                                <td>
-                                    @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
-                                </td>
+                                @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                             </tr>
                         @endforeach
                     </tbody>

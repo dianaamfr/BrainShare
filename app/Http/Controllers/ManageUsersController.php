@@ -36,13 +36,24 @@ class ManageUsersController extends Controller {
       $user = User::find($id);
       $this->authorize('updateState', $user);
 
+      // Avoid deleting all Administrators
+      if($id == Auth::user()->id && Auth::user()->isAdmin() ) {
+        $admins = User::where('user_role','Admnistrator')->count();
+        if($admins == 1){
+          return response()->json(['error'=>'You are the only Administrator. To change you\'re role or delete your account
+          you must first promote other Administrator.']);
+        }
+      }
+
       if($request->input('action') == 'admin') $this->updateRole($user, 'Administrator');
       else if ($request->input('action') == 'moderator') $this->updateRole($user, 'Moderator');
       else if ($request->input('action') == 'ru') $this->updateRole($user, 'RegisteredUser');
       else if($request->input('action') == 'ban') $this->updateBan($user, 1);
       else if($request->input('action') == 'unban') $this->updateBan($user, 0);
+      else return response()->json(['error'=>'Invalid action']);
 
-      return $user;
+      $html = view('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])->render();
+      return response()->json(['success'=> 'Your request was completed', 'id'=> $user->id, 'html' => $html]);
     }
 
     public function updateRole($user, $role){
