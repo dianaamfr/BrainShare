@@ -25,8 +25,8 @@
         <section id="pagination-item-1" class="management manage-categories w-100 mt-5">
             <h2 class="mb-4">Course</h2>
 
-            <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-                <div class="input-group manage-search mb-3">
+            <div class="mt-5 d-flex justify-content-between flex-wrap mb-3">
+                <div class="input-group manage-search mb-3" id="manage-add-course">
                     <input type="text" class="form-control" placeholder="Insert a course...">
                     <button class="btn btn-primary">Add Course</button>
                 </div>
@@ -34,7 +34,7 @@
                     <input type="text" class="form-control" placeholder="Search course...">
                     <button class="btn btn-primary">Search Course</button>
                 </div>
-            </form>
+            </div>
 
 
                 @include('partials.management.category.table', ['categories' => $courses])
