@@ -4,7 +4,7 @@
     @if ($users->isNotEmpty())
         <div class="table-entries">
             Showing {{$users->perpage() * ($users->currentpage()-1)}} 
-            to {{$users->perpage() * ($users->currentpage()) - 1 }} 
+            to {{$users->perpage() * ($users->currentpage()-1) + $users->count() - 1}} 
             of {{$users->total()}} entries
         </div>
     @endif

@@ -15,9 +15,21 @@ function updateUser(event){
     if(actionValue == 'none') return;
     
     let id = this.getAttribute('data-user-id');
+
+    if(actionValue == "delete"){
+        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link').innerHTML;
+
+        if(page != 1 && document.querySelector('.page-item:last-child').classList.contains('disabled') 
+            && document.querySelectorAll('#users-table tbody tr').length == 1){
+            page--;
+        }
         
-    if(actionValue == "delete") sendAjaxPostRequest('delete', '/api/admin/user/' + id, null, userDeletedHandler);
-    else sendAjaxPostRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
+        sendAjaxPostRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
+        window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
+    }
+    else {
+        sendAjaxPostRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
+    }
 }
 
 // Handle the response to a request to the deletion of a user
@@ -31,8 +43,9 @@ function userDeletedHandler(){
         showAlert(response.success, "success");
     }
 
-    let element = document.querySelector('tr[data-user-id="' + response.id + '"]');
-    element.remove();
+    userManagementArea.querySelector('#users-table').innerHTML = response.html;
+    updateUsersPagination();
+    manageUsers();
 }
 
 // Handle the response to a request to update the role or the ban status of a user
@@ -51,9 +64,9 @@ function userUpdatedHandler(){
         element.removeChild(element.lastChild);
     }
 
-    // Update Available Actions
+    // Update Available Actions for the updated user
     element.innerHTML = element.innerHTML + response.html;
-    manageUsers();
+    element.querySelector('.user-actions').addEventListener('submit', updateUser);
 }
 
 // Show success or error alert on the screen when the response to an action is received
@@ -122,8 +135,8 @@ function userSearchUpdateHandler(){
     userManagementArea.querySelector('#users-table').innerHTML = response.html;
 
     updateUsersPagination();
+    manageUsers();
 }
-
 
 function changeUsersPage(event) {
     event.preventDefault();

@@ -83,7 +83,7 @@ CREATE TABLE "user"(
 
 CREATE TABLE question(
     id SERIAL PRIMARY KEY,
-    question_owner_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    question_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),

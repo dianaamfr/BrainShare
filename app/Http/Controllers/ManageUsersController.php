@@ -33,7 +33,7 @@ class ManageUsersController extends Controller {
     }
 
     public function getFilteredUsers($search){
-      if($search != ''){
+      if(isset($search) && !empty($search)){
         return User::where('username', 'ILIKE', $search . '%');
       }
 
@@ -95,6 +95,10 @@ class ManageUsersController extends Controller {
       }
       $user->delete();
       
-      return response()->json(['success'=> 'Your request was completed', 'id'=> $user->id]);
+      $users = $this->getFilteredUsers(null);
+
+      return response()->json(['success'=> 'Your request was completed',
+        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(5)])->render()
+      ]);
     }
   }
