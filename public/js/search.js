@@ -242,7 +242,7 @@ function updateResetBtn(){
 
 function searchPagination(event) {
     event.preventDefault();
-    page = this.href.split('page=')[1]
+    let page = this.href.split('page=')[1]
     sendAdvancedSearchRequest(page);
 }
 

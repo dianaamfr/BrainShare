@@ -14,33 +14,35 @@ class ManageUsersController extends Controller {
      *
      * @return Response
      */
-    public function show(){
+    public function show(Request $request){
       $this->authorize('showManageUsers',User::class);
 
-      if(Auth::user()->isModerator()){
-        $users = User::where('user_role','=', 'RegisteredUser')->orderBy('username', 'asc');
-      } else  $users = User::orderBy('username', 'asc');
+      $users = $this->getFilteredUsers($request->input('search-username'));
 
       return view('pages.manage-users', ['users' => $users->paginate(5)]);
     }
 
     public function search(Request $request){
+      $this->authorize('showManageUsers',User::class);
 
-      if($request->input('search-input') == ''){
-        if(Auth::user()->isModerator()){
-          $users = User::where('user_role','=', 'RegisteredUser')->orderBy('username', 'asc');
-        } 
-        else {
-          $users = User::orderBy('username', 'asc');
-        }
-      } 
-      else {
-        $users = User::where('username', 'ILIKE', $request->input('search-input') . '%');
-      }
+      $users = $this->getFilteredUsers($request->input('search-username'));
       
       return response()->json([
         'html' => view('partials.management.users.users-table', ['users' => $users->paginate(5)])->render()
       ]);
+    }
+
+    public function getFilteredUsers($search){
+      if($search != ''){
+        return User::where('username', 'ILIKE', $search . '%');
+      }
+
+      if(Auth::user()->isModerator()){
+        return User::where('user_role','=', 'RegisteredUser')->orderBy('username', 'asc');
+      } 
+      
+      return User::orderBy('username', 'asc');
+      
     }
 
     public function update(Request $request, $id){

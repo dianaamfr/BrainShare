@@ -14,7 +14,7 @@
 
             <!-- Search by username -->
             <div class="input-group manage-search mb-3">
-                <input type="text" class="form-control" id="search-username" placeholder="Search by username">
+                <input type="text" class="form-control" id="search-username" placeholder="Search by username" value="{{app('request')->get('search-username')}}">
             </div>
 
             <div id="manage-users-alert">    

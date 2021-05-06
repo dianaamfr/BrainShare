@@ -110,9 +110,9 @@ function sendAjaxGetRequest(method, url, data, handler) {
 function searchUsers(){
     if(usernameInput){
         usernameInput.addEventListener('keyup', function(){
-            console.log(usernameInput.value)
             sendAjaxGetRequest('get', '/api/admin/user', 
-            {'search-input': usernameInput.value}, userSearchUpdateHandler)
+            {'search-username': usernameInput.value}, userSearchUpdateHandler)
+            window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
         });
     } 
 }
@@ -127,9 +127,11 @@ function userSearchUpdateHandler(){
 
 function changeUsersPage(event) {
     event.preventDefault();
-    page = this.href.split('page=')[1]
+    let page = this.href.split('page=')[1]
+    data = {'search-username': usernameInput.value, 'page': page}
     sendAjaxGetRequest('get', '/api/admin/user', 
-        {'search-input': usernameInput.value, 'page': page}, userSearchUpdateHandler)
+        data, userSearchUpdateHandler)
+    window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
 }
 
 function updateUsersPagination() {
