@@ -37,8 +37,7 @@
                 @include('partials.management.category.table', ['categories' => $tags])
             </section>
 
-            <!-- Pagination -->
-            {{$tags->links()}}
+
         </div>
 
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 class TagController extends Controller
 {
@@ -30,6 +31,13 @@ class TagController extends Controller
         $tag->setAttribute('creation_date', Carbon::now());
         $tag->save();
         return response()->json(['category'=>$tag]);
+    }
+
+    // make this not be with the api.
+    public function deleteTag(Request $request){
+        $jsonTag = json_decode($request->getContent(), true);
+        $instance = DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
+        return response()->json(['category'=>$instance]);
     }
 
 }

@@ -44,3 +44,7 @@ export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
         },
     ).then(response => response.json()).then(json => handleResponse(json));
 }
+
+export function getToken(){
+    return document.querySelector("meta[name='csrf-token']").getAttribute('content');
+}

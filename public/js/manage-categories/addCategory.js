@@ -2,17 +2,6 @@ import {createButtonTrash, getDate} from "../common.js";
 
 
 
-/**
- * If the person is on the last page, adds the entry.
- * @returns Returns true if we can add the element right in the table, false otherwise.
- */
-export function canAddHTML(){
-    let maxEntries = document.querySelector('#perPage').innerText;
-    let trEntries = document.querySelectorAll("tbody tr").length;
-    return trEntries < maxEntries;
-}
-
-
 // TODO: update the page link.
 export function addCategoryToHTML(json){
     let tbody = document.querySelector('tbody');

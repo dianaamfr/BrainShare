@@ -21,4 +21,9 @@ class CourseController
         return response()->json(['category'=>$course]);
     }
 
+    public function deleteCourse(Request $request){
+        $jsonCourse = json_decode($request->getContent(), true);
+        return response()->json(['category'=>$jsonCourse['input']]);
+    }
+
 }

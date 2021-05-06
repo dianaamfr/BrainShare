@@ -69,6 +69,7 @@ Route::get('/admin/users', 'ManageUsersController@show')->name('manage-users');
 // Manage categories
 Route::get('/admin/categories/tags', 'CategoriesController@showTags')->name('manage-tags');
 Route::post('/api/admin/tag/add', 'TagController@addTag')->name('manage-tags-add');
+Route::delete('/api/admin/tag/delete', 'TagController@deleteTag')->name('manage-tags-delete');
 Route::get('/admin/categories/courses', 'CategoriesController@showCourses')->name('manage-courses');
 Route::post('/api/admin/course/add', 'CourseController@addCourse')->name('manage-courses-add');
 

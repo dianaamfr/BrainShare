@@ -1,5 +1,5 @@
 import {sendDataAjaxRequest} from "../common.js";
-import {addCategoryToHTML, updateShowingMessage, canAddHTML} from "./postCategory.js";
+import {addCategoryToHTML, updateShowingMessage, canAddHTML} from "./addCategory.js";
 
 // TODO: fix to accept the course.
 let addCourseDiv = document.getElementById("manage-add-course");

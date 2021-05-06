@@ -32,3 +32,6 @@
 
         </tbody>
     </table>
+    <!-- Pagination -->
+    {{$category->links()}}
+</div>
