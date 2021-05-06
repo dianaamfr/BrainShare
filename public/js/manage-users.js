@@ -1,4 +1,5 @@
 
+// Add event listener for each submit action button
 function manageUsers(){
     let userActions =  document.getElementsByClassName('user-actions');
 
@@ -7,9 +8,10 @@ function manageUsers(){
     }
 }
 
+// Send update role / ban / delete request with Ajax
 function updateUser(event){
     event.preventDefault();
-    let actionValue = this.querySelector('#user-action').value;
+    let actionValue = this.querySelector('.user-action').value;
     if(actionValue == 'none') return;
     
     let id = this.getAttribute('data-user-id');
@@ -18,6 +20,7 @@ function updateUser(event){
     else sendAjaxPostRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
 }
 
+// Handle the response to a request to the deletion of a user
 function userDeletedHandler(){
     let response = JSON.parse(this.responseText);
 
@@ -32,6 +35,7 @@ function userDeletedHandler(){
     element.remove();
 }
 
+// Handle the response to a request to update the role or the ban status of a user
 function userUpdatedHandler(){
     let response = JSON.parse(this.responseText);
     
@@ -52,9 +56,8 @@ function userUpdatedHandler(){
     manageUsers();
 }
 
-function showAlert(message, type){
-    console.log(manageUsersAlert)
-    
+// Show success or error alert on the screen when the response to an action is received
+function showAlert(message, type){ 
     let alert = document.createElement('div');
     alert.classList.add('alert','alert-dismissible','fade','show');
     alert.innerHTML = message;
@@ -83,7 +86,7 @@ function encodeForAjax(data) {
     return Object.keys(data).map(function(k){
       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
-  }
+}
 
 function sendAjaxPostRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
@@ -95,5 +98,50 @@ function sendAjaxPostRequest(method, url, data, handler) {
     request.send(encodeForAjax(data));
 }
 
+function sendAjaxGetRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+    
+    request.open(method, url + '?' + encodeForAjax(data), true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.addEventListener('load', handler);
+    request.send();
+}
+
+function searchUsers(){
+    if(usernameInput){
+        usernameInput.addEventListener('keyup', function(){
+            console.log(usernameInput.value)
+            sendAjaxGetRequest('get', '/api/admin/user', 
+            {'search-input': usernameInput.value}, userSearchUpdateHandler)
+        });
+    } 
+}
+
+function userSearchUpdateHandler(){
+    let response = JSON.parse(this.responseText);
+    userManagementArea.querySelector('#users-table').innerHTML = response.html;
+
+    updateUsersPagination();
+}
+
+
+function changeUsersPage(event) {
+    event.preventDefault();
+    page = this.href.split('page=')[1]
+    sendAjaxGetRequest('get', '/api/admin/user', 
+        {'search-input': usernameInput.value, 'page': page}, userSearchUpdateHandler)
+}
+
+function updateUsersPagination() {
+    let pagination = document.querySelectorAll('.pagination a');
+    if(pagination){
+        pagination.forEach(paginationLink => { paginationLink.addEventListener('click', changeUsersPage);});
+    }
+}
+
+let usernameInput = document.getElementById('search-username');
 let manageUsersAlert = document.getElementById('manage-users-alert');
+let userManagementArea = document.getElementById('users-manage-area')
 manageUsers();
+searchUsers();
+updateUsersPagination();

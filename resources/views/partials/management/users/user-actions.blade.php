@@ -5,7 +5,7 @@
     <form class="user-actions" data-user-id="{{$id}}">
         @csrf
         <div class="input-group flex-nowrap">
-            <select id="user-action" class="form-select">
+            <select class="user-action form-select">
                 <option selected disabled value="none">Actions</option>
     
                 @if(Auth::user()->isAdmin())
