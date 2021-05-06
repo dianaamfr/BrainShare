@@ -43,7 +43,7 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
 }
 
 let userId = document.getElementById('profile-id').innerHTML;
-if(userId) {
-    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/5/questions');
-    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/5/answers');
+if (userId) {
+    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
+    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
 }
