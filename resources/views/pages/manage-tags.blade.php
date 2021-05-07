@@ -23,8 +23,8 @@
             <section id="pagination-item-1" class="management manage-categories w-100 mt-5">
                 <h2 class="mb-4">Tags</h2>
 
-                <div class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-                    <div class="input-group manage-search mb-3" id="manage-add-tag">
+                <div class="mt-5 d-flex justify-content-between flex-wrap mb-3" id="input-category">
+                    <div class="input-group manage-search mb-3" >
                         <input type="text" class="form-control" placeholder="Insert a tag..." >
                         <button class="btn btn-primary" >Add Tag</button>
                     </div>
@@ -34,9 +34,10 @@
                     </div>
                 </div>
 
-                @include('partials.management.category.table', ['categories' => $tags])
+                <div class="table-responsive" id="category-table">
+                    @include('partials.management.category.table', ['categories' => $tags])
+                </div>
             </section>
-
 
         </div>
 

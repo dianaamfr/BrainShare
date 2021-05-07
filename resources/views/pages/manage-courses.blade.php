@@ -26,7 +26,7 @@
             <h2 class="mb-4">Course</h2>
 
             <div class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-                <div class="input-group manage-search mb-3" id="manage-add-course">
+                <div class="input-group manage-search mb-3" id="input-category">
                     <input type="text" class="form-control" placeholder="Insert a course...">
                     <button class="btn btn-primary">Add Course</button>
                 </div>
@@ -36,12 +36,10 @@
                 </div>
             </div>
 
-
+            <div class="table-responsive" id="category-table">
                 @include('partials.management.category.table', ['categories' => $courses])
+            </div>
 
-
-            <!-- Pagination -->
-            {{$courses->links()}}
         </section>
 
     </div>

@@ -29,6 +29,30 @@ export function getDate(timestamp) {
     return splitedDate[2] + "-" + splitedDate[1] + "-" + splitedDate[0];
 }
 
+export function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function(k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+}
+
+export function sendAjaxGetRequest(url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open("get", url + '?' + encodeForAjax(data), true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.addEventListener('load', handler);
+    request.send();
+}
+
+/**
+ * This function sends the ajax request as a json file.
+ * @param method POST, PUT, DELETE or GET
+ * @param url Target endpoint.
+ * @param data{json} Information to be sent.
+ * @param token Send to token for authentication.
+ * @param handleResponse Function that will be called to handle the response.
+ */
 export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
     let dataJson = JSON.stringify(data);
     fetch(url, {
@@ -45,6 +69,7 @@ export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
+// TODO: ask the professor if this is safe.
 export function getToken(){
     return document.querySelector("meta[name='csrf-token']").getAttribute('content');
 }

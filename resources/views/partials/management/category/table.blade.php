@@ -1,4 +1,3 @@
-<div class="table-responsive">
 {{--    How many elements are in a page. --}}
     <span style="display: none" id="perPage">{{$categories->perPage()}}</span>
 
@@ -33,5 +32,4 @@
         </tbody>
     </table>
     <!-- Pagination -->
-    {{$category->links()}}
-</div>
+    {{$categories->links()}}

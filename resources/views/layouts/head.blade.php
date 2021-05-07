@@ -46,12 +46,11 @@
 
 {{--Add a tag to the admin page--}}
 @if(Request::is("admin/categories/tags"))
-    <script src={{ asset('js/manage-categories/addTag.js') }} type="module"></script>
-    <script src={{ asset('js/manage-categories/deleteTag.js')}} type="module"></script>
+    <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>
 @endif
 
 @if(Request::is("admin/categories/courses"))
-    <script src={{ asset('js/manage-categories/addCourse.js') }} type="module"></script>
+    <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
 @endif
 
 
