@@ -14,14 +14,18 @@ class CategoriesController extends Controller
     public function showTags(Request $request){
         $tags = $this->getFilteredTag($request->input('search-name'));
 
-        return view('pages.manage-tags', ['tags' => $tags->paginate(5)]);
+        return view('pages.manage-tags', ['tags' => $tags->paginate(5), 'url'=> '/admin/categories/tags']);
     }
 
     public function searchTags(Request $request){
         // TODO: add authorization
         $tags = $this->getFilteredTag($request->input('search-name'));
 
-        return $this->getCategoryTable($tags);
+
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags',
+            'html' => view('partials.management.category.table', ['categories' => $tags->paginate(5)])->render()
+        ]);
+
     }
 
     public function getFilteredTag($search){
@@ -40,7 +44,8 @@ class CategoriesController extends Controller
         $tag->save();
 
         $tags = Tag::whereNotNull('name');
-        return $this->getCategoryTable($tags);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
+
     }
 
     public function deleteTag(Request $request){
@@ -48,20 +53,14 @@ class CategoriesController extends Controller
         DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
 
         $tags = Tag::whereNotNull('name');
-        return $this->getCategoryTable($tags);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
+
     }
 
 
     public function showCourses(){
         $courses = Course::paginate(5);
         return view('pages.manage-courses', ['courses' => $courses]);
-    }
-
-    public function getCategoryTable($category): \Illuminate\Http\JsonResponse
-    {
-        return response()->json(['success'=> 'Your request was completed',
-            'html' => view('partials.management.category.table', ['categories' => $category->paginate(5)])->render()
-        ]);
     }
 
 }

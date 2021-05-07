@@ -1,5 +1,5 @@
 import {getToken, sendDataAjaxRequest} from "../common.js";
-import {handleCategoryResponse, eventDelete, eventSearch, updateCategoryPagination} from "./category.js"
+import {handleCategoryResponse, listenDeleteCategory, listenSearchCategory, listenPageCategory} from "./category.js"
 
 let tagInputDiv = document.getElementById("input-category");
 let addTagButton = tagInputDiv.querySelector("button");
@@ -7,11 +7,12 @@ let addTagInput = tagInputDiv.querySelector("input");
 let searchDiv = tagInputDiv.querySelectorAll("div")[1];
 
 
-updateCategoryPagination();
-eventSearch("/api/admin/tag", searchDiv);
-eventDelete();
+listenPageCategory( "/admin/categories/tags");
+listenSearchCategory("/admin/categories/tags", searchDiv);
+listenDeleteCategory("/admin/categories/tags");
+
 addTagButton.addEventListener("click", () => {
-    sendDataAjaxRequest("post", "/api/admin/tag/add" , {'input': addTagInput.value}, getToken() , handleCategoryResponse);
+    sendDataAjaxRequest("post", "/api/admin/categories/tags/add" , {'input': addTagInput.value}, getToken() , handleCategoryResponse);
 });
 
 
