@@ -33,7 +33,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     public function questions() {
         return $this->hasMany('App\Models\Question');
     }

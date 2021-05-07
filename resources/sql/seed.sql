@@ -2,17 +2,17 @@
 -- Drop --
 ----------
 DROP TABLE IF EXISTS tag CASCADE;
-DROP TABLE IF EXISTS course CASCADE; 
-DROP TABLE IF EXISTS "user" CASCADE;  
+DROP TABLE IF EXISTS course CASCADE;
+DROP TABLE IF EXISTS "user" CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
-DROP TABLE IF EXISTS answer CASCADE;  
-DROP TABLE IF EXISTS comment CASCADE; 
-DROP TABLE IF EXISTS "notification" CASCADE;  
+DROP TABLE IF EXISTS answer CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
+DROP TABLE IF EXISTS "notification" CASCADE;
 DROP TABLE IF EXISTS vote CASCADE;
-DROP TABLE IF EXISTS report CASCADE;  
-DROP TABLE IF EXISTS question_tag CASCADE;  
+DROP TABLE IF EXISTS report CASCADE;
+DROP TABLE IF EXISTS question_tag CASCADE;
 DROP TABLE IF EXISTS question_course CASCADE;
-DROP TABLE IF EXISTS favourite_tag CASCADE;  
+DROP TABLE IF EXISTS favourite_tag CASCADE;
 
 DROP TYPE IF EXISTS "role";
 
@@ -46,132 +46,132 @@ DROP TRIGGER IF EXISTS already_reported ON question_course;
 -----------
 CREATE TYPE "role" AS ENUM('RegisteredUser', 'Moderator', 'Administrator');
 
-------------    
+------------
 -- Tables --
 ------------
 CREATE TABLE tag(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    id SERIAL PRIMARY KEY,
+                    name TEXT NOT NULL UNIQUE,
+                    creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE course(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE, 
-    creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+                       id SERIAL PRIMARY KEY,
+                       name TEXT NOT NULL UNIQUE,
+                       creation_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "user"(
-    id  SERIAL PRIMARY KEY,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
-    signup_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    birthday DATE,
-    name TEXT, 
-    image TEXT, 
-    description TEXT,
-    score INTEGER NOT NULL DEFAULT 0,
-    ban BOOLEAN NOT NULL DEFAULT false,
-    course_id INTEGER REFERENCES course ON UPDATE CASCADE ON DELETE SET NULL,
-    user_role "role" NOT NULL DEFAULT 'RegisteredUser',
-    
-	
-    CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE)
+                       id  SERIAL PRIMARY KEY,
+                       username TEXT NOT NULL UNIQUE,
+                       email TEXT NOT NULL UNIQUE,
+                       password TEXT NOT NULL,
+                       signup_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                       birthday DATE,
+                       name TEXT,
+                       image TEXT,
+                       description TEXT,
+                       score INTEGER NOT NULL DEFAULT 0,
+                       ban BOOLEAN NOT NULL DEFAULT false,
+                       course_id INTEGER REFERENCES course ON UPDATE CASCADE ON DELETE SET NULL,
+                       user_role "role" NOT NULL DEFAULT 'RegisteredUser',
+
+
+                       CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE)
 );
 
 CREATE TABLE question(
-    id SERIAL PRIMARY KEY,
-    question_owner_id INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
-    score INTEGER NOT NULL DEFAULT 0,
-    number_answer INTEGER NOT NULL DEFAULT 0,
-    search tsvector,
-    answers_search tsvector
+                         id SERIAL PRIMARY KEY,
+                         question_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
+                         title TEXT NOT NULL,
+                         content TEXT NOT NULL,
+                         "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
+                         score INTEGER NOT NULL DEFAULT 0,
+                         number_answer INTEGER NOT NULL DEFAULT 0,
+                         search tsvector,
+                         answers_search tsvector
 );
 
 CREATE TABLE answer(
-    id SERIAL PRIMARY KEY,  
-    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-    answer_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,  
-    content TEXT NOT NULL, 
-    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    valid boolean NOT NULL DEFAULT false,
-    score INTEGER NOT NULL DEFAULT 0,
-    search tsvector
-); 
+                       id SERIAL PRIMARY KEY,
+                       question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       answer_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
+                       content TEXT NOT NULL,
+                       "date" timestamp with time zone NOT NULL DEFAULT current_timestamp,
+                       valid boolean NOT NULL DEFAULT false,
+                       score INTEGER NOT NULL DEFAULT 0,
+                       search tsvector
+);
 
 CREATE TABLE comment(
-    id SERIAL PRIMARY KEY,  
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    comment_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,  
-    content TEXT NOT NULL, 
-    "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
-); 
+                        id SERIAL PRIMARY KEY,
+                        answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                        comment_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
+                        content TEXT NOT NULL,
+                        "date" timestamp with time zone NOT NULL DEFAULT current_timestamp
+);
 
 
 CREATE TABLE "notification"(
-    id  SERIAL PRIMARY KEY, 
-    user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-    date timestamp with time zone NOT NULL DEFAULT current_timestamp, 
-    viewed boolean NOT NULL DEFAULT false,
+                               id  SERIAL PRIMARY KEY,
+                               user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                               comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                               answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                               date timestamp with time zone NOT NULL DEFAULT current_timestamp,
+                               viewed boolean NOT NULL DEFAULT false,
 
-    CONSTRAINT exclusive_notification CHECK ((comment_id IS NULL AND answer_id IS NOT NULL) OR (comment_id IS NOT NULL AND answer_id IS NULL))
-); 
+                               CONSTRAINT exclusive_notification CHECK ((comment_id IS NULL AND answer_id IS NOT NULL) OR (comment_id IS NOT NULL AND answer_id IS NULL))
+);
 
 CREATE TABLE vote(
-    id SERIAL PRIMARY KEY,
-    value_vote INTEGER NOT NULL,
-    user_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                     id SERIAL PRIMARY KEY,
+                     value_vote INTEGER NOT NULL,
+                     user_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                     question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                     answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
 
-    CONSTRAINT value_vote CHECK (value_vote = 1 OR value_vote = -1),
-    CONSTRAINT exclusive_vote CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL))
+                     CONSTRAINT value_vote CHECK (value_vote = 1 OR value_vote = -1),
+                     CONSTRAINT exclusive_vote CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL))
 );
 
 CREATE TABLE report(
-    id SERIAL PRIMARY KEY,
-    viewed BOOLEAN NOT NULL DEFAULT FALSE,
-    "date" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    user_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    comment_id INTEGER  REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       id SERIAL PRIMARY KEY,
+                       viewed BOOLEAN NOT NULL DEFAULT FALSE,
+                       "date" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                       user_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                       comment_id INTEGER  REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
 
-    CONSTRAINT exclusive_report CHECK ((reported_id IS NOT NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NULL) OR 
-        (reported_id IS NULL AND question_id IS NOT NULL AND answer_id IS NULL and comment_id IS NULL) OR 
-        (reported_id IS NULL AND question_id IS NULL AND answer_id IS NOT NULL and comment_id IS NULL) OR 
-        (reported_id IS NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NOT NULL)) 
-    );
+                       CONSTRAINT exclusive_report CHECK ((reported_id IS NOT NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NULL) OR
+                                                          (reported_id IS NULL AND question_id IS NOT NULL AND answer_id IS NULL and comment_id IS NULL) OR
+                                                          (reported_id IS NULL AND question_id IS NULL AND answer_id IS NOT NULL and comment_id IS NULL) OR
+                                                          (reported_id IS NULL AND question_id IS NULL AND answer_id IS NULL and comment_id IS NOT NULL))
+);
 
 
 
 CREATE TABLE question_tag(
-    question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY(question_id, tag_id)
+                             question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                             tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                             PRIMARY KEY(question_id, tag_id)
 );
 
 CREATE TABLE question_course(
-    question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	course_id INTEGER REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY(question_id, course_id)
+                                question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                course_id INTEGER REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                PRIMARY KEY(question_id, course_id)
 );
 
 CREATE TABLE favourite_tag(
-    user_id INTEGER REFERENCES "user"(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY(user_id, tag_id)
+                              user_id INTEGER REFERENCES "user"(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                              tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                              PRIMARY KEY(user_id, tag_id)
 );
 
--------------    
+-------------
 -- Indexes --
 -------------
 
@@ -185,7 +185,7 @@ CREATE INDEX search_question_idx ON question USING GIST(search);
 
 CREATE INDEX search_answer_idx ON answer USING GIST(search);
 
---------------   
+--------------
 -- Triggers --
 --------------
 
@@ -194,9 +194,9 @@ CREATE INDEX search_answer_idx ON answer USING GIST(search);
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-	SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
-    INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
-    RETURN NEW;
+SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
+INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -205,15 +205,15 @@ CREATE TRIGGER answer_notification
     AFTER INSERT ON answer
     FOR EACH ROW
     EXECUTE PROCEDURE generate_answer_notification();
-	
+
 
 -- Generate Notifications for Comments
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-	SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
-    INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
-    RETURN NEW;
+SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
+INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -228,52 +228,52 @@ CREATE TRIGGER comment_notification
 -- Um user não pode dar upvote na própria questão
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
 BEGIN
-  IF 
-  	NEW.answer_id IS NOT NULL AND
-  	EXISTS (SELECT * FROM answer WHERE answer.id = NEW.answer_id AND 
+  IF
+NEW.answer_id IS NOT NULL AND
+  	EXISTS (SELECT * FROM answer WHERE answer.id = NEW.answer_id AND
 		NEW.user_id = answer.answer_owner_id)
   THEN
   	RAISE EXCEPTION 'Cant vote own answer';
-   ELSIF 
-  	NEW.question_id IS NOT NULL AND
-  	EXISTS (SELECT * FROM question WHERE question.id = NEW.question_id AND 
+   ELSIF
+NEW.question_id IS NOT NULL AND
+  	EXISTS (SELECT * FROM question WHERE question.id = NEW.question_id AND
 		NEW.user_id = question.question_owner_id)
   THEN
-  	RAISE EXCEPTION 'Cant vote own question'; 
-  END IF;
-  RETURN NEW;
+  	RAISE EXCEPTION 'Cant vote own question';
+END IF;
+RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
--- When user votes a question we already voted with the same "score", the upvote disappears. 
+-- When user votes a question we already voted with the same "score", the upvote disappears.
 -- If the score is different, the score is updated
 CREATE TRIGGER vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE process_vote();
-	
+
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
 DECLARE old_vote_id INTEGER;
 BEGIN
-  SELECT INTO old_vote_id vote.id FROM vote WHERE new.user_id = vote.user_id AND 
-             (new.answer_id = vote.answer_id OR new.question_id = vote.question_id);
-  IF old_vote_id IS NOT NULL
+SELECT INTO old_vote_id vote.id FROM vote WHERE new.user_id = vote.user_id AND
+                                              (new.answer_id = vote.answer_id OR new.question_id = vote.question_id);
+IF old_vote_id IS NOT NULL
   THEN
-      IF EXISTS (SELECT * FROM vote WHERE vote.id = old_vote_id AND 
+      IF EXISTS (SELECT * FROM vote WHERE vote.id = old_vote_id AND
                  vote.value_vote = new.value_vote)
       THEN
-	  	  DELETE FROM "vote"
-    		WHERE "vote".id = old_vote_id;
-		  RETURN NULL;
-      ELSE
-	  	  UPDATE vote SET
-      		value_vote = -1 * value_vote
-      		WHERE id = old_vote_id;
-          RETURN NULL;
-    END IF;
-  END IF;
-  RETURN NEW;
+DELETE FROM "vote"
+WHERE "vote".id = old_vote_id;
+RETURN NULL;
+ELSE
+UPDATE vote SET
+    value_vote = -1 * value_vote
+WHERE id = old_vote_id;
+RETURN NULL;
+END IF;
+END IF;
+RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
@@ -291,29 +291,29 @@ BEGIN
 	THEN
 		IF NEW.question_id IS NOT NULL
 		THEN
-			SELECT INTO user_id "user".id FROM "user", question WHERE NEW.question_id = question.id AND "user".id = question.question_owner_id; 
-			UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
-			UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
-		ELSIF NEW.answer_id IS NOT NULL
+SELECT INTO user_id "user".id FROM "user", question WHERE NEW.question_id = question.id AND "user".id = question.question_owner_id;
+UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
+UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
+ELSIF NEW.answer_id IS NOT NULL
 		THEN
-			SELECT INTO user_id "user".id FROM "user", answer WHERE NEW.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
-			UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;
-			UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
-		END IF;
-	ELSE
+SELECT INTO user_id "user".id FROM "user", answer WHERE NEW.answer_id = answer.id AND "user".id = answer.answer_owner_id;
+UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;
+UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
+END IF;
+ELSE
 		IF OLD.question_id IS NOT NULL
 		THEN
-			SELECT INTO user_id "user".id FROM "user", question WHERE OLD.question_id = question.id AND "user".id = question.question_owner_id; 
-			UPDATE question SET score = score - OLD.value_vote WHERE question.id = OLD.question_id;
-			UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
-		ELSIF OLD.answer_id IS NOT NULL
+SELECT INTO user_id "user".id FROM "user", question WHERE OLD.question_id = question.id AND "user".id = question.question_owner_id;
+UPDATE question SET score = score - OLD.value_vote WHERE question.id = OLD.question_id;
+UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
+ELSIF OLD.answer_id IS NOT NULL
 		THEN
-			SELECT INTO user_id "user".id FROM "user", answer WHERE OLD.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
-			UPDATE answer SET score = score - OLD.value_vote WHERE answer.id = OLD.answer_id;		
-			UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
-		END IF;
-	END IF;
-	RETURN NULL;
+SELECT INTO user_id "user".id FROM "user", answer WHERE OLD.answer_id = answer.id AND "user".id = answer.answer_owner_id;
+UPDATE answer SET score = score - OLD.value_vote WHERE answer.id = OLD.answer_id;
+UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
+END IF;
+END IF;
+RETURN NULL;
 END
 $$
 LANGUAGE plpgsql;
@@ -330,11 +330,11 @@ CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
 BEGIN
 	IF TG_OP = 'INSERT'
 	THEN
-		UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
-	ELSE
-		UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
-	END IF;
-	RETURN NEW;
+UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
+ELSE
+UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
+END IF;
+RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
@@ -349,13 +349,13 @@ CREATE TRIGGER action_answer
 CREATE FUNCTION tag_limit() RETURNS TRIGGER AS $$
 DECLARE number_tags INTEGER;
 BEGIN
-	SELECT INTO number_tags count(question_id) FROM question_tag WHERE (question_id = new.question_id);
-	IF number_tags > 5
+SELECT INTO number_tags count(question_id) FROM question_tag WHERE (question_id = new.question_id);
+IF number_tags > 5
 	THEN
 		RAISE EXCEPTION 'More than 5 tags';
-	ELSE
+ELSE
 		RETURN NEW;
-	END IF;
+END IF;
 END
 $$
 LANGUAGE plpgsql;
@@ -369,70 +369,70 @@ CREATE TRIGGER tag_trigger
 CREATE FUNCTION course_limit() RETURNS TRIGGER AS $$
 DECLARE number_courses INTEGER;
 BEGIN
-	SELECT INTO number_courses count(question_id) FROM question_course WHERE (question_id = new.question_id);
-	IF number_courses > 2
+SELECT INTO number_courses count(question_id) FROM question_course WHERE (question_id = new.question_id);
+IF number_courses > 2
 	THEN
 		RAISE EXCEPTION 'More than 2 courses';
-	ELSE
+ELSE
 		RETURN NEW;
-	END IF;
+END IF;
 END
 $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER course_limit
-AFTER INSERT ON question_course
-FOR EACH ROW
-EXECUTE PROCEDURE course_limit();
+    AFTER INSERT ON question_course
+    FOR EACH ROW
+    EXECUTE PROCEDURE course_limit();
 
 -- Limit Reports
 CREATE FUNCTION already_reported_check() RETURNS TRIGGER AS $$
 DECLARE already_reported INTEGER;
 BEGIN
-	IF NEW.reported_id IS NOT NULL 
+	IF NEW.reported_id IS NOT NULL
 	THEN
-		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.reported_id = NEW.reported_id;
-		IF already_reported IS NOT NULL
+SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.reported_id = NEW.reported_id;
+IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Reported already reported';
-		ELSE
+ELSE
 			RETURN NEW;
-		END IF;
+END IF;
     ELSIF NEW.question_id IS NOT NULL
 	THEN
-		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.question_id = NEW.question_id;
-		IF already_reported IS NOT NULL
+SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.question_id = NEW.question_id;
+IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Question already reported';
-		ELSE
+ELSE
 			RETURN NEW;
-		END IF;
+END IF;
     ELSIF NEW.answer_id IS NOT NULL
 	THEN
-		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.answer_id = NEW.answer_id;
-		IF already_reported IS NOT NULL
+SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.answer_id = NEW.answer_id;
+IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Answer already reported';
-		ELSE
+ELSE
 			RETURN NEW;
-		END IF;
-	ELSE
-		SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.comment_id = NEW.comment_id;
-		IF already_reported IS NOT NULL
+END IF;
+ELSE
+SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.comment_id = NEW.comment_id;
+IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Comment already reported';
-		ELSE
+ELSE
 			RETURN NEW;
-		END IF;
-	END IF;
+END IF;
+END IF;
 END
 $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER already_reported_check
-BEFORE INSERT ON report
-FOR EACH ROW
-EXECUTE PROCEDURE already_reported_check();
+    BEFORE INSERT ON report
+    FOR EACH ROW
+    EXECUTE PROCEDURE already_reported_check();
 
 -- FULL TEXT SEARCH
 -- Creating/Updating tsvector for a Question: with the title and the content
@@ -441,17 +441,17 @@ EXECUTE PROCEDURE already_reported_check();
 CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || 
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') ||
         setweight(to_tsvector('simple',NEW.content),'B');
-    END IF;
-    RETURN NEW;
+END IF;
+RETURN NEW;
 END
 $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER search_question
-BEFORE INSERT OR UPDATE ON question
-FOR EACH ROW
-EXECUTE PROCEDURE update_search_question();
+    BEFORE INSERT OR UPDATE ON question
+                         FOR EACH ROW
+                         EXECUTE PROCEDURE update_search_question();
 
 -- Creating/Updating tsvector for an Answer or Comment
 -- Insert/Update the tsvector of an answer or comment
@@ -459,45 +459,45 @@ CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
         NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
-    END IF;
-    RETURN NEW;
+END IF;
+RETURN NEW;
 END
 $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER answer_search
-BEFORE INSERT OR UPDATE ON answer
-FOR EACH ROW
-EXECUTE PROCEDURE update_answer_search();
+    BEFORE INSERT OR UPDATE ON answer
+                         FOR EACH ROW
+                         EXECUTE PROCEDURE update_answer_search();
 
 -- SEARCH PAGE: full text search
 -- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
 CREATE FUNCTION update_search_question_answers() RETURNS TRIGGER AS $BODY$
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
-        UPDATE question 
-        SET answers_search = (
-            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as answers_search
-            FROM answer
-            WHERE question_id = NEW.question_id
-            GROUP BY question.id)
-        WHERE question.id = NEW.question_id;
-    ELSE -- ON DELETE
-        UPDATE question 
-        SET answers_search = (
-            SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as search
-            FROM answer
-            WHERE question_id = OLD.question_id
-            GROUP BY question.id)
-        WHERE question.id = OLD.question_id;
-    END IF;
-    RETURN NEW;
+UPDATE question
+SET answers_search = (
+    SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as answers_search
+    FROM answer
+    WHERE question_id = NEW.question_id
+    GROUP BY question.id)
+WHERE question.id = NEW.question_id;
+ELSE -- ON DELETE
+UPDATE question
+SET answers_search = (
+    SELECT setweight(to_tsvector('simple',string_agg(answer.content, ' ')),'C') as search
+    FROM answer
+    WHERE question_id = OLD.question_id
+    GROUP BY question.id)
+WHERE question.id = OLD.question_id;
+END IF;
+RETURN NEW;
 END
 $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER search_question_answers
-AFTER INSERT OR UPDATE OR DELETE ON answer
-FOR EACH ROW
-EXECUTE PROCEDURE update_search_question_answers();
+    AFTER INSERT OR UPDATE OR DELETE ON answer
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_search_question_answers();
 
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'C#','2021-05-07 12:20:30');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'php','2021-12-04 04:32:15');
@@ -540,10 +540,10 @@ INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2020-07-21 05:04:
 INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2022-02-19 23:43:43','MIEM');
 INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2021-11-02 14:45:30','MIEMM');
 INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2021-04-08 17:08:50','MIEQ');
-INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2021-04-23 15:42:42','LCEEMG'); 
+INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2021-04-23 15:42:42','LCEEMG');
 INSERT INTO "course" (id,creation_date,name) VALUES (DEFAULT, '2021-07-23 15:42:42','MMC');
 
--- Missing description, image and word 
+-- Missing description, image and word
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Galloway','Suspendisse.non@semper.net', 'e1f8d20c1bd450f3d3b5ec43ff7160d36b76705d0bae7e8d26bc56ac64124e3f', '1993-10-02','Hamilton','2010-01-14 22:33:13',5,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Mccullough','dolor@ante.net', '5849fc7e5d0468f21a4920641a200595c9912603835db35314ebcfcd89f895a','2008-08-25','Shaine','2005-05-16 13:44:34',9,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Buckner','orci.consectetuer@feugiattellus.com', '8134e70633501ee0446382e046f1be736b2f1f3dad4b3236aac0c44148ba418c','1994-05-03','Savannah','1999-07-12 22:18:05',5,'True','RegisteredUser');
@@ -644,7 +644,8 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Wyatt','vel@magnisdisparturient.edu', 'cd3e5e0d022519e6c20b753aa4f2f1a5db24214d3d704b55fcb0655f7c6d9949','2001-07-27','Hedley','2018-02-04 03:47:13',2,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Morrow','Nunc.ut.erat@Inornaresagittis.com', 'f731fec079fca8fc75658c19b05a12f1d422196997555b9bfd8b38f29b0b0dc7','2002-02-09','Rinah','2002-01-09 11:04:28',9,'True','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Gibson','nulla.Cras.eu@tacitisociosquad.ca', 'bb4f13803368267216b06e71f9ef29dcb70c763836787f53983699c2534b6dc1','2006-08-27','Benjamin','2005-10-22 01:22:56',3,'False','RegisteredUser');
-INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test User','lbaw2152@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'UserTest', '2010-01-14 22:33:13', 5, 'True', 'RegisteredUser');
+INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test User','lbaw2152@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'UserTest', '2010-01-14 22:33:13', 5, 'False', 'RegisteredUser');
+INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test Admin','lbaw2152_admin@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'AdminTest', '2010-01-14 22:33:13', 5, 'False', 'Administrator');
 
 -- question
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', '
@@ -693,14 +694,14 @@ i have just been introduced to simulated annealing and would like to understand 
 An additional question: How is the local optima overcome? Is it by accepting a higher score based on some probability? (quite hazy from here on)
 Thank you very much for looking into this..
 ', '2020-12-13');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 46, 'Data for simple TSP', 'I wrote a simple genetic algorithm that can solve traveling salesman problem with 5 cities. 
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 46, 'Data for simple TSP', 'I wrote a simple genetic algorithm that can solve traveling salesman problem with 5 cities.
 I want to see how it does on a problem with more cities, something like 10, 25, 50, 100, but I cant find a sample date for the problem to try it on. Basically, I am looking for 2D lists or matrices with distances between cities. It would be nice if there is a solution. Where should I look?', '2020-03-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 76, 'MIPS: Using the stack', 'I was reading in a MIPS manual that: "Notice we use the “unsigned” version of the “add immediate” instruction because we are dealing with an address, which is an unsigned binary number. We wouldn’t want to generate an exception just because a computed address crossed over the mid-point of the memory space."
 What does this mean exactly? Specifically crossing over the mid-point of the memory space.
 And also, in the following code, I dont understand why it skips from 8($sp) to 20($sp). The code loads from 12($sp) and 16($sp) later but when is it doing something with these portions of memory. I was thinking possible in jal JILL, but there isnt really much explanation given.', '2020-04-17');
 
 -- answer
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Since you dont use absolute values for the height of the containers, I suspect it happens due to the calculation of the height and whether the scrollbar needs to be displayed. Chrome seems to behave differently here than other browsers.', '2021-12-05', TRUE);  
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 1, 7, 'Since you dont use absolute values for the height of the containers, I suspect it happens due to the calculation of the height and whether the scrollbar needs to be displayed. Chrome seems to behave differently here than other browsers.', '2021-12-05', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 2, 20, 'Assuming that no force is acting on the particle, the time to go from Pi to Pj is T
 where P is some point at the interface between the two mediums and lPiP, lPPj denotes their lengths. Now, let the Interface denotes x axis and the points Pi,Pj have coordinates (0,h), (s,−m) respectively. Let P has coordinate (x,0).
 So, T is minimized if dTdx=0, d2TdT2>0.', '2021-01-08', TRUE);
@@ -714,7 +715,7 @@ next: Add an attribute to your method.
 [CommandMethod("YOURCOMMANDNAMEINAUTOCAD")]
 Last: Your class and method need to be public, for AutoCAD to see them.
 Update: (Very last): your Method cannot take parameters.', '2020-10-11', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 6, 70, 'AVC is U shaped because of the principle of variable Proportions, which explains the three phases of the curve: Increasing returns to the variable factors, which cause average costs to fall, followed by: Constant returns, followed by: Diminishing returns, which cause costs to rise.', '2020-11-05', TRUE); 
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 6, 70, 'AVC is U shaped because of the principle of variable Proportions, which explains the three phases of the curve: Increasing returns to the variable factors, which cause average costs to fall, followed by: Constant returns, followed by: Diminishing returns, which cause costs to rise.', '2020-11-05', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 14, 64, '
 In January 2004, I was contacted by Philips New Display Technologies who were creating the electronics for the first ever commercial e-ink, the Sony Librie, who had only been released in Japan, years before Amazon Kindle and the others hit the market in US an Europe.
 The Philips engineers had a major problem. A few months before the product was supposed to hit the market, they were still getting ghosting on the screen when changing pages. The problem was the 200 drivers that were creating the electrostatic field. Each of these drivers had a certain voltage that had to be set right between zero and 1000 mV or something like this. But if you changed one of them, it would change everything.
@@ -722,7 +723,7 @@ So optimizing each drivers voltage individually was out of the question. The num
 The head engineer contacted me because I had previously released a Genetic Programming library to the open-source community. He asked if GP/GAs would help and if I could get involved. I did, and for about a month we worked together, me writing and tuning the GA library, on synthetic data, and him integrating it into their system. Then, one weekend they let it run live with the real thing.
 The following Monday I got these glowing emails from him and their hardware designer, about how nobody could believe the amazing results the GA found. This was it. Later that year the product hit the market.
 I didnt get paid one cent for it, but I got bragging rights. They said from the beginning they were already over budget, so I knew what the deal was before I started working on it. And its a great story for applications of GAs. :)', '2021-03-12', TRUE);
-INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 7, 5, 'scipy.constants defines the golden ratio as scipy.constants.golden. It is nowhere defined in the standard library, presumably because it could lead to bad values and it is easy to define yourself: golden = (1 + 5 ** 0.5) / 2', '2021-03-28', TRUE); 
+INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 7, 5, 'scipy.constants defines the golden ratio as scipy.constants.golden. It is nowhere defined in the standard library, presumably because it could lead to bad values and it is easy to define yourself: golden = (1 + 5 ** 0.5) / 2', '2021-03-28', TRUE);
 INSERT INTO answer(id, question_id, answer_owner_id, content, "date", valid) VALUES (DEFAULT, 8, 64, '
 1) Get a base understanding of what a database is (Google, Wikipedia)
 2) Learn what a RDBMS is (Relational Database Management System)
@@ -735,7 +736,7 @@ INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DE
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 64, 'The wording of this answer makes it sound like the limited precision of math.pi is a bug. Its not a bug. Python uses doubles internally. Thats why the docs say to available precision. 4*math.atan(1) will not give you a "better approximation", because youre still using doubles underneath. Yes, even if you have a supercomputer. :) You dont need a supercomputer to generate more than 53 bits of pi', '2021-03-30');
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 5, 'Will update the answer to acknowledge my mistake.', '2021-03-30');
 
--- Reported User 
+-- Reported User
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',41,42);
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',14,80);
 INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',44,43);
@@ -863,7 +864,7 @@ INSERT INTO favourite_tag (user_id, tag_id) VALUES (24, 20);
 INSERT INTO favourite_tag (user_id, tag_id) VALUES (24, 29);
 INSERT INTO favourite_tag (user_id, tag_id) VALUES (32, 15);
 
--- Question Votes  
+-- Question Votes
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,96,4,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,51,4,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,57,2,'1');
@@ -885,7 +886,7 @@ INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,45,1,'1')
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,49,1,'-1');
 INSERT INTO "vote" (id,user_id,question_id,value_vote) VALUES (DEFAULT,14,3,'1');
 
--- Answer Votes 
+-- Answer Votes
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,90,1,'1');
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,51,4,'1');
 INSERT INTO "vote" (id,user_id,answer_id,value_vote) VALUES (DEFAULT,22,2,'1');

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class CategoriesController extends Controller
 {
     public function showTags(Request $request){
+        $this->authorize('showTags', Tag::class);
         $tags = $this->getFilteredTag($request->input('search-name'));
 
         return view('pages.manage-tags', ['tags' => $tags->paginate(5), 'url'=> '/admin/categories/tags']);
@@ -37,6 +38,7 @@ class CategoriesController extends Controller
     }
 
     public function addTag(Request $request){
+        $this->authorize('addTag', Tag::class);
         $tag = new Tag();
         $jsonTag = json_decode($request->getContent(), true);
         $tag->name = $jsonTag['input'];
@@ -48,6 +50,7 @@ class CategoriesController extends Controller
     }
 
     public function deleteTag(Request $request){
+        $this->authorize('deleteTag');
         $jsonTag = json_decode($request->getContent(), true);
         DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
 
@@ -58,6 +61,7 @@ class CategoriesController extends Controller
 
     // COURSES
     public function showCourses(Request $request){
+        $this->authorize('showCourse');
         $tags = $this->getFilteredCourses($request->input('search-name'));
 
         return view('pages.manage-courses', ['courses' => $tags->paginate(5), 'url'=> '/admin/categories/courses']);
@@ -82,6 +86,7 @@ class CategoriesController extends Controller
     }
 
     public function addCourse(Request $request){
+        $this->authorize('addCourse');
         $course= new Course();
         $jsonCourse= json_decode($request->getContent(), true);
         $course->name = $jsonCourse['input'];
@@ -93,6 +98,7 @@ class CategoriesController extends Controller
     }
 
     public function deleteCourse(Request $request): \Illuminate\Http\JsonResponse {
+        $this->authorize('deleteCourse');
         $jsonCourse = json_decode($request->getContent(), true);
         DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
 
