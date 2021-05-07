@@ -1,4 +1,4 @@
-import {getToken, sendAjaxGetRequest, sendDataAjaxRequest} from "../common.js";
+import {getToken, sendAjaxGetRequest, sendDataAjaxRequest, showAlert} from "../common.js";
 
 
 /**
@@ -6,13 +6,14 @@ import {getToken, sendAjaxGetRequest, sendDataAjaxRequest} from "../common.js";
  * @param responseJson received a json response.
  */
 export function handleCategoryResponse(responseJson) {
+    const notificationDiv = document.querySelector("#category-notify");
     if (responseJson.hasOwnProperty('error')) {
-        console.log(responseJson['success'], 'error');
+        showAlert(responseJson['error'], 'error', notificationDiv);
         return;
     } else {
-        console.log(responseJson['success'], 'success');
+        showAlert(responseJson['success'], 'success', notificationDiv);
     }
-    console.log(responseJson['url'])
+
     changeCategoryPage(responseJson['url']);
     listenPageCategory(responseJson['url']);
     listenDeleteCategory(responseJson['url']);

@@ -19,8 +19,6 @@
             <!-- Tabs -->
         @include('partials.management.category.tabs')
 
-
-
         <!-- Manage courses-->
             <section id="pagination-item-1" class="management manage-categories w-100 mt-5">
                 <h2 class="mb-4">Course</h2>
@@ -36,6 +34,10 @@
                     </div>
                 </div>
 
+
+                <div id="category-notify">
+
+                </div>
                 <div class="table-responsive" id="category-table">
                     @include('partials.management.category.table', ['categories' => $courses])
                 </div>

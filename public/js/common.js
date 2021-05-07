@@ -90,3 +90,33 @@ export function getParameterByName(name, url = window.location.href) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Show success or error alert on the screen when the response to an action is received.
+ * @param message {String }Message to be displayed.
+ * @param type {String} Message type: error or not.
+ * @param element {Element} Element where the message will added to.
+ */
+export function showAlert(message, type, element){
+    let alert = document.createElement('div');
+    alert.classList.add('alert','alert-dismissible','fade','show');
+    alert.innerHTML = message;
+
+    let closeBtn = document.createElement('button');
+    closeBtn.classList.add('btn-close');
+    closeBtn.setAttribute('data-bs-dismiss', 'alert');
+
+    alert.appendChild(closeBtn);
+
+    if(type === "error"){
+        alert.classList.remove('alert-success');
+        alert.classList.add('alert-danger');
+    }
+    else {
+        alert.classList.remove('alert-danger')
+        alert.classList.add('alert-success');
+    }
+
+    element.innerHTML = '';
+    element.appendChild(alert);
+}

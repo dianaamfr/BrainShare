@@ -34,6 +34,9 @@
                     </div>
                 </div>
 
+                <div id="category-notify">
+
+                </div>
                 <div class="table-responsive" id="category-table">
                     @include('partials.management.category.table', ['categories' => $tags])
                 </div>
