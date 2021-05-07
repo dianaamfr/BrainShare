@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\DB;
 // TODO : create the authorization for do these actions.
 class CategoriesController extends Controller
 {
-    public function showTags(){
-        $tags = Tag::paginate(5);
+    public function showTags(Request $request){
+        $tags = $this->getFilteredTag($request->input('search-name'));
 
-        return view('pages.manage-tags', ['tags' => $tags]);
+        return view('pages.manage-tags', ['tags' => $tags->paginate(5)]);
     }
+
     public function searchTags(Request $request){
         // TODO: add authorization
         $tags = $this->getFilteredTag($request->input('search-name'));
