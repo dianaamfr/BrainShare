@@ -43,7 +43,6 @@ class CategoriesController extends Controller
         $tag->setAttribute('creation_date', Carbon::now());
         $tag->save();
 
-        $tags = Tag::whereNotNull('name');
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
 
     }
@@ -52,15 +51,54 @@ class CategoriesController extends Controller
         $jsonTag = json_decode($request->getContent(), true);
         DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
 
-        $tags = Tag::whereNotNull('name');
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
 
     }
 
 
-    public function showCourses(){
-        $courses = Course::paginate(5);
-        return view('pages.manage-courses', ['courses' => $courses]);
+    // COURSES
+    public function showCourses(Request $request){
+        $tags = $this->getFilteredCourses($request->input('search-name'));
+
+        return view('pages.manage-courses', ['courses' => $tags->paginate(5), 'url'=> '/admin/categories/courses']);
     }
+
+    public function searchCourses(Request $request): \Illuminate\Http\JsonResponse {
+        // TODO: add authorization
+        $courses= $this->getFilteredCourses($request->input('search-name'));
+
+
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses',
+            'html' => view('partials.management.category.table', ['categories' => $courses->paginate(5)])->render()
+        ]);
+
+    }
+    public function getFilteredCourses($search){
+        // TODO: add authorization
+        if (isset($search) && !empty($search)){
+            return Course::where('name', 'ILIKE', $search . '%');
+        }
+        return Course::orderBy('name', 'asc');
+    }
+
+    public function addCourse(Request $request){
+        $course= new Course();
+        $jsonCourse= json_decode($request->getContent(), true);
+        $course->name = $jsonCourse['input'];
+        $course->setAttribute('creation_date', Carbon::now());
+        $course->save();
+
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses']);
+
+    }
+
+    public function deleteCourse(Request $request): \Illuminate\Http\JsonResponse {
+        $jsonCourse = json_decode($request->getContent(), true);
+        DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
+
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses']);
+    }
+
+
 
 }

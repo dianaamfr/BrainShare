@@ -73,3 +73,20 @@ export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
 export function getToken(){
     return document.querySelector("meta[name='csrf-token']").getAttribute('content');
 }
+
+/**
+ * src: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+ * This function get's the value of query parameters
+ * @param name {String} name of the field.
+ * @param url {String} Url where it will be searched.
+ * @returns {string|null} Value of the paramater.
+ */
+//
+export function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}

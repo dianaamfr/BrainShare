@@ -74,5 +74,6 @@ Route::post('/api/admin/categories/tags/add', 'CategoriesController@addTag')->na
 Route::delete('/api/admin/categories/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
 
 Route::get('/admin/categories/courses', 'CategoriesController@showCourses')->name('manage-courses');
-Route::post('/api/admin/course/add', 'CategoriesController@addCourse')->name('manage-courses-add');
-
+Route::get('/api/admin/categories/courses', 'CategoriesController@searchCourses')->name('manage-courses-search');
+Route::post('/api/admin/categories/courses/add', 'CategoriesController@addCourse')->name('manage-courses-add');
+Route::delete('/api/admin/categories/courses/delete', 'CategoriesController@deleteCourse')->name('manage-courses-delete');

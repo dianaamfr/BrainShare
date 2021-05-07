@@ -32,7 +32,7 @@ export function handleCategoryGet() {
 /**
  * This function handles the search event for categories.
  * @param url {String} url of the category page.
- * @param searchDiv {String} Search div element.
+ * @param searchDiv {Element} Search div element.
  */
 export function listenSearchCategory(url, searchDiv) {
     const searchInput = searchDiv.querySelector("input");
@@ -96,6 +96,15 @@ export function sendSearch(url){
     window.history.pushState({}, '', url + "?" + encodeForAjax({"search-name": searchInputValue}))
 }
 
+export function listenAddCategory(url){
+    const InputDiv = document.getElementById("input-category");
+    const addButton = InputDiv.querySelector("button");
+    const addInput = InputDiv.querySelector("input");
+    addButton.addEventListener("click", () => {
+        sendDataAjaxRequest("post", "/api" + url + "/add" , {'input': addInput.value}, getToken() , handleCategoryResponse);
+    });
+
+}
 
 export function getCategoryName(deleteButton) {
     const categoryRow = deleteButton.parentElement.parentElement.parentElement;

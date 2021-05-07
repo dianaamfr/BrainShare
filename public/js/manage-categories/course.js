@@ -1,15 +1,15 @@
-import {sendDataAjaxRequest} from "../common.js";
-import {} from "./category.js";
+import {listenAddCategory, listenDeleteCategory, listenSearchCategory, listenPageCategory} from "./category.js"
+import {getParameterByName} from "../common.js";
 
-// TODO: fix to accept the course.
-let addCourseDiv = document.getElementById("manage-add-course");
-let addCourseButton = addCourseDiv.querySelector("button");
-let addCourseInput = addCourseDiv.querySelector("input");
-let token = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+let InputDiv = document.getElementById("input-category");
+let searchDiv = InputDiv.querySelectorAll("div")[1];
+const url = "/admin/categories/courses";
 
-addCourseButton.addEventListener("click", () => {
-    sendDataAjaxRequest("post", "/api/admin/course/add" , {'input': addCourseInput.value}, token, handleResponse);
-});
+listenPageCategory( url);
+listenSearchCategory(url, searchDiv);
+listenDeleteCategory(url);
+listenAddCategory(url);
 
-
-
+const searchValue = getParameterByName("search-name", window.location.href);
+if (searchValue !== null && searchValue !== "")
+    searchDiv.querySelector("input").value = searchValue;
