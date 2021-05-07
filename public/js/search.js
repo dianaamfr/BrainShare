@@ -46,7 +46,6 @@ function searchUpdateHandler(){
 }
 
 function sendSearchTagsRequest() {
-
     sendAjaxGetRequest('get', 'api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 

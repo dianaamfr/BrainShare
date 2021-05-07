@@ -18,11 +18,6 @@ function updateUser(event){
 
     if(actionValue == "delete"){
         let page = document.querySelector('.page-item.active[aria-current=page] span.page-link').innerHTML;
-
-        if(page != 1 && document.querySelector('.page-item:last-child').classList.contains('disabled') 
-            && document.querySelectorAll('#users-table tbody tr').length == 1){
-            page--;
-        }
         
         sendAjaxPostRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
         window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
@@ -148,7 +143,7 @@ function changeUsersPage(event) {
 }
 
 function updateUsersPagination() {
-    let pagination = document.querySelectorAll('.pagination a');
+    let pagination = document.querySelectorAll('#users-manage-area .pagination a');
     if(pagination){
         pagination.forEach(paginationLink => { paginationLink.addEventListener('click', changeUsersPage);});
     }

@@ -42,8 +42,9 @@ class UserPolicy
         return true;
       }
 
-      // Moderators can only change the role of Registered Users
+      // Moderators can only change the role of Registered Users or of themselves
       $updatedIsRegisteredUser = !$updated->isAdmin() && !$updated->isModerator();
-      return($updatedIsRegisteredUser && $user->isModerator());
+
+      return $updatedIsRegisteredUser && $user->isModerator();
     }
 }

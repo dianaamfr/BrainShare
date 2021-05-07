@@ -8,7 +8,7 @@
             <select class="user-action form-select">
                 <option selected disabled value="none">Actions</option>
     
-                @if(Auth::user()->isAdmin())
+                @if(Auth::user()->isAdmin() && Auth::user()->id != $id)
                     @if ($role != "Administrator")
                         <option value="admin">Promote to Administrator</option>
                     @else 
@@ -20,14 +20,14 @@
                     @else 
                         <option value="ru">Demote to Registered User</option>
                     @endif
-    
+
                     @if ($ban == 1) 
                         <option value="unban">Unban</option>
                     @else 
                         <option value="ban">Ban</option>
                     @endif
-    
-                    <option value="delete">Delete</option>  
+                        <option value="delete">Delete</option>  
+
                 @elseif(Auth::user()->isModerator() && $role == "RegisteredUser")
                     @if ($ban == 1) 
                         <option value="unban">Unban</option>

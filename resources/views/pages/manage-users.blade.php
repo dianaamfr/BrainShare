@@ -10,7 +10,7 @@
         @include('partials.management.side-bar')
   
         <div class="col-md-9 ms-md-auto col-lg-9 px-md-4" id="users-manage-area">
-            <h2 class="mb- mt-5">Users</h2>
+            <h2 class="mb- mt-5 mb-4">Users</h2>
 
             <!-- Search by username -->
             <div class="input-group manage-search mb-3">

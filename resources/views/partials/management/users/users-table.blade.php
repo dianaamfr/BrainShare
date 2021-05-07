@@ -3,8 +3,8 @@
     
     @if ($users->isNotEmpty())
         <div class="table-entries">
-            Showing {{$users->perpage() * ($users->currentpage()-1)}} 
-            to {{$users->perpage() * ($users->currentpage()-1) + $users->count() - 1}} 
+            Showing {{$users->perpage() * ($users->currentpage()-1) + 1}} 
+            to {{$users->perpage() * ($users->currentpage()-1) + $users->count()}} 
             of {{$users->total()}} entries
         </div>
     @endif
@@ -12,17 +12,17 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col"><i class="fas fa-sort"></i>Username</th>
-            <th scope="col"><i class="fas fa-sort big-row"></i>Date</th>
-            <th scope="col"><i class="fas fa-sort"></i>Banned</th>
-            <th scope="col"><i class="fas fa-sort"></i>Role</th>
+            <th scope="col">Username</th>
+            <th scope="col">Date</th>
+            <th scope="col">Banned</th>
+            <th scope="col">Role</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
                 <tr data-user-id="{{$user->id}}">
-                    <th>{{$loop->index + $users->perpage() * ($users->currentpage()-1)}}</th>
+                    <th>{{$loop->index + 1 + $users->perpage() * ($users->currentpage()-1)}}</th>
                     <td>
                         <!-- TODO: get profile image -->
                         <a href="profile.php">

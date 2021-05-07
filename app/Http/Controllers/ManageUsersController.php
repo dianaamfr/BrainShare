@@ -19,7 +19,7 @@ class ManageUsersController extends Controller {
 
       $users = $this->getFilteredUsers($request->input('search-username'));
 
-      return view('pages.manage-users', ['users' => $users->paginate(5)]);
+      return view('pages.manage-users', ['users' => $users->paginate(10)]);
     }
 
     public function search(Request $request){
@@ -28,20 +28,20 @@ class ManageUsersController extends Controller {
       $users = $this->getFilteredUsers($request->input('search-username'));
       
       return response()->json([
-        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(5)])->render()
+        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(10)])->render()
       ]);
     }
 
     public function getFilteredUsers($search){
       if(isset($search) && !empty($search)){
-        return User::where('username', 'ILIKE', $search . '%');
+        return User::where('username', 'ILIKE', $search . '%')->where('id', '!=', Auth::user()->id);
       }
 
       if(Auth::user()->isModerator()){
-        return User::where('user_role','=', 'RegisteredUser')->orderBy('username', 'asc');
+        return User::where('user_role','=', 'RegisteredUser')->where('id', '!=', Auth::user()->id)->orderBy('username', 'asc');
       } 
       
-      return User::orderBy('username', 'asc');
+      return User::where('id', '!=', Auth::user()->id)->orderBy('username', 'asc');
       
     }
 
@@ -50,14 +50,10 @@ class ManageUsersController extends Controller {
       $user = User::find($id);
       $this->authorize('updateState', $user);
 
-      // Avoid deleting all Administrators
-      if($id == Auth::user()->id && Auth::user()->isAdmin() ) {
-        return response()->json(['error'=>'You are the only Administrator. To change your role or delete your account you must first promote other Administrator.']);
-        $admins = User::where('user_role','Admnistrator')->count();
-        if($admins == 1){
-          return response()->json(['error'=>'You are the only Administrator. To change your role or delete your account you must first promote other Administrator.']);
-        }
-      }
+      // Administrator or Moderator managing their own account
+      if($id == Auth::user()->id){
+        return response()->json(['error'=>'Invalid action. Please use the provided fields to manage your account.']);
+      } 
 
       if($request->input('action') == 'admin') $this->updateRole($user, 'Administrator');
       else if ($request->input('action') == 'moderator') $this->updateRole($user, 'Moderator');
@@ -85,20 +81,23 @@ class ManageUsersController extends Controller {
 
       $this->authorize('delete', $user);
 
-      // Avoid deleting all Administrators
-      if($id == Auth::user()->id && Auth::user()->isAdmin() ) {
-        $admins = User::where('user_role','Admnistrator')->count();
-        if($admins == 1){
-          return response()->json(['error'=>'You are the only Administrator. To change you\'re role or delete your account
-          you must first promote other Administrator.']);
-        }
+      // Avoid deleting the current user
+      if($id == Auth::user()->id) {
+        return response()->json(['error'=>'Invalid action. Please use the provided fields to manage your account.']);
       }
+
       $user->delete();
       
       $users = $this->getFilteredUsers(null);
 
+      // Verify if the requested page exists
+      $npages = ceil($users->count() / 10.0);
+      if($request->input('page') > $npages){
+        $request->merge(['page' => $request->input('page') - 1]);
+      }
+
       return response()->json(['success'=> 'Your request was completed',
-        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(5)])->render()
+        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(10)])->render()
       ]);
     }
   }
