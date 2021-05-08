@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Question;
+use App\Models\Vote;
 use App\Models\Course;
 use App\Models\Tag;
 use App\Models\User;
@@ -147,7 +150,6 @@ class QuestionController extends Controller
     // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
     public function delete($questionId)
     {
-
         $question = Question::find($questionId);
 
         // If you are not logged in, redirect to the login page
@@ -161,4 +163,44 @@ class QuestionController extends Controller
         // Return to the search page if the question is sucessfull deleted
         return redirect()->route('search');
     }
+
+    public function upvote($questionId)
+    {
+        if (!Auth::check()) return redirect('login');
+
+        try {
+            $vote = new Vote();
+
+            // Add Question
+            $vote->user_id = Auth::id();
+            $vote->question_id = $questionId;
+            $vote->value_vote = 1;
+            $vote->save();
+
+            return redirect()->route('show-question', ['id' => $questionId]);
+        } catch(\Exception $e) {
+            return redirect()->route('show-question', ['id' => $questionId]);
+        }
+    }
+
+    /*
+    public function downvote($questionId)
+    {
+        if (!Auth::check()) return redirect('login');
+
+        try {
+            $vote = new Vote();
+
+            // Add Question
+            $vote->user_id = Auth::id();
+            $vote->question_id = $questionId;
+            $vote->value_vote = -1;
+            $vote->save();
+
+            return redirect()->route('show-question', ['id' => $questionId]);
+        } catch(\Exception $e) {
+            return redirect()->route('show-question', ['id' => $questionId]);
+        }
+    }
+    */
 }
