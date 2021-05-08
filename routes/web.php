@@ -56,3 +56,9 @@ Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit
 Route::get('/admin/categories', 'StaticController@showCategories')->name('manage-categories');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 Route::get('/admin/users', 'StaticController@showUsers')->name('manage-users');
+
+// Password Reset
+Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
+Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
+Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
+Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');

@@ -18,7 +18,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="password" class="form-label">Password<a href="#" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
+                <label for="password" class="form-label">Password<a href="{{ route('password.request') }}" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
                 <input id="password" type="password" name="password" placeholder="Password" class="form-control" required>
                 @if ($errors->has('password'))
                     <span class="error">
