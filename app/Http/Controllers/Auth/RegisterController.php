@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Model\Image;
+use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
@@ -64,26 +66,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data){
         
-        $user = User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        
+        return DB::transaction(function () use ($data) {
+            $user = User::create([
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password'])
+            ]);
+      
+            if(request()->hasFile('profile-image')){
+                
+                if (request()->file('profile-image')->isValid()) {
+                    $fileName = "profile" . strval($user->id) . "." . $data['profile-image']->getClientOriginalExtension();
+                    $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
 
-        if(request()->hasFile('profile-image')){
-            
-            if (request()->file('profile-image')->isValid()) {
-                $fileName = "profile" . strval($user->id) . "." . $data['profile-image']->getClientOriginalExtension();
-                $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
+                    $user->image = $path;
+                    $user->save();
+                } 
+                else{
+                    throw ValidationException::withMessages(['profile-image' => ['Invalid image.']]);
+                } 
+            }
 
-                $user->image = $path;
-                $user->save();
-            } 
-            else{
-                $user->delete();
-            } 
-        }
+            return $user;
+        }); 
 
-        return $user;
     }
 }
