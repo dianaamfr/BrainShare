@@ -47,7 +47,7 @@
             <!-- Registered Users options -->
             @if (Auth::check()) 
               <a class="nav-link profile-button registration-button" href="/user/1/profile">
-                  <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
+                  <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>
               <button class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">

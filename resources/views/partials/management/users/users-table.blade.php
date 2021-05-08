@@ -26,7 +26,7 @@
                     <td>
                         <!-- TODO: get profile image -->
                         <a href="profile.php">
-                            <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon">
+                            <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                             <span>{{$user->username}}</span>
                         </a>
                     </td>

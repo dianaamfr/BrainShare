@@ -42,7 +42,7 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/manage-users.js') }} defer></script>
 
-
+<script  src={{ asset('js/imagePreview.js') }} defer></script>
 <!-- Carousel -->
 <!-- <script src="js/homepage-carousel.js" defer></script> -->
 

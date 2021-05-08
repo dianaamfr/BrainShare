@@ -4,16 +4,21 @@
 <div class="page-margin d-flex flex-column justify-content-center">
   <section id="register" class="container-sm card p-5">
     <h2 class="mb-4">Register</h2>
-    <form method="POST" action="{{ route('register') }}" class="text-start" data-toggle="validator">
+    <form method="POST" action="{{ route('register') }}" class="text-start" data-toggle="validator" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="mb-4 text-center">
             <img class="bd-placeholder-img img-thumbnail rounded-circle mb-3" id="register-image" src="{{asset('images/profile.png')}}" alt="profile image">
             <div class="mb-4">
-            <input type="file" id="register-file" class="form-control-file">
-            <label for="register-file" class="custom-file-upload btn-link">
-                <i class="fa fa-upload"></i> Profile picture
-            </label>
+              <input type="file" id="register-file" class="form-control-file" name="profile-image">
+              <label for="register-file" class="custom-file-upload btn-link">
+                  <i class="fa fa-upload"></i> Profile picture
+              </label>
+              <span id="profile-image-error" class="error">
+                @if ($errors->has('profile-image'))
+                  {{ $errors->first('profile-image') }}
+                @endif
+              </span>
             </div>
         </div>
 

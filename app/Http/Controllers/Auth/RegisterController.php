@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Model\Image;
 
 class RegisterController extends Controller
 {
@@ -51,6 +52,7 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255|unique:user',
             'email' => 'required|string|email|max:255|unique:user',
             'password' => 'required|string|min:6|confirmed',
+            'profile-image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
     }
 
@@ -60,12 +62,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
+    protected function create(array $data){
+        
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['password'])
         ]);
+
+        if(request()->hasFile('profile-image')){
+            
+            if (request()->file('profile-image')->isValid()) {
+                $fileName = "profile" . strval($user->id) . "." . $data['profile-image']->getClientOriginalExtension();
+                $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
+
+                $user->image = $path;
+                $user->save();
+            } 
+            else{
+                $user->delete();
+            } 
+        }
+
+        return $user;
     }
 }
