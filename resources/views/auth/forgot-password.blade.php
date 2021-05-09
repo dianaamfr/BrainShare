@@ -7,7 +7,7 @@
         <form method="POST" class="text-start" action="{{ route('password.email') }}">
             {{ csrf_field() }}
 
-            <div class="mb-4">
+            <div>
                 <label for="email" class="form-label">E-mail</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" data-error="That email address is invalid" required autofocus>
                 @if ($errors->has('email'))
@@ -17,7 +17,13 @@
                 @endif
             </div>
 
-            <button type="submit"  class="btn btn-primary btn-login">
+            @if (session('status'))
+            <p class="success mt-2">
+                {{ session('status') }}
+            </p>
+            @endif
+
+            <button type="submit"  class="btn btn-primary mt-4">
                 Send Email
             </button>
         </form>

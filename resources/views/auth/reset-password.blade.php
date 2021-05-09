@@ -29,12 +29,18 @@
           @endif
         </div>
         
-        <div class="mb-4">
+        <div>
           <label for="password_confirmation" class="form-label">Confirm Password*</label>
           <input id="password_confirmation" class="form-control" type="password"  data-match="#password" name="password_confirmation" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block btn-register">
+        @if (session('status'))
+          <p class="success mt-2">
+              {{ session('status') }}
+          </p>
+        @endif
+
+        <button type="submit" class="btn btn-primary btn-block mt-4">
           Save New Password
         </button>
     </form>

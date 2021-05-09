@@ -55,6 +55,10 @@
   color: var(--bs-red);
 }
 
+.success {
+  color: var(--bs-green);
+}
+
 /* Temporary class to  simulate active links */
 .blue {
   color: var(--main-blue)!important;
@@ -823,7 +827,8 @@ article.question .card-title {
 
 #login .btn-login,
 #login .btn-register,
-#register .btn-register {
+#register .btn-register, 
+.password-recovery .btn {
   padding: 0.4em 3em;
   width: 100%;
 }
