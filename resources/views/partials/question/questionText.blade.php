@@ -9,7 +9,6 @@
         </button>
     </form>
 
-    <!--
     <form method="POST" action="{{ route('downvote-question', $question->id) }}" title="DownVote">
         @csrf
         <button class="icon-hover vote_btn" title="Down Vote" type="submit">
@@ -17,7 +16,7 @@
             <i class="bi bi-caret-down-fill"></i>
         </button>
     </form>
-    -->
+
 </div>
 <div class="question-content md-content col align-self-start ps-4">
     {{$question->content}}

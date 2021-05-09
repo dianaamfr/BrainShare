@@ -246,13 +246,13 @@ END
 $$
 LANGUAGE plpgsql;
 
--- When user votes a question we already voted with the same "score", the upvote disappears. 
--- If the score is different, the score is updated
 CREATE TRIGGER vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE process_vote();
 	
+-- When user votes a question we already voted with the same "score", the upvote disappears. 
+-- If the score is different, the score is updated
 CREATE FUNCTION update_vote() RETURNS TRIGGER AS $$
 DECLARE old_vote_id INTEGER;
 BEGIN
@@ -278,40 +278,35 @@ END
 $$
 LANGUAGE plpgsql;
 
--- Update score of questions, answer and of the owner
 CREATE TRIGGER update_vote_trigger
     BEFORE INSERT ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE update_vote();
 
+-- Update score of questions, answer and of the owner
 CREATE FUNCTION score() RETURNS TRIGGER AS $$
-DECLARE user_id INTEGER;
+DECLARE user_vote_id INTEGER;
 BEGIN
-	IF TG_OP = 'INSERT'
+	IF NEW.question_id IS NOT NULL
 	THEN
-		IF NEW.question_id IS NOT NULL
-		THEN
-			SELECT INTO user_id "user".id FROM "user", question WHERE NEW.question_id = question.id AND "user".id = question.question_owner_id; 
-			UPDATE question SET score = score + NEW.value_vote WHERE question.id = NEW.question_id;
-			UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
-		ELSIF NEW.answer_id IS NOT NULL
-		THEN
-			SELECT INTO user_id "user".id FROM "user", answer WHERE NEW.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
-			UPDATE answer SET score = score + NEW.value_vote WHERE answer.id = NEW.answer_id;
-			UPDATE "user" SET score = score + NEW.value_vote WHERE "user".id = user_id;
-		END IF;
-	ELSE
-		IF OLD.question_id IS NOT NULL
-		THEN
-			SELECT INTO user_id "user".id FROM "user", question WHERE OLD.question_id = question.id AND "user".id = question.question_owner_id; 
-			UPDATE question SET score = score - OLD.value_vote WHERE question.id = OLD.question_id;
-			UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
-		ELSIF OLD.answer_id IS NOT NULL
-		THEN
-			SELECT INTO user_id "user".id FROM "user", answer WHERE OLD.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
-			UPDATE answer SET score = score - OLD.value_vote WHERE answer.id = OLD.answer_id;		
-			UPDATE "user" SET score = score - OLD.value_vote WHERE "user".id = user_id;
-		END IF;
+		SELECT INTO user_vote_id "user".id FROM "user", question WHERE NEW.question_id = question.id AND "user".id = question.question_owner_id; 
+		UPDATE question SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE question_id = NEW.question_id), 0) WHERE question.id = NEW.question_id;
+		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
+	ELSIF NEW.answer_id IS NOT NULL
+	THEN
+		SELECT INTO user_vote_id "user".id FROM "user", answer WHERE NEW.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
+		UPDATE answer SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE answer_id = NEW.answer_id), 0) WHERE answer.id = NEW.answer_id;
+		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
+	ELSIF OLD.question_id IS NOT NULL
+	THEN
+		SELECT INTO user_vote_id "user".id FROM "user", question WHERE OLD.question_id = question.id AND "user".id = question.question_owner_id; 
+		UPDATE question SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE question_id = OLD.question_id), 0) WHERE question.id = OLD.question_id;
+		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
+	ELSIF OLD.answer_id IS NOT NULL
+	THEN
+		SELECT INTO user_vote_id "user".id FROM "user", answer WHERE OLD.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
+		UPDATE answer SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE answer_id = OLD.answer_id), 0) WHERE answer.id = OLD.answer_id;		
+		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
 	END IF;
 	RETURN NULL;
 END
@@ -319,7 +314,7 @@ $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER score_trigger
-    AFTER INSERT OR DELETE ON vote
+    AFTER INSERT OR UPDATE OR DELETE ON vote
     FOR EACH ROW
     EXECUTE PROCEDURE score();
 

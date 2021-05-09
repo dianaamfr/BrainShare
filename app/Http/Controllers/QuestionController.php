@@ -183,7 +183,6 @@ class QuestionController extends Controller
         }
     }
 
-    /*
     public function downvote($questionId)
     {
         if (!Auth::check()) return redirect('login');
@@ -202,5 +201,4 @@ class QuestionController extends Controller
             return redirect()->route('show-question', ['id' => $questionId]);
         }
     }
-    */
 }

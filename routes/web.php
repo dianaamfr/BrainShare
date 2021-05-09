@@ -31,7 +31,8 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 
 //Upvote a Question
-Route::post('/question/{id}', 'QuestionController@upvote')->name('upvote-question');
+Route::post('/question/upvote/{id}', 'QuestionController@upvote')->name('upvote-question');
+Route::post('/question/downvote/{id}', 'QuestionController@downvote')->name('downvote-question');
 
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
