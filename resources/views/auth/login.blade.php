@@ -30,6 +30,13 @@
             <button type="submit"  class="btn btn-primary btn-login">
                 Login
             </button>
+
+            @if (session('status'))
+            <p class="success mt-2">
+                {{ session('status') }}
+            </p>
+            @endif
+            
             <a class="button button-outline" href="{{ route('register') }}">Register</a>
         </form>
         <div class="form-text mt-3 mb-1">No account yet? <a class="btn-link" href="register">Register now.</a></div>
