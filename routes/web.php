@@ -30,9 +30,10 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 
-//Upvote a Question
-Route::post('/question/upvote/{id}', 'QuestionController@upvote')->name('upvote-question');
-Route::post('/question/downvote/{id}', 'QuestionController@downvote')->name('downvote-question');
+// Vote Question and Answer
+Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
+Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
+
 
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');

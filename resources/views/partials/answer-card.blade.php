@@ -10,14 +10,23 @@
     <div class="row align-items-center px-3">
         <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
             <p class="points m-0">{{$answer->score}}</p>
-            <button class="icon-hover vote_btn" title="Up Vote">
-                <i class="bi bi-caret-up"></i>
-                <i class="bi bi-caret-up-fill"></i>
-            </button>
-            <button class="icon-hover vote_btn" title="Down Vote">
-                <i class="bi bi-caret-down"></i>
-                <i class="bi bi-caret-down-fill"></i>
-            </button>
+            <form method="POST" action="{{ route('vote-answer', [$answer->question_id, $answer->id]) }}" title="UpVote">
+                @csrf
+                <input type="number" class="form-control" name="vote" value="1" hidden>
+                <button class="icon-hover vote_btn" title="Up Vote" type="submit">
+                    <i class="bi bi-caret-up"></i>
+                    <i class="bi bi-caret-up-fill"></i>
+                </button>
+            </form>
+
+            <form method="POST" action="{{ route('vote-answer', [$answer->question_id, $answer->id]) }}" title="DownVote">
+                @csrf
+                <input type="number" class="form-control" name="vote" value="-1" hidden>
+                <button class="icon-hover vote_btn" title="Down Vote" type="submit">
+                    <i class="bi bi-caret-down"></i>
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+            </form>
         </div>
 
         <div class="col align-self-start ps-4">

@@ -164,17 +164,73 @@ class QuestionController extends Controller
         return redirect()->route('search');
     }
 
-    public function upvote($questionId)
+    public function voteQuestion(Request $request, $questionId)
     {
         if (!Auth::check()) return redirect('login');
 
+        if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
+
+        /*
         try {
             $vote = new Vote();
 
             // Add Question
             $vote->user_id = Auth::id();
             $vote->question_id = $questionId;
-            $vote->value_vote = 1;
+            $vote->value_vote = $request->vote;
+            $vote->save();
+
+            return redirect()->route('show-question', ['id' => $questionId]);
+        } catch(\Exception $e) {
+            return redirect()->route('show-question', ['id' => $questionId]);
+        }
+        */
+
+        /*
+        try {
+            $vote = new Vote();
+
+            $vote->user_id = Auth::id();
+            $vote->question_id = $questionId;
+            $vote->value_vote = $request->vote;
+            $vote->save();
+
+            return redirect()->route('show-question', ['id' => $questionId]);
+        } catch(QueryException $e) {
+            return redirect()->route('show-question', ['id' => $questionId]);
+        }
+        */
+
+        try {
+            $vote = new Vote();
+
+            $vote->user_id = Auth::id();
+            $vote->question_id = $questionId;
+            $vote->value_vote = $request->vote;
+            try {
+                $vote->save();
+            } catch(\Exception $e) {
+                return redirect()->route('show-question', ['id' => $questionId]);
+            }
+
+            return redirect()->route('show-question', ['id' => $questionId]);
+        } catch(QueryException $e) {
+            return redirect()->route('show-question', ['id' => $questionId]);
+        }
+    }
+
+    public function voteAnswer(Request $request, $questionId, $answerId)
+    {
+        if (!Auth::check()) return redirect('login');
+        
+        if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
+
+        try {
+            $vote = new Vote();
+
+            $vote->user_id = Auth::id();
+            $vote->answer_id = $answerId;
+            $vote->value_vote = $request->vote;
             $vote->save();
 
             return redirect()->route('show-question', ['id' => $questionId]);
@@ -183,22 +239,8 @@ class QuestionController extends Controller
         }
     }
 
-    public function downvote($questionId)
+    public function alreadyVoted()
     {
-        if (!Auth::check()) return redirect('login');
-
-        try {
-            $vote = new Vote();
-
-            // Add Question
-            $vote->user_id = Auth::id();
-            $vote->question_id = $questionId;
-            $vote->value_vote = -1;
-            $vote->save();
-
-            return redirect()->route('show-question', ['id' => $questionId]);
-        } catch(\Exception $e) {
-            return redirect()->route('show-question', ['id' => $questionId]);
-        }
+        return true;
     }
 }
