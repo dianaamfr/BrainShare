@@ -34,14 +34,14 @@ class ManageUsersController extends Controller {
 
     public function getFilteredUsers($search){
       if(isset($search) && !empty($search)){
-        return User::where('username', 'ILIKE', $search . '%')->where('id', '!=', Auth::user()->id);
+        return User::where('username', 'ILIKE', $search . '%')->orderBy('username', 'asc');
       }
 
       if(Auth::user()->isModerator()){
-        return User::where('user_role','=', 'RegisteredUser')->where('id', '!=', Auth::user()->id)->orderBy('username', 'asc');
+        return User::where('user_role','=', 'RegisteredUser')->orderBy('username', 'asc');
       } 
       
-      return User::where('id', '!=', Auth::user()->id)->orderBy('username', 'asc');
+      return User::orderBy('username', 'asc');
       
     }
 
@@ -52,7 +52,7 @@ class ManageUsersController extends Controller {
 
       // Administrator or Moderator managing their own account
       if($id == Auth::user()->id){
-        return response()->json(['error'=>'Invalid action. Please use the provided fields to manage your account.']);
+        return response()->json(['error'=>'Invalid action.']);
       } 
 
       if($request->input('action') == 'admin') $this->updateRole($user, 'Administrator');
@@ -83,7 +83,7 @@ class ManageUsersController extends Controller {
 
       // Avoid deleting the current user
       if($id == Auth::user()->id) {
-        return response()->json(['error'=>'Invalid action. Please use the provided fields to manage your account.']);
+        return response()->json(['error'=>'Invalid action.']);
       }
 
       $user->delete();

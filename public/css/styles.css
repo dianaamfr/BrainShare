@@ -1326,6 +1326,8 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 .management td img {
   width: 30px;
+  height: 30px;
+  object-fit: cover;
   margin-right: 0.5rem;
 }
 

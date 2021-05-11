@@ -24,9 +24,8 @@
                 <tr data-user-id="{{$user->id}}">
                     <th>{{$loop->index + 1 + $users->perpage() * ($users->currentpage()-1)}}</th>
                     <td>
-                        <!-- TODO: get profile image -->
-                        <a href="profile.php">
-                            <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
+                        <a href="/user/{{$user->id}}/profile">
+                            <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                             <span>{{$user->username}}</span>
                         </a>
                     </td>
