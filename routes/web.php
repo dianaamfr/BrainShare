@@ -84,3 +84,8 @@ Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
 Route::put('api/admin/user/{id}', 'ManageUsersController@update');
 Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');
 Route::get('api/admin/user', 'ManageUsersController@search');
+// Password Reset
+Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
+Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
+Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
+Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
