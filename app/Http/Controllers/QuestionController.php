@@ -170,43 +170,13 @@ class QuestionController extends Controller
 
         if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
 
-        /*
-        try {
-            $vote = new Vote();
-
-            // Add Question
-            $vote->user_id = Auth::id();
-            $vote->question_id = $questionId;
-            $vote->value_vote = $request->vote;
-            $vote->save();
-
-            return redirect()->route('show-question', ['id' => $questionId]);
-        } catch(\Exception $e) {
-            return redirect()->route('show-question', ['id' => $questionId]);
-        }
-        */
-
-        /*
         try {
             $vote = new Vote();
 
             $vote->user_id = Auth::id();
             $vote->question_id = $questionId;
             $vote->value_vote = $request->vote;
-            $vote->save();
 
-            return redirect()->route('show-question', ['id' => $questionId]);
-        } catch(QueryException $e) {
-            return redirect()->route('show-question', ['id' => $questionId]);
-        }
-        */
-
-        try {
-            $vote = new Vote();
-
-            $vote->user_id = Auth::id();
-            $vote->question_id = $questionId;
-            $vote->value_vote = $request->vote;
             try {
                 $vote->save();
             } catch(\Exception $e) {
@@ -215,6 +185,7 @@ class QuestionController extends Controller
 
             return redirect()->route('show-question', ['id' => $questionId]);
         } catch(QueryException $e) {
+
             return redirect()->route('show-question', ['id' => $questionId]);
         }
     }

@@ -291,23 +291,29 @@ BEGIN
 	THEN
 		SELECT INTO user_vote_id "user".id FROM "user", question WHERE NEW.question_id = question.id AND "user".id = question.question_owner_id; 
 		UPDATE question SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE question_id = NEW.question_id), 0) WHERE question.id = NEW.question_id;
-		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
-	ELSIF NEW.answer_id IS NOT NULL
+    ELSIF NEW.answer_id IS NOT NULL
 	THEN
 		SELECT INTO user_vote_id "user".id FROM "user", answer WHERE NEW.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
 		UPDATE answer SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE answer_id = NEW.answer_id), 0) WHERE answer.id = NEW.answer_id;
-		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
 	ELSIF OLD.question_id IS NOT NULL
 	THEN
 		SELECT INTO user_vote_id "user".id FROM "user", question WHERE OLD.question_id = question.id AND "user".id = question.question_owner_id; 
 		UPDATE question SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE question_id = OLD.question_id), 0) WHERE question.id = OLD.question_id;
-		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
 	ELSIF OLD.answer_id IS NOT NULL
 	THEN
 		SELECT INTO user_vote_id "user".id FROM "user", answer WHERE OLD.answer_id = answer.id AND "user".id = answer.answer_owner_id; 
 		UPDATE answer SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE answer_id = OLD.answer_id), 0) WHERE answer.id = OLD.answer_id;		
-		UPDATE "user" SET score = COALESCE((SELECT SUM(value_vote) FROM "vote" WHERE "vote".user_id = user_vote_id), 0) WHERE "user".id = user_vote_id;
 	END IF;
+    UPDATE "user"
+    SET score = scoreq + scorea
+    FROM 
+    (SELECT COALESCE(Sum(question.score), 0) AS scoreq FROM "user", question 
+        WHERE "user".id = question.question_owner_id AND question.question_owner_id = user_vote_id) 
+        AS question_score,
+    (SELECT COALESCE(sum(answer.score), 0) AS scorea FROM "user", answer 
+        WHERE "user".id = answer.answer_owner_id AND answer.answer_owner_id = user_vote_id) 
+        AS answer_score
+    WHERE user_vote_id = "user".id;
 	RETURN NULL;
 END
 $$
