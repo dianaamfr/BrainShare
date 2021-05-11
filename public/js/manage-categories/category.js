@@ -1,4 +1,4 @@
-import {getToken, sendAjaxGetRequest, sendDataAjaxRequest, showAlert} from "../common.js";
+import {sendAjaxGetRequest, sendDataAjaxRequest, showAlert, encodeForAjax} from "../common.js";
 
 
 /**
@@ -6,6 +6,7 @@ import {getToken, sendAjaxGetRequest, sendDataAjaxRequest, showAlert} from "../c
  * @param responseJson received a json response.
  */
 export function handleCategoryResponse(responseJson) {
+    
     const notificationDiv = document.querySelector("#category-notify");
     if (responseJson.hasOwnProperty('error')) {
         showAlert(responseJson['error'], 'error', notificationDiv);
@@ -52,10 +53,10 @@ export function listenDeleteCategory(url) {
 
     // TODO: change to support tag and course.
     deleteButtons.forEach(element => element.addEventListener("click", (event) => {
-        console.log(event.target);
+
             sendDataAjaxRequest("delete", "/api"+url+"/delete", {
                 input: getCategoryName(event.target),
-            }, getToken(), handleCategoryResponse);
+            }, handleCategoryResponse);
             listenPageCategory();
         }
         )
@@ -102,7 +103,7 @@ export function listenAddCategory(url){
     const addButton = InputDiv.querySelector("button");
     const addInput = InputDiv.querySelector("input");
     addButton.addEventListener("click", () => {
-        sendDataAjaxRequest("post", "/api" + url + "/add" , {'input': addInput.value}, getToken() , handleCategoryResponse);
+        sendDataAjaxRequest("post", "/api" + url + "/add" , {'input': addInput.value}, handleCategoryResponse);
     });
 
 }

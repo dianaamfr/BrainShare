@@ -22,7 +22,6 @@ class CategoriesController extends Controller
         // TODO: add authorization
         $tags = $this->getFilteredTag($request->input('search-name'));
 
-
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags',
             'html' => view('partials.management.category.table', ['categories' => $tags->paginate(5)])->render()
         ]);
@@ -50,7 +49,8 @@ class CategoriesController extends Controller
     }
 
     public function deleteTag(Request $request){
-        $this->authorize('deleteTag');
+        
+        $this->authorize('deleteTag', Tag::class);
         $jsonTag = json_decode($request->getContent(), true);
         DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
 
@@ -61,7 +61,7 @@ class CategoriesController extends Controller
 
     // COURSES
     public function showCourses(Request $request){
-        $this->authorize('showCourse');
+        $this->authorize('showCourses', Course::class);
         $tags = $this->getFilteredCourses($request->input('search-name'));
 
         return view('pages.manage-courses', ['courses' => $tags->paginate(5), 'url'=> '/admin/categories/courses']);
@@ -70,7 +70,6 @@ class CategoriesController extends Controller
     public function searchCourses(Request $request): \Illuminate\Http\JsonResponse {
         // TODO: add authorization
         $courses= $this->getFilteredCourses($request->input('search-name'));
-
 
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses',
             'html' => view('partials.management.category.table', ['categories' => $courses->paginate(5)])->render()
@@ -86,7 +85,7 @@ class CategoriesController extends Controller
     }
 
     public function addCourse(Request $request){
-        $this->authorize('addCourse');
+        $this->authorize('addCourse', Course::class);
         $course= new Course();
         $jsonCourse= json_decode($request->getContent(), true);
         $course->name = $jsonCourse['input'];
@@ -98,7 +97,7 @@ class CategoriesController extends Controller
     }
 
     public function deleteCourse(Request $request): \Illuminate\Http\JsonResponse {
-        $this->authorize('deleteCourse');
+        $this->authorize('deleteCourse', Course::class);
         $jsonCourse = json_decode($request->getContent(), true);
         DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
 

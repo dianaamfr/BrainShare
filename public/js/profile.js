@@ -21,7 +21,7 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
             'page': page,
         };
         
-        sendAjaxGetRequest('get', id, data, requestHandler);
+        sendAjaxGetRequest( id, data, requestHandler);
         
         let url = 'profile?' + encodeForAjax(data)
         window.history.pushState({}, '', url);
@@ -49,11 +49,11 @@ function profileSearch(event){
 
     if(document.querySelector('#pagination-item-1').style.display == "block"){
         // Search Questions
-        sendAjaxGetRequest( "GET", '/api/user/' + userId + '/questions', {"profile-search": search.value}, profileQuestionsUpdate);
+        sendAjaxGetRequest( '/api/user/' + userId + '/questions', {"profile-search": search.value}, profileQuestionsUpdate);
     }
     else {
         // Search Answers
-        sendAjaxGetRequest("GET", '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);  
+        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);  
     }
 }
 
@@ -69,10 +69,10 @@ function profileAnswersUpdate() {
     // TODO paginate
 }
 
-let userId = document.getElementById('profile-id').innerHTML;
+let userId = document.getElementById('profile-id');
 if (userId) {
-    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
-    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
+    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId.innerHTML + '/questions');
+    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId.innerHTML + '/answers');
     
     document.getElementById('profile-search').addEventListener('submit', profileSearch)
 }

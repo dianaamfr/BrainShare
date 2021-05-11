@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CoursePolicy
 {
-
     public function showCourses(User $user){
         return Auth::check() && ($user->isAdmin()  || $user->isModerator());
     }

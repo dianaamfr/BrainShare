@@ -38,7 +38,7 @@ export function encodeForAjax(data) {
 
 export function sendAjaxGetRequest(url, data, handler) {
     let request = new XMLHttpRequest();
-
+    
     request.open("get", url + '?' + encodeForAjax(data), true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.addEventListener('load', handler);
@@ -53,25 +53,20 @@ export function sendAjaxGetRequest(url, data, handler) {
  * @param token Send to token for authentication.
  * @param handleResponse Function that will be called to handle the response.
  */
-export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
+export function sendDataAjaxRequest(method, url, data, handleResponse) {
     let dataJson = JSON.stringify(data);
     fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'X-Request-With': "XMLHttpRequest",
-                'X-CSRF-TOKEN': token,
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
             },
             method: method,
             credentials: 'same-origin',
             body: dataJson
         },
     ).then(response => response.json()).then(json => handleResponse(json));
-}
-
-// TODO: ask the professor if this is safe.
-export function getToken(){
-    return document.querySelector("meta[name='csrf-token']").getAttribute('content');
 }
 
 /**
