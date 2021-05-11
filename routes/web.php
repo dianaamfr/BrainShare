@@ -69,15 +69,15 @@ Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 
 // Manage categories
-Route::get('/admin/categories/tags', 'CategoriesController@showTags')->name('manage-tags');
-Route::get('/api/admin/categories/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
-Route::post('/api/admin/categories/tags/add', 'CategoriesController@addTag')->name('manage-tags-add');
-Route::delete('/api/admin/categories/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
+Route::get('/admin/tags', 'CategoriesController@showTags')->name('manage-tags');
+Route::get('/api/admin/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
+Route::post('/api/admin/tags/add', 'CategoriesController@addTag')->name('manage-tags-add');
+Route::delete('/api/admin/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
 
-Route::get('/admin/categories/courses', 'CategoriesController@showCourses')->name('manage-courses');
-Route::get('/api/admin/categories/courses', 'CategoriesController@searchCourses')->name('manage-courses-search');
-Route::post('/api/admin/categories/courses/add', 'CategoriesController@addCourse')->name('manage-courses-add');
-Route::delete('/api/admin/categories/courses/delete', 'CategoriesController@deleteCourse')->name('manage-courses-delete');
+Route::get('/admin/courses', 'CategoriesController@showCourses')->name('manage-courses');
+Route::get('/api/admin/courses', 'CategoriesController@searchCourses')->name('manage-courses-search');
+Route::post('/api/admin/courses/add', 'CategoriesController@addCourse')->name('manage-courses-add');
+Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')->name('manage-courses-delete');
 
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');

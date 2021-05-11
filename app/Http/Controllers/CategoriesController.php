@@ -15,15 +15,15 @@ class CategoriesController extends Controller
         $this->authorize('showTags', Tag::class);
         $tags = $this->getFilteredTag($request->input('search-name'));
 
-        return view('pages.manage-tags', ['tags' => $tags->paginate(5), 'url'=> '/admin/categories/tags']);
+        return view('pages.manage-tags', ['tags' => $tags->paginate(10), 'url'=> '/admin/tags']);
     }
 
     public function searchTags(Request $request){
         // TODO: add authorization
         $tags = $this->getFilteredTag($request->input('search-name'));
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags',
-            'html' => view('partials.management.category.table', ['categories' => $tags->paginate(5)])->render()
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags',
+            'html' => view('partials.management.category.table', ['categories' => $tags->paginate(10)])->render()
         ]);
 
     }
@@ -44,7 +44,7 @@ class CategoriesController extends Controller
         $tag->setAttribute('creation_date', Carbon::now());
         $tag->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
 
     }
 
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
         $jsonTag = json_decode($request->getContent(), true);
         DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/tags']);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
 
     }
 
@@ -64,15 +64,15 @@ class CategoriesController extends Controller
         $this->authorize('showCourses', Course::class);
         $tags = $this->getFilteredCourses($request->input('search-name'));
 
-        return view('pages.manage-courses', ['courses' => $tags->paginate(5), 'url'=> '/admin/categories/courses']);
+        return view('pages.manage-courses', ['courses' => $tags->paginate(10), 'url'=> '/admin/courses']);
     }
 
     public function searchCourses(Request $request): \Illuminate\Http\JsonResponse {
         // TODO: add authorization
         $courses= $this->getFilteredCourses($request->input('search-name'));
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses',
-            'html' => view('partials.management.category.table', ['categories' => $courses->paginate(5)])->render()
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses',
+            'html' => view('partials.management.category.table', ['categories' => $courses->paginate(10)])->render()
         ]);
 
     }
@@ -92,7 +92,7 @@ class CategoriesController extends Controller
         $course->setAttribute('creation_date', Carbon::now());
         $course->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses']);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
 
     }
 
@@ -101,7 +101,7 @@ class CategoriesController extends Controller
         $jsonCourse = json_decode($request->getContent(), true);
         DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/categories/courses']);
+        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
     }
 
 

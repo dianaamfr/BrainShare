@@ -9,11 +9,9 @@
         <!-- Management Navigation SideBar -->
         @include('partials.management.side-bar')
 
-        <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
-        @include('partials.management.category.tabs')
-
+        <div class="col-md-9 ms-md-auto col-lg-9 px-md-4">
         <!-- Manage tags-->
-            <section id="pagination-item-1" class="management manage-categories w-100 mt-5">
+            <section class="management manage-categories w-100 mt-5">
                 <h2 class="mb-4">Tags</h2>
 
                 <div class="mt-5 d-flex justify-content-between flex-wrap mb-3" id="input-category">
@@ -23,7 +21,6 @@
                     </div>
                     <div class="input-group manage-search mb-3 ms-3">
                         <input type="text" class="form-control" placeholder="Search tag...">
-                        <button class="btn btn-primary">Search Tag</button>
                     </div>
                 </div>
 

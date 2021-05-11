@@ -49,11 +49,11 @@
 <script  src={{ asset('js/manage-users.js') }} type="module"></script>
 
 {{--Add a tag to the admin page--}}
-@if(Request::is("admin/categories/tags"))
+@if(Request::is("admin/tags"))
     <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>
 @endif
 
-@if(Request::is("admin/categories/courses"))
+@if(Request::is("admin/courses"))
     <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
 @endif
 <script  src={{ asset('js/imagePreview.js') }} defer></script>

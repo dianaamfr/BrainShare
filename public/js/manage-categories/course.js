@@ -3,7 +3,7 @@ import {getParameterByName} from "../common.js";
 
 let InputDiv = document.getElementById("input-category");
 let searchDiv = InputDiv.querySelectorAll("div")[1];
-const url = "/admin/categories/courses";
+const url = "/admin/courses";
 
 listenPageCategory( url);
 listenSearchCategory(url, searchDiv);
