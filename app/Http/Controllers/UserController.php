@@ -71,4 +71,5 @@ class UserController extends Controller
       
       return view('/home');
     }
+
 }

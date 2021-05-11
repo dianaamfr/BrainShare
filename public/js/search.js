@@ -46,7 +46,6 @@ function searchUpdateHandler(){
 }
 
 function sendSearchTagsRequest() {
-
     sendAjaxGetRequest('get', 'api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 
@@ -242,7 +241,7 @@ function updateResetBtn(){
 
 function searchPagination(event) {
     event.preventDefault();
-    page = this.href.split('page=')[1]
+    let page = this.href.split('page=')[1]
     sendAdvancedSearchRequest(page);
 }
 

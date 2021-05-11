@@ -82,15 +82,15 @@ CREATE TABLE "user"(
 );
 
 CREATE TABLE question(
-                         id SERIAL PRIMARY KEY,
-                         question_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
-                         title TEXT NOT NULL,
-                         content TEXT NOT NULL,
-                         "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
-                         score INTEGER NOT NULL DEFAULT 0,
-                         number_answer INTEGER NOT NULL DEFAULT 0,
-                         search tsvector,
-                         answers_search tsvector
+    id SERIAL PRIMARY KEY,
+    question_owner_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    "date" TIMESTAMP WITH TIME zone NOT NULL DEFAULT now(),
+    score INTEGER NOT NULL DEFAULT 0,
+    number_answer INTEGER NOT NULL DEFAULT 0,
+    search tsvector,
+    answers_search tsvector
 );
 
 CREATE TABLE answer(

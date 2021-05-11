@@ -39,13 +39,14 @@
 <script src="https://lab.lepture.com/editor/marked.js" defer></script>
 
 <!-- Scripts -->
-<script src={{ asset('js/parseMD.js') }} type="module"></script>
-<script src={{ asset('js/removeMD.js') }} type="module"></script>
-<script src={{ asset('js/search.js') }} defer></script>
-<script src={{ asset('js/tags.js') }} type="module"></script>
-<script src={{ asset('js/courses.js') }} type="module"></script>
-<script src={{ asset('js/autocomplete.js') }} defer></script>
-<script src={{ asset('js/editor.js') }}  defer></script>
+<script  src={{ asset('js/parseMD.js') }} type="module"></script>
+<script  src={{ asset('js/removeMD.js') }} type="module"></script>
+<script  src={{ asset('js/search.js') }} defer></script>
+<script  src={{ asset('js/tags.js') }} type="module"></script>
+<script  src={{ asset('js/courses.js') }} type="module"></script>
+<script  src={{ asset('js/autocomplete.js') }} defer></script>
+<script  src={{ asset('js/editor.js') }}  defer></script>
+<script  src={{ asset('js/manage-users.js') }} defer></script>
 
 {{--Add a tag to the admin page--}}
 @if(Request::is("admin/categories/tags"))
@@ -55,11 +56,7 @@
 @if(Request::is("admin/categories/courses"))
     <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
 @endif
-
-
-    <!-- Carousel -->
-
-    <!-- <script src="js/homepage-carousel.js" defer></script> -->
+<script  src={{ asset('js/imagePreview.js') }} defer></script>
 
     <!-- Library to translate MD to html -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
