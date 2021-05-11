@@ -24,15 +24,6 @@ class StaticController extends Controller
       return view('errors.404');
     }
 
-    // In A9 implement this in UserController
-    public function showProfile($id){
-
-      if (!Auth::check()) return redirect('/login');
-      //$user = User::find($id);
-
-      return view('/pages.profile');
-    }
-
     public function showEditProfile(){
       return view('pages.edit-profile');
     }

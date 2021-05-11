@@ -27,6 +27,6 @@ class QuestionPolicy
 
     public function edit(User $user, Question $question){
         // Only a question owner can edit it or the Administrator.
-        return $user->id == $question->user_id;
+        return $user->id == $question->question_owner_id;
     }
 }

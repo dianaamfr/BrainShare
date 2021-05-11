@@ -52,12 +52,14 @@ Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteCom
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
 // Profile: change in A9
-Route::get('/user/{id}/profile', "StaticController@showProfile");
+Route::get('/user/{id}/profile', "UserController@showProfile");
+Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
+Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories

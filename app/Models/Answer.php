@@ -12,13 +12,13 @@ class Answer extends Model
 
   protected $fillable = ['content'];
   
-  public function owner(){
+  public function owner() {
     return $this->belongsTo(User::class, 'answer_owner_id');
-}
+  }
 
-public function comments(){
-  return $this->hasMany(Comment::class);
-}
+  public function comments(){
+    return $this->hasMany(Comment::class);
+  }
 
   public function question() {
     return $this->belongsTo(Question::class, 'question_id');

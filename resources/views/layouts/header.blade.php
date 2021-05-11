@@ -45,8 +45,8 @@
           <div class="ms-4 registration-menu btn-toolbar mb-2 mb-xl-0 align-items-center flex-nowrap">
 
             <!-- Registered Users options -->
-            @if (Auth::check())
-              <a class="nav-link profile-button registration-button" href="/user/1/profile">
+            @if (Auth::check()) 
+              <a class="nav-link profile-button registration-button" href="/user/{{ Auth::id() }}/profile">
                   <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>

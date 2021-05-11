@@ -27,6 +27,9 @@
 <!-- Iconify -->
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 
+<!-- Profile -->
+<script  src={{ asset('js/profile.js') }} defer></script>
+
 <!-- Pagination -->
 <script src={{ asset('js/pagination.js') }} defer></script>
 
