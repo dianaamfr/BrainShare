@@ -68,7 +68,9 @@
     </section>
 
     <!-- Submit Answer Form -->
-    <form id="submit-answer">
+    <form id="submit-answer" >
+       @method('POST')
+       @csrf
        @include('partials.question.answer-form')
     </form>
 </div>

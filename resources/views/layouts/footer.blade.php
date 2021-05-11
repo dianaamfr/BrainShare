@@ -25,7 +25,7 @@
         <div class="col-6 col-md">
             <h5>Management</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="link-secondary" href="{{route('manage-categories')}}">Manage Categories</a></li>
+                <li><a class="link-secondary" href="{{route('manage-tags')}}">Manage Categories</a></li>
                 <li><a class="link-secondary" href="{{route('manage-reports')}}">Manage Reports</a></li>
                 <li><a class="link-secondary" href="{{route('manage-users')}}">Manage Users</a></li>
             </ul>

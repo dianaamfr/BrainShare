@@ -1,39 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Sub nav bar - Mobile -->
-<nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
-    <ul class="d-flex m-0 p-0">
-      <li class="nav-link nav-item"><a href="{{route('manage-categories')}}">Categories</a></li>
-      <li class="nav-link nav-item"><a href="{{route('manage-reports')}}">Reports</a></li>
-      <li class="nav-link nav-item subnav-selected"><a href="{{route('manage-users')}}">Users</a></li>
-    </ul>
-  </nav>
+
+    <!-- Mobile -  Management Navigation Top Bar-->
+    @include('partials.management.mobile-side-bar')
   
-  <div class="d-flex justify-content-between page-margin management" id="users"> 
-      <!-- Side Bar - will be a template -->
-      <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
-        <ul>
-            <li><a href="{{route('manage-categories')}}">Manage Categories</a></li>
-            <li><a href="{{route('manage-reports')}}">Manage Reports</a></li>
-            <li><a href="{{route('manage-users')}}" class="blue">Manage Users</a></li>
-        </ul>
-      </aside>
+    <div class="d-flex justify-content-between page-margin management" id="users"> 
+        <!-- Management Navigation SideBar -->
+        @include('partials.management.side-bar')
   
-      <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
-          <h2 class="mb- mt-5">Users</h2>
-  
-          <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
-              <div class="input-group manage-search mb-3">
-                  <input type="text" class="form-control" placeholder="Search by username">
-                  <button class="btn btn-primary">Search</button>
-              </div>
-          </form>
-  
-          <div class="table-responsive w-100">
-              <div class="table-entries">Showing 1 to 4 of 8 entries</div>
-              <table class="table table-hover align-middle">
-                  <thead>
+        <div class="col-md-9 ms-md-auto col-lg-9 px-md-4 side-content">
+            <h2 class="mb- mt-5">Users</h2>
+
+            <!-- Search by username -->
+            <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
+                <div class="input-group manage-search mb-3">
+                    <input type="text" class="form-control" placeholder="Search by username">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </form>
+            
+            <!-- Table -->
+            <div class="table-responsive w-100">
+                <!-- TODO: get number of entries -->
+                <div class="table-entries">
+                    Showing {{$users->perpage() * ($users->currentpage()-1)}} 
+                    to {{$users->perpage() * ($users->currentpage()) - 1 }} 
+                    of {{$users->total()}} entries
+                </div>
+                <table class="table table-hover align-middle">
+                    <thead>
                       <tr>
                           <th scope="col">#</th>
                           <th scope="col"><i class="fas fa-sort"></i>Username</th>
@@ -42,112 +38,33 @@
                           <th scope="col"><i class="fas fa-sort"></i>Role</th>
                           <th scope="col">Actions</th>
                       </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <th scope="row">1</th>
-                          <td><img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon"><a href="profile.php">maria_albertina2</a></td>
-                          <td>12/01/2020</td>
-                          <td>N</td>
-                          <td>Moderator</td>
-                          <td>
-                          <form>
-                              <div class="input-group flex-nowrap">
-                                  <select class="form-select">
-                                      <option selected disabled value="none">Actions</option>
-                                      <option value="all">Make Administrator</option>
-                                      <option value="all">Demote</option>
-                                      <option value="users">Remove ban</option>
-                                      <option value="answer">Ban</option>
-                                  </select>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <th>{{$loop->index + $users->perpage() * ($users->currentpage()-1)}}</th>
+                                <td>
+                                    <!-- TODO: get profile image -->
+                                    <a href="profile.php">
+                                        <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon">
+                                        <span>{{$user->username}}</span>
+                                    </a>
+                                </td>
+                                <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
+                                <td>{{$user->ban == 1 ? 'T' : 'F'}}</td>
+                                <td>{{$user->user_role == 'RegisteredUser' ? 'Registered User' : $user->user_role }}</td>
+                                <td>
+                                    @include('partials.management.users.user-actions')
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
   
-                                  <button type="submit" class="btn btn-primary">
-                                      <i class="fas fa-check"></i>
-                                  </button>
-                              </div>
-                          </form>
-                          </td>
-                      </tr>
-                      <tr>
-                          <th scope="row">2</th>
-                          <td><img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon"><a href="profile.php">marcioRb34</a></td>
-                          <td>10/02/2020</td>
-                          <td>Y</td>
-                          <td>User</td>
-                          <td>
-                              <form>
-                                  <div class="input-group flex-nowrap">
-                                      <select class="form-select">
-                                          <option selected disabled value="none">Actions</option>
-                                          <option value="all">Make Administrator</option>
-                                          <option value="all">Make Moderator</option>
-                                          <option value="users">Remove ban</option>
-                                          <option value="answer">Ban</option>
-                                      </select>
-  
-                                      <button type="submit" class="btn btn-primary">
-                                          <i class="fas fa-check"></i>
-                                      </button>
-                                  </div>
-                              </form>
-                          </td>
-                      </tr>
-                      <tr>
-                          <th scope="row">3</th>
-                          <td><img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon"><a href="profile.php">vitor_manuel2</a></td>
-                          <td>15/06/2018</td>
-                          <td>N</td>
-                          <td>Administrator</td>
-                          <td>
-                              <form>
-                                  <div class="input-group flex-nowrap">
-                                      <select class="form-select">
-                                          <option selected disabled value="none">Actions</option>
-                                          <option value="all">Demote</option>
-                                          <option value="answer">Ban</option>
-                                      </select>
-  
-                                      <button type="submit" class="btn btn-primary">
-                                          <i class="fas fa-check"></i>
-                                      </button>
-                                  </div>
-                              </form>
-                          </td>
-                      </tr>
-                      <tr>
-                          <th scope="row">4</th>
-                          <td><img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="profile icon"><a href="profile.php">ferreira0cris</a></td>
-                          <td>20/04/2019</td>
-                          <td>N</td>
-                          <td>User</td>
-                          <td>
-                              <form>
-                                  <div class="input-group flex-nowrap">
-                                      <select class="form-select">
-                                          <option selected disabled value="none">Actions</option>
-                                          <option value="all">Make Administrator</option>
-                                          <option value="all">Make Moderator</option>
-                                          <option value="answer">Ban</option>
-                                      </select>
-  
-                                      <button type="submit" class="btn btn-primary">
-                                          <i class="fas fa-check"></i>
-                                      </button>
-                                  </div>
-                              </form>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-  
-          <!-- Pagination -->
-          <ul class="pagination justify-content-center">
-              <li class="page-item page-1 active"><button class="page-link">1</button></li>
-              <li class="page-item page-2"><button class="page-link">2</button></li>
-              <li class="page-item page-3"><button class="page-link">3</button></li>
-          </ul>
-      </div>
-  </div>
+            <!-- TODO: Get pagination -->
+            {{ $users->links() }}
+        </div>
+    </div>
   
 @endsection
