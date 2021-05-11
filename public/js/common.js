@@ -69,6 +69,23 @@ export function sendDataAjaxRequest(method, url, data, token, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
+
+export function sendAjaxRequest(method, url, data, handleResponse) {
+    let dataJson = JSON.stringify(data);
+    fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Request-With': "XMLHttpRequest",
+                'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content'),
+            },
+            method: method,
+            credentials: 'same-origin',
+            body: dataJson
+        },
+    ).then(response => response.json()).then(json => handleResponse(json));
+}
+
 // TODO: ask the professor if this is safe.
 export function getToken(){
     return document.querySelector("meta[name='csrf-token']").getAttribute('content');
