@@ -42,8 +42,8 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
     updatePaginate();
 }
 
-let userId = document.getElementById('profile-id').innerHTML;
-if (userId) {
+if (document.getElementById('profile-id')) {
+    let userId = document.getElementById('profile-id').innerHTML;
     ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
     ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
 }

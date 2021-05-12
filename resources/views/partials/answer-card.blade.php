@@ -1,4 +1,4 @@
-<div class="card-body card">
+<div class="card-body card answer-question-card">
     <header class="question-author pagination align-items-center justify-content-end card-header">
         <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image"> <!-- Small Profile Image -->
         <div class="d-flex flex-wrap">
@@ -9,24 +9,17 @@
 
     <div class="row align-items-center px-3">
         <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
-            <p class="points m-0">{{$answer->score}}</p>
-            <form method="POST" action="{{ route('vote-answer', [$answer->question_id, $answer->id]) }}" title="UpVote">
-                @csrf
-                <input type="number" class="form-control" name="vote" value="1" hidden>
-                <button class="icon-hover vote_btn" title="Up Vote" type="submit">
-                    <i class="bi bi-caret-up"></i>
-                    <i class="bi bi-caret-up-fill"></i>
-                </button>
-            </form>
+            <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
+            <input class="answer-id" value="{{ $answer->id }}" hidden />
+            <button class="icon-hover vote_btn" title="Up Vote" type="submit">
+                <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up"></i>
+                <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill"></i>
+            </button>
 
-            <form method="POST" action="{{ route('vote-answer', [$answer->question_id, $answer->id]) }}" title="DownVote">
-                @csrf
-                <input type="number" class="form-control" name="vote" value="-1" hidden>
-                <button class="icon-hover vote_btn" title="Down Vote" type="submit">
-                    <i class="bi bi-caret-down"></i>
-                    <i class="bi bi-caret-down-fill"></i>
-                </button>
-            </form>
+            <button class="icon-hover vote_btn" title="Down Vote" type="submit">
+                <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down"></i>
+                <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill"></i>
+            </button>
         </div>
 
         <div class="col align-self-start ps-4">

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Question;
+use App\Models\Answer;
 use App\Models\Vote;
 use App\Models\Course;
 use App\Models\Tag;
@@ -42,7 +43,6 @@ class QuestionController extends Controller
         $tags = Tag::all();
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
     }
-
 
     /**
      * Creates a new question.
@@ -168,7 +168,8 @@ class QuestionController extends Controller
     {
         if (!Auth::check()) return redirect('login');
 
-        if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
+        if ($request->vote !== "1" && $request->vote !== "-1") 
+            return response()->json(array('success' => false, 'score' => 'ERROR'));
 
         try {
             $vote = new Vote();
@@ -179,14 +180,23 @@ class QuestionController extends Controller
 
             try {
                 $vote->save();
+            
             } catch(\Exception $e) {
-                return redirect()->route('show-question', ['id' => $questionId]);
+                $question = Question::find($questionId);
+                $score = $question->score;
+
+                return response()->json(array('success' => false, 'score' => $score));
             }
 
-            return redirect()->route('show-question', ['id' => $questionId]);
-        } catch(QueryException $e) {
+            $question = Question::find($questionId);
+            $score = $question->score;
 
-            return redirect()->route('show-question', ['id' => $questionId]);
+            return response()->json(array('success' => true, 'score' => $score));
+        } catch(QueryException $e) {
+            $question = Question::find($questionId);
+            $score = $question->score;
+
+            return response()->json(array('success' => false, 'score' => $score));
         }
     }
 
@@ -202,16 +212,26 @@ class QuestionController extends Controller
             $vote->user_id = Auth::id();
             $vote->answer_id = $answerId;
             $vote->value_vote = $request->vote;
-            $vote->save();
 
-            return redirect()->route('show-question', ['id' => $questionId]);
-        } catch(\Exception $e) {
-            return redirect()->route('show-question', ['id' => $questionId]);
+            try {
+                $vote->save();
+            
+            } catch(\Exception $e) {
+                $answer = Answer::find($answerId);
+                $score = $answer->score;
+
+                return response()->json(array('success' => false, 'score' => $score));
+            }
+
+            $answer = Answer::find($answerId);
+            $score = $answer->score;
+
+            return response()->json(array('success' => true, 'score' => $score));
+        } catch(QueryException $e) {
+            $answer = Answer::find($answerId);
+            $score = $answer->score;
+
+            return response()->json(array('success' => false, 'score' => $score));
         }
-    }
-
-    public function alreadyVoted()
-    {
-        return true;
     }
 }

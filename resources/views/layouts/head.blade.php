@@ -43,7 +43,7 @@
 <script  src={{ asset('js/courses.js') }} type="module" defer></script>
 <script  src={{ asset('js/autocomplete.js') }} defer></script>
 <script  src={{ asset('js/editor.js') }}  defer></script>
-
+<script  src={{ asset('js/upvote.js') }}  defer></script>
 
 <!-- Carousel -->
 <!-- <script src="js/homepage-carousel.js" defer></script> -->
