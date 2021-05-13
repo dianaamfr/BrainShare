@@ -58,7 +58,7 @@ class QuestionController extends Controller
             'tagList' => 'max:5',
             'tagList.*' => 'distinct',
         ]);
-        
+
         $result = DB::transaction(function () use ($request) {
             $question = new Question();
 
@@ -112,7 +112,7 @@ class QuestionController extends Controller
 
       $result = DB::transaction(function() use($request) {
         $question = Question::find(intval($request->id));
-        
+
         // Edit Question
         $question->title = $request->title;
         $question->content = $request->content;
@@ -129,7 +129,7 @@ class QuestionController extends Controller
                 $question->tags()->attach($tag);
             }
         }
-       
+
         $question->courses()->detach();
         if ($courses != null) {
             foreach ($courses as $course) {

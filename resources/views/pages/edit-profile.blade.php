@@ -3,12 +3,11 @@
 @section('content')
     <div class="page-margin background-light">
         @php
-          if (isset($user->image))
-            $image_path = 'storage/'.$user->image;
-          else
-            $image_path = 'images/profile.png';
+            if (isset($user->image))
+              $image_path = 'storage/'.$user->image;
+            else
+              $image_path = 'images/profile.png';
         @endphp
-
         <form method="post" action="{{route('edit-profile')}}" data-toggle="validator" autocomplete="off"
               enctype="multipart/form-data">
             @method('put')
@@ -42,30 +41,54 @@
                         <section class="profile-info col-md mb-4">
                             <h3>Personal</h3>
                             <!-- Name -->
-                            <label class="form-label d-block ">Name</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend" title="Name">
-                                    <span class="input-group-text"><i class="fas fa-user edit-icon"></i></span>
+                            <div class="mb-2">
+                                <label class="form-label d-block ">Name</label>
+                                <div class="input-group mb-0">
+                                    <div class="input-group-prepend" title="Name">
+                                        <span class="input-group-text"><i class="fas fa-user edit-icon"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="name" value="{{$user->name}}">
+
                                 </div>
-                                <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                @if ($errors->has('name'))
+                                    <p class="error mt-0">
+                                        {{ $errors->first('name') }}
+                                    </p>
+                                @endif
                             </div>
                             <!-- Email -->
-                            <label class="form-label">Email*</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend" title="Email">
-                                    <span class="input-group-text"><i class="fas fa-at edit-icon"></i></span>
+                            <div class="mb-2">
+                                <label class="form-label">Email*</label>
+                                <div class="input-group mb-0">
+                                    <div class="input-group-prepend" title="Email">
+                                        <span class="input-group-text"><i class="fas fa-at edit-icon"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="email" value="{{$user->email}}"
+                                           required>
                                 </div>
-                                <input type="text" class="form-control" name="email" value="{{$user->email}}" required>
+                                @if ($errors->has('email'))
+                                    <span class="error">
+                                        {{ $errors->first('email') }}
+                                    </span>
+                                @endif
                             </div>
 
                             <!-- Birthday -->
-                            <label class="form-label">Birthday</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend" title="Birthday">
+                            <div class="mb-2">
+                                <label class="form-label">Birthday</label>
+                                <div class="input-group mb-0">
+                                    <div class="input-group-prepend" title="Birthday">
                                     <span class="input-group-text"><i class="fa fa-calendar edit-icon"
                                                                       aria-hidden="true"></i></span>
+                                    </div>
+                                    <input class="form-control" type="date" name="birthday" value="{{$user->birthday}}">
+
                                 </div>
-                                <input class="form-control" type="date" name="birthday" value="{{$user->birthday}}">
+                                @if ($errors->has('birthday'))
+                                    <span class="error">
+                                        {{ $errors->first('birthday') }}
+                                    </span>
+                                @endif
                             </div>
                         </section>
 
@@ -77,6 +100,11 @@
                                           name="description">{{$user->description}}</textarea>
                                 <div id="questionBodyHelp" class="form-text">Describe all the details about you!</div>
                             </div>
+                            @if ($errors->has('description'))
+                                <span class="error">
+                                        {{ $errors->first('description') }}
+                                </span>
+                            @endif
                         </section>
 
                     </div>
@@ -95,13 +123,18 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @if ($errors->has('course'))
+                                <span class="error">
+                                        {{ $errors->first('course') }}
+                                    </span>
+                            @endif
                         </div>
 
                         <!-- Tags -->
                     @include("partials.add-question.tags")
 
                     <!-- Toast -->
-                    @include("partials.common.toast")
+                        @include("partials.common.toast")
 
                     </section>
 

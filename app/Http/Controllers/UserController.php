@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -44,11 +45,25 @@ class UserController extends Controller
     public function editProfile(Request $request)
     {
         if (!Auth::check()) return redirect('/login');
-
-        //TODO: make the validation.
-
         $id = Auth::id();
         $user = User::find($id);
+
+        $validation = $request->validate([
+            'name' => 'string|max:255',
+            'tagList' => 'max:2',
+            'tagList.*' => 'distinct|max:100|string',
+            'birthday' => 'date|before:today',
+            'email' => [
+                'required',
+                'string',
+                'max:255',
+                'email',
+                Rule::unique('user')->ignore($user->id),
+            ],
+            'profile-image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'string|max:1000'
+        ]);
+
 
 
         $this->authorize('editUserProfile', $user);
@@ -78,14 +93,13 @@ class UserController extends Controller
                 $user->course()->associate($courseId);
             }
 
-            if($request->hasFile('profile-image')){
+            if ($request->hasFile('profile-image')) {
 
                 if (request()->file('profile-image')->isValid()) {
                     $fileName = "profile" . strval($user->id) . "." . $request['profile-image']->getClientOriginalExtension();
                     $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
                     $user->image = $path;
-                }
-                else{
+                } else {
                     throw ValidationException::withMessages(['profile-image' => ['Invalid image.']]);
                 }
             }
