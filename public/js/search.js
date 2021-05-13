@@ -1,19 +1,5 @@
 
-function encodeForAjax(data) {
-    if (data == null) return null;
-    return Object.keys(data).map(function(k){
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&');
-}
-  
-function sendAjaxGetRequest(method, url, data, handler) {
-    let request = new XMLHttpRequest();
-    
-    request.open(method, url + '?' + encodeForAjax(data), true);
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    request.addEventListener('load', handler);
-    request.send();
-}
+import {encodeForAjax, sendAjaxGetRequest} from './common.js';
 
 function sendAdvancedSearchRequest(page = 1) {
     let searchInput = searchBar.querySelector("input[type='search']").value;
@@ -30,7 +16,7 @@ function sendAdvancedSearchRequest(page = 1) {
         'tags': tags
     };
 
-    sendAjaxGetRequest('get', 'api/search', data, searchUpdateHandler);
+    sendAjaxGetRequest('api/search', data, searchUpdateHandler);
     
     let url = 'search?' + encodeForAjax(data)
     window.history.pushState({}, '', url);
@@ -46,13 +32,12 @@ function searchUpdateHandler(){
 }
 
 function sendSearchTagsRequest() {
-
-    sendAjaxGetRequest('get', 'api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
+    sendAjaxGetRequest('api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 
 function getTagByIdRequest(badge) {
     console.log('api/tag/' + badge.getAttribute('data-tag-id'),)
-    sendAjaxGetRequest('get', 'api/tag/' + badge.getAttribute('data-tag-id'), null, 
+    sendAjaxGetRequest('api/tag/' + badge.getAttribute('data-tag-id'), null, 
         function(){
             let response = JSON.parse(this.responseText);
             badge.innerHTML = response.name + badge.innerHTML;
@@ -242,7 +227,7 @@ function updateResetBtn(){
 
 function searchPagination(event) {
     event.preventDefault();
-    page = this.href.split('page=')[1]
+    let page = this.href.split('page=')[1]
     sendAdvancedSearchRequest(page);
 }
 

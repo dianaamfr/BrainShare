@@ -12,28 +12,51 @@ use App\Models\Answer;
 
 class UserController extends Controller
 {
-    // In A9 implement this in UserController
+    
     public function showProfile($id){
   
       if (!Auth::check()) return redirect('/login');
       $user = User::find($id);
-      $questions = Question::where('question_owner_id', $id)->simplePaginate(3);
-      $answers = Answer::where('answer_owner_id', $id)->simplePaginate(3);
+      $questions = $user->questions()->simplePaginate(3);
+      $answers = $user->answers()->simplePaginate(3);
 
       return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
     }
 
     public function paginateQuestions(Request $request, $id){
-      $questions = Question::where('question_owner_id', $id)->simplePaginate(3);
+      
+      $user = User::find($id);
+      $questions = $user->questions();
+      
+      if($request->input('profile-search')) {
+        $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "",$request->input('profile-search'))));
 
-      $response = view('partials.profile.question', ['questions' => $questions])->render();
+        if($stripSearch != ''){
+          $search = str_replace(' ',' | ', $stripSearch);
+          $questions = $questions->whereRaw("search @@ to_tsquery('simple',?)", [$search])
+          ->orderByRaw("ts_rank(search,to_tsquery('simple',?)) DESC", [$search]);
+        }
+      }
+    
+      $response = view('partials.profile.question', ['questions' => $questions->simplePaginate(3)])->render();
       return response()->json(array('success' => true, 'html' => $response));
     }
 
     public function paginateAnswers(Request $request, $id){
-      $answers = Answer::where('answer_owner_id', $id)->simplePaginate(3);
+      $user = User::find($id);
+      $answers = $user->answers();
 
-      $response = view('partials.profile.answer', ['answers' => $answers])->render();
+      if($request->input('profile-search')) {
+        $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "",$request->input('profile-search'))));
+        
+        if($stripSearch != ''){
+          $search = str_replace(' ',' | ', $stripSearch);
+          $answers = $answers->whereRaw("search @@ to_tsquery('simple',?)", [$search])
+            ->orderByRaw("ts_rank(search,to_tsquery('simple',?)) DESC", [$search]);
+        }
+      }
+
+      $response = view('partials.profile.answer', ['answers' => $answers->simplePaginate(3)])->render();
       return response()->json(array('success' => true, 'html' => $response));
     }
 
@@ -48,4 +71,5 @@ class UserController extends Controller
       
       return view('/home');
     }
+
 }

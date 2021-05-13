@@ -1,0 +1,1568 @@
+openapi: 3.0.0
+
+info:
+  version: "1.0.0"
+  title: Brainshare API
+  description: Web resources specification for Brainshare
+
+servers:
+  - description: Website production server.
+    url: lbaw2152-piu.lbaw-prod.fe.up.pt/
+
+
+externalDocs:
+  description: It's possible to find more information here.
+  url: https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/blob/master/docs/a7_openapi.yaml
+
+
+tags:
+  - name: 'M01: Authentication and User Profile'
+  - name: 'M02: Questions'
+  - name: 'M03: Management'
+  - name: 'M04: Static Pages'
+
+paths:
+  /auth/login:
+    get:
+      operationId: R101
+      summary: "R101: Login form"
+      description: "Provides the login form. Access: PUB"
+      tags:
+        - 'M01: Authentication and User Profile'
+      responses:
+        "200":
+          description: "OK. Show the [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)"
+
+    post:
+      operationId: R102
+      summary: "R102: Login Action"
+      description: "Processes the login action. Access: PUB"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+              required:
+                - email
+                - password
+
+            example:
+              email: "up201800123@edu.fe.up.pt"
+              password: "lbaw2152"
+
+      responses:
+        "302":
+          description: "Redirected. Login credentials processed."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Success authetication. Redirected to the search questions page."
+                  value: "/search"
+                302Error:
+                  description: "Failed authetication. Redirected to the login page form."
+                  value: "/auth/login"
+
+  # R103
+  /auth/logout:
+    post:
+      operationId: R103
+      summary: "R103: Logout Action"
+      description: "Logout the current authenticated user. Access: USR, MOD, ADM"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      responses:
+        "302":
+          description: "Redirect to the home page after logout. "
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful logout. Redirected to the home page."
+                  value: "/"
+
+
+  # R104 and R105
+  /auth/register:
+    get:
+      operationId: R104
+      summary: "R104: Register form"
+      description: "Provides the user register form. Access: PUB"
+      tags:
+        - 'M01: Authentication and User Profile'
+      responses:
+        "200":
+          description: "OK. Show the [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui07-register)"
+
+    post:
+      operationId: R105
+      summary: "R105: Register Action"
+      description: "Processes the register form. Access: PUB"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+
+              required:
+                - username
+                - email
+                - password
+
+
+      responses:
+        "302":
+          description: "Redirect after user register form has been processed."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful authentication. Redirect to the search questions page."
+                  value: "/search"
+                302Error:
+                  description: "Failed authentication. Redirect to the register page."
+                  value: "/auth/register"
+
+  # R106
+  /user/{id}/profile:
+    get:
+      operationId: R106
+      summary: "R106: View and load the user profile."
+      description: "Show the user profile and the questions/answers created by him. Access: USR"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile)."
+
+  # R107 and R108
+  /user/profile/edit:
+    get:
+      operationId: R107
+      summary: "R107: Edit profile."
+      description: "Provides the form to edit the profile. Access: OWN"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      responses:
+        "200":
+          description: "OK. Show [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-edit-profile)."
+
+    put:
+      operationId: R108
+      summary: "R108: Update a user profile."
+      description: "Processes the edition of a user profile. Access: OWN."
+      tags:
+      - 'M01: Authentication and User Profile'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                birthday:
+                  type: string
+                about:
+                  type: string
+                course:
+                  type: array
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+
+
+            example:
+              name: "Joaquina"
+              email: "up201800123@edu.fe.up.pt"
+              birthday: "19/01/2000"
+              about: "Hello, it's Joaquina and I like to program!"
+              course: ["MIEIC", "MIEEC"]
+              tags: ["c++", "php"]
+
+      responses:
+        "302":
+          description: "Redirect after user edit profile form has been processed."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Success. Redirects to the user profile."
+                  value: "/user/{id}/questions"
+                302Error:
+                  description: "Failed authentication. Redirects to the same page."
+                  value: "/user/edit-profile"
+
+  # Notification
+  # R109
+  /user/notification:
+    get:
+      operationId: R109
+      summary: "R109: Loads and view the user's notification."
+      description: "Shows the Notification. Access: OWN"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      responses:
+        "200":
+          description: "Ok, show [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-notifications)"
+
+  # R110 and R111
+  /user/notification/{id}:
+    delete:
+      operationId: R110
+      summary: "R110: Delete a Notification"
+      description: "Delete a Notification. Access: OWN"
+      tags:
+      - 'M01: Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "Accepted. Render the notification list without the deleted notification."
+
+    put:
+      operationId: R111
+      summary: "R111: Mark as read"
+      description: "Updates a Notification, marking it as read. Access: OWN"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "Accepted. Render the notification list with the refered notification marked as read."
+
+  # Reports
+  # R112
+  /user/{id}/report:
+    post:
+      operationId: R112
+      summary: "R112: Report a user."
+      description: "Proccesses the report of a user. Access: USR"
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. User has been reported. "
+
+  # R113
+  /user/{id}/delete:
+    delete:
+      operationId: R113
+      summary: "R113: Deletes the user."
+      description: "Deletes the user account. Access: OWN."
+      tags:
+        - 'M01: Authentication and User Profile'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "302":
+          description: "Redirects after user has been deleted."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Success. Redirects to the home page."
+                  value: "/home"
+                302Error:
+                  description: "Failed deletion. Redirects to the profile the user profile."
+                  value: "/user/{id}"
+
+
+#################
+# M02 Questions #
+#################
+
+
+  # 201
+  /search:
+    get:
+      operationId: R201
+      summary: "R201: Show the search page."
+      description: "Show the search page with default questions ordered by most voted. Access: PUB"
+      tags:
+      - 'M02: Questions'
+
+      parameters:
+        - in: query
+          name: "page"
+          description: "Number of the question page "
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "search-input"
+          description: "The input for the search"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "filter"
+          description: "Types of filter, that can be: new, votes or relevance"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "courses"
+          description: "Name of the course"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "tags"
+          description: "Name of the tag"
+          schema:
+            type: string
+          required: false
+
+
+      responses:
+        "200":
+          description: "Ok. Shows the [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)."
+
+  # R202
+  /api/search:
+    get:
+      operationId: R202
+      summary: "R202: Get the result for a question search."
+      description: "Shows the search page according to the results on query. Access: PUB"
+      tags:
+      - 'M02: Questions'
+
+      parameters:
+        - in: query
+          name: "page"
+          description: "Number of the question page"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "search-input"
+          description: "The input for the search"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "filter"
+          description: "Types of filter, that can be: new, votes or relevance"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "courses"
+          description: "Name of the course"
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: "tags"
+          description: "Name of the tag"
+          schema:
+            type: string
+          required: false
+
+
+      responses:
+        "200":
+          description: "Ok. Get the questions from the search result as an array of html elements. Each element contains the source for a question card."
+
+  #R203 and R204
+  /question/add:
+    get:
+      operationId: R203
+      summary: "R203: Question add form."
+      description: "Shows the form to create a new question. Access: USR"
+      tags:
+      - 'M02: Questions'
+
+
+      responses:
+        "200":
+          description: "Ok. Show the add question page [UI04](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui04-add-question)"
+
+    post:
+      operationId: R204
+      summary: "R204: Process add question."
+      description: "Submit the form to create a question. Access: USR"
+      tags:
+      - 'M02: Questions'
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/question-form'
+
+            example:
+              title: "Is it hard to program in C?"
+              content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
+              courseList: ["MIEIC", "MIEEC"]
+              tagList: ["c++", "php"]
+
+
+      responses:
+        "302":
+            description: "Redirect after the question creation is processed."
+
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: "Successful, redirects to the question page."
+                    value: "/search"
+                  302Error:
+                    description: "Failed creation. Redirects to the same page."
+                    value: "/question/create"
+
+  # R205 and R206
+  /question/{id}:
+    get:
+      operationId: R205
+      summary: "R205: Show question page"
+      description: "Shows the question page, which contains the question, answers, respective comments and also text fields to add more answers and comments. Access: PUB"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Success. Show the question page [UI03](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui03-question)"
+
+    delete:
+      operationId: R206
+      summary: "R206: Delete a question"
+      description: "Deletes a question. Access: OWN, ADM, MOD"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "302":
+            description: "Redirect after the update is processed."
+
+            headers:
+              Location:
+                schema:
+                  type: string
+                examples:
+                  302Success:
+                    description: "Successful, redirects back to the search page."
+                    value: "/search"
+                  302Error:
+                    description: "Failed delete. Redirects to the same page."
+                    value: "/question/{id}"
+
+  # R207 and R208
+  /question/{id}/edit:
+    get:
+      operationId: R207
+      summary: "R207: View the edit page of a question"
+      description: "Shows the page to edit a question. Access: OWN, ADM, MOD"
+      tags:
+        - "M02: Questions"
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "200":
+          description: "Success. Show the edit question page [UI12](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-edit-question)"
+
+    put:
+      operationId: R208
+      summary: "R208: Processes edit question"
+      description: "Submit the form to edit a question. Access: OWN, ADM, MOD"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/question-form'
+
+            example:
+              title: "Is it hard to program in C?"
+              content: "I've been struggling to learn it. I don't know if I'm dumb or if it's really hard."
+              courseList: ["MIEIC", "MIEEC"]
+              tagList: ["c++", "php"]
+
+
+      responses:
+        "302":
+          description: "Redirect after the update is processed."
+
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful, redirects to the question page."
+                  value: "/question/{id}"
+                302Error:
+                  description: "Error, fail on update the comment."
+
+  # R209
+  /api/question/{id}/vote:
+    put:
+      operationId: R209
+      summary: "R209: Question vote"
+      description: "Processes the vote to a question. Access: USR"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                vote:
+                  type: integer
+
+              required:
+                - vote
+
+            example:
+              vote: -1
+
+      responses:
+        "202":
+          description: "Accepted. Mark the question as voted."
+
+
+  #R210
+  /api/question/{id}/answer/add:
+    post:
+      operationId: R210
+      summary: "R210: Processes the creation of an answer"
+      description: "Adds an answer to a question. Access: USR"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/text"
+
+            example:
+              - content: "I think that C is easy. You're the one that is dumb."
+
+      responses:
+        "202":
+          description: "Accepted. Use the inserted information to render the page."
+
+
+  #R211
+  /api/question/{id-q}/{id-a}/comment/add:
+    post:
+      operationId: R211
+      summary: "R211: Processes the creation of a comment."
+      description: "Adds a comment to an answer. Access: USR"
+      tags:
+      - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/text"
+
+            example:
+              content: "I think that C is easy. You're the one that is dumb."
+
+      responses:
+        "202":
+          description: "Accepted. Use the information to render the question page. "
+
+
+  #R212
+  /api/question/{id}/report:
+    post:
+      operationId: R212
+      summary: "R212: Report a question."
+      description: "Process the question report. Access: USR"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Success. Returns success message."
+
+
+  #R213 and R214
+  /api/question/{id-q}/answer/{id-a}:
+    put:
+      operationId: R213
+      summary: "R213: Edit an answer."
+      description: "Edit an answer. Access: OWN, MOD, ADM"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/text"
+
+            example:
+              - content: "I think that C is easy. You're the one that is dumb."
+
+      responses:
+        "202":
+          description: "Accepted. Use the updated information to render the page."
+
+    delete:
+      operationId: R214
+      summary: "R214: Delete a comment"
+      description: "Deletes a comment. Access: OWN, ADM, MOD"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "202":
+          description: "Accepted. Render the page without the deleted comment."
+
+  # R215
+  /api/question/{id-q}/answer/{id-a}/valid:
+    put:
+      operationId: R215
+      summary: "R215: Mark the answer as valid/not valid"
+      description: "Owner of the question marks the answer as valid. Access: OWN"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "202":
+          description: "Accepted. Use the action to render the page with the answer marked as correct."
+
+  #R216
+  /api/question/{id-q}/answer/{id-a}/vote:
+    put:
+      operationId: R216
+      summary: "R216: Mark the answer as valid/not valid"
+      description: "Owner of the question marks the answer as valid. Access: USR"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "202":
+          description: "Accepted. Use the action to render the page with the answer marked as correct."
+
+  # R217
+  /api/question/{id-q}/answer/{id-a}/report:
+    post:
+      operationId: R217
+      summary: "R217: Report an answer"
+      description: "Proccesses the report of an answer. Access: USR"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-a"
+          description: "Answer identification number"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Success. Feedback on success message."
+
+  # R218 and R219
+  /api/question/{id-q}/comment/{id-c}:
+    put:
+      operationId: R218
+      summary: "R218: Update a comment."
+      description: "Update a comment. Access: OWN, MOD, ADM"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-c"
+          description: "Comment identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/text"
+
+            example:
+              content: "I think that C is easy. You're the one that is dumb."
+
+      responses:
+        "202":
+          description: "Ok. Use the new information to render the page."
+
+    delete:
+      operationId: R219
+      summary: "R219: Delete a comment"
+      description: "Deletes a comment. Access: OWN, ADM, MOD"
+      tags:
+      - 'M02: Questions'
+
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-c"
+          description: "Comment identification number"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "202":
+          description: "Accpeted. Render the page without the deleted comment."
+
+  # R220
+  /api/question/{id-q}/comment/{id-c}/report:
+    post:
+      operationId: R220
+      summary: "R220: Report a comment."
+      description: "Proccesses comment report. Access: USR"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id-q"
+          description: "Question identification number"
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: "id-c"
+          description: "Comment identification number"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Success. Feedback on success message."
+
+  /api/tag/search:
+    get:
+      operationId: R221
+      summary: "R221: Search tag."
+      description: "Get all the tags that matchs with the input. Access: PUB"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: query
+          name: "tag-input"
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: "OK. Get the objects the tags that matches the current text."
+
+  /api/tag/{id}:
+    get:
+      operationId: R222
+      summary: "R222: Get tag name."
+      description: "Get the name of a tag given the id. Access: PUB"
+      tags:
+        - 'M02: Questions'
+
+      parameters:
+        - in: path
+          name: "id"
+          description: "The tag Id"
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: "OK. Returns the specific tag object. "
+
+###################
+# M03: Management #
+###################
+
+  # R301
+  /admin/course:
+    get:
+      operationId: "R301"
+      summary: "R301: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Case not defined the results shown will be the deafult. Access: MOD, ADM"
+      tags:
+      - 'M03: Management'
+
+      responses:
+        "200":
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+
+  # R302
+  /api/admin/course:
+    get:
+      operationId: R302
+      summary: "R302: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Case not defined the results shown will be the deafult. Access: MOD, ADM"
+      tags:
+      - 'M03: Management'
+
+      parameters:
+        - in: query
+          name: "q"
+          description: "Content to be searched for"
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: "page"
+          description: "Number of the page"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Use the returned information to render the course table in the desired page."
+
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/course"
+
+              example:
+                - course: "MIEIC"
+                  num_occur: 300
+                  date: "12/10/2020"
+                - course: "MIEEC"
+                  num_occur: 200
+                  date: "10/10/2020"
+
+
+  # R303
+  /api/admin/course/{id}:
+    delete:
+      operationId: R303
+      summary: "R303: Delete a course"
+      description: "Deletes a course. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "202":
+          description: "Delete accepted. Use the information to render the page again with the course tab selected."
+
+  # R304
+  /api/admin/course/add:
+    post:
+      operationId: R304
+      summary: "R304 : Process add course."
+      description: "Create a new course. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+
+            example:
+              - name: "MIEC"
+
+      responses:
+        "202":
+          description: "Accepted. Request accepted to be processed. Use the information to render the page."
+
+  # R305
+  /admin/tag:
+    get:
+      operationId: R305
+      summary: "R305: Show the tags"
+      description: "Shows the manage tags page. Access: PUB"
+      tags:
+      - 'M03: Management'
+
+
+      responses:
+        "200":
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+
+
+  # R305
+  /api/admin/tag/{id}:
+    delete:
+      operationId: R307
+      summary: "R307: Delete a tag"
+      description: "Deletes a tag. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          description: "Id of the tag to be deleted"
+          schema:
+            type: integer
+          required: true
+
+
+      responses:
+        "202":
+          description: "Delete accepted. Use the information to render the page again with the course tab selected."
+
+  # R306
+  /api/admin/tag/add:
+    post:
+      operationId: R308
+      summary: "R308 : Tag being processed."
+      description: "Create new tag. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+
+            example:
+              name: "MIEC"
+
+      responses:
+        "202":
+          description: "Request accepted to be processed. Use the information to render the page."
+
+
+# Report
+
+  # R309
+  /admin/reports:
+    get:
+      operationId: R309
+      summary: "R309: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+
+      responses:
+        "200":
+          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+
+  # R310
+  /api/admin/reports:
+    get:
+      operationId: R310
+      summary: "R310: Show the courses"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      parameters:
+        - in: query
+          name: "q"
+          description: "Content to be searched for"
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: "page"
+          description: "Number of the page"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Use the returned information to render the report table on the select page."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/report"
+
+              example:
+                - summary: "joaquina123"
+                  role: "User"
+                  reports: 1
+
+                - summary: "Is c++ easy?"
+                  type: "Question"
+                  reports: 10
+
+
+  # R311
+  /api/admin/reports/user/{id}:
+    put:
+      operationId: R311
+      summary: "R311 : Mark reports os a user as read."
+      description: "Mark all the reports related to this user as read. Access: ADM, MOD"
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "Accepted. Process and use the information to render the page again."
+
+  # R312
+  /api/admin/reports/question/{id}:
+    put:
+      operationId: R312
+      summary: "R312: Mark question reports as read."
+      description: "Mark all the reports related to this question as read. Access: ADM, MOD"
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "Accepted. Process and use the information to render the page again."
+
+  # R313
+  /api/admin/reports/answer/{id}:
+    put:
+      operationId: R313
+      summary: "R313 : Mark reports of an answer as read."
+      description: "Mark all the reports related to this answer as read. Access: ADM, MOD"
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "Accepted. Process and use the information to render the page again."
+
+  #314
+  /api/admin/reports/comment/{id}:
+    put:
+      operationId: R314
+      summary: "R314 : Mark as read."
+      description: "Mark all the reports related to this comment as read. Access: ADM, MOD"
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "202":
+          description: "OK. Process and use the information to render the page again."
+
+##############
+# BAN AND PROMOTE
+##############
+
+  # R315
+  /admin/user:
+    put:
+      operationId: R315
+      summary: "R315 : Manage user page"
+      description: "Show the manage user page. Access: ADM, MOD"
+      tags:
+        - 'M03: Management'
+
+
+      responses:
+        "202":
+          description: "OK. Show the [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui08-manage-users)."
+
+  # R316
+  /api/admin/user:
+    get:
+      operationId: R316
+      summary: "R316: User search"
+      description: "Get the user search result and render the page according to it. Access: ADM, MOD"
+      tags:
+      - 'M03: Management'
+
+      parameters:
+        - in: query
+          name: "q"
+          description: "Content to be searched for"
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: "page"
+          description: "Number of the page"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Use the returned information to render the users table on the select page."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+
+  # R317
+  /api/admin/user/{id}:
+    put:
+      operationId: R317
+      summary: "R317: Update the status of a user."
+      description: "Update the status of a user chaging the role and ban status. Access: ADM."
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ban:
+                  type: boolean
+                role:
+                  type: string
+
+
+            example:
+              ban: false
+              role: "ADM"
+
+      responses:
+        "202":
+          description: "OK. Render the page according to the new status. "
+
+    delete:
+      operationId: R318
+      summary: "R318: Deletes the user."
+      description: "Deletes a user. Access: ADM, MOD."
+      tags:
+        - 'M03: Management'
+
+      parameters:
+        - in: path
+          name: "id"
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Render the page without the deleted user."
+
+#####################
+# M04: Static Pages #
+#####################
+
+  /:
+    get:
+      operationId: R401
+      summary: "R401: View home page "
+      description: "Shows the home page. Access: PUB"
+      tags:
+      - 'M04: Static Pages'
+
+      responses:
+        "202":
+          description: "Ok. Show the home page [UI01](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui01-home)."
+
+  /about:
+    get:
+      operationId: R402
+      summary: "R402: View the about page "
+      description: "Shows the about page. Access: PUB"
+      tags:
+      - 'M04: Static Pages'
+
+      responses:
+        "202":
+          description: "Ok. Show the about page [UI013](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-about)."
+
+  /notfound:
+    get:
+      operationId: R403
+      summary: "R403: View the error page"
+      description: "Shows the error page. Access: PUB"
+      tags:
+        - "M04: Static Pages"
+
+      responses:
+        "202":
+          description: "Ok, Show the error page."
+
+
+components:
+  schemas:
+    question-form:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        courseList:
+          type: array
+          items:
+            type: string
+        tagList:
+          type: array
+          items:
+            type: string
+
+
+      required:
+        - title
+        - content
+
+
+    text:
+      type: object
+      properties:
+        content:
+          type: string
+
+      required:
+        - content
+
+    course:
+      type: object
+      properties:
+        course:
+          type: string
+        num_occur:
+          type: integer
+        date:
+          type: string
+        
+      required: 
+        - course 
+        - num_occur
+        - date 
+
+
+    report:
+      type: object
+      properties:
+        summary:
+          type: string
+        type:
+          description: "Can be User, Question, Answer or Comment"
+          type: string
+        reports:
+          description: "Number of reports until now"
+          type: string
+      
+      required: 
+        - summary 
+        - type 
+        - reports 
+
+    user:
+      type: object
+      properties:
+        username:
+          type: string
+        date:
+          type: string
+          description: "Date the user has registered in the platform"
+        banned:
+          description: "If the user if banned or not"
+          type: boolean
+        role:
+          description: "Can be user, moderator or administrator"
+          type: string
+      
+      required: 
+        - username 
+        - date
+        - banned 
+        - role 
+
+

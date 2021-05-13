@@ -4,17 +4,17 @@
 <!-- Sub nav bar - Mobile -->
 <nav class="bd-subnavbar align-items-center p-2" aria-label="Secondary navigation">
   <ul class="d-flex m-0 p-0">
-    <li class="nav-link nav-item"><a href="{{route('manage-categories')}}">Categories</a></li>
+    <li class="nav-link nav-item"><a href="{{route('manage-tags')}}">Categories</a></li>
     <li class="nav-link nav-item subnav-selected"><a href="{{route('manage-reports')}}">Reports</a></li>
     <li class="nav-link nav-item"><a href="{{route('manage-users')}}">Users</a></li>
   </ul>
 </nav>
 
-<div class="d-flex justify-content-between page-margin management" id="reports"> 
+<div class="d-flex justify-content-between page-margin management" id="reports">
     <!-- Side Bar - will be a template -->
     <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
         <ul>
-            <li><a href="{{route('manage-categories')}}">Manage Categories</a></li>
+            <li><a href="{{route('manage-tags')}}">Manage Categories</a></li>
             <li><a href="{{route('manage-reports')}}" class="blue">Manage Reports</a></li>
             <li><a href="{{route('manage-users')}}">Manage Users</a></li>
         </ul>
@@ -82,7 +82,7 @@
                         <td>
                             @include('partials.management.reports.report-actions')
                         </td>
-                    </tr>   
+                    </tr>
                     <tr>
                         <th scope="row">4</th>
                         <td><a href="#">I doesn't really look that cool but do whatever man.</a></td>

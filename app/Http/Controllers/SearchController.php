@@ -51,8 +51,11 @@ class SearchController extends Controller
 
     public function filterQuestions(Request $request){
 
-      $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "",$request->input('search-input'))));
-      $hasTextSearch = $stripSearch != '';
+      $trimSearch = trim($request->input('search-input'));
+      $pattern = "/[^0-9a-zA-Z\s]/";
+      $stripSearch = preg_replace($pattern, "", $trimSearch);
+
+      $hasTextSearch = $trimSearch != '';
       $courses = json_decode($request->input('courses'));
       $tags = json_decode($request->input('tags'));
 

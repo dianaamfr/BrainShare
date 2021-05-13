@@ -5,8 +5,8 @@
     <section id="profile-main" class="card grid-profile container-lg">
         <div class="one">
             <h3 class="nickname mb-4">{{ $user->username }}</h3>
-            <div class="profile-pic col-md mb-4">
-                <img class="rounded-circle img-thumbnail" src="{{asset('images/profile.png')}}" alt="Profile Image">
+            <div class="profile-pic col-md mb-4"> 
+                <img class="rounded-circle img-thumbnail" src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="Profile Image">
             </div>
             <p><span class="score">User Score:</span> <span class="points">{{ $user->score }}</span></p>
         </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md mb-4">
                     <h3>Academic Information</h3>
-                    <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span> {{ $user->course->name }}</p>
+                    <p><span class="profile-small-title"><i class="fas fa-graduation-cap"></i> Course:</span> {{ $user->course ? $user->course->name : ''}}</p>
                     <div>
                         <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
                             @foreach ($user->tags as $tag)
@@ -82,5 +82,6 @@
         <h3 class="mb-4">My Answers</h3>
             @include('partials.profile.answer', $answers)
     </section>
+
 </div>
 @endsection

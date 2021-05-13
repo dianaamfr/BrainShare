@@ -11,7 +11,7 @@ class Tag extends Model
 
   protected $table = 'tag';
 
-  protected $fillable = ['name', 'creation_date'];  
+  protected $fillable = ['name', 'creation_date'];
 
   public function questions() {
     return $this->belongsToMany(Question::class, 'question_tag');

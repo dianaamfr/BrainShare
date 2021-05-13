@@ -18,7 +18,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="password" class="form-label">Password<a href="#" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
+                <label for="password" class="form-label">Password<a href="{{ route('password.request') }}" class="form-text btn-link forgot-password justify-content-center float-end">Forgot Password</a></label>
                 <input id="password" type="password" name="password" placeholder="Password" class="form-control" required>
                 @if ($errors->has('password'))
                     <span class="error">
@@ -30,6 +30,13 @@
             <button type="submit"  class="btn btn-primary btn-login">
                 Login
             </button>
+
+            @if (session('status'))
+            <p class="success mt-2">
+                {{ session('status') }}
+            </p>
+            @endif
+            
             <a class="button button-outline" href="{{ route('register') }}">Register</a>
         </form>
         <div class="form-text mt-3 mb-1">No account yet? <a class="btn-link" href="register">Register now.</a></div>

@@ -38,18 +38,18 @@
             @include('partials.question.report', ['margin' => ''])
         </div>
 
-        <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm" role="button" aria-expanded="false" aria-controls="collapseCommentForm">Add Comment</a>
+        <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm{{$answer->id}}" role="button" aria-expanded="false" aria-controls="collapseCommentForm{{$answer->id}}">Add Comment</a>
     </footer>
 </div>
 
 <div class="comments">
-    <div class="collapse" id="collapseCommentForm">
-        <form id="submit-comment">
+    <div class="collapse" id="collapseCommentForm{{$answer->id}}">
+        <form>
             <div class="mb-3 p-3">
                 <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                 <div class="d-grid gap-2 d-flex justify-content-end">
                     <button class="btn btn-primary mt-3" type="submit">Submit</button>
-                    <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">Cancel</button>
+                    <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentForm{{$answer->id}}" aria-expanded="false" aria-controls="collapseCommentForm{{$answer->id}}">Cancel</button>
                 </div>
             </div>
         </form>

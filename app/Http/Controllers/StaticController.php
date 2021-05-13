@@ -47,8 +47,4 @@ class StaticController extends Controller
       return view('pages.manage-users');
     }
 
-    public function showCategories(){
-      return view('pages.manage-categories');
-    }
-
 }
