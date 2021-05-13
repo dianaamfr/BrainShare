@@ -4,20 +4,28 @@ addEvenListeners();
 
 function addEvenListeners(){
 
-    let form = document.getElementById('submit-answer');
-
+    
+    let form = document.getElementsByClassName("submit-comment");
 
     // POST method
     // EventListener for adding an answer
-    form.addEventListener('submit',function(event){
+    form.forEach(element => {
 
-        event.preventDefault();
-        let text = form.querySelector('textarea').value; // testar .textContent se value não der
+        element.addEventListener('submit',function(event){
 
-        sendAjaxRequest('post','/api/question/' + id + '/answer/add',{text: text},submitAnswerHandler);
-
+            event.preventDefault();
+    
+            let text = element.querySelector('textarea').value; // testar .textContent se value não der
+            let questionID=element.id;
+            let answerID = element.parent.parentNode.id;
+    
+            // Preciso de somehow obter o id da answer
+            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: text},submitAnswerHandler);
+    
+        });
     });
 
+    /*
     // PUT method
     // EventListener for Editing an answer
     addEventListener('click',function(event){
@@ -25,7 +33,8 @@ function addEvenListeners(){
 
     
     });
-
+    */
+    /*
     // Get method
     // EventListener for Removing an answer
     addEventListener('click',function(event){
@@ -35,6 +44,7 @@ function addEvenListeners(){
 
 
     });
+    */
 
 }
 
@@ -43,12 +53,8 @@ function addEvenListeners(){
  * This function get's the value of query parameters
  * @param response {Array} Json array containing the answers to the question
  */
-function submitAnswerHandler(response) {
+function submitCommentHandler(response) {
 
     let element = document.querySelector('li.item[data-id="' + item.id + '"]');
 }
 
-function createAnswer(text){
-    let answersDiv = document.querySelector('#page-top section.answers div.answer' );
-
-}

@@ -42,7 +42,7 @@
 
 <div class="comments">
     <div class="collapse" id="collapseCommentForm{{$answer->id}}">
-        <form>
+        <form class ="submit-comments" id="{{$answer->question_id}}">
             <div class="mb-3 p-3">
                 <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                 <div class="d-grid gap-2 d-flex justify-content-end">
