@@ -18,7 +18,7 @@ if(fileInput){
         else {
            imgError.innerHTML = "Invalid image (supports png, jpg or jpeg)."
         }
-    })    
+    })
 }
 
 function validateFile(file) {

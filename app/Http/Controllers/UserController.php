@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -49,6 +50,7 @@ class UserController extends Controller
         $id = Auth::id();
         $user = User::find($id);
 
+
         $this->authorize('editUserProfile', $user);
         $result = DB::transaction(function () use ($request) {
             $id = Auth::id();
@@ -75,8 +77,20 @@ class UserController extends Controller
                 $courseId = DB::table('course')->where('name', $course)->first()->id;
                 $user->course()->associate($courseId);
             }
-            $user->save();
 
+            if($request->hasFile('profile-image')){
+
+                if (request()->file('profile-image')->isValid()) {
+                    $fileName = "profile" . strval($user->id) . "." . $request['profile-image']->getClientOriginalExtension();
+                    $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
+                    $user->image = $path;
+                }
+                else{
+                    throw ValidationException::withMessages(['profile-image' => ['Invalid image.']]);
+                }
+            }
+
+            $user->save();
             return $user;
         });
 

@@ -2,18 +2,41 @@
 
 @section('content')
     <div class="page-margin background-light">
-        <section id="profile-main" class="card grid-profile container-lg">
-            <div class="one mr-4">
-                <!-- Nickname and Photo -->
-                <h3 class="nickname mb-4 text-center">{{$user->username}}</h3>
-                <div class="profile-pic col-md mb-4 text-center">
-                    <img class="rounded-circle img-thumbnail" src="{{asset('images/profile.png')}}" alt="Profile Image">
+        @php
+          if (isset($user->image))
+            $image_path = 'storage/'.$user->image;
+          else
+            $image_path = 'images/profile.png';
+        @endphp
+
+        <form method="post" action="{{route('edit-profile')}}" data-toggle="validator" autocomplete="off"
+              enctype="multipart/form-data">
+            @method('put')
+            {{ csrf_field() }}
+            <section id="profile-main" class="card grid-profile container-lg">
+                <div class="one mr-4">
+                    <!-- Nickname and Photo -->
+                    <h3 class="nickname mb-4 text-center">{{$user->username}}</h3>
+                    <div class="profile-pic col-md mb-4 text-center">
+                        <img class="bd-placeholder-img img-thumbnail rounded-circle mb-3" id="register-image"
+                             src="{{asset($image_path)}}" alt="profile image">
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="file" id="register-file" class="form-control-file" name="profile-image">
+                        <label for="register-file" class="custom-file-upload btn-link text-center">
+                            <i class="fa fa-upload"></i> Profile picture
+                        </label>
+                        <span id="profile-image-error" class="error">
+                        @if ($errors->has('profile-image'))
+                                {{ $errors->first('profile-image') }}
+                            @endif
+                    </span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-edit-profile">
-                <form method="post" action="{{route('edit-profile')}}" class="text-start" data-toggle="validator" autocomplete="off">
-                    @method('put')
-                    @csrf
+
+                <div class="form-edit-profile">
+
 
                     <div class="two row">
                         <section class="profile-info col-md mb-4">
@@ -50,7 +73,8 @@
                         <section class="profile-about-me col-md mb-4">
                             <h3>About Me</h3>
                             <div class="mb-3">
-                                <textarea class="form-control about-me" name="description">{{$user->description}}</textarea>
+                                <textarea class="form-control about-me"
+                                          name="description">{{$user->description}}</textarea>
                                 <div id="questionBodyHelp" class="form-text">Describe all the details about you!</div>
                             </div>
                         </section>
@@ -64,7 +88,7 @@
                             <select id="questionCourseSelect" name="course" class="form-select">
                                 <option>None</option>
                                 @foreach($courses as $course)
-                                    @if($course->name == $user->course->name)
+                                    @if(isset($user->course) && $course->name == $user->course->name)
                                         <option selected>{{$course->name}}</option>
                                     @else
                                         <option>{{$course->name}}</option>
@@ -74,9 +98,9 @@
                         </div>
 
                         <!-- Tags -->
-                        @include("partials.add-question.tags")
+                    @include("partials.add-question.tags")
 
-                        <!-- Toast -->
+                    <!-- Toast -->
                         @include("partials.common.toast")
 
                     </section>
@@ -86,12 +110,14 @@
                         <button type="submit" class="btn btn-outline-primary mx-2 mt-3">Cancel</button>
                         <button type="submit" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
                     </div>
-                </form>
 
-            </div>
-        </section>
+                </div>
+
+            </section>
+        </form>
     </div>
 
-<script>const tags = @json($tags);</script>
-<script> const oldTagsList = @json($user->tags); </script>
+
+    <script>const tags = @json($tags);</script>
+    <script> const oldTagsList = @json($user->tags); </script>
 @endsection

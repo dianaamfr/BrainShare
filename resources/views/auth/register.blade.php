@@ -41,7 +41,7 @@
             </span>
           @endif
         </div>
-        
+
         <div class="mb-4">
           <label for="password" class="form-label">Password*</label>
           <input id="password" class="form-control" type="password" name="password" data-minlength="8" placeholder="Password" required>
@@ -51,7 +51,7 @@
             </span>
           @endif
         </div>
-        
+
         <div class="mb-4">
           <label for="password-confirm" class="form-label">Confirm Password*</label>
           <input id="password-confirm" class="form-control" type="password"  data-match="#password" name="password_confirmation" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
@@ -62,6 +62,6 @@
         </button>
         <a class="button button-outline" href="{{ route('login') }}">Login</a>
     </form>
-  </section> 
+  </section>
 </div>
 @endsection

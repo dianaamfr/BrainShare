@@ -56,6 +56,7 @@
 @if(Request::is("admin/categories/courses"))
     <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
 @endif
+
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
 
 <!-- Library to translate MD to html -->
