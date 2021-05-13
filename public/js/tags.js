@@ -1,10 +1,6 @@
 import {createButtonTrash} from './common.js';
 
 
-const currentPage = window.location.href;
-
-console.log(currentPage);
-
 // Disable submit on enter
 window.addEventListener( "keydown", function (e) { if ( e.keyIdentifier == "U+000A" || e.keyIdentifier == "Enter" || e.keyCode == 13) { if (e.target.nodeName == "INPUT" && e.target.type == "text") { e.preventDefault(); return false; } } }, true);
 
@@ -91,14 +87,14 @@ function selectTag() {
  */
 function addTagOnInput() {
     tagInput.value.split(",").forEach((tag) => {
-        if (tag != "" && tagsClean.includes(tag) && tagsList.length <= 4 && !tagsList.includes(tag)) {
+        if (tag !== "" && tagsClean.includes(tag) && tagsList.length < max_tags && !tagsList.includes(tag)) {
             tagsList.push(tag);
-        } else if (tag != "" && tagsList.includes(tag)){
+        } else if (tag !== "" && tagsList.includes(tag)){
             toastBodyTag.innerText = "Tag already included.";
             toastListTag[0].show();
         }
-        else if (tagsList.length > 4) {
-            toastBodyTag.innerText = "Number of tags must be less than 5.";
+        else if (tagsList.length >= max_tags) {
+            toastBodyTag.innerText = "Number of tags must be less than " + max_tags;
             toastListTag[0].show();
         }
     });

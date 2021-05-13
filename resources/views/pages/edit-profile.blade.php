@@ -101,7 +101,7 @@
                     @include("partials.add-question.tags")
 
                     <!-- Toast -->
-                        @include("partials.common.toast")
+                    @include("partials.common.toast")
 
                     </section>
 
@@ -117,7 +117,7 @@
         </form>
     </div>
 
-
+    <script>const max_tags = 2</script>
     <script>const tags = @json($tags);</script>
     <script> const oldTagsList = @json($user->tags); </script>
 @endsection
