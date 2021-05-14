@@ -646,6 +646,7 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Gibson','nulla.Cras.eu@tacitisociosquad.ca', 'bb4f13803368267216b06e71f9ef29dcb70c763836787f53983699c2534b6dc1','2006-08-27','Benjamin','2005-10-22 01:22:56',3,'False','RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test User','lbaw2152@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'UserTest', '2010-01-14 22:33:13', 5, 'False', 'RegisteredUser');
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test Admin','lbaw2152_admin@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'AdminTest', '2010-01-14 22:33:13', 5, 'False', 'Administrator');
+INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test Moderator','lbaw2152_moderator@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'ModeratorTest', '2010-01-14 22:33:13', 2, 'False', 'Moderator');
 
 -- question
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', '

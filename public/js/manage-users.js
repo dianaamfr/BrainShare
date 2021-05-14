@@ -32,9 +32,13 @@ function updateUser(event){
 function userDeletedHandler(response){
     
     if(response.hasOwnProperty('error')){
-        showAlert(response.error, "error", manageUsersAlert);
+        showAlert(response.error , "error", manageUsersAlert);
         return;
-    } else {
+    } else if(response.hasOwnProperty('exception')){
+        showAlert(response.message , "error", manageUsersAlert);
+        return;
+    }
+    else {
         showAlert(response.success, "success", manageUsersAlert);
     }
 
@@ -49,7 +53,11 @@ function userUpdatedHandler(response){
     if(response.hasOwnProperty('error')){
         showAlert(response.error, "error", manageUsersAlert);
         return;
-    } else {
+    } else if(response.hasOwnProperty('exception')){
+        showAlert(response.message , "error", manageUsersAlert);
+        return;
+    }
+    else {
         showAlert(response.success, "success", manageUsersAlert);
     }
 
