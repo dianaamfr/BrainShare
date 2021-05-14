@@ -12,7 +12,9 @@
               enctype="multipart/form-data">
             @method('put')
             {{ csrf_field() }}
+
             <section id="profile-main" class="card grid-profile container-lg">
+
                 <div class="one mr-4">
                     <!-- Nickname and Photo -->
                     <h3 class="nickname mb-4 text-center">{{$user->username}}</h3>
@@ -140,8 +142,8 @@
 
                     <div class="d-md-flex">
                         <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-                        <button type="submit" class="btn btn-outline-primary mx-2 mt-3">Cancel</button>
-                        <button type="submit" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
+                        <button type="button" class="btn btn-outline-primary mx-2 mt-3" onclick="window.location='{{URL::route('show-profile', $user->id)}}'">Cancel</button>
+                        <button type="button" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
                     </div>
 
                 </div>

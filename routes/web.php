@@ -62,10 +62,8 @@ Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
 Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 Route::get('/user/profile/edit', "UserController@showEditProfile");
 Route::put('/edit/profile/edit/put', "UserController@editProfile")->name('edit-profile');
-// Management: change in A9 when we implement this user stories
 
-//Route::get('/admin/tag', 'StaticController@showTags')->name('manage-tags');
-//Route::get('/admin/course', 'StaticController@showCourses')->name('manage-courses');
+// Management: change in A9 when we implement this user stories
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 
 // Manage categories
