@@ -199,6 +199,7 @@ pre {
 .add-question .form-label,
 .profile-info .form-label,
 .profile-academic-info .form-label,
+.delete-account .form-label,
 .management label {
   color: var(--main-blue);
   font-weight: 500;
@@ -1302,7 +1303,8 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 }
 
 .about-me {
-  height: 10em;
+  height: 31em;
+
 }
 
 /* ---- User/Reports Management ---- */
