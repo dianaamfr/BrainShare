@@ -48,6 +48,7 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/manage-users.js') }} type="module"></script>
 <script  src={{ asset('js/upvote.js') }}  defer></script>
+<script  src={{ asset('js/valid-answer.js') }}  defer></script>
 
 {{--Add a tag to the admin page--}}
 @if(Request::is("admin/categories/tags"))

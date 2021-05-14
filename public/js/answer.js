@@ -14,7 +14,6 @@ function addEvenListeners(){
 
 }
 
-
 function submitAnswerHandler() {
     let answer = JSON.parse(this.responseText);
     let element = document.querySelector('li.item[data-id="' + item.id + '"]');
@@ -24,8 +23,6 @@ function createAnswer(text){
     let answersDiv = document.querySelector('#page-top section.answers div.answer' );
 
 }
-
-
 
 function encodeForAjax(data) {
     if (data == null) return null;

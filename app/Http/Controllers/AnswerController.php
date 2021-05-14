@@ -39,8 +39,6 @@ class AnswerController extends Controller
         $response = view('partials.answer-card', ['questions' => $questions->simplePaginate(10)])->render();
         return response()->json(array('success' => true, 'html' => $response));
         */
-
-
     }
 
 
@@ -52,4 +50,9 @@ class AnswerController extends Controller
 
     }
 
+    public function markValid(Request $request) {
+        $answer = Answer::find($request->answerId);
+
+        return response()->json(['success'=> 'Your request was completed', 'valid' => false, 'answerId' => $request->answerId]);
+    }
   }

@@ -26,13 +26,20 @@
             {{ $answer->content }}
         </div>
 
-        <div class="d-flex flex-column justify-content-center col-auto">
-            <i class="fas fa-check text-center"></i>
+        
+        <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
+            @if ($answer->valid)
+                <i class="fas fa-check text-center"></i>
+            @endif
         </div>
+        
     </div>
 
     <footer class="d-flex align-items-center">
         <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
+
+        <!-- if question owner -->
+        <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid</button>
 
         <div class="report-icon" title="Report">
             @include('partials.question.report', ['margin' => ''])
