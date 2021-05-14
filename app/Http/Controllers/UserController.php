@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -42,13 +43,14 @@ class UserController extends Controller
 
     }
 
+
     public function editProfile(Request $request)
     {
         if (!Auth::check()) return redirect('/login');
         $id = Auth::id();
         $user = User::find($id);
 
-        $validation = $request->validate([
+        $request->validate([
             'name' => 'string|max:255',
             'tagList' => 'max:2',
             'tagList.*' => 'distinct|max:100|string',
@@ -64,7 +66,17 @@ class UserController extends Controller
             'description' => 'string|max:1000'
         ]);
 
-
+        // Check if it's to also change the password.
+        if ($request->get('current_password') != null || $request->get('current_password') != null) {
+            $request->validate([
+                'current_password' => ['required', function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, Auth::user()->password))
+                        return $fail(__('The current password does not match the original.'));
+                }],
+                'new_password' => 'required|string|min:6|different:curr_password',
+                'new_password_confirm' => 'required|same:new_password'
+            ]);
+        }
 
         $this->authorize('editUserProfile', $user);
         $result = DB::transaction(function () use ($request) {
@@ -85,6 +97,10 @@ class UserController extends Controller
                 foreach ($tags as $tag) {
                     $user->tags()->attach($tag);
                 }
+            }
+
+            if ($request->get('curr-password')) {
+                $user->password = Hash::make($request->get('new_password'));
             }
 
             $course = $request->course;

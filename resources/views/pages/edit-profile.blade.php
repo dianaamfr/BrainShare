@@ -95,48 +95,54 @@
 
                             <!-- Password -->
                             <div class="mb-2">
-                                <label class="form-label">Password</label>
+                                <label for="current_password" class="form-label">Password</label>
                                 <div class="input-group mb-0">
                                     <div class="input-group-prepend" title="Password">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="pass" required>
+                                    <input id="current_password" class="form-control" type="password" name="current_password" data-minlength="8"
+                                           placeholder="Password">
                                 </div>
-                                @if ($errors->has('pass'))
+                                @if ($errors->has('current_password'))
                                     <span class="error">
-                                        {{ $errors->first('pass') }}
+                                        {{ $errors->first('current_password') }}
                                     </span>
                                 @endif
                             </div>
 
                             <div class="mb-2">
-                                <label class="form-label">Password Confirmation</label>
-                                <div class="input-group mb-0">
-                                    <div class="input-group-prepend" title="Password confirmation">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                    </div>
-                                    <input type="password" class="form-control" name="pass-confirm" required>
-                                </div>
-                                @if ($errors->has('pass-confirm'))
-                                    <span class="error">
-                                {{ $errors->first('pass-confirm') }}
-                            </span>
-                                @endif
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="form-label">New Password</label>
+                                <label class="form-label" for="new_password">New Password</label>
                                 <div class="input-group mb-0">
                                     <div class="input-group-prepend" title="New Password">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="pass-new">
+                                    <input id="new_password" class="form-control" type="password" name="new_password" data-minlength="8"
+                                           placeholder="New Password">
                                 </div>
-                                @if ($errors->has('pass-new'))
+                                @if ($errors->has('new_password'))
                                     <span class="error">
-                                {{ $errors->first('pass-new') }}
-                            </span>
+                                {{ $errors->first('new_password') }}
                                 @endif
+                            </span>
+
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="new_password_confirm" class="form-label">New Password Confirmation</label>
+                                <div class="input-group mb-0">
+                                    <div class="input-group-prepend" title="New Password">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input class="form-control" type="password" data-match="#new_password"
+                                           name="new_password_confirm" id="new_password_confirm" data-match-error="Whoops, these don't match"
+                                           placeholder="Confirm Password">
+                                </div>
+                                @if ($errors->has('new_password_confirm'))
+                                    <span class="error">
+                                        {{ $errors->first('new_password_confirm') }}
+                                    </span>
+                                @endif
+
                             </div>
 
 
