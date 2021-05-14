@@ -100,26 +100,26 @@
                                     <div class="input-group-prepend" title="Password">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="password" required>
+                                    <input type="password" class="form-control" name="pass" required>
                                 </div>
-                                @if ($errors->has('email'))
+                                @if ($errors->has('pass'))
                                     <span class="error">
-                        {{ $errors->first('email') }}
-                    </span>
+                                        {{ $errors->first('pass') }}
+                                    </span>
                                 @endif
                             </div>
 
                             <div class="mb-2">
                                 <label class="form-label">Password Confirmation</label>
                                 <div class="input-group mb-0">
-                                    <div class="input-group-prepend" title="Password-Confirmation">
+                                    <div class="input-group-prepend" title="Password confirmation">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="password-confirmation" required>
+                                    <input type="password" class="form-control" name="pass-confirm" required>
                                 </div>
-                                @if ($errors->has('email'))
+                                @if ($errors->has('pass-confirm'))
                                     <span class="error">
-                                {{ $errors->first('email') }}
+                                {{ $errors->first('pass-confirm') }}
                             </span>
                                 @endif
                             </div>
@@ -127,14 +127,14 @@
                             <div class="mb-2">
                                 <label class="form-label">New Password</label>
                                 <div class="input-group mb-0">
-                                    <div class="input-group-prepend" title="Password-Confirmation">
+                                    <div class="input-group-prepend" title="New Password">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="password-confirmation" required>
+                                    <input type="password" class="form-control" name="pass-new">
                                 </div>
-                                @if ($errors->has('email'))
+                                @if ($errors->has('pass-new'))
                                     <span class="error">
-                                {{ $errors->first('email') }}
+                                {{ $errors->first('pass-new') }}
                             </span>
                                 @endif
                             </div>
@@ -199,53 +199,56 @@
             </section>
         </form>
 
-        <section id="profile-main" class="card profile-info container-fluid mt-2">
+        <form method="post" action="{{route('edit-profile')}}" data-toggle="validator" autocomplete="off"
+              enctype="multipart/form-data">
+            <section id="profile-main" class="card profile-info container-lg mt-2">
 
-            <h3>Delete account</h3>
-            <div class="row">
-                <div class="col-lg-5 mt-3">
+                <h3>Delete account</h3>
+                <div class="row">
+                    <div class="col-lg-5 mt-3">
                     <span>By deleting you account you profile will not be visible anymore.
                     Your questions, answers and comments will still be visible and available at the
                         website, however the author will be identified as anonymous.
                     </span>
-                </div>
+                    </div>
 
-                <div class="col-lg-7 mt-2">
-                    <!-- Password -->
-                    <div class="mb-2 w-70">
-                        <label class="form-label">Password*</label>
-                        <div class="input-group mb-0">
-                            <div class="input-group-prepend" title="Password">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    <div class="col-lg-7 mt-2">
+                        <!-- Password -->
+                        <div class="mb-2 w-70">
+                            <label class="form-label">Password*</label>
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend" title="Password">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="password" required>
                             </div>
-                            <input type="password" class="form-control" name="password" required>
-                        </div>
-                        @if ($errors->has('email'))
-                            <span class="error">
+                            @if ($errors->has('pass'))
+                                <span class="error">
                         {{ $errors->first('email') }}
                     </span>
-                        @endif
-                    </div>
-
-                    <div class="mb-2">
-                        <label class="form-label">Password Confirmation*</label>
-                        <div class="input-group mb-0">
-                            <div class="input-group-prepend" title="Password-Confirmation">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control" name="password-confirmation" required>
+                            @endif
                         </div>
-                        @if ($errors->has('email'))
-                            <span class="error">
+
+                        <div class="mb-2">
+                            <label class="form-label">Password Confirmation*</label>
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend" title="Password-Confirmation">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="password-confirmation" required>
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="error">
                                 {{ $errors->first('email') }}
                             </span>
-                        @endif
-                    </div>
+                            @endif
+                        </div>
 
-                    <button type="button" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
+                        <button type="button" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </form>
 
     </div>
 
