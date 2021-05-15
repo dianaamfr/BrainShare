@@ -62,12 +62,6 @@ Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
 Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
 
-// Management: change in A9 when we implement this user stories
-
-//Route::get('/admin/tag', 'StaticController@showTags')->name('manage-tags');
-//Route::get('/admin/course', 'StaticController@showCourses')->name('manage-courses');
-Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
-
 // Manage categories
 Route::get('/admin/tags', 'CategoriesController@showTags')->name('manage-tags');
 Route::get('/api/admin/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
@@ -84,6 +78,10 @@ Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
 Route::put('api/admin/user/{id}', 'ManageUsersController@update');
 Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');
 Route::get('api/admin/user', 'ManageUsersController@search');
+
+// Manage Reports
+Route::get('/admin/reports', 'ManageReportsController@show')->name('manage-reports');
+
 // Password Reset
 Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
 Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');

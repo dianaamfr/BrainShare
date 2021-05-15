@@ -19,4 +19,5 @@ class Comment extends Model
   public function question() {
     return $this->belongsTo(Answer::class, 'answer_id');
   }
+
 }

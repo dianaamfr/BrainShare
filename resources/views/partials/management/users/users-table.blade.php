@@ -10,14 +10,14 @@
     @endif
     <table class="table table-hover align-middle">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Date</th>
-            <th scope="col">Banned</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Date</th>
+                <th scope="col">Banned</th>
+                <th scope="col">Role</th>
+                <th scope="col">Actions</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
