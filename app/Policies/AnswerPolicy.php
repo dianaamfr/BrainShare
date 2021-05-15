@@ -25,4 +25,9 @@ class AnswerPolicy{
         // Only a question owner can edit it or the Administrator.
         return $user->id === $answer->user_id;
     }
+
+    public function valid(User $user, Answer $answer){
+      // Only a question owner can mark answers as valid.
+      return $user->id === $answer->question->question_owner_id;
+  }
 }

@@ -39,7 +39,11 @@
         <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
 
         <!-- if question owner -->
-        <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid</button>
+        @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
+            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid</button>
+        @elif (Auth::id() === $answer->question->question_owner_id)
+            <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid</button>
+        @endif
 
         <div class="report-icon" title="Report">
             @include('partials.question.report', ['margin' => ''])
