@@ -19,7 +19,8 @@ class ManageReportsController extends Controller {
         $sub = Report::selectRaw('reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports')
             ->groupBy('question_id','answer_id','comment_id','reported_id');
         
-        $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
+        $reports = 
+            DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
             ->leftJoin('user', 'user.id', '=', 'report_stats.reported_id')
             ->leftJoin('question', 'question.id', '=', 'report_stats.question_id')
             ->leftJoin('answer', 'answer.id', 'report_stats.answer_id')
@@ -31,6 +32,8 @@ class ManageReportsController extends Controller {
             comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   
             reported_id, username, number_reports')
             ->orderBy('number_reports', 'DESC');
+
+            //dd($reports->get());
 
         return view('pages.manage-reports', ['reports' => $reports->paginate(10)]);
     }

@@ -24,6 +24,7 @@
                         <select class="me-4 mb-3 form-select" id="report-type" name="report-type">
                             <option selected value="all">All</option>
                             <option value="users">Users</option>
+                            <option value="comments">Questions</option>
                             <option value="answer">Answers</option>
                             <option value="comments">Comments</option>
                         </select>
@@ -34,6 +35,9 @@
                     </div>
                 </div>
             </form>
+
+            <div id="manage-reports-alert">    
+            </div>
             
             <div id="reports-table">
                 @include('partials.management.reports.reports-table')

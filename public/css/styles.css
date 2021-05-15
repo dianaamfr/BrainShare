@@ -1335,8 +1335,8 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   margin-right: 0.6rem;
 }
 
-.management#reports table thead tr th:nth-child(2){
-  min-width: 200px;
+#reports table thead tr th:nth-child(3){
+  min-width: 300px;
 }
 
 .management td {
