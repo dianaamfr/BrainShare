@@ -2,6 +2,10 @@
 
 @section('content')
 
+    @section('scripts')
+        <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
+    @endsection
+
     <!-- Mobile -  Management Navigation Top Bar-->
     @include('partials.management.mobile-side-bar')
 

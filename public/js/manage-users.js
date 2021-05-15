@@ -108,7 +108,7 @@ function updateUsersPagination() {
 
 let usernameInput = document.getElementById('search-username');
 let manageUsersAlert = document.getElementById('manage-users-alert');
-let userManagementArea = document.getElementById('users-manage-area')
+let userManagementArea = document.getElementById('users-manage-area');
 manageUsers();
 searchUsers();
 updateUsersPagination();
