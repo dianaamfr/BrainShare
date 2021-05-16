@@ -11,10 +11,12 @@
                 data-reported-content="{{$report->reported_id}}" data-report-type="user">
             @endif
             <option selected disabled value="none">Actions</option>
-            @if($report->question_id)
+            @if($report->reported_id)
                 <option value="ban">Ban</option>
+                <option value="ban">Delete Account</option>
+            @else
+                <option value="delete">Delete Content</option>
             @endif
-            <option value="delete">Delete Content</option>
             <option value="discard">Discard Report</option>
         </select>
 

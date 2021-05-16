@@ -17,9 +17,19 @@ function updateReport(event){
     
     let id = action.getAttribute('data-reported-content');
     let type = action.getAttribute('data-report-type');
-    
-    //sendDataAjaxRequest('put', '/api/admin/report/' + id, {}, reportUpdatedHandler);
+
+    if(action.value == 'discard') {
+        sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportUpdatedHandler);
+    }
 }
+
+function reportUpdatedHandler(response) {
+    document.getElementById('reports-table').innerHTML = response.html;
+
+   //updateReportsPagination();
+    manageReports();
+}
+
 /*
 function changeReportsPage(event) {
     event.preventDefault();
