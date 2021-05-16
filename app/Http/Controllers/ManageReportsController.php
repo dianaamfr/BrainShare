@@ -17,15 +17,33 @@ class ManageReportsController extends Controller {
         
         //$this->authorize('showManageReports', Report::class);
 
-        $reports = $this->getReports();
+        $reports = $this->getReports($request);
         return view('pages.manage-reports', ['reports' => $reports]);
     }
 
-    public function getReports(){
+    public function getReports(Request $request){
 
         $sub = Report::selectRaw('reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports')
-        ->whereRaw('viewed = false')
-        ->groupBy('question_id','answer_id','comment_id','reported_id');
+        ->whereRaw('viewed = false');
+        if(!is_null($request->input('type-filter')) && !empty($request->input('type-filter'))){
+            switch($request->input('type-filter')) {
+                case 'questions':
+                    $sub = $sub->whereRaw('question_id IS NOT NULL');
+                    break;
+                case 'answers':
+                    $sub = $sub->whereRaw('answer_id IS NOT NULL');
+                    break;
+                case 'comments':
+                    $sub = $sub->whereRaw('comment_id IS NOT NULL');
+                    break;
+                case 'users':
+                    $sub = $sub->whereRaw('reported_id IS NOT NULL');
+                    break;
+                default:
+                    break;
+            }
+        }
+        $sub = $sub->groupBy('question_id','answer_id','comment_id','reported_id');
 
         $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
         ->leftJoin('user', 'user.id', '=', 'report_stats.reported_id')
@@ -63,10 +81,19 @@ class ManageReportsController extends Controller {
                 break;
         }
         
-        $reports = $this->getReports();
+        $reports = $this->getReports($request);
 
         return response()->json([
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
+
+    public function search(Request $request) {
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
+    }
+
 }

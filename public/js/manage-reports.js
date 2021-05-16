@@ -19,15 +19,36 @@ function updateReport(event){
     let type = action.getAttribute('data-report-type');
 
     if(action.value == 'discard') {
-        sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportUpdatedHandler);
+        sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
     }
 }
 
-function reportUpdatedHandler(response) {
+function reportsUpdateHandler(response) {
     document.getElementById('reports-table').innerHTML = response.html;
 
    //updateReportsPagination();
     manageReports();
+}
+
+function reportsSearchHandler() {
+    let response = JSON.parse(this.responseText);
+    document.getElementById('reports-table').innerHTML = response.html;
+
+   //updateReportsPagination();
+    manageReports();
+}
+
+function searchReports(){
+    if(reportUsernameSearch){
+        reportTypeFilter.addEventListener('change', requestSearchReports);
+        reportUsernameSearch.addEventListener('keyup', requestSearchReports);
+    } 
+}
+
+function requestSearchReports(){
+    let data = {'search-username-report': reportUsernameSearch.value, 'type-filter': reportTypeFilter.value};
+    sendAjaxGetRequest( '/api/admin/reports', data, reportsSearchHandler)
+    window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
 }
 
 /*
@@ -49,7 +70,8 @@ function updateReportsPagination() {
 }
 */
 
-let reportTypeFilters = document.getElementById('report-type');
+let reportTypeFilter = document.getElementById('report-type');
 let reportUsernameSearch = document.querySelector('input[name=search-username-report]');
 let manageReportsAlert = document.getElementById('manage-users-alert');
 manageReports();
+searchReports();
