@@ -43,18 +43,18 @@ class UserController extends Controller
 
     }
 
-
     public function editProfile(Request $request)
     {
         if (!Auth::check()) return redirect('/login');
         $id = Auth::id();
         $user = User::find($id);
+        $this->authorize('editUserProfile', $user);
 
         $request->validate([
-            'name' => 'string|max:255',
+            'name' => 'sometimes|nullable|string|max:255',
             'tagList' => 'max:2',
-            'tagList.*' => 'distinct|max:100|string',
-            'birthday' => 'date|before:today',
+            'tagList.*' => 'sometimes|distinct|max:100|string',
+                'birthday' => 'sometimes|nullable|date|before:today',
             'email' => [
                 'required',
                 'string',
@@ -62,8 +62,8 @@ class UserController extends Controller
                 'email',
                 Rule::unique('user')->ignore($user->id),
             ],
-            'profile-image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'description' => 'string|max:1000'
+            'profile-image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'sometimes|nullable|string|max:1000'
         ]);
 
         // Check if it's to also change the password.
@@ -73,12 +73,11 @@ class UserController extends Controller
                     if (!Hash::check($value, Auth::user()->password))
                         return $fail(__('The current password does not match the original.'));
                 }],
-                'new_password' => 'required|string|min:6|different:curr_password',
+                'new_password' => 'required|string|min:6|different:current_password',
                 'new_password_confirm' => 'required|same:new_password'
             ]);
         }
 
-        $this->authorize('editUserProfile', $user);
         $result = DB::transaction(function () use ($request) {
             $id = Auth::id();
             $user = User::find($id);
@@ -99,7 +98,7 @@ class UserController extends Controller
                 }
             }
 
-            if ($request->get('curr-password')) {
+            if ($request->get('current_password')) {
                 $user->password = Hash::make($request->get('new_password'));
             }
 
@@ -165,6 +164,27 @@ class UserController extends Controller
 
         $response = view('partials.profile.answer', ['answers' => $answers->simplePaginate(3)])->render();
         return response()->json(array('success' => true, 'html' => $response));
+    }
+
+    public function deleteUserOnProfile(Request $request, $toDeleteId)
+    {
+
+        $deleted = User::find($toDeleteId);
+        $this->authorize('delete', $deleted);
+
+        // Check if it's to also change the password.
+        $request->validate([
+            'password' => ['required', 'string', function($attribute, $value, $fail){
+                if (!Hash::check($value, Auth::user()->password)){
+                    return $fail(__("The password given doest not match the original."));
+                }
+            }],
+            'password_confirmation' => 'required|string|same:password',
+        ]);
+
+        $deleted->delete();
+        return redirect()->route('home');
+
     }
 
     public function deleteUser($id)

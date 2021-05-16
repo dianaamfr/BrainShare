@@ -48,6 +48,8 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/manage-users.js') }} type="module"></script>
 
+<script  src={{ asset('js/answer.js') }} type="module"></script>
+
 {{--Add a tag to the admin page--}}
 @if(Request::is("admin/categories/tags"))
     <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>

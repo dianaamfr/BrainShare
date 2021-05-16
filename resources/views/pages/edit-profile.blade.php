@@ -205,8 +205,11 @@
             </section>
         </form>
 
-        <form method="post" action="{{route('edit-profile')}}" data-toggle="validator" autocomplete="off"
+        <form method="post" action="{{route('delete-user', $user->id)}}" data-toggle="validator" autocomplete="off"
               enctype="multipart/form-data">
+            @method('put')
+            {{csrf_field()}}
+
             <section id="profile-main" class="card profile-info container-lg mt-2">
 
                 <h3>Delete account</h3>
@@ -228,10 +231,10 @@
                                 </div>
                                 <input type="password" class="form-control" name="password" required>
                             </div>
-                            @if ($errors->has('pass'))
+                            @if ($errors->has('password'))
                                 <span class="error">
-                        {{ $errors->first('email') }}
-                    </span>
+                                    {{ $errors->first('password') }}
+                                </span>
                             @endif
                         </div>
 
@@ -241,16 +244,16 @@
                                 <div class="input-group-prepend" title="Password-Confirmation">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" class="form-control" name="password-confirmation" required>
+                                <input type="password" class="form-control" name="password_confirmation" required>
                             </div>
-                            @if ($errors->has('email'))
+                            @if ($errors->has('password_confirmation'))
                                 <span class="error">
-                                {{ $errors->first('email') }}
+                                {{ $errors->first('password_confirmation') }}
                             </span>
                             @endif
                         </div>
 
-                        <button type="button" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
+                        <button type="submit" class="btn btn-outline-danger mt-3 ms-md-auto">Delete Account</button>
                     </div>
                 </div>
             </section>
