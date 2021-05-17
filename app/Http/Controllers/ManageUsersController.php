@@ -88,7 +88,7 @@ class ManageUsersController extends Controller {
 
       $user->delete();
       
-      $users = $this->getFilteredUsers(null);
+      $users = $this->getFilteredUsers($request->input('search-username'));
 
       // Verify if the requested page exists
       $npages = ceil($users->count() / 10.0);

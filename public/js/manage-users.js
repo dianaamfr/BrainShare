@@ -18,10 +18,14 @@ function updateUser(event){
     let id = this.getAttribute('data-user-id');
 
     if(actionValue === "delete"){
-        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link').innerHTML;
+        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link');
+        let search = usernameInput.value;
 
-        sendDataAjaxRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
-        window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
+        if(page) page = page.innerHTML;
+        else page = 1;
+
+        sendDataAjaxRequest('delete', '/api/admin/user/' + id, {'search-username':search, page: page}, userDeletedHandler);
+        window.history.pushState({}, '', '/admin/user?' + encodeForAjax({search:search, page: page}));
     }
     else {
         sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
@@ -30,7 +34,7 @@ function updateUser(event){
 
 // Handle the response to a request to the deletion of a user
 function userDeletedHandler(response){
-
+    
     if(response.hasOwnProperty('error')){
         showAlert(response.error , "error", manageUsersAlert);
         return;
