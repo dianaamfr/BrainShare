@@ -8,7 +8,7 @@
     <!-- Mobile -  Management Navigation Top Bar-->
     @include('partials.management.mobile-side-bar')
 
-    <div class="d-flex justify-content-between page-margin management" id="reports">
+    <div class="d-flex justify-content-between page-margin management management-content" id="reports">
         <!-- Management Navigation SideBar -->
         @include('partials.management.side-bar')
 
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="input-group manage-search mb-3">
-                        <input type="text" class="form-control" placeholder="Search by reported user..." name="search-username-report">
+                        <input type="text" class="form-control" placeholder="Search by content owner..." name="search-username-report">
                     </div>
                 </div>
             </form>

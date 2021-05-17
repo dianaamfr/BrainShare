@@ -9,7 +9,7 @@
     <!-- Mobile -  Management Navigation Top Bar-->
     @include('partials.management.mobile-side-bar')
   
-    <div class="d-flex justify-content-between page-margin management" id="users"> 
+    <div class="d-flex justify-content-between page-margin management management-content" id="users"> 
         <!-- Management Navigation SideBar -->
         @include('partials.management.side-bar')
   

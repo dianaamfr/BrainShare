@@ -13,7 +13,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
-                <th scope="col">Content</th>
+                <th scope="col">Reported Content</th>
+                <th scope="col">Content Owner</th>
                 <th scope="col" id="reports-number">Reports</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -21,7 +22,10 @@
         <tbody>
             @foreach ($reports as $report)
             <tr>
+                <!-- Row number -->
                 <th>{{$loop->index + 1 + $reports->perpage() * ($reports->currentpage()-1)}}</th>
+
+                <!-- Report Type -->
                 <td>
                     @if (isset($report->question_id) && $report->question_id)
                         Question
@@ -33,6 +37,8 @@
                         User
                     @endif
                 </td>
+                
+                <!-- Reported Content -->
                 <td>
                     <div class="d-flex align-items-center">
                         @if (isset($report->question_id) && $report->question_id)
@@ -61,7 +67,32 @@
                         @endif
                     </div>
                 </td>
+
+                <!-- Reported Content Owner -->
+                <td>
+                    @if (isset($report->question_owner_id) && $report->question_owner_id)
+                        <a href="/user/{{$report->question_owner_id}}/profile">
+                            <p>{{$report->question_owner_username}}</p>
+                        </a>
+                    @elseif (isset($report->answer_owner_id) && $report->answer_owner_id) 
+                        <a href="/user/{{$report->answer_owner_id}}/profile">
+                            <p>{{$report->answer_owner_username}}</p>
+                        </a>
+                    @elseif (isset($report->comment_owner_id) && $report->comment_owner_id) 
+                        <a href="/user/{{$report->comment_owner_id}}/profile">
+                            <p>{{$report->comment_owner_username}}</p>
+                        </a>
+                    @elseif (isset($report->reported_id) && $report->reported_id) 
+                        -
+                    @else
+                        <p>Deleted</p>
+                    @endif
+                </td>
+                
+                <!-- Number of Reports -->
                 <td>{{$report->number_reports}}</td>
+
+                <!-- Actions -->
                 <td>
                     @include('partials.management.reports.report-actions')
                 </td>

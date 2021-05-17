@@ -53,8 +53,7 @@ class ManageReportsController extends Controller {
 
                     // Filter Reports by Content Owner
                     if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
-                        $reports = $reports->leftJoin('user as answer_user', 'answer_user.id', '=', 'answer.answer_owner_id') 
-                            ->where('answer_user.username', 'ILIKE', $request->input('search-username') . '%');
+                        $reports = $reports->where('answer_user.username', 'ILIKE', $request->input('search-username') . '%');
                     }
 
                     return $reports->selectRaw('report_stats.answer_id, answer.content as answer_content, 
@@ -111,7 +110,10 @@ class ManageReportsController extends Controller {
         ->leftJoin('question', 'question.id', '=', 'report_stats.question_id')
         ->leftJoin('answer', 'answer.id', 'report_stats.answer_id')
         ->leftJoin('comment', 'comment.id', 'report_stats.comment_id')
-        ->leftJoin('answer as answer2', 'answer2.id', 'comment.answer_id');
+        ->leftJoin('answer as answer2', 'answer2.id', 'comment.answer_id')
+        ->leftJoin('user as question_user', 'question_user.id', '=', 'question.question_owner_id')
+        ->leftJoin('user as answer_user', 'answer_user.id', '=', 'answer.answer_owner_id')
+        ->leftJoin('user as comment_user', 'comment_user.id', '=', 'comment.comment_owner_id');
 
         // Filter Reports by Content Owner
         if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
@@ -119,9 +121,12 @@ class ManageReportsController extends Controller {
         }
 
         return $reports->selectRaw('report_stats.question_id, title, question.content as question_content, 
-        report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id, 
+        question.question_owner_id, question_user.username as question_owner_username,
+        report_stats.answer_id, answer.content as answer_content, answer.question_id as answer_question_id,
+        answer.answer_owner_id, answer_user.username as answer_owner_username, 
         report_stats.comment_id, comment.content as comment_content,                                             
-        comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id,   
+        comment.answer_id as comment_answer_id, answer2.question_id as comment_question_id, 
+        comment.comment_owner_id, comment_user.username as comment_owner_username,   
         reported_id, "user".username, number_reports')
         ->orderBy('number_reports', 'DESC')->paginate(10);
 
@@ -163,10 +168,7 @@ class ManageReportsController extends Controller {
     }
 
     public function filterReportsByOwner($reports, Request $request){
-        return $reports->leftJoin('user as question_user', 'question_user.id', '=', 'question.question_owner_id')
-                ->leftJoin('user as answer_user', 'answer_user.id', '=', 'answer.answer_owner_id')
-                ->leftJoin('user as comment_user', 'comment_user.id', '=', 'comment.comment_owner_id')
-                ->where('user.username', 'ILIKE', $request->input('search-username') . '%')
+        return $reports->where('user.username', 'ILIKE', $request->input('search-username') . '%')
                 ->orWhere('question_user.username', 'ILIKE', $request->input('search-username') . '%')
                 ->orWhere('answer_user.username', 'ILIKE', $request->input('search-username') . '%')
                 ->orWhere('comment_user.username', 'ILIKE', $request->input('search-username') . '%');

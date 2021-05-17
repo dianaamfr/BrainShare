@@ -5,7 +5,7 @@
                 data-reported-content="{{$report->question_id}}" data-report-type="question">
             @elseif (isset($report->answer_id) && $report->answer_id) 
                 data-reported-content="{{$report->answer_id}}" data-report-type="answer">
-            @elseif (isset($report->comment_id) && $report->comment_content) 
+            @elseif (isset($report->comment_id) && $report->comment_id) 
                 data-reported-content="{{$report->comment_id}}" data-report-type="comment">
             @else 
                 data-reported-content="{{$report->reported_id}}" data-report-type="user">

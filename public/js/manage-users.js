@@ -18,7 +18,14 @@ function updateUser(event){
     let id = this.getAttribute('data-user-id');
 
     if(actionValue == "delete"){
-        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link').innerHTML;
+        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link');
+
+        if(page) {
+            page = page.innerHTML;
+        } 
+        else {
+            page = 1;
+        }
         
         sendDataAjaxRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
         window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
@@ -72,10 +79,12 @@ function userUpdatedHandler(response){
 }
 
 function searchUsers(){
+    
     if(usernameInput){
         usernameInput.addEventListener('keyup', function(){
+            let data = {'search-username': usernameInput.value}
             sendAjaxGetRequest( '/api/admin/user', 
-            {'search-username': usernameInput.value}, userSearchUpdateHandler)
+            data, userSearchUpdateHandler)
             window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
         });
     } 

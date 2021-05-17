@@ -175,7 +175,7 @@
   }
   
   /* Categories */
-  .categories-content {
+  .management-content {
     margin-top: 3rem;
   }
 
@@ -250,6 +250,10 @@
 
   .management-nav {
     display: none;
+  }
+
+  .management-content {
+    display: block!important;
   }
 }
 

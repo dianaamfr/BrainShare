@@ -125,7 +125,7 @@ function tags_table(){ ?>
   </ul>
 </nav>
 
-<div class="d-flex justify-content-between page-margin categories-content">
+<div class="d-flex justify-content-between page-margin management-content">
     <!-- Side Bar - will be a template -->
     <aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
         <ul>
