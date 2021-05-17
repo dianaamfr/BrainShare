@@ -69,10 +69,9 @@ function profileAnswersUpdate() {
     // TODO paginate
 }
 
-let userId = document.getElementById('profile-id');
-if (userId) {
-    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId.innerHTML + '/questions');
-    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId.innerHTML + '/answers');
-    
+if (document.getElementById('profile-id')) {
+    let userId = document.getElementById('profile-id').innerHTML;
+    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
+    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
     document.getElementById('profile-search').addEventListener('submit', profileSearch)
 }

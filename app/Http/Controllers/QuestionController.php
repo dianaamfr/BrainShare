@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Question;
+use App\Models\Answer;
+use App\Models\Vote;
 use App\Models\Course;
 use App\Models\Tag;
 use App\Models\User;
@@ -39,7 +43,6 @@ class QuestionController extends Controller
         $tags = Tag::all();
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
     }
-
 
     /**
      * Creates a new question.
@@ -147,7 +150,6 @@ class QuestionController extends Controller
     // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
     public function delete($questionId)
     {
-
         $question = Question::find($questionId);
 
         // If you are not logged in, redirect to the login page
@@ -160,5 +162,76 @@ class QuestionController extends Controller
 
         // Return to the search page if the question is sucessfull deleted
         return redirect()->route('search');
+    }
+
+    public function voteQuestion(Request $request, $questionId)
+    {
+        if (!Auth::check()) return redirect('login');
+
+        if ($request->vote !== "1" && $request->vote !== "-1") 
+            return response()->json(array('success' => false, 'score' => 'ERROR'));
+
+        try {
+            $vote = new Vote();
+
+            $vote->user_id = Auth::id();
+            $vote->question_id = $questionId;
+            $vote->value_vote = $request->vote;
+
+            try {
+                $vote->save();
+            
+            } catch(\Exception $e) {
+                $question = Question::find($questionId);
+                $score = $question->score;
+
+                return response()->json(array('success' => false, 'score' => $score));
+            }
+
+            $question = Question::find($questionId);
+            $score = $question->score;
+
+            return response()->json(array('success' => true, 'score' => $score));
+        } catch(QueryException $e) {
+            $question = Question::find($questionId);
+            $score = $question->score;
+
+            return response()->json(array('success' => false, 'score' => $score));
+        }
+    }
+
+    public function voteAnswer(Request $request, $questionId, $answerId)
+    {
+        if (!Auth::check()) return redirect('login');
+        
+        if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
+
+        try {
+            $vote = new Vote();
+
+            $vote->user_id = Auth::id();
+            $vote->answer_id = $answerId;
+            $vote->value_vote = $request->vote;
+
+            try {
+                $vote->save();
+            
+            } catch(\Exception $e) {
+                $answer = Answer::find($answerId);
+                $score = $answer->score;
+
+                return response()->json(array('success' => false, 'score' => $score));
+            }
+
+            $answer = Answer::find($answerId);
+            $score = $answer->score;
+
+            return response()->json(array('success' => true, 'score' => $score));
+        } catch(QueryException $e) {
+            $answer = Answer::find($answerId);
+            $score = $answer->score;
+
+            return response()->json(array('success' => false, 'score' => $score));
+        }
     }
 }

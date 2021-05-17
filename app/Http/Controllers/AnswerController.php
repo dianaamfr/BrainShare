@@ -55,4 +55,20 @@ class AnswerController extends Controller{
         $this->authorize('edit', $answer);
     }
 
-}
+    public function markValid(Request $request) {
+        $answer = Answer::find($request->answerId);
+
+        if (!Auth::check()) return response()->json(['error' => 'Not logged in']);
+
+        $this->authorize('valid', $answer);
+
+        if ($answer->valid) {
+            $answer->valid = false;
+        } else {
+            $answer->valid = true;
+        }
+        $answer->update();
+
+        return response()->json(['success'=> 'Your request was completed', 'valid' => $answer->valid, 'answerId' => $request->answerId]);
+    }
+  }

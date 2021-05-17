@@ -30,7 +30,6 @@ class SearchController extends Controller
       
       session()->flashInput($request->input());
       return view('pages.search', ['courses' => $courses, 'questions' => $questions->simplePaginate(10)]);
-      
     }
     
     /**

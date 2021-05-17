@@ -30,6 +30,13 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 
+// Vote Question and Answer
+Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
+Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
+
+// Mark Answer as Valid
+Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
+
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');

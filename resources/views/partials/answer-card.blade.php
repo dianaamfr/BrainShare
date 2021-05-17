@@ -1,4 +1,4 @@
-<div class="card-body card">
+<div class="card-body card answer-question-card">
     <header class="question-author pagination align-items-center justify-content-end card-header">
         <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image"> <!-- Small Profile Image -->
         <div class="d-flex flex-wrap">
@@ -9,14 +9,16 @@
 
     <div class="row align-items-center px-3">
         <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
-            <p class="points m-0">{{$answer->score}}</p>
-            <button class="icon-hover vote_btn" title="Up Vote">
-                <i class="bi bi-caret-up"></i>
-                <i class="bi bi-caret-up-fill"></i>
+            <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
+            <input class="answer-id" value="{{ $answer->id }}" hidden />
+            <button class="icon-hover vote_btn" title="Up Vote" type="submit">
+                <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up"></i>
+                <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill"></i>
             </button>
-            <button class="icon-hover vote_btn" title="Down Vote">
-                <i class="bi bi-caret-down"></i>
-                <i class="bi bi-caret-down-fill"></i>
+
+            <button class="icon-hover vote_btn" title="Down Vote" type="submit">
+                <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down"></i>
+                <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill"></i>
             </button>
         </div>
 
@@ -24,13 +26,24 @@
             {{ $answer->content }}
         </div>
 
-        <div class="d-flex flex-column justify-content-center col-auto">
-            <i class="fas fa-check text-center"></i>
+        
+        <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
+            @if ($answer->valid)
+                <i class="fas fa-check text-center"></i>
+            @endif
         </div>
+        
     </div>
 
     <footer class="d-flex align-items-center">
         <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
+
+        <!-- if question owner -->
+        @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
+            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid</button>
+        @elif (Auth::id() === $answer->question->question_owner_id)
+            <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid</button>
+        @endif
 
         <div class="report-icon" title="Report">
             @include('partials.question.report', ['margin' => ''])

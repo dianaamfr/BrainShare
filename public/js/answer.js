@@ -36,12 +36,10 @@ function addEvenListeners(){
     addEventListener('click',function(event){
         event.preventDefault();
 
-    
-    });
-
-    // Get method
-    // EventListener for Removing an answer
-    addEventListener('click',function(event){
+function submitAnswerHandler() {
+    let answer = JSON.parse(this.responseText);
+    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
+}
 
         // Não tenho a certeza se é preciso o preventDefault
         event.preventDefault();
@@ -52,6 +50,12 @@ function addEvenListeners(){
 
 }
 
+function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
+}
 /**
  * Handler for the submit answer put form
  * This function get's the value of query parameters
