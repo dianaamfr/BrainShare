@@ -83,7 +83,9 @@
                             <p>{{$report->comment_owner_username}}</p>
                         </a>
                     @elseif (isset($report->reported_id) && $report->reported_id) 
-                        -
+                        <a href="/user/{{$report->reported_id}}/profile">
+                            <p>{{$report->username}}</p>
+                        </a>
                     @else
                         <p>Deleted</p>
                     @endif

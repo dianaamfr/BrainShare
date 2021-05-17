@@ -20,6 +20,24 @@ function updateReport(event){
 
     if(action.value == 'discard') {
         sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
+    } 
+    else if (action.value == 'delete') {
+        switch(type){
+            case 'question':
+                sendDataAjaxRequest('delete', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
+                break;
+            case 'answer':
+                // TODO: needs delete answer us
+                break;
+            case 'comment':
+                // TODO: needs delete comment us
+                break;
+            case 'user':
+                // TODO: needs delete user us
+                break;
+            default:
+                return;
+        }
     }
 }
 
