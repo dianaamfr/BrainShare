@@ -27,12 +27,6 @@
 <!-- Iconify -->
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 
-<!-- Profile -->
-<script  src={{ asset('js/profile.js') }} defer></script>
-
-<!-- Pagination -->
-<script src={{ asset('js/pagination.js') }} defer></script>
-
 <!-- Rich Text -->
 <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css"/>
 <script src="https://lab.lepture.com/editor/editor.js" defer></script>
@@ -46,24 +40,14 @@
 <script  src={{ asset('js/courses.js') }} type="module"></script>
 <script  src={{ asset('js/autocomplete.js') }} defer></script>
 <script  src={{ asset('js/editor.js') }}  defer></script>
-<script  src={{ asset('js/manage-users.js') }} type="module"></script>
 <script  src={{ asset('js/upvote.js') }}  defer></script>
 <script  src={{ asset('js/valid-answer.js') }}  defer></script>
-
 <script  src={{ asset('js/answer.js') }} type="module"></script>
-
-{{--Add a tag to the admin page--}}
-@if(Request::is("admin/tags"))
-    <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>
-@endif
-
-@if(Request::is("admin/courses"))
-    <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
-@endif
-
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
 
 <!-- Library to translate MD to html -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"
         integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw=="
         crossorigin="anonymous"></script>
+
+@yield('scripts')

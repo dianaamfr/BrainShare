@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @section('scripts')
+        <script src={{ asset('js/profile.js') }} defer></script>
+    @endsection
+
 <div class="page-margin">
     <section id="profile-main" class="card grid-profile container-lg">
         <div class="one">
             <h3 class="nickname mb-4">{{ $user->username }}</h3>
-            <div class="profile-pic col-md mb-4"> 
-                <img class="rounded-circle img-thumbnail" src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="Profile Image">
+            <div class="profile-pic col-md mb-4">
+                <img class="rounded-circle img-thumbnail" src="{{ $user->image ? asset('storage/' . $user->image) : asset('images/profile.png')}}" alt="Profile Image">
             </div>
             <p><span class="score">User Score:</span> <span class="points">{{ $user->score }}</span></p>
         </div>
@@ -32,7 +37,7 @@
                     <div>
                         <p><span class="profile-small-title"><i class="fas fa-tags"></i>Tags:</span>
                             @foreach ($user->tags as $tag)
-                                <span class="category tag badge bg-secondary"> 
+                                <span class="category tag badge bg-secondary">
                                     <i class="fas fa-hashtag"></i>
                                     {{$tag->name}}
                                 </span>
@@ -41,7 +46,7 @@
                     </div>
                 </div>
 
-                @if (Auth::id() == $user->id) 
+                @if (Auth::id() == $user->id)
                 <div class="col-md d-flex justify-content-end align-items-end">
                     <a class="btn btn-primary my-2" href="/user/profile/edit">Edit Profile</a>
                 </div>

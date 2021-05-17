@@ -13,13 +13,13 @@ function manageUsers(){
 function updateUser(event){
     event.preventDefault();
     let actionValue = this.querySelector('.user-action').value;
-    if(actionValue == 'none') return;
-    
+    if(actionValue === 'none') return;
+
     let id = this.getAttribute('data-user-id');
 
-    if(actionValue == "delete"){
+    if(actionValue === "delete"){
         let page = document.querySelector('.page-item.active[aria-current=page] span.page-link').innerHTML;
-        
+
         sendDataAjaxRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
         window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
     }
@@ -30,7 +30,7 @@ function updateUser(event){
 
 // Handle the response to a request to the deletion of a user
 function userDeletedHandler(response){
-    
+
     if(response.hasOwnProperty('error')){
         showAlert(response.error , "error", manageUsersAlert);
         return;
@@ -49,7 +49,7 @@ function userDeletedHandler(response){
 
 // Handle the response to a request to update the role or the ban status of a user
 function userUpdatedHandler(response){
-    
+
     if(response.hasOwnProperty('error')){
         showAlert(response.error, "error", manageUsersAlert);
         return;
@@ -74,11 +74,12 @@ function userUpdatedHandler(response){
 function searchUsers(){
     if(usernameInput){
         usernameInput.addEventListener('keyup', function(){
-            sendAjaxGetRequest( '/api/admin/user', 
-            {'search-username': usernameInput.value}, userSearchUpdateHandler)
+            let data = {'search-username': usernameInput.value};
+            sendAjaxGetRequest( '/api/admin/user',
+            data, userSearchUpdateHandler);
             window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
         });
-    } 
+    }
 }
 
 function userSearchUpdateHandler(){
@@ -93,8 +94,8 @@ function changeUsersPage(event) {
     event.preventDefault();
     let page = this.href.split('page=')[1]
     let data = {'search-username': usernameInput.value, 'page': page}
-  
-    sendAjaxGetRequest('/api/admin/user', 
+
+    sendAjaxGetRequest('/api/admin/user',
         data, userSearchUpdateHandler)
     window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
 }
