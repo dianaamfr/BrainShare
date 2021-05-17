@@ -1,17 +1,17 @@
 <form class="report-actions">
     <div class="input-group flex-nowrap">
         <select class="form-select report-action" 
-            @if($report->question_id)
+            @if(isset($report->question_id) && $report->question_id)
                 data-reported-content="{{$report->question_id}}" data-report-type="question">
-            @elseif ($report->answer_id) 
+            @elseif (isset($report->answer_id) && $report->answer_id) 
                 data-reported-content="{{$report->answer_id}}" data-report-type="answer">
-            @elseif ($report->comment_content) 
+            @elseif (isset($report->comment_id) && $report->comment_content) 
                 data-reported-content="{{$report->comment_id}}" data-report-type="comment">
             @else 
                 data-reported-content="{{$report->reported_id}}" data-report-type="user">
             @endif
             <option selected disabled value="none">Actions</option>
-            @if($report->reported_id)
+            @if(isset($report->reported_id) && $report->reported_id)
                 <option value="ban">Ban</option>
                 <option value="ban">Delete Account</option>
             @else

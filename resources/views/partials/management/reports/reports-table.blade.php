@@ -23,11 +23,11 @@
             <tr>
                 <th>{{$loop->index + 1 + $reports->perpage() * ($reports->currentpage()-1)}}</th>
                 <td>
-                    @if ($report->question_id)
+                    @if (isset($report->question_id) && $report->question_id)
                         Question
-                    @elseif ($report->answer_id) 
+                    @elseif (isset($report->answer_id) && $report->answer_id) 
                         Answer
-                    @elseif ($report->comment_id) 
+                    @elseif (isset($report->comment_id) && $report->comment_id) 
                         Comment
                     @else 
                         User
@@ -35,7 +35,7 @@
                 </td>
                 <td>
                     <div class="d-flex align-items-center">
-                        @if ($report->question_id)
+                        @if (isset($report->question_id) && $report->question_id)
                             <a href="/question/{{$report->question_id}}" class="px-4 d-block">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
@@ -43,12 +43,12 @@
                                 <p>{{$report->title}}</p>
                                 <p class="text-secondary">{{Str::limit($report->question_content,150)}}</p>
                             </div>
-                        @elseif ($report->answer_id) 
+                        @elseif (isset($report->answer_id) && $report->answer_id) 
                             <a href="/question/{{$report->answer_question_id}}" class="px-4 d-block">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                             <p>{{Str::limit($report->answer_content,150)}}</p>
-                        @elseif ($report->comment_id) 
+                        @elseif (isset($report->comment_id) && $report->comment_id) 
                             <a href="/question/{{$report->comment_question_id}}" class="px-4 d-block">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
