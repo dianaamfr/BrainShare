@@ -46,7 +46,7 @@ function searchReports(){
 }
 
 function requestSearchReports(){
-    let data = {'search-username-report': reportUsernameSearch.value, 'type-filter': reportTypeFilter.value};
+    let data = {'search-username': reportUsernameSearch.value, 'type-filter': reportTypeFilter.value};
     sendAjaxGetRequest( '/api/admin/reports', data, reportsSearchHandler)
     window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
 }
