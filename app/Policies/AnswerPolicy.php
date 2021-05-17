@@ -12,17 +12,19 @@ class AnswerPolicy{
     use HandlesAuthorization;
 
     public function create(){
-      // Any user can create a new answer
+      // Any user can create a new answer, sa long as he is logged in
       return Auth::check();
     }
 
+    public function edit(User $user, Answer $answer){
+      // Only a question owner can edit the question;
+      return $user->id === $answer->answer_owner_id;
+    }
+
     public function delete(User $user, Answer $answer){
-      // Only a question owner can delete it or the Administrator
+      // Only a question owner or the Administrator can delete it
       return $user->id === $answer->answer_owner_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
     }
 
-    public function edit(User $user, Answer $answer){
-        // Only a question owner can edit it or the Administrator.
-        return $user->id === $answer->user_id;
-    }
+    
 }

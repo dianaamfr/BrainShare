@@ -32,7 +32,7 @@
 
 <script> const tags = @json($tags);</script>
 <script> const courses = @json($courses);</script>
-
+<script> const max_tags = 5; </script>
 <script> const oldTagsList = @json($question->tags); </script>
 <script> const oldCoursesList = @json($question->courses);</script>
 @endsection

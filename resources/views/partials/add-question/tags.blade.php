@@ -7,7 +7,7 @@
 
     @if ($errors->has('tagList'))
         <span class="error">
-            Tags must be different and can't be more than 5!
+            Tags must be different and can't be more than 2!
         </span>
     @endif
 </div>

@@ -48,6 +48,8 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/manage-users.js') }} type="module"></script>
 
+<script  src={{ asset('js/answer.js') }} type="module"></script>
+
 {{--Add a tag to the admin page--}}
 @if(Request::is("admin/tags"))
     <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>
@@ -56,6 +58,7 @@
 @if(Request::is("admin/courses"))
     <script src={{ asset('js/manage-categories/course.js') }} type="module"></script>
 @endif
+
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
 
 <!-- Library to translate MD to html -->

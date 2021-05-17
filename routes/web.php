@@ -57,15 +57,16 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('r
 Route::post('register', 'Auth\RegisterController@register');
 
 // Profile: change in A9
-Route::get('/user/{id}/profile', "UserController@showProfile");
+Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');
 Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
 Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
-Route::get('/user/profile/edit', "StaticController@showEditProfile")->name('edit-profile');
+
+Route::put('/user/{id}/delete', "UserController@deleteUserOnProfile")->name('delete-user');
+Route::get('/user/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
+Route::put('/edit/profile/edit/put', "UserController@editProfile")->name('edit-profile');
+
 
 // Management: change in A9 when we implement this user stories
-
-//Route::get('/admin/tag', 'StaticController@showTags')->name('manage-tags');
-//Route::get('/admin/course', 'StaticController@showCourses')->name('manage-courses');
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
 
 // Manage categories

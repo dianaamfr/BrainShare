@@ -62,13 +62,14 @@
             <h4 class="d-inline-block">{{$question->number_answer}} answers</h4>
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
-        <div class="answer card">
+        <div class="answer card" id="all-answers">
             @each('partials.answer-card', $question->answers, 'answer')
         </div>
     </section>
 
     <!-- Submit Answer Form -->
-    <form id="submit-answer" >
+    <form id="submit-answer">
+       <input type="hidden" name="questionID" value="{{$question->id}}">
        @method('POST')
        @csrf
        @include('partials.question.answer-form')

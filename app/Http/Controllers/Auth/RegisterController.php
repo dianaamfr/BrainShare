@@ -49,7 +49,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    { 
+    {
         return Validator::make($data, [
             'username' => 'required|string|max:255|unique:user',
             'email' => 'required|string|email|max:255|unique:user',
@@ -65,31 +65,30 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data){
-        
-        
+
         return DB::transaction(function () use ($data) {
             $user = User::create([
                 'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password'])
             ]);
-      
+
             if(request()->hasFile('profile-image')){
-                
+
                 if (request()->file('profile-image')->isValid()) {
                     $fileName = "profile" . strval($user->id) . "." . $data['profile-image']->getClientOriginalExtension();
                     $path = request()->file('profile-image')->storePubliclyAs('profiles', $fileName, 'public');
 
                     $user->image = $path;
                     $user->save();
-                } 
+                }
                 else{
                     throw ValidationException::withMessages(['profile-image' => ['Invalid image.']]);
-                } 
+                }
             }
 
             return $user;
-        }); 
+        });
 
     }
 }
