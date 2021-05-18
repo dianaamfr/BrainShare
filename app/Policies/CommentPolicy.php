@@ -16,13 +16,14 @@ class CommentPolicy{
       return Auth::check();
     }
 
-    public function delete(User $user, Comment $comment){
-      // Only a question owner can delete it or the Administrator
-      return $user->id === $comment->answer_owner_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
-    }
 
     public function edit(User $user, Comment $comment){
         // Only a question owner can edit it or the Administrator.
         return $user->id === $comment->user_id;
+    }
+
+    public function delete(User $user, Comment $comment){
+      // Only a question owner can delete it or the Administrator
+      return $user->id === $comment->answer_owner_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
     }
 }

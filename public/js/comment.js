@@ -5,7 +5,8 @@ addEvenListeners();
 function addEvenListeners(){
 
     
-    let form = document.getElementsByClassName("submit-comment");
+    let forms = document.getElementsByClassName("submit-comment");
+
 
     // POST method
     // EventListener for adding an answer
@@ -16,12 +17,12 @@ function addEvenListeners(){
             event.preventDefault();
     
             let text = element.querySelector('textarea').value; // testar .textContent se value não der
-            let questionID=element.id;
-            let answerID = element.parent.parentNode.id;
+            let questionID = element.querySelector('input[type="hidden"]').value;
+            let answerID = element.parent.parentNode.id.split("-")[1];
     
             // Preciso de somehow obter o id da answer
-            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: text},submitAnswerHandler);
-    
+            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: text},submitCommentHandler);
+            
         });
     });
 
@@ -55,6 +56,8 @@ function addEvenListeners(){
  */
 function submitCommentHandler(response) {
 
-    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
+    console.log(response);
+    let div = document.getElementById("question-comments");
+    div.innerHTML = response;
 }
 
