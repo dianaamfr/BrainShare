@@ -9,15 +9,17 @@
 
 import convertMD from "./parseMD.js";
 
-try {
-    convertMD("md-remove");
-    let remove_md_list = document.querySelectorAll(".md-remove");
-
-    remove_md_list.forEach((element) => {
-        element.innerHTML = stripHtml(element.innerHTML);
-    });
-} catch (e) {
-    console.warn("No md to remove");
+export function mdRemove(){
+    try {
+        convertMD("md-remove");
+        let remove_md_list = document.querySelectorAll(".md-remove");
+    
+        remove_md_list.forEach((element) => {
+            element.innerHTML = stripHtml(element.innerHTML);
+        });
+    } catch (e) {
+        console.warn("No md to remove");
+    }
 }
 
 function stripHtml(html) {
@@ -25,3 +27,5 @@ function stripHtml(html) {
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || "";
 }
+
+mdRemove();
