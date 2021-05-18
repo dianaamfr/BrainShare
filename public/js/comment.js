@@ -1,4 +1,4 @@
-import {encodeForAjax, sendAjaxRequest} from "./common.js";
+//import {encodeForAjax, sendAjaxRequest} from "./common.js";
 
 addEvenListeners();
 
@@ -21,7 +21,7 @@ function addEvenListeners(){
             let answerID = element.parent.parentNode.id.split("-")[1];
     
             // Preciso de somehow obter o id da answer
-            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: text},submitCommentHandler);
+            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: 'hello'},submitCommentHandler);
             
         });
     });
@@ -59,5 +59,21 @@ function submitCommentHandler(response) {
     console.log(response);
     let div = document.getElementById("question-comments");
     div.innerHTML = response;
+}
+
+function sendDataAjaxRequest(method, url, data, handleResponse) {
+    let dataJson = JSON.stringify(data);
+    fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Request-With': "XMLHttpRequest",
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+            method: method,
+            credentials: 'same-origin',
+            body: dataJson
+        },
+    ).then(response => response.json()).then(json => handleResponse(json));
 }
 

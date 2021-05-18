@@ -68,10 +68,9 @@ Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profi
 Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
 Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 
-Route::put('/user/{id}/delete', "UserController@deleteUserOnProfile")->name('delete-user');
-Route::get('/user/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
-Route::put('/edit/profile/edit/put', "UserController@editProfile")->name('edit-profile');
-
+Route::put('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user');
+Route::get('/user/{id}/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
+Route::put('/user/{id}/profile/edit', "UserController@editProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
@@ -79,6 +78,7 @@ Route::get('/admin/reports', 'StaticController@showReports')->name('manage-repor
 // Manage categories
 Route::get('/admin/tags', 'CategoriesController@showTags')->name('manage-tags');
 Route::get('/api/admin/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
+// TODO: adicionar o id da tag e tirar o add.
 Route::post('/api/admin/tags/add', 'CategoriesController@addTag')->name('manage-tags-add');
 Route::delete('/api/admin/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
 

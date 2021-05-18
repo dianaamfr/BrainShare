@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Answer;
+use App\Models\Question;
 
 class AnswerController extends Controller{
+
     public function addAnswer(Request $request){
 
+        dd('here');
+        return json(array('success' => true));
+        /*
         // Authorization
         if(!$this->authorize('create', Answer::class)) return redirect('login');
 
@@ -23,17 +30,22 @@ class AnswerController extends Controller{
 
         // Add the answer to the database (Id has default value, hence should be omissible)
         $answer = new Answer;
-        $answer->question_id = $request->question_id;
+        $answer->question_id = $request->input('question_id');
         $answer->answer_owner_id = Auth::user()->id;
-        $answer->content = $request->content;
+        $answer->content = $request->input('content');
         $answer->save();
         
         
         // Get the quuestion in order to find all the answers again
-        $question Question::find($request->$question_id);
+        $question =  Question::find($request->input("question_id"));
+
         
-        $response = view('partials.answer-card', [$question->answers, 'answer')->render();
+        
+        $response = view('partials.answer-card', [$question->answers])->render();
+        
+
         return response()->json(array('success' => true, 'html' => $response));
+        */
 
 
     }
@@ -50,13 +62,11 @@ class AnswerController extends Controller{
             'commentList' => 'distinct',
         ]);
 
-        
-
 
     }
 
     // Tenho que mudar para uma request porque isto é feito por ajax
-    public function deleteAnswer($answerID){
+    public function deleteAnswer(Request $request){
 
         $answer = Answer::find($answerID);
 
@@ -66,9 +76,9 @@ class AnswerController extends Controller{
         // Delete the question from the table
         $answer->delete();
          // Get the quuestion in order to find all the answers again
-        $question Question::find($answer->$question_id);
+        $question = Question::find($answer->$question_id);
     
-        $response = view('partials.answer-card', [$question->answers, 'answer')->render();
+        $response = view('partials.answer-card', [$question->answers, 'answer'])->render();
         return response()->json(array('success' => true, 'html' => $response));
     }
 
@@ -88,4 +98,4 @@ class AnswerController extends Controller{
 
         return response()->json(['success'=> 'Your request was completed', 'valid' => $answer->valid, 'answerId' => $request->answerId]);
     }
-  }
+}

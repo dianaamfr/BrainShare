@@ -48,7 +48,7 @@
 
                 @if (Auth::id() == $user->id)
                 <div class="col-md d-flex justify-content-end align-items-end">
-                    <a class="btn btn-primary my-2" href="/user/profile/edit">Edit Profile</a>
+                    <a class="btn btn-primary my-2" href="{{route('show-edit-profile', $user->id)}}">Edit Profile</a>
                 </div>
                 @endif
             </div>

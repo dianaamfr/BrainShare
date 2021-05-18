@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Comment;
+use App\Models\Answer;
 
 class CommentController extends Controller
 {
@@ -25,16 +26,16 @@ class CommentController extends Controller
  
          // Add comment
          $comment = new Comment;
-         $comment->answer_id = $request->answer_id;
+         $comment->answer_id = $request->input('answer_id');
          $comment->comment_owner_id = Auth::user()->id;
-         $comment->content = $request->content;
+         $comment->content = $request->input('content');
          $comment->save();
          
          
         // Return view of comments to refresh view
-         $answer Answer::find($request->$answer_id);
+         $answer = Answer::find($request->input('answer_id'));
          
-         $response = view('partials.comment-card', [$answer->comments, 'answer')->render();
+         $response = view('partials.comment-card', [$answer->comments, 'answer'])->render();
          return response()->json(array('success' => true, 'html' => $response));
     }
 
@@ -56,8 +57,8 @@ class CommentController extends Controller
 
 
         // Return view of comments to refresh view
-        $answer Answer::find($comment->$answer_id);
-        $response = view('partials.comment-card', [$answer->comments, 'comment')->render();
+        $answer = Answer::find($comment->$answer_id);
+        $response = view('partials.comment-card', [$answer->comments, 'comment'])->render();
         return response()->json(array('success' => true, 'html' => $response));
         
     }
@@ -80,8 +81,8 @@ class CommentController extends Controller
          // Get the quuestion in order to find all the answers again
         
         // Return view of comments to refresh view
-        $answer Answer::find($comment->$answer_id);
-        $response = view('partials.comment-card', [$answer->comments, 'comment')->render();
+        $answer =  Answer::find($comment->$answer_id);
+        $response = view('partials.comment-card', [$answer->comments, 'comment'])->render();
         return response()->json(array('success' => true, 'html' => $response));
     }
 

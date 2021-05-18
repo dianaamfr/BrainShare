@@ -1,9 +1,9 @@
-//import {sendAjaxRequest} from "./common.js";
+//import {sendDataAjaxRequest} from "./common.js";
 
 
-addEvenListeners();
+addEventListeners();
 
-function addEvenListeners(){
+function addEventListeners(){
 
     console.log("Entered Loop");
 
@@ -14,7 +14,8 @@ function addEvenListeners(){
     //let deleteButton = form.querySelector("");
 
     console.log(form);
-    console.log(button);
+    console.log(addButton);
+    console.log("saved");
 
 
     // POST method
@@ -31,7 +32,7 @@ function addEvenListeners(){
         console.log(text);
         console.log(id);
 
-        sendAjaxRequest('post','/api/question/' + id + '/answer/add',{text: text},submitAnswerHandler);
+        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{text: 'hello'},submitAnswerHandler);
 
     });
     
@@ -47,6 +48,7 @@ function addEvenListeners(){
     */
     // Get method
     // EventListener for Removing an answer
+    /*
     addEventListener('click',function(event){
 
         
@@ -54,6 +56,7 @@ function addEvenListeners(){
 
 
     });
+    */
     
 
 
@@ -64,17 +67,34 @@ function addEvenListeners(){
  * This function get's the value of query parameters
  * @param response {Array} Json array containing the answers to the question
  */
-/*function submitAnswerHandler(response) {
-
+function submitAnswerHandler(response) {
+    console.log("here");
     console.log(response);
     let div = document.getElementById("all-answers");
     div.innerHTML = response;
 
 
-}*/
-/*
+}
+
 function createAnswer(text){
     let answersDiv = document.querySelector('#page-top section.answers div.answer' );
 
 }
-*/
+
+
+function sendDataAjaxRequest(method, url, data, handleResponse) {
+    let dataJson = JSON.stringify(data);
+    fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Request-With': "XMLHttpRequest",
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+            method: method,
+            credentials: 'same-origin',
+            body: dataJson
+        },
+    ).then(json => handleResponse(response));
+}
+
