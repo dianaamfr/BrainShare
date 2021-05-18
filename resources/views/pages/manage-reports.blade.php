@@ -12,7 +12,7 @@
         <!-- Management Navigation SideBar -->
         @include('partials.management.side-bar')
 
-        <div class="col-md-9 ms-md-auto col-lg-9 px-md-4">
+        <div class="col-md-9 ms-md-auto col-lg-10 px-md-4">
             <h2 class="mb- mt-5">Reports</h2>
 
             <!-- Reports Search Filters -->
