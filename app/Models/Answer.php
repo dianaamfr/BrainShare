@@ -10,7 +10,7 @@ class Answer extends Model
   public $timestamps  = false;
   protected $table = 'answer';
 
-  protected $fillable = ['content'];
+  protected $fillable = ['content', 'deleted'];
   
   public function owner() {
     return $this->belongsTo(User::class, 'answer_owner_id');

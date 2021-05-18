@@ -1,7 +1,7 @@
 <!-- Table -->
 <div class="table-responsive w-100">
     
-    @if ($users->isNotEmpty())
+    @if (!empty($users))
         <div class="table-entries">
             Showing {{$users->perpage() * ($users->currentpage()-1) + 1}} 
             to {{$users->perpage() * ($users->currentpage()-1) + $users->count()}} 
@@ -35,9 +35,9 @@
             @endforeach
         </tbody>
     </table>
-    @if ($users->isEmpty())
+    @empty ($users)
         <span>No username found</span>
-    @endif
+    @endempty
 </div>
 
 <!-- Get pagination -->

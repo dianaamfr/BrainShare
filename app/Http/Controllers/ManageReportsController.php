@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Models\Comment;
 use App\Models\Report;
 
 class ManageReportsController extends Controller {
@@ -51,6 +54,7 @@ class ManageReportsController extends Controller {
 
         // Get all Report Types
         
+        // TODO: check state filter and make whereRaw vary depending on it
         $sub = Report::selectRaw('reported_id, question_id, answer_id, comment_id, COUNT(report.id) as number_reports')
             ->whereRaw('viewed = false')
             ->groupBy('question_id','answer_id','comment_id','reported_id');
@@ -86,20 +90,23 @@ class ManageReportsController extends Controller {
 
         switch($request->input('type')) {
             case 'question':
-                Report::where('question_id', '=', $request->input('id'))->update(['viewed' => true]);
+                $report = Report::where('question_id', '=', $request->input('id'));
                 break;
             case 'answer':
-                Report::where('answer_id', '=', $request->input('id'))->update(['viewed' => true]);
+                $report = Report::where('answer_id', '=', $request->input('id'));
                 break;
             case 'comment':
-                Report::where('comment_id', '=', $request->input('id'))->update(['viewed' => true]);
+                $report = Report::where('comment_id', '=', $request->input('id'));
                 break;
             case 'user':
-                Report::where('reported_id', '=', $request->input('id'))->update(['viewed' => true]);
+                $report = Report::where('reported_id', '=', $request->input('id'));
                 break;
             default:
-                // TODO
                 break;
+        }
+
+        if(isset($report)){
+            $report->update(['viewed' => true]);
         }
         
         $reports = $this->getReports($request);
@@ -107,6 +114,29 @@ class ManageReportsController extends Controller {
         return response()->json([
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
+    }
+
+    public function delete(Request $request){
+    
+        switch($request->input('type')) {
+            case 'question':
+                Question::find($request->input('id'))->update(['deleted' => true]);
+                break;
+            case 'answer':
+                Answer::find($request->input('id'))->update(['deleted' => true, ]);
+                break;
+            case 'comment':
+                Comment::find($request->input('id'))->update(['deleted' => true]);
+                break;
+            case 'user':
+                // TODO: DISCUSS THIS
+                User::find($request->input('id'))->update(['ban' => true]);
+                break;
+            default:
+                break;
+        }
+
+        return $this->discard($request);
     }
 
     public function filterReportsByOwner($reports, Request $request){
@@ -117,6 +147,7 @@ class ManageReportsController extends Controller {
     }
 
     public function getReportedQuestions(Request $request){
+        // TODO: check state filter and make whereRaw vary depending on it
         $sub = Report::selectRaw('question_id, COUNT(report.id) as number_reports')
             ->whereRaw('viewed = false')
             ->groupBy('question_id');
@@ -136,6 +167,7 @@ class ManageReportsController extends Controller {
     }
 
     public function getReportedAnswers(Request $request){
+        // TODO: check state filter and make whereRaw vary depending on it
         $sub = Report::selectRaw('answer_id, COUNT(report.id) as number_reports')
         ->whereRaw('viewed = false')
         ->groupBy('answer_id');
@@ -155,6 +187,7 @@ class ManageReportsController extends Controller {
     }
 
     public function getReportedComments(Request $request){
+        // TODO: check state filter and make whereRaw vary depending on it
         $sub = Report::selectRaw('comment_id, COUNT(report.id) as number_reports')
         ->whereRaw('viewed = false')
         ->groupBy('comment_id');
@@ -176,6 +209,7 @@ class ManageReportsController extends Controller {
     }
 
     private function getReportedUsers(Request $request){
+        // TODO: check state filter and make whereRaw vary depending on it
         $sub = Report::selectRaw('reported_id, COUNT(report.id) as number_reports')
         ->whereRaw('viewed = false')
         ->groupBy('reported_id');

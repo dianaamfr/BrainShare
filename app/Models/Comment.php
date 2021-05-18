@@ -10,7 +10,7 @@ class Comment extends Model
   public $timestamps  = false;
   protected $table = 'comment';
 
-  protected $fillable = ['content'];
+  protected $fillable = ['content', 'deleted'];
   
   public function owner(){
     return $this->belongsTo(User::class, 'comment_owner_id');

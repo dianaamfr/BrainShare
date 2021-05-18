@@ -13,7 +13,7 @@ class Question extends Model
 
 
     protected $fillable = [
-        'question_owner_id', 'title', 'content', 'date', 'score', 'number_answer','search', 'answers_search'
+        'question_owner_id', 'title', 'content', 'date', 'score', 'number_answer','search', 'answers_search', 'deleted'
     ];
 
     protected $appends = array('mimeType');
@@ -33,7 +33,7 @@ class Question extends Model
      * @var array
      */
     protected $hidden = [
-        'search', 'answers_search',
+        'search', 'answers_search'
     ];
 
     public function owner(){

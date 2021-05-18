@@ -82,6 +82,7 @@ Route::get('api/admin/user', 'ManageUsersController@search');
 // Manage Reports
 Route::get('/admin/reports', 'ManageReportsController@show')->name('manage-reports');
 Route::put('api/admin/reports/discard', 'ManageReportsController@discard');
+Route::put('api/admin/reports/delete', 'ManageReportsController@delete');
 Route::get('api/admin/reports', 'ManageReportsController@search');
 
 // Password Reset

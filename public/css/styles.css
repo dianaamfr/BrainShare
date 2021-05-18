@@ -1335,8 +1335,13 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   margin-right: 0.6rem;
 }
 
-#reports table thead tr th:nth-child(3){
-  min-width: 300px;
+#reports table thead tr th:nth-child(4){
+  min-width: 250px;
+}
+
+#reports table tbody tr td:nth-child(4) a {
+  display: block;
+  padding-right: 0.5rem;
 }
 
 .management td {
@@ -1372,10 +1377,16 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 .management-nav li {
   padding: 1rem 1.25rem;
-  outline: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: unset;
   list-style-type: none;
   background-color:#f8f9fa;
 }
+
+.management-nav li:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 
 .management-nav a {
   color: var(--text-black);

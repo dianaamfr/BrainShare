@@ -1,6 +1,6 @@
 <div class="table-responsive w-100">
     
-    @if ($reports->isNotEmpty())
+    @if (!empty($reports))
     <div class="table-entries">
         Showing {{$reports->perpage() * ($reports->currentpage()-1) + 1}} 
         to {{$reports->perpage() * ($reports->currentpage()-1) + $reports->count()}} 
@@ -13,8 +13,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
+                <th scope="col">State</th>
                 <th scope="col">Reported Content</th>
-                <th scope="col">Content Owner</th>
+                <th scope="col">Owner</th>
                 <th scope="col" id="reports-number">Reports</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -36,6 +37,11 @@
                     @else 
                         User
                     @endif
+                </td>
+                
+                <!-- Report State -->
+                <td>
+                    Handled
                 </td>
                 
                 <!-- Reported Content -->
@@ -110,9 +116,9 @@
         </tbody>
     </table>
 
-    @if ($reports->isEmpty())
+    @empty ($reports)
     <span>No report found</span>
-    @endif
+    @endempty
 </div>
 
 <!-- Get pagination -->

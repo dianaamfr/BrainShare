@@ -22,22 +22,7 @@ function updateReport(event){
         sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
     } 
     else if (action.value == 'delete') {
-        switch(type){
-            case 'question':
-                sendDataAjaxRequest('delete', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
-                break;
-            case 'answer':
-                // TODO: needs delete answer us
-                break;
-            case 'comment':
-                // TODO: needs delete comment us
-                break;
-            case 'user':
-                // TODO: needs delete user us
-                break;
-            default:
-                return;
-        }
+        sendDataAjaxRequest('put', '/api/admin/reports/delete', {'id':id , 'type': type}, reportsUpdateHandler);
     }
 }
 
@@ -89,7 +74,7 @@ function updateReportsPagination() {
 */
 
 let reportTypeFilter = document.getElementById('report-type');
-let reportUsernameSearch = document.querySelector('input[name=search-username-report]');
+let reportUsernameSearch = document.querySelector('input[name=search-username]');
 let manageReportsAlert = document.getElementById('manage-users-alert');
 manageReports();
 searchReports();
