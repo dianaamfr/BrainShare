@@ -76,11 +76,6 @@ function submitAnswerHandler(response) {
 
 }
 
-function createAnswer(text){
-    let answersDiv = document.querySelector('#page-top section.answers div.answer' );
-
-}
-
 
 function sendDataAjaxRequest(method, url, data, handleResponse) {
     let dataJson = JSON.stringify(data);
@@ -95,6 +90,6 @@ function sendDataAjaxRequest(method, url, data, handleResponse) {
             credentials: 'same-origin',
             body: dataJson
         },
-    ).then(json => handleResponse(response));
+    ).then(response => response.json()).then(json => handleResponse(json));
 }
 

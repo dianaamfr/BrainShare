@@ -31,9 +31,9 @@ class UserController extends Controller
     public function showEditProfile($id)
     {
         if (!Auth::check()) return redirect('/login');
-
-        $id = Auth::id();
         $user = User::find($id);
+        $this->authorize('showEditUserProfile', $user);
+
         $courses = Course::all();
         $tags = Tag::all();
 
