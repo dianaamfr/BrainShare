@@ -1,5 +1,6 @@
 
 import {encodeForAjax, sendAjaxGetRequest} from './common.js';
+import {mdRemove} from './removeMD.js';
 
 function sendAdvancedSearchRequest(page = 1) {
     let searchInput = searchBar.querySelector("input[type='search']").value;
@@ -28,6 +29,8 @@ function searchUpdateHandler(){
 
     window.scroll({top: 0, behavior: 'smooth'});
     questionsDiv.innerHTML = response.html;
+
+    mdRemove();
     updatePagination();
 }
 
