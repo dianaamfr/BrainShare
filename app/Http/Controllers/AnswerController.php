@@ -28,14 +28,9 @@ class AnswerController extends Controller{
         $answer->content = $request->content;
         $answer->save();
         
-        /*
-        DB::table('answers')->insert([
-            'question_id' => $request->question_id, 'answer_owner_id' =>Auth::user()->id, 'content' => $request->content,
-        ]);
-        */
         
         // Get the quuestion in order to find all the answers again
-        $question Question::find($question_id);
+        $question Question::find($request->$question_id);
         
         $response = view('partials.answer-card', [$question->answers, 'answer')->render();
         return response()->json(array('success' => true, 'html' => $response));

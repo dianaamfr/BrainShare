@@ -7,7 +7,10 @@ function addEvenListeners(){
     console.log("Entered Loop");
 
     let form = document.getElementById('submit-answer');
-    let button = form.querySelector("button"); 
+    let addButton = form.querySelector("button"); 
+
+    let editDeleteForm = document.getElementsByClassName()
+    let deleteButton = form.querySelector("");
 
     console.log(form);
     console.log(button);
@@ -15,8 +18,9 @@ function addEvenListeners(){
 
     // POST method
     // EventListener for adding an answer
-
-    button.addEventListener('click',function(event){
+    // Falta só meter o botão de edit em condições
+    
+    addButton.addEventListener('click',function(event){
 
         event.preventDefault();
         
@@ -29,6 +33,7 @@ function addEvenListeners(){
         sendAjaxRequest('post','/api/question/' + id + '/answer/add',{text: text},submitAnswerHandler);
 
     });
+    
 
     /*
     // PUT method
@@ -38,17 +43,17 @@ function addEvenListeners(){
 
     
     });
-
+    */
     // Get method
     // EventListener for Removing an answer
     addEventListener('click',function(event){
 
-        // Não tenho a certeza se é preciso o preventDefault
+        
         event.preventDefault();
 
 
     });
-    */
+    
 
 }
 
@@ -62,8 +67,6 @@ function submitAnswerHandler(response) {
     console.log(response);
     let div = document.getElementById("all-answers");
     div.innerHTML = response;
-
-    let element = document.querySelector('li.item[data-id="' + item.id + '"]');
 
 
 }

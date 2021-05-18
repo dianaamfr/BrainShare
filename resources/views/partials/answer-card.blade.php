@@ -41,8 +41,9 @@
 </div>
 
 <div class="comments">
-    <div class="collapse" id="collapseCommentForm{{$answer->id}}">
-        <form class ="submit-comments" id="{{$answer->question_id}}">
+    <div class="collapse" id="collapseCommentForm-{{$answer->id}}">
+        <form class ="submit-comments">
+            <input type="hidden" value="{{$answer->question_id}}">
             <div class="mb-3 p-3">
                 <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
                 <div class="d-grid gap-2 d-flex justify-content-end">
@@ -53,6 +54,10 @@
         </form>
     </div>
 
-    @each('partials.comment-card', $answer->comments, 'comment')
+    <div id="question-comments">
+        @each('partials.comment-card', $answer->comments, 'comment')
+    </div>
+
+    
 </div>
 
