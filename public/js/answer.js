@@ -26,13 +26,13 @@ function addEventListeners(){
 
         event.preventDefault();
 
-        let text = form.querySelector('textarea').value; // testar .textContent se value não der
+        let content = form.querySelector('textarea').value; // testar .textContent se value não der
         let id = form.querySelector("input[name='questionID']").value;
 
-        console.log(text);
+        console.log(content);
         console.log(id);
 
-        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{text: 'hello'},submitAnswerHandler);
+        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{content: 'hello'},submitAnswerHandler);
 
     });
     
@@ -71,7 +71,7 @@ function submitAnswerHandler(response) {
     console.log("here");
     console.log(response);
     let div = document.getElementById("all-answers");
-    div.innerHTML = response;
+    div.innerHTML = response.html;
 
 
 }
@@ -90,6 +90,6 @@ function sendDataAjaxRequest(method, url, data, handleResponse) {
             credentials: 'same-origin',
             body: dataJson
         },
-    ).then(response => response.json()).then(json => handleResponse(json));
+    ).then((response) => response.json())
 }
 

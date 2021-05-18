@@ -808,7 +808,7 @@ article.question .card-title {
 #register input[type="text"],
 #register input[type="password"],
 #login input[type="email"],
-#login input[type="password"], 
+#login input[type="password"],
 .password-recovery input
 {
   width: 100%;
@@ -832,7 +832,7 @@ article.question .card-title {
 
 #login .btn-login,
 #login .btn-register,
-#register .btn-register, 
+#register .btn-register,
 .password-recovery .btn {
   padding: 0.4em 3em;
   width: 100%;
@@ -1401,8 +1401,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 
 /* Categories */
-
-
 .manage-categories .icon-hover button {
   color: var(--main-blue);
   font-size: 1.5rem;
@@ -1454,6 +1452,11 @@ ul.notification-list li:hover{
   background-color: var(--main-blue);
 }
 
+
+/* ---- Toast -----*/
+.toast{
+    z-index: 3;
+}
 
 /* ---- Footer ---- */
 
