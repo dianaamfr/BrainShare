@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@section('scripts')
+<script  src={{ asset('js/answer.js')}}  type="module"></script>
+@endsection
 <div id="page-top" class="page-margin question-page">
     <article class="question card">
         <div class="card-body">
@@ -63,15 +66,13 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @each('partials.answer-card', $question->answers, 'answer')
+            @include('partials.answers',['answer'=>$question->answers])
         </div>
     </section>
 
     <!-- Submit Answer Form -->
     <form id="submit-answer">
        <input type="hidden" name="questionID" value="{{$question->id}}">
-       @method('POST')
-       @csrf
        @include('partials.question.answer-form')
     </form>
 </div>

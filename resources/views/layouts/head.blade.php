@@ -42,7 +42,6 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/upvote.js') }}  defer></script>
 <script  src={{ asset('js/valid-answer.js') }}  defer></script>
-<script  src={{ asset('js/answer.js') }} type="module"></script>
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
 
 <!-- Library to translate MD to html -->

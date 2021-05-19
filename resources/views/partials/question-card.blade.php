@@ -11,7 +11,7 @@
         <header class="card-header">
 
             <div class="question-header d-flex align-items-center">
-
+                
                 <!-- Mobile Question details -->
                 <div class="d-none question-details d-flex mb-3">
                      <!-- Courses -->

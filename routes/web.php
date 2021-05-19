@@ -47,9 +47,11 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 //Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
 // Answer
-Route::post('/api/question/{id}/answer/add','AnswerController@addAnswer')->name('add-answer');
-Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@EditAnswer')->name('edit-answer');
-Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@DeleteAnswer')->name('delete-answer');
+Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
+//Route::post('/api/test','AnswerController@newRoute');
+
+Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
+Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
 
 // Comment
 Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');

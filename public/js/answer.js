@@ -1,5 +1,38 @@
+import {sendAjaxGetRequest, sendDataAjaxRequest, encodeForAjax} from "./common.js"; 
+
+function submitAnswer(event){
+
+    event.preventDefault();
+    console.log("begin");
+
+
+    let text = this.querySelector('textarea[name="content"]').value;
+    let id = this.querySelector('input[name="questionID"]').value;
+    console.log(text);
+    console.log(id);
+
+    //sendAjaxPostRequest("POST",'/api/question/' + id + '/answer/add',{'text':text},handler); 
+
+    sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
+
+    console.log("sent request");
+
+}
+
+function handler(responseJson){
+    console.log("RESPONSE SUCESSFULLY REACHED THIS POINT");
+    console.log(responseJson);
+    console.log(responseJson.html);
+}
+
+let form = document.getElementById('submit-answer');
+
+form.addEventListener("submit",submitAnswer);
+
+
 //import {sendDataAjaxRequest} from "./common.js";
 
+/*
 
 addEventListeners();
 
@@ -32,7 +65,7 @@ function addEventListeners(){
         console.log(content);
         console.log(id);
 
-        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{content: 'hello'},submitAnswerHandler);
+        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{content: 'hello',},requestHandler);
 
     });
     
@@ -56,40 +89,23 @@ function addEventListeners(){
 
 
     });
-    */
+    
     
 
 
 }
 
-/**
- * Handler for the submit answer put form
- * This function get's the value of query parameters
- * @param response {Array} Json array containing the answers to the question
- */
-function submitAnswerHandler(response) {
+
+function requestHandler(json) {
     console.log("here");
     console.log(response);
     let div = document.getElementById("all-answers");
-    div.innerHTML = response.html;
+    div.innerHTML = json.html;
 
 
 }
+*/
 
 
-function sendDataAjaxRequest(method, url, data, handleResponse) {
-    let dataJson = JSON.stringify(data);
-    fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Request-With': "XMLHttpRequest",
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
-            method: method,
-            credentials: 'same-origin',
-            body: dataJson
-        },
-    ).then((response) => response.json())
-}
+
 

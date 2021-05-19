@@ -69,6 +69,17 @@ export function sendDataAjaxRequest(method, url, data, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
+function sendAjaxPostRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.addEventListener('load', handler);
+    request.send(encodeForAjax(data));
+}
+
+
 
 export function sendAjaxRequest(method, url, data, handleResponse) {
     let dataJson = JSON.stringify(data);
