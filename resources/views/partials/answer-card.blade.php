@@ -49,7 +49,7 @@
         @endif
 
         <div class="report-icon" title="Report">
-            @include('partials.question.report', ['margin' => ''])
+            @include('partials.question.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
         </div>
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm{{$answer->id}}" role="button"

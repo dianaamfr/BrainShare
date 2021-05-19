@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
 @section('scripts')
-<script  src={{ asset('js/answer.js')}}  type="module"></script>
+    <script src={{ asset('js/answer.js')}}  type="module"></script>
+    <script src={{ asset('js/question/report.js') }} type="module"></script>
 @endsection
+
 <div id="page-top" class="page-margin question-page">
     <article class="question card">
         <div class="card-body">
@@ -12,9 +15,9 @@
                     <!-- Mobile Question details -->
                     <div class="d-none question-details d-flex mb-3">
                         <!-- Course -->
-                        @include('partials.question.courses')
+                    @include('partials.question.courses')
 
-                        <!-- Edit/Delete: only for Registred Users -->
+                    <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.editDelete', ['margin' => 'ms-auto'])
 
                     </div>
@@ -25,9 +28,9 @@
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
 
-                        @include('partials.question.courses')
+                    @include('partials.question.courses')
 
-                        <!-- Edit/Delete: only for Registred Users -->
+                    <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.editDelete', ['margin' => ''])
                     </div>
                 </div>
@@ -47,10 +50,10 @@
             <footer class="d-flex">
 
                 <!-- Tags -->
-                @include('partials.question.tags')
+            @include('partials.question.tags')
 
-                <!-- Report Button -->
-                @include('partials.question.report',['margin' => 'ms-auto'])
+            <!-- Report Button -->
+                @include('partials.question.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
 
             </footer>
 
@@ -59,7 +62,6 @@
     </article>
 
     <!-- Answer -->
-    <!-- Questions -->
     <section class="answers">
         <header class="d-flex align-items-center">
             <h4 class="d-inline-block">{{$question->number_answer}} answers</h4>
@@ -72,8 +74,8 @@
 
     <!-- Submit Answer Form -->
     <form id="submit-answer">
-       <input type="hidden" name="questionID" value="{{$question->id}}">
-       @include('partials.question.answer-form')
+        <input type="hidden" name="questionID" value="{{$question->id}}">
+        @include('partials.question.answer-form')
     </form>
 </div>
 @endsection

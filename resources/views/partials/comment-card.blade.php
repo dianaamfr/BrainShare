@@ -7,11 +7,6 @@
             <span> {{ $comment->owner->name }} </span> <!-- Username -->
             <span> {{ date('d-m-Y H:i', strtotime($comment->date)) }} </span> <!-- Date -->
         </div>
-        <div class="ms-auto report-icon" title="Report">
-            <button class="icon-hover">
-                <i class="far fa-flag"></i>
-                <i class="fas fa-flag"></i>
-            </button>
-        </div>
+        @include('partials.question.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
     </div>
 </div>
