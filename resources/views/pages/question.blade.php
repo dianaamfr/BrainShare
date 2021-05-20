@@ -3,6 +3,8 @@
 @section('content')
 @section('scripts')
 <script  src={{ asset('js/answer.js')}}  type="module"></script>
+<script  src={{ asset('js/comment.js')}}  type="module"></script>
+
 @endsection
 <div id="page-top" class="page-margin question-page">
     <article class="question card">

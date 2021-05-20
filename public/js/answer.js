@@ -1,36 +1,86 @@
-import {sendAjaxGetRequest, sendDataAjaxRequest, encodeForAjax} from "./common.js"; 
+import {sendDataAjaxRequest} from "./common.js"; 
+
+// Add Answer
+let form = document.getElementById('submit-answer');
+form.addEventListener("submit",submitAnswer);
+
+// Delete Answer
+let deleteButtons = document.getElementsByClassName('answer-delete-form');
+let deletionList = [...deleteButtons];
+deletionList.forEach(addDeleteListeners);
+
+// Edit Answer
+let editButtons = document.getElementsByClassName('answer-edit-form');
+let editList = [...editButtons];
+editList.forEach(addEditListeners);
+
+
+function addDeleteListeners(element){
+    element.addEventListener('submit',removeAnswer);
+}
+
+function addEditListeners(element){
+    element.addEventListener('submit',editAnswer);
+}
+
 
 function submitAnswer(event){
 
     event.preventDefault();
-    console.log("begin");
-
 
     let text = this.querySelector('textarea[name="content"]').value;
     let id = this.querySelector('input[name="questionID"]').value;
-    console.log(text);
-    console.log(id);
 
-    //sendAjaxPostRequest("POST",'/api/question/' + id + '/answer/add',{'text':text},handler); 
 
     sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
 
-    console.log("sent request");
+}
+
+function removeAnswer(event){
+
+    // Not sure if this is needed, check later
+    event.preventDefault();
+
+    let questionID = this.querySelector('input[name="questionID"]').value;
+    let answerID = this.querySelector('input[name="answerID"]').value;
+
+    console.log(this);
+    console.log(questionID);
+    console.log(answerID);
+
+    //Route::delete('/api/question/{id-q}/answer/{id-a}
+    // Preciso de ti Juliane para limpar as routes, que não sei porque é que não está a encontrar este path
+    sendDataAjaxRequest("DELETE",'api/question/'+ questionID +'/answer/'+ answerID, {'dummy':'1'}, handler);
+    
 
 }
+
+
+function editAnswer(event){
+
+    event.preventDefault();
+
+    let questionID = this.querySelector('input[name="questionID"]').value;
+    let answerID = this.querySelector('input[name="answerID"]').value;
+    let text = this.querySelector('textarea[name="content"]').value;
+
+    console.log(this);
+    console.log(questionID);
+    console.log(answerID);
+
+
+    sendDataAjaxRequest("PUT",'api/question/' + questionID + '/answer' + answerID,{'text':text}, handler);
+}
+
 
 function handler(responseJson){
-    console.log("RESPONSE SUCESSFULLY REACHED THIS POINT");
+
     console.log(responseJson);
-    console.log(responseJson.html);
+    let answers = document.getElementById('all-answers');
+    answers.innerHTML = responseJson.html;
+    
 }
 
-let form = document.getElementById('submit-answer');
-
-form.addEventListener("submit",submitAnswer);
-
-
-//import {sendDataAjaxRequest} from "./common.js";
 
 /*
 

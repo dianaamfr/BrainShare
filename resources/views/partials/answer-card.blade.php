@@ -1,4 +1,28 @@
 <div class="card-body card answer-question-card">
+
+    {{-- 
+    @can('delete', $answer)
+    @endcan
+    --}}
+    
+
+    <div class="edit-answer">
+        <a class="icon-hover" title="Edit-answer">
+            <i class="far fa-edit"></i>
+            <i class="fas fa-edit"></i>
+        </a>
+        <form title="Delete-answer" class="answer-delete-form">
+            @csrf
+            <input type="hidden" name="questionID" value="{{$answer->question_id}}">
+            <input type="hidden" name="answerID" value="{{$answer->id}}">
+            <button class="icon-hover" type="submit">
+                <i class="far fa-trash-alt"></i>
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </form>
+    </div>
+    
+
     <header class="question-author pagination align-items-center justify-content-end card-header">
         <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
         <!-- Small Profile Image -->
@@ -7,6 +31,8 @@
             <span> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
         </div>
     </header>
+
+
 
     <div class="row align-items-center px-3">
         <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
@@ -74,7 +100,7 @@
         </div>
 
         <div id="question-comments">
-            @each('partials.comment-card', $answer->comments, 'comment')
+            @include('partials.comments',['comment'=>$answer->comments])
         </div>
     </div>
 </div>
