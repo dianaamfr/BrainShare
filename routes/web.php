@@ -52,11 +52,13 @@ Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 
 Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
+Route::post('/api/answer/{id}/report', 'ReportController@reportAnswer')->name('report-answer');
 
 // Comment
 Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
 Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
+Route::post('/api/comment/{id}/report', 'Report')
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -48,9 +48,7 @@
             </button>
         @endif
 
-        <div class="report-icon" title="Report">
-            @include('partials.question.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
-        </div>
+        @include('partials.question.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm{{$answer->id}}" role="button"
            aria-expanded="false" aria-controls="collapseCommentForm{{$answer->id}}">Add Comment</a>

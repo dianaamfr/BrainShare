@@ -16,7 +16,7 @@ use App\Models\Tag;
 use App\Models\User;
 
 class QuestionController extends Controller
-{       
+{
     public function newRoute(Request $request){
         return response()->json(['success' => 'true']);
     }
@@ -237,4 +237,5 @@ class QuestionController extends Controller
             return response()->json(array('success' => false, 'score' => $score));
         }
     }
+
 }
