@@ -141,6 +141,7 @@ CREATE TABLE report(
     id SERIAL PRIMARY KEY,
     viewed BOOLEAN NOT NULL DEFAULT FALSE,
     "date" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    content TEXT NOT NULL,
     user_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
     reported_id INTEGER REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
     question_id INTEGER REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -651,15 +652,13 @@ INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,cours
 INSERT INTO "user" (id,username,email, password, birthday,name,signup_date,course_id,ban,user_role) VALUES (DEFAULT,'Test Moderator','lbaw2152_moderator@lbaw.com','$2y$10$MLXj7QOZI.nYlgL533rXY.P2xLqz5bwNGVr75a9VQY5fSP.eRoXKK', '2000-10-02', 'ModeratorTest', '2010-01-14 22:33:13', 2, 'False', 'Moderator');
 
 -- question
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', '
-I like very much css grid because of its simplicity. But there seems to be a performance issue with css grid that flexbox does not have.
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 1, 'css grid vs flexbox : why does css grid cause repaints and flexbox not', 'I like very much css grid because of its simplicity. But there seems to be a performance issue with css grid that flexbox does not have.
 I have implemented a two column full screen page both columns having a form with input box and a list of items with overflow-y:auto. One example where the left and right panel are implemented using flexbox and one where left and right panel are implemented with css grid.
 this is the flexbox version : https://web-platform-wtfgmj.stackblitz.io/
 and this is the css grid version : https://web-platform-wtfgmj.stackblitz.io/index2.html
 Open the developper tools in chrome and enable paint flashing (tools/rendering has to be enabled). When typing in one of the input boxes, the css grid version will repaint all items in the list. The flexbox version does not have this problem.
 I would like to understand why css grid repaints all items in the list when typing in the input box ? And can it somehow be avoided ?', '2021-01-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B', '
-A particle traveling with velocity va
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B', 'A particle traveling with velocity va
 in the medium A and with velocity vb in the medium B. The particle starts at time t=0 from the point Pi and has to get in the minimum time to the point Pj.
 How can i determine the trajectory that this particle must follow to reach the point Pf
 in minimum time.', '2020-06-21');
@@ -740,82 +739,67 @@ INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DE
 INSERT INTO comment(id, answer_id, comment_owner_id, content, "date") VALUES (DEFAULT, 8, 5, 'Will update the answer to acknowledge my mistake.', '2021-03-30');
 
 -- Reported User
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',41,42);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',14,80);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',44,43);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',13,75);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',23,57);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',3,56);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',15,76);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',95,88);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',28,75);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',74,17);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',70,33);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',50,14);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',70,92);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',42,56);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',39,69);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',89,93);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'true',3,79);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',66,70);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',37,44);
-INSERT INTO "report" (id,viewed,user_id,reported_id) VALUES (DEFAULT,'false',23,7);
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',41,42,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',41,80,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',44,43,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',13,75,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',3,57,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',3,56,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',15,76,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',95,88,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',28,75,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',70,92,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',42,56,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',3,69,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',89,93,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',66,70,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',37,44,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',23,7,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 
 -- Reported questions (1-5)
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',84,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',64,2);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',94,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',84,2);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',77,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',67,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',35,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',61,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',8,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',40,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',76,4);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',82,4);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',93,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',68,2);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',46,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',50,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',100,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',29,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',91,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',54,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',6,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',51,4);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',50,3);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',60,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',15,1);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',81,5);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'true',52,4);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',24,2);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',29,2);
-INSERT INTO "report" (id,viewed,user_id,question_id) VALUES (DEFAULT,'false',57,4);
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,2,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',94,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',84,2,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',67,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',60,5,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',60,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',76,4,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,4,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',93,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',68,2,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',46,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',50,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',60,3,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',29,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+
 -- Reported answers (1-3)
 
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'false',59,1);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',25,1);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',28,3);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',42,1);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'false',49,1);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'false',56,3);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',48,2);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',35,3);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',95,2);
-INSERT INTO "report" (id,viewed,user_id,answer_id) VALUES (DEFAULT,'true',93,3);
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',59,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',25,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',42,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',49,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',56,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',48,2,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',95,2,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',93,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 
 -- Reported comments(1)
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',33,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',25,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',21,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',10,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'true',50,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'true',35,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',83,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'true',93,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',18,1);
-INSERT INTO "report" (id,viewed,user_id,comment_id) VALUES (DEFAULT,'false',17,1);
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',33,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',25,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',21,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',10,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'true',50,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'true',35,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',83,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'true',93,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',18,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',17,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
 
 INSERT INTO question_course (question_id, course_id) VALUES (1, 7);
 INSERT INTO question_course (question_id, course_id) VALUES (2, 7);

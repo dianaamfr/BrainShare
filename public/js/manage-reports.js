@@ -29,7 +29,7 @@ function updateReport(event){
 function reportsUpdateHandler(response) {
     document.getElementById('reports-table').innerHTML = response.html;
 
-   //updateReportsPagination();
+    updateReportsPagination();
     manageReports();
 }
 
@@ -37,31 +37,34 @@ function reportsSearchHandler() {
     let response = JSON.parse(this.responseText);
     document.getElementById('reports-table').innerHTML = response.html;
 
-   //updateReportsPagination();
+    updateReportsPagination();
     manageReports();
 }
 
 function searchReports(){
-    if(reportUsernameSearch){
-        reportTypeFilter.addEventListener('change', requestSearchReports);
-        reportUsernameSearch.addEventListener('keyup', requestSearchReports);
-    } 
+    reportTypeFilter.addEventListener('change', requestSearchReports);
+    reportStateFilter.addEventListener('change', requestSearchReports);
+    reportUsernameSearch.addEventListener('keyup', requestSearchReports);
 }
 
 function requestSearchReports(){
-    let data = {'search-username': reportUsernameSearch.value, 'type-filter': reportTypeFilter.value};
+    let data = {'search-username': reportUsernameSearch.value, 
+                'type-filter': reportTypeFilter.value, 
+                'state-filter': reportStateFilter.value};
     sendAjaxGetRequest( '/api/admin/reports', data, reportsSearchHandler)
     window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
 }
 
-/*
 function changeReportsPage(event) {
     event.preventDefault();
     let page = this.href.split('page=')[1]
-    let data = {'search-username': reportUsernameSearch.value, 'page': page}
+    let data = {'search-username': reportUsernameSearch.value, 
+                'type-filter': reportTypeFilter.value, 
+                'state-filter': reportStateFilter.value,
+                'page': page};
   
     sendAjaxGetRequest('/api/admin/reports', 
-        data, reportsSearchUpdateHandler)
+        data, reportsSearchHandler)
     window.history.pushState({}, '', '/admin/report?' + encodeForAjax(data));
 }
 
@@ -71,10 +74,11 @@ function updateReportsPagination() {
         pagination.forEach(paginationLink => { paginationLink.addEventListener('click', changeReportsPage);});
     }
 }
-*/
 
 let reportTypeFilter = document.getElementById('report-type');
+let reportStateFilter = document.getElementById('report-state');
 let reportUsernameSearch = document.querySelector('input[name=search-username]');
 let manageReportsAlert = document.getElementById('manage-users-alert');
 manageReports();
 searchReports();
+updateReportsPagination();

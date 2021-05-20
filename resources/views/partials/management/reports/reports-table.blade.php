@@ -14,9 +14,10 @@
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
                 <th scope="col">State</th>
+                <th scope="col">Report Description</th>
+                <th scope="col">Reported By</th>
                 <th scope="col">Reported Content</th>
-                <th scope="col">Owner</th>
-                <th scope="col" id="reports-number">Reports</th>
+                <th scope="col">Content Owner</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -41,8 +42,23 @@
                 
                 <!-- Report State -->
                 <td>
-                    Handled
+                    {{$report->viewed == true ? 'Handled' : 'Pending'}}
                 </td>
+
+
+                <!-- Report Description -->
+                <td>
+                    {{$report->content}}
+                </td>
+
+                <!-- Reported By -->
+                <td>
+                    <a href="/user/{{$report->user_id}}/profile">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>{{$report->owner->username}}</span>
+                    </a>
+                </td>
+
                 
                 <!-- Reported Content -->
                 <td>
@@ -50,62 +66,57 @@
                         <!-- Question -->
                         @if (isset($report->question_id) && $report->question_id)
                             <a href="/question/{{$report->question_id}}">
-                                <i class="fas fa-external-link-alt"></i>
+                                <i class="fas fa-external-link-alt"></i> 
+                                <span>See Question</span>
                             </a>
-                            <div class="reported-content">
-                                <p>{{$report->title}}</p>
-                                <p class="text-secondary">{{Str::limit($report->question_content,150)}}</p>
-                            </div>
-
                         <!-- Answer -->
                         @elseif (isset($report->answer_id) && $report->answer_id) 
-                            <a href="/question/{{$report->answer_question_id}}">
+                            <a href="/question/{{$report->answer->question_id}}">
                                 <i class="fas fa-external-link-alt"></i>
+                                <span>See Answer</span>
                             </a>
-                            <p class="reported-content">{{Str::limit($report->answer_content,150)}}</p>
-
                         <!-- Comment -->
                         @elseif (isset($report->comment_id) && $report->comment_id) 
-                            <a href="/question/{{$report->comment_question_id}}">
+                            <a href="/question/{{$report->comment->question_id}}">
                                 <i class="fas fa-external-link-alt"></i>
+                                <span>See Comment</span>
                             </a>
-                            <p class="reported-content">{{Str::limit($report->comment_content,150)}}</p>
-
                         <!-- User -->
                         @else 
                             <a href="/user/{{$report->reported_id}}/profile">
                                 <i class="fas fa-external-link-alt"></i>
+                                <span>See Profile</span>
                             </a>
-                            <p class="reported-content">{{$report->username}}</p>
                         @endif
                     </div>
                 </td>
 
                 <!-- Reported Content Owner -->
                 <td>
-                    @if (isset($report->question_owner_id) && $report->question_owner_id)
-                        <a href="/user/{{$report->question_owner_id}}/profile">
-                            <p>{{$report->question_owner_username}}</p>
+                    @if (isset($report->question_id) && $report->question_id)
+                        <a href="/user/{{$report->question->question_owner_id}}/profile">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>{{$report->question->owner->username}}</span>
                         </a>
-                    @elseif (isset($report->answer_owner_id) && $report->answer_owner_id) 
-                        <a href="/user/{{$report->answer_owner_id}}/profile">
-                            <p>{{$report->answer_owner_username}}</p>
+                    @elseif (isset($report->answer_id) && $report->answer_id) 
+                        <a href="/user/{{$report->answer->answer_owner_id}}/profile">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>{{$report->answer->owner->username}}</span>
                         </a>
-                    @elseif (isset($report->comment_owner_id) && $report->comment_owner_id) 
+                    @elseif (isset($report->comment_id) && $report->comment_id) 
                         <a href="/user/{{$report->comment_owner_id}}/profile">
-                            <p>{{$report->comment_owner_username}}</p>
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>{{$report->comment->owner->username}}</span>
                         </a>
                     @elseif (isset($report->reported_id) && $report->reported_id) 
                         <a href="/user/{{$report->reported_id}}/profile">
-                            <p>{{$report->username}}</p>
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>{{$report->reported->username}}</span>
                         </a>
                     @else
                         <p>Deleted</p>
                     @endif
                 </td>
-                
-                <!-- Number of Reports -->
-                <td>{{$report->number_reports}}</td>
 
                 <!-- Actions -->
                 <td>

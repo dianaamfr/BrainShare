@@ -15,7 +15,6 @@
             
             @if(isset($report->reported_id) && $report->reported_id)
                 <option value="ban">Ban</option>
-                <option value="ban">Delete Account</option>
             @else
                 <option value="delete">Delete Content</option>
             @endif
