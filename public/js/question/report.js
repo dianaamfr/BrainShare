@@ -56,7 +56,13 @@ function requestReport(id, url, content){
  * This function shows the message of report and toggle the reportIcon.
  */
 function handleReportRequestAns(responseJson){
-    console.log(responseJson);
+
+    if (!responseJson['success']) {
+        document.querySelector("#reportModal .error").innerHTML = responseJson['error'];
+        setTimeout(() => {
+            document.querySelector("#reportModal .error").innerHTML = ""
+        }, 5000);
+    }
 }
 
 /**

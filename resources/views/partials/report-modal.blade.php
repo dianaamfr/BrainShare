@@ -14,12 +14,15 @@
             </div>
             <div class="modal-body">
                 <label for="report-content" class="mb-3">What is the cause of the report?</label>
-                <textarea class="form-control w-100" id="report-content" maxlength="250" name="content" placeholder="Tell us more..."></textarea>
+                <textarea class="form-control w-100" id="report-content" maxlength="500" minlength="100" name="content" placeholder="Tell us more..."></textarea>
+                <div class="error">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" id="report-cancel" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" id="report-submit" class="btn btn-primary">Report</button>
             </div>
+
         </div>
     </div>
 </div>
