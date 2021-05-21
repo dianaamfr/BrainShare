@@ -38,7 +38,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReportsByState($request);
 
         // Filter Reports by Content Type
-        switch($request->input('type-filter')) {
+        switch($request->input('report-type')) {
             case 'questions':
                 $reports = $reports->whereNotNull('question_id');
                 break;
@@ -90,6 +90,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
+            'success'=> 'Your request was completed',
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -107,7 +108,6 @@ class ManageReportsController extends Controller {
                 Comment::find($request->input('id'))->update(['deleted' => true]);
                 break;
             case 'user':
-                // TODO: DISCUSS THIS
                 User::find($request->input('id'))->update(['ban' => true]);
                 break;
             default:
@@ -119,26 +119,31 @@ class ManageReportsController extends Controller {
 
     private function filterReportsByOwner($reports, Request $request){
 
-        return $reports->whereHas('reported', function ($query) use ($request){
-            $query->where('username', 'ILIKE', $request->input('search-username') . '%');
-        })->orWhereHas('question', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        })->orWhereHas('answer', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        })->orWhereHas('comment', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        }); 
+        return $reports->where(function($query) use ($request){
+            $query->whereHas('reported', function ($query) use ($request){
+                $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+            })
+            ->orWhereHas('question', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            })
+            ->orWhereHas('answer', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            })
+            ->orWhereHas('comment', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            }); 
+        });
         
     }
 
     private function getReportsByState(Request $request){
-        switch($request->input('state-filter')){
+        switch($request->input('report-state')){
             case 'all':
                 return new Report();
             case 'handled':

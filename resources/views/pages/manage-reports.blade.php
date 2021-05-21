@@ -19,26 +19,10 @@
             <form class="mt-5 d-flex justify-content-between flex-wrap mb-3">
                 <div class="btn-toolbar w-100 align-items-end">
                     <!--Report Type -->
-                    <div>
-                        <label class="form-label" for="report-type">Report Type</label>
-                        <select class="me-4 mb-3 form-select" id="report-type" name="report-type">
-                            <option selected value="all">All</option>
-                            <option value="users">Users</option>
-                            <option value="questions">Questions</option>
-                            <option value="answers">Answers</option>
-                            <option value="comments">Comments</option>
-                        </select>
-                    </div>
+                    @include('partials.management.reports.report-type')
 
                     <!-- Report State -->
-                    <div>
-                        <label class="form-label" for="report-state">Report State</label>
-                        <select class="me-4 mb-3 form-select" id="report-state" name="report-type">
-                            <option selected value="pending">Pending</option>
-                            <option value="handled">Handled</option>
-                            <option value="all">All</option>
-                        </select>
-                    </div>
+                   @include('partials.management.reports.report-state')
 
                     <div class="input-group manage-search mb-3">
                         <input type="text" class="form-control" placeholder="Search by content owner..." name="search-username" value="{{ app('request')->get('search-username')}}">

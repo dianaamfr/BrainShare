@@ -35,7 +35,7 @@ function userUpdatedHandler(response){
     }
 
     let element = document.querySelector('tr[data-user-id="' + response.id + '"]');
-    while (element.children.length > 3) {
+    while (element.children.length > 2) {
         element.removeChild(element.lastChild);
     }
 

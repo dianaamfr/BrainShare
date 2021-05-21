@@ -18,15 +18,35 @@ function updateReport(event){
     let id = action.getAttribute('data-reported-content');
     let type = action.getAttribute('data-report-type');
 
+    let data = {
+        'search-username': reportUsernameSearch.value, 
+        'report-type': reportTypeFilter.value, 
+        'report-state': reportStateFilter.value,
+        'id':id , 
+        'type': type
+    }   
+
     if(action.value == 'discard') {
-        sendDataAjaxRequest('put', '/api/admin/reports/discard', {'id':id , 'type': type}, reportsUpdateHandler);
+        sendDataAjaxRequest('put', '/api/admin/reports/discard', data, reportsUpdateHandler);
     } 
     else if (action.value == 'delete') {
-        sendDataAjaxRequest('put', '/api/admin/reports/delete', {'id':id , 'type': type}, reportsUpdateHandler);
+        sendDataAjaxRequest('put', '/api/admin/reports/delete', data, reportsUpdateHandler);
     }
 }
 
 function reportsUpdateHandler(response) {
+    console.log(response)
+    if(response.hasOwnProperty('error')){
+        showAlert(response.error, "error", manageReportsAlert);
+        return;
+    } else if(response.hasOwnProperty('exception')){
+        showAlert(response.message , "error", manageReportsAlert);
+        return;
+    }
+    else {
+        showAlert(response.success, "success", manageReportsAlert);
+    }
+
     document.getElementById('reports-table').innerHTML = response.html;
 
     updateReportsPagination();
@@ -49,23 +69,25 @@ function searchReports(){
 
 function requestSearchReports(){
     let data = {'search-username': reportUsernameSearch.value, 
-                'type-filter': reportTypeFilter.value, 
-                'state-filter': reportStateFilter.value};
+                'report-type': reportTypeFilter.value, 
+                'report-state': reportStateFilter.value};
     sendAjaxGetRequest( '/api/admin/reports', data, reportsSearchHandler)
     window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
+
+    window.scroll({top: 0, behavior: 'smooth'});
 }
 
 function changeReportsPage(event) {
     event.preventDefault();
     let page = this.href.split('page=')[1]
     let data = {'search-username': reportUsernameSearch.value, 
-                'type-filter': reportTypeFilter.value, 
-                'state-filter': reportStateFilter.value,
+                'report-type': reportTypeFilter.value, 
+                'report-state': reportStateFilter.value,
                 'page': page};
   
     sendAjaxGetRequest('/api/admin/reports', 
         data, reportsSearchHandler)
-    window.history.pushState({}, '', '/admin/report?' + encodeForAjax(data));
+    window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
 }
 
 function updateReportsPagination() {
@@ -78,7 +100,7 @@ function updateReportsPagination() {
 let reportTypeFilter = document.getElementById('report-type');
 let reportStateFilter = document.getElementById('report-state');
 let reportUsernameSearch = document.querySelector('input[name=search-username]');
-let manageReportsAlert = document.getElementById('manage-users-alert');
+let manageReportsAlert = document.getElementById('manage-reports-alert');
 manageReports();
 searchReports();
 updateReportsPagination();
