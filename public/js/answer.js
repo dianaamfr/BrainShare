@@ -1,5 +1,4 @@
-//import {sendAjaxRequest} from "./common.js";
-
+import {sendAjaxRequest} from "./common.js";
 
 addEvenListeners();
 
@@ -35,8 +34,6 @@ function addEvenListeners(){
 
     });
     
-
-    /*
     // PUT method
     // EventListener for Editing an answer
     addEventListener('click',function(event){
@@ -44,9 +41,10 @@ function addEvenListeners(){
 
     
     });
-    */
+    
     // Get method
     // EventListener for Removing an answer
+    
     addEventListener('click',function(event){
 
         
@@ -64,17 +62,17 @@ function addEvenListeners(){
  * This function get's the value of query parameters
  * @param response {Array} Json array containing the answers to the question
  */
-/*function submitAnswerHandler(response) {
+
+function submitAnswerHandler(response) {
 
     console.log(response);
     let div = document.getElementById("all-answers");
     div.innerHTML = response;
 
 
-}*/
-/*
+}
+
 function createAnswer(text){
     let answersDiv = document.querySelector('#page-top section.answers div.answer' );
 
 }
-*/

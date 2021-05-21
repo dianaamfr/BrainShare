@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->belongsTo(Course::class, 'course_id');
     }
 
+    public function notifications() {
+        return $this->hasMany(Notification::class);
+      }
+
     public function isAdmin() {
         return $this->user_role === 'Administrator';
     }
