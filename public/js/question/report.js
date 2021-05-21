@@ -1,3 +1,5 @@
+
+
 let reportDiv;
 let reportInfo;
 
@@ -36,24 +38,25 @@ function createModal(){
 function handleReport(reportInfo){
     const elementType = reportInfo[0].value;
     const elementId = reportInfo[1].value;
+    const content = document.querySelector("#report-content").value;
 
     if (elementType === "question")
-        requestReport(elementId, );
+        requestReport(elementId, "/api/report/question/"+ elementId, content);
     else if (elementType === "answer")
-        requestReport(elementId);
+        requestReport(elementId, 'api/report/answer/' + elementId, content);
     else if (elementType === "comment")
-        requestReport(elementId);
+        requestReport(elementId,'api/report/comment/' + elementId, content);
 }
 
-function requestReport(id, path){
-    console.log(id, path);
+function requestReport(id, url, content){
+    sendDataAjaxRequest("post", url, {"content": content}, handleReportRequestAns);
 }
 
 /**
  * This function shows the message of report and toggle the reportIcon.
  */
-function handleReportRequestAns(){
-
+function handleReportRequestAns(responseJson){
+    console.log(responseJson);
 }
 
 /**
