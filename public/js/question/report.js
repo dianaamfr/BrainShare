@@ -1,11 +1,13 @@
 
 scheduleReportButton();
+
 /**
  * Listen to the report button.
  */
 function scheduleReportButton(){
-    const reportButton = document.querySelectorAll(".report-icon");
-    reportButton.forEach(element => {
+    const reportButtonElement = document.querySelectorAll(".report-icon");
+
+    reportButtonElement.forEach(element => {
         element.addEventListener("click", e => handleClickReport(e));
     });
 }
@@ -14,6 +16,9 @@ function scheduleReportButton(){
  * Sends message to the backend creating the report.
  */
 function handleClickReport(e) {
+    const reportModal = createModal();
+    reportModal.show();
+
     const reportDiv = e.target.closest("div.report-icon");
     const reportInfo = reportDiv.querySelectorAll("input");
     const elementType = reportInfo[0].value;
@@ -26,6 +31,11 @@ function handleClickReport(e) {
     else if (elementType === "comment")
         requestReport(elementId);
 
+}
+
+function createModal(){
+    const reportModalElement = document.querySelector("#reportModal");
+    return new bootstrap.Modal(reportModalElement);
 }
 
 function requestReport(id, path){

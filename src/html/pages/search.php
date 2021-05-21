@@ -24,7 +24,7 @@
 <div class="d-flex justify-content-between page-margin" id="search-page">
 
   <!-- Sidebar -->
-  <aside id="side-bar" class="mt-5 col-md-3 col-lg-3 d-md-block bg-light sidebar accordion">
+  <aside id="side-bar" class="mt-5 col-md-3 col-lg-2 d-md-block bg-light sidebar accordion">
     <div class="accordion-item active">
       <h6 class="accordion-header">
         <button type="button" class="blue">Recent Questions

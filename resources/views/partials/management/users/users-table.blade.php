@@ -1,7 +1,7 @@
 <!-- Table -->
 <div class="table-responsive w-100">
     
-    @if ($users->isNotEmpty())
+    @if (!empty($users))
         <div class="table-entries">
             Showing {{$users->perpage() * ($users->currentpage()-1) + 1}} 
             to {{$users->perpage() * ($users->currentpage()-1) + $users->count()}} 
@@ -10,14 +10,14 @@
     @endif
     <table class="table table-hover align-middle">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Date</th>
-            <th scope="col">Banned</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Banned</th>
+                <th scope="col">Role</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
@@ -29,7 +29,6 @@
                             <span>{{$user->username}}</span>
                         </a>
                     </td>
-                    <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
                     @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                 </tr>
             @endforeach

@@ -1,5 +1,5 @@
 <!-- Management Navigation SideBar -->
-<aside class="mt-5 col-md-3 col-lg-3 mt-5 d-md-block management-nav">
+<aside class="mt-5 col-md-3 col-lg-2 mt-5 d-md-block management-nav">
     <ul>
         <!-- TODO: manage categories class -->
         <li><a href="{{route('manage-courses')}}" class="{{Request::is('admin/courses') ? 'blue' : ''}}">Manage Courses</a></li>

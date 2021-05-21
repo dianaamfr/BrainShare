@@ -175,7 +175,7 @@
   }
   
   /* Categories */
-  .categories-content {
+  .management-content {
     margin-top: 3rem;
   }
 
@@ -251,6 +251,10 @@
   .management-nav {
     display: none;
   }
+
+  .management-content {
+    display: block!important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -278,10 +282,6 @@
 
   #questions-search-bar .navbar {
     display: block;
-  }
-
-  .courses-tags-search{
-    min-width: 
   }
 
   #order-filters li label {

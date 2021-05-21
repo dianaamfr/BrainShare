@@ -662,7 +662,7 @@ article.question .card-title {
 }
 
 .fa-check {
-  color: #33752d;
+  color: var(--valid);
   font-size: 1.8rem;
 }
 

@@ -17,38 +17,7 @@ function updateUser(event){
 
     let id = this.getAttribute('data-user-id');
 
-    if(actionValue === "delete"){
-        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link');
-        let search = usernameInput.value;
-
-        if(page) page = page.innerHTML;
-        else page = 1;
-
-        sendDataAjaxRequest('delete', '/api/admin/user/' + id, {'search-username':search, page: page}, userDeletedHandler);
-        window.history.pushState({}, '', '/admin/user?' + encodeForAjax({search:search, page: page}));
-    }
-    else {
-        sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
-    }
-}
-
-// Handle the response to a request to the deletion of a user
-function userDeletedHandler(response){
-    
-    if(response.hasOwnProperty('error')){
-        showAlert(response.error , "error", manageUsersAlert);
-        return;
-    } else if(response.hasOwnProperty('exception')){
-        showAlert(response.message , "error", manageUsersAlert);
-        return;
-    }
-    else {
-        showAlert(response.success, "success", manageUsersAlert);
-    }
-
-    userManagementArea.querySelector('#users-table').innerHTML = response.html;
-    updateUsersPagination();
-    manageUsers();
+    sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
 }
 
 // Handle the response to a request to update the role or the ban status of a user
@@ -76,11 +45,12 @@ function userUpdatedHandler(response){
 }
 
 function searchUsers(){
+    
     if(usernameInput){
         usernameInput.addEventListener('keyup', function(){
-            let data = {'search-username': usernameInput.value};
-            sendAjaxGetRequest( '/api/admin/user',
-            data, userSearchUpdateHandler);
+            let data = {'search-username': usernameInput.value}
+            sendAjaxGetRequest( '/api/admin/user', 
+            data, userSearchUpdateHandler)
             window.history.pushState({}, '', '/admin/user?' + encodeForAjax(data));
         });
     }
@@ -113,7 +83,7 @@ function updateUsersPagination() {
 
 let usernameInput = document.getElementById('search-username');
 let manageUsersAlert = document.getElementById('manage-users-alert');
-let userManagementArea = document.getElementById('users-manage-area')
+let userManagementArea = document.getElementById('users-manage-area');
 manageUsers();
 searchUsers();
 updateUsersPagination();

@@ -52,13 +52,13 @@ Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 
 Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
-Route::post('/api/answer/{id}/report', 'ReportController@reportAnswer')->name('report-answer');
+//Route::post('/api/answer/{id}/report', 'ReportController@reportAnswer')->name('report-answer');
 
 // Comment
 Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
 Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
-Route::post('/api/comment/{id}/report', 'Report')
+//Route::post('/api/comment/{id}/report', 'Report');
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -94,8 +94,14 @@ Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')-
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
 Route::put('api/admin/user/{id}', 'ManageUsersController@update');
-Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');
 Route::get('api/admin/user', 'ManageUsersController@search');
+
+// Manage Reports
+Route::get('/admin/reports', 'ManageReportsController@show')->name('manage-reports');
+Route::put('api/admin/reports/discard', 'ManageReportsController@discard');
+Route::put('api/admin/reports/delete', 'ManageReportsController@delete');
+Route::get('api/admin/reports', 'ManageReportsController@search');
+
 // Password Reset
 Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
 Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');

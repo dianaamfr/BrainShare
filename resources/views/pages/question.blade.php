@@ -78,4 +78,7 @@
         @include('partials.question.answer-form')
     </form>
 </div>
+
+
+@include('partials.report-modal')
 @endsection
