@@ -26,10 +26,12 @@ class AnswerPolicy{
       return $user->id === $answer->answer_owner_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
     }
 
+    /*
     public function edit(User $user, Answer $answer){
         // Only a question owner can edit it or the Administrator.
         return $user->id === $answer->user_id;
     }
+    */
 
     public function valid(User $user, Answer $answer){
       // Only a question owner can mark answers as valid.

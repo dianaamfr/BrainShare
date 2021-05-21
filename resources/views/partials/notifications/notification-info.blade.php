@@ -1,5 +1,5 @@
-<li class="list-group-item list-group-item-action container">
-    <div class="d-flex align-items-center">
+<li id="notification-{{ $notification->id }}" class="list-group-item list-group-item-action container notification-element">
+    <div id="notifcation-info-{{ $notification->id }}" class="d-flex align-items-center">
         @if ($notification->answer_id !== null)
             <a href="/question/{{ $notification->type->question_id }}">
         @else
@@ -13,19 +13,25 @@
             <span>has commented your question.</span>
         @endif
         </a>
-        <i class="fas fa-circle ms-auto"></i>
+
+        @if (!$notification->viewed)
+            <i id="viewed-{{ $notification->id }}" class="fas fa-circle ms-auto"></i>
+        @endif
     </div>
     <div class="d-flex align-items-center">
         <div class="flex-grow-1 fw-light">
             {{ $notification->date }}
         </div>
+
+        <p class="notification-id" hidden>{{ $notification->id }}</p>
+
         <div class="dropdown ms-auto">
             <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             ...
             </button>
             <ul class="dropdown-menu notification-list">
-            <li class= dropdown-item>Mark as read</li>
-            <li class= dropdown-item>Remove Notification</li>
+                <li class="dropdown-item mark-read-{{ $notification->id }}">Mark as read</li>
+                <li class="dropdown-item delete-{{ $notification->id }}">Remove Notification</li>
             </ul>
         </div>
     </div>

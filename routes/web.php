@@ -97,3 +97,7 @@ Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('passw
 Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
 Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
 Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
+
+// Notifications
+Route::post('/api/notification/read/{id}', 'NotificationController@read');
+Route::post('/api/notification/delete/{id}', 'NotificationController@delete');
