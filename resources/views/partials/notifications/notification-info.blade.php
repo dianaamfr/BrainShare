@@ -1,8 +1,12 @@
 <li class="list-group-item list-group-item-action container">
     <div class="d-flex align-items-center">
-        <a href="#">
-        <img src="{{asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
-        <span class="fw-bold">{{ $notification }}</span>
+        @if ($notification->answer_id !== null)
+            <a href="/question/{{ $notification->type->question_id }}">
+        @else
+            <a href="/question/{{ $notification->type->answer->question_id }}">
+        @endif
+        <img src="{{ $notification->type->owner->image ? asset('storage/' . $notification->type->owner->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
+        <span class="fw-bold">{{ $notification->type->owner->username }}</span>
         @if ($notification->answer_id !== null)
             <span>has answered your question.</span>
         @else
@@ -13,7 +17,7 @@
     </div>
     <div class="d-flex align-items-center">
         <div class="flex-grow-1 fw-light">
-            yesterday
+            {{ $notification->date }}
         </div>
         <div class="dropdown ms-auto">
             <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">

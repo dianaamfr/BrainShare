@@ -11,8 +11,13 @@ class Notification extends Model
 
   protected $table = 'notification';
 
-  
-  public function owner() {
-    return $this->belongsTo(User::class, 'answer_owner_id');
+  public function type() {
+    if($this->answer_id !== null) {
+        return $this->belongsTo(Answer::class, 'answer_id');
+    }
+    else {
+        return $this->belongsTo(Comment::class, 'comment_id');
+    }
   }
+
 }
