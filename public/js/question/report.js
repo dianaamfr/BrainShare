@@ -1,26 +1,39 @@
+let reportDiv;
+let reportInfo;
 
-scheduleReportButton();
-
+listenReportFlag();
+listenReportModal();
 /**
  * Listen to the report button.
  */
-function scheduleReportButton(){
+function listenReportFlag(){
     const reportButtonElement = document.querySelectorAll(".report-icon");
-
     reportButtonElement.forEach(element => {
-        element.addEventListener("click", e => handleClickReport(e));
+        element.addEventListener("click", e => showModal(e));
     });
 }
 
-/**
- * Sends message to the backend creating the report.
- */
-function handleClickReport(e) {
+function listenReportModal(){
+    const submitReportButton = document.querySelector("#report-submit");
+    submitReportButton.addEventListener("click", ()=>handleReport(reportInfo));
+}
+
+function showModal(e) {
     const reportModal = createModal();
     reportModal.show();
+    reportDiv = e.target.closest("div.report-icon");
+    reportInfo = reportDiv.querySelectorAll("input");
+}
 
-    const reportDiv = e.target.closest("div.report-icon");
-    const reportInfo = reportDiv.querySelectorAll("input");
+function createModal(){
+    const reportModalElement = document.querySelector("#reportModal");
+    const reportContent = reportModalElement.querySelector("#report-content");
+    reportContent.value = "";
+
+    return new bootstrap.Modal(reportModalElement);
+}
+
+function handleReport(reportInfo){
     const elementType = reportInfo[0].value;
     const elementId = reportInfo[1].value;
 
@@ -30,16 +43,10 @@ function handleClickReport(e) {
         requestReport(elementId);
     else if (elementType === "comment")
         requestReport(elementId);
-
-}
-
-function createModal(){
-    const reportModalElement = document.querySelector("#reportModal");
-    return new bootstrap.Modal(reportModalElement);
 }
 
 function requestReport(id, path){
-
+    console.log(id, path);
 }
 
 /**

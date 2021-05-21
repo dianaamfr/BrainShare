@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\Request;
+
 class ReportController
 {
     function reportQuestion(Request $request, $id){

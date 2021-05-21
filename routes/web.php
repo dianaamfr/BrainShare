@@ -48,17 +48,14 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 
 // Answer
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
-//Route::post('/api/test','AnswerController@newRoute');
 
 Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
-//Route::post('/api/answer/{id}/report', 'ReportController@reportAnswer')->name('report-answer');
 
 // Comment
 Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
 Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
-//Route::post('/api/comment/{id}/report', 'Report');
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -107,3 +104,9 @@ Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('passw
 Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
 Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
 Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
+
+
+// Report
+Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
+Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
+Route::post('api/report/comment/{id}', 'ReportController@reportComment');
