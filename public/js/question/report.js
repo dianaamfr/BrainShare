@@ -1,4 +1,4 @@
-
+import {sendAjaxGetRequest} from "../common.js";
 
 let reportDiv;
 let reportInfo;
@@ -11,7 +11,7 @@ listenReportModal();
 function listenReportFlag(){
     const reportButtonElement = document.querySelectorAll(".report-icon");
     reportButtonElement.forEach(element => {
-        element.addEventListener("click", e => showModal(e));
+        element.addEventListener("click", e => canReport(e));
     });
 }
 
@@ -20,11 +20,22 @@ function listenReportModal(){
     submitReportButton.addEventListener("click", ()=>handleReport(reportInfo));
 }
 
-function showModal(e) {
-    const reportModal = createModal();
-    reportModal.show();
+function canReport(e) {
     reportDiv = e.target.closest("div.report-icon");
     reportInfo = reportDiv.querySelectorAll("input");
+    const elementType = reportInfo[0].value;
+    const elementId = reportInfo[1].value;
+    sendAjaxGetRequest( '/api/report/status', {'reportType': elementType, 'id': elementId}, showModal);
+}
+
+function showModal(){
+    const json = JSON.parse(this.responseText);
+    if (json['isReported'] === false)
+        createModal().show();
+    else {
+        // TODO; show already reported toast.
+        console.log('show toast');
+    }
 }
 
 function createModal(){
@@ -62,14 +73,12 @@ function handleReportRequestAns(responseJson){
         setTimeout(() => {
             document.querySelector("#reportModal .error").innerHTML = ""
         }, 5000);
+    } else{
+        // TODO: show success toast
     }
 }
 
-/**
- * Set the report button to empty or full.
- */
-function toggleReportIcon(){
 
-}
+
 
 

@@ -38,7 +38,7 @@ export function encodeForAjax(data) {
 
 export function sendAjaxGetRequest(url, data, handler) {
     let request = new XMLHttpRequest();
-    
+
     request.open("get", url + '?' + encodeForAjax(data), true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.addEventListener('load', handler);
@@ -97,10 +97,6 @@ export function sendAjaxRequest(method, url, data, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
-// TODO: ask the professor if this is safe.
-export function getToken(){
-    return document.querySelector("meta[name='csrf-token']").getAttribute('content');
-}
 
 /**
  * src: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
