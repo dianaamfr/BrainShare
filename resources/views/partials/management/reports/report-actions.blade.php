@@ -18,7 +18,7 @@
             @else
                 <option value="delete">Delete Content</option>
             @endif
-            <option value="discard">Discard Report</option>
+            <option value="discard">Discard</option>
         </select>
 
         <button type="submit" class="btn btn-primary">

@@ -123,6 +123,7 @@ body {
   --light-grey: rgba(255, 255, 255, 0.719);
   --dark-grey: #6c757de0;
   --clean-white: #ffffff;
+  --valid: #33752d;
 
   background: var(--white);
   font-size: 16px;
@@ -729,7 +730,7 @@ article.question .card-title {
 }
 
 .fa-check {
-  color: #33752d;
+  color: var(--valid);
   font-size: 1.8rem;
 }
 
@@ -1309,7 +1310,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   color: var(--bs-gray);
   font-family: title-font;
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
@@ -1317,7 +1318,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   color: var(--bs-gray);
   font-family: title-font;
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .management .form-select {
@@ -1331,32 +1332,54 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   margin-right: 0.5rem;
 }
 
-#reports table tr td:nth-child(4){
+#reports table th, #reports table td{
   font-size: 0.9rem;
+}
+
+#reports table td {
+  padding: 0.5rem 0.3rem !important;
+}
+
+#reports table tr td:nth-last-child(2){
+  min-width: 100px;
+}
+
+#reports table tr td:nth-child(3){
+  text-align: center;
+}
+#reports table tr td:nth-child(3) .fa-check{
+  color: var(--valid);
+  opacity: 0.8;
+}
+
+#reports table tr td:nth-child(3) .fa-exclamation{
+  color: var(--bs-danger);
+  opacity: 0.8;
+}
+
+#reports table tr td:nth-child(6){
+  min-width: 180px;
 }
 
 .management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-#reports table thead tr th:nth-child(4){
-  min-width: 200px;
+#reports .report-action, .user-action{
+  font-size: 0.85rem;
+  padding: .2rem 1.7rem .2rem .5rem;
 }
 
-#reports table tbody tr td a i {
-  display: inline-block;
-  padding-right: 0.5rem;
-  color: var(--main-blue);
+#reports .report-actions button, .user-actions button {
+  padding: 0.5rem;
 }
 
-#reports table tbody tr td a span {
-  display: inline-block;
-  padding-right: 0.5rem;
-  color: var(--text-black);
+#reports .report-actions .fa-check, .user-actions .fa-check {
+  font-size: 0.85rem;
 }
 
-.management td {
-  padding: 0.6rem;
+#reports .fa-check{
+  font-size: 0.85rem;
 }
 
 .management td a {

@@ -17,41 +17,7 @@ function updateUser(event){
     
     let id = this.getAttribute('data-user-id');
 
-    if(actionValue == "delete"){
-        let page = document.querySelector('.page-item.active[aria-current=page] span.page-link');
-
-        if(page) {
-            page = page.innerHTML;
-        } 
-        else {
-            page = 1;
-        }
-        
-        sendDataAjaxRequest('delete', '/api/admin/user/' + id, {page: page}, userDeletedHandler);
-        window.history.pushState({}, '', '/admin/user?' + encodeForAjax({page: page}));
-    }
-    else {
-        sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
-    }
-}
-
-// Handle the response to a request to the deletion of a user
-function userDeletedHandler(response){
-    
-    if(response.hasOwnProperty('error')){
-        showAlert(response.error , "error", manageUsersAlert);
-        return;
-    } else if(response.hasOwnProperty('exception')){
-        showAlert(response.message , "error", manageUsersAlert);
-        return;
-    }
-    else {
-        showAlert(response.success, "success", manageUsersAlert);
-    }
-
-    userManagementArea.querySelector('#users-table').innerHTML = response.html;
-    updateUsersPagination();
-    manageUsers();
+    sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
 }
 
 // Handle the response to a request to update the role or the ban status of a user

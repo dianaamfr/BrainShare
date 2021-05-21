@@ -35,23 +35,25 @@ class ManageReportsController extends Controller {
 
     public function getReports(Request $request){
 
+        $reports = $this->getReportsByState($request);
+
         // Filter Reports by Content Type
         switch($request->input('type-filter')) {
             case 'questions':
-                return $this->getReportedQuestions($request);
+                $reports = $reports->whereNotNull('question_id');
+                break;
             case 'answers':
-                return $this->getReportedAnswers($request);
+                $reports = $reports->whereNotNull('answer_id');
+                break;
             case 'comments':
-                return $this->getReportedComments($request);
+                $reports = $reports->whereNotNull('comment_id');
+                break;
             case 'users':
-                return $this->getReportedUsers($request);
+                $reports = $reports->whereNotNull('reported_id');
+                break;
             default:
                 break;
         }
-        
-
-        // Get all Report Types
-        $reports = $this->getReportsByState($request);
 
         // Filter Reports by Content Owner
         if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
@@ -116,91 +118,29 @@ class ManageReportsController extends Controller {
     }
 
     private function filterReportsByOwner($reports, Request $request){
-        return $reports->where('user.username', 'ILIKE', $request->input('search-username') . '%')
-                ->orWhere('question_user.username', 'ILIKE', $request->input('search-username') . '%')
-                ->orWhere('answer_user.username', 'ILIKE', $request->input('search-username') . '%')
-                ->orWhere('comment_user.username', 'ILIKE', $request->input('search-username') . '%');
-    }
 
-    private function getReportedQuestions(Request $request){
-      
-        $sub = $this->getReportsByState($request);
-
-        $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
-            ->join('question', 'question.id', '=', 'report_stats.question_id')
-            ->join('user as question_user', 'question_user.id', '=', 'question.question_owner_id');
+        return $reports->whereHas('reported', function ($query) use ($request){
+            $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+        })->orWhereHas('question', function ($query) use ($request){
+            $query->whereHas('owner', function ($query2) use ($request){
+                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
+            });
+        })->orWhereHas('answer', function ($query) use ($request){
+            $query->whereHas('owner', function ($query2) use ($request){
+                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
+            });
+        })->orWhereHas('comment', function ($query) use ($request){
+            $query->whereHas('owner', function ($query2) use ($request){
+                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
+            });
+        }); 
         
-        // Filter Reports by Question Owner
-        if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
-            $reports = $reports->where('question_user.username', 'ILIKE', $request->input('search-username') . '%');
-        }
-
-        return $reports->selectRaw('report_stats.question_id, title, question.content as question_content, number_reports, 
-            question.question_owner_id, question_user.username as question_owner_username, viewed')
-            ->orderBy('number_reports', 'DESC')->paginate(10);
-    }
-
-    private function getReportedAnswers(Request $request){
-
-        $sub = $this->getReportsByState(Report::selectRaw('answer_id, COUNT(report.id) as number_reports, viewed'), $request)
-            ->groupBy('answer_id', 'viewed');
-
-        $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
-            ->join('answer', 'answer.id', '=', 'report_stats.answer_id')
-            ->join('user as answer_user', 'answer_user.id', '=', 'answer.answer_owner_id');
-
-        // Filter Reports by Answer Owner
-        if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
-            $reports = $reports->where('answer_user.username', 'ILIKE', $request->input('search-username') . '%');
-        }
-
-        return $reports->selectRaw('report_stats.answer_id, answer.content as answer_content, viewed,
-            answer.question_id as answer_question_id, number_reports, answer.answer_owner_id, answer_user.username as answer_owner_username')
-            ->orderBy('number_reports', 'DESC')->paginate(10);
-    }
-
-    private function getReportedComments(Request $request){
-      
-        $sub = $this->getReportsByState(Report::selectRaw('comment_id, COUNT(report.id) as number_reports, viewed'), $request)
-            ->groupBy('comment_id', 'viewed');
-
-        $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
-            ->join('comment', 'comment.id', '=', 'report_stats.comment_id')
-            ->join('answer', 'answer.id', '=', 'comment.answer_id')
-            ->join('user as comment_user', 'comment_user.id', '=', 'comment.comment_owner_id');
-
-        // Filter Reports by Comment Owner
-        if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
-            $reports = $reports->where('comment_user.username', 'ILIKE', $request->input('search-username') . '%');
-        }
-
-        return $reports->selectRaw('report_stats.comment_id, comment.content as comment_content,                                             
-            comment.answer_id as comment_answer_id, answer.question_id as comment_question_id, number_reports, comment_owner_id,
-            comment.comment_owner_id, comment_user.username as comment_owner_username, viewed')
-            ->orderBy('number_reports', 'DESC')->paginate(10);
-    }
-
-    private function getReportedUsers(Request $request){
-       
-        $sub = $this->getReportsByState(Report::selectRaw('reported_id, COUNT(report.id) as number_reports, viewed'), $request)
-            ->groupBy('reported_id', 'viewed');
-
-        $reports = DB::table(DB::raw("({$sub->toSql()}) as report_stats"))
-            ->join('user', 'user.id', '=', 'report_stats.reported_id');
-
-        // Filter Reports by Reported User
-        if(!is_null($request->input('search-username')) && !empty($request->input('search-username'))){
-            $reports = $reports->where('user.username', 'ILIKE', $request->input('search-username') . '%');
-        }
-
-        return $reports->selectRaw('reported_id, username, number_reports, viewed')
-            ->orderBy('number_reports', 'DESC')->paginate(10);
     }
 
     private function getReportsByState(Request $request){
         switch($request->input('state-filter')){
             case 'all':
-                return Report::all();
+                return new Report();
             case 'handled':
                 return Report::where('viewed', '=', true);
             default:

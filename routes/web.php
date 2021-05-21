@@ -76,7 +76,6 @@ Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')-
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
 Route::put('api/admin/user/{id}', 'ManageUsersController@update');
-Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');
 Route::get('api/admin/user', 'ManageUsersController@search');
 
 // Manage Reports

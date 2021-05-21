@@ -13,9 +13,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Username</th>
-                <th scope="col">Date</th>
                 <th scope="col">Banned</th>
                 <th scope="col">Role</th>
+                <th scope="col">Date</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -29,15 +29,14 @@
                             <span>{{$user->username}}</span>
                         </a>
                     </td>
-                    <td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
                     @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                 </tr>
             @endforeach
         </tbody>
     </table>
-    @empty ($users)
+    @if ($users->isEmpty())
         <span>No username found</span>
-    @endempty
+    @endif
 </div>
 
 <!-- Get pagination -->

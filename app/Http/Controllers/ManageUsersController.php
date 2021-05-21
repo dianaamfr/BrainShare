@@ -76,28 +76,4 @@ class ManageUsersController extends Controller {
       $user->save();
     }
 
-    public function delete(Request $request, $id){
-      $user = User::find($id);
-
-      $this->authorize('delete', $user);
-
-      // Avoid deleting the current user
-      if($id == Auth::user()->id) {
-        return response()->json(['error'=>'Invalid action.']);
-      }
-
-      $user->delete();
-      
-      $users = $this->getFilteredUsers(null);
-
-      // Verify if the requested page exists
-      $npages = ceil($users->count() / 10.0);
-      if($request->input('page') > $npages){
-        $request->merge(['page' => $request->input('page') - 1]);
-      }
-
-      return response()->json(['success'=> 'Your request was completed',
-        'html' => view('partials.management.users.users-table', ['users' => $users->paginate(10)])->render()
-      ]);
-    }
   }
