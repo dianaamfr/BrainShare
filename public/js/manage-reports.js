@@ -15,15 +15,13 @@ function updateReport(event){
     let action = this.querySelector('.report-action');
     if(action.value == 'none') return;
     
-    let id = action.getAttribute('data-reported-content');
-    let type = action.getAttribute('data-report-type');
+    let id = this.querySelector('input[name="report-id"]')
 
     let data = {
         'search-username': reportUsernameSearch.value, 
         'report-type': reportTypeFilter.value, 
         'report-state': reportStateFilter.value,
-        'id':id , 
-        'type': type
+        'id':id.value
     }   
 
     if(action.value == 'discard') {

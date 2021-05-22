@@ -65,28 +65,9 @@ class ManageReportsController extends Controller {
     }
 
     public function discard(Request $request) {
-
-        switch($request->input('type')) {
-            case 'question':
-                $report = Report::where('question_id', '=', $request->input('id'));
-                break;
-            case 'answer':
-                $report = Report::where('answer_id', '=', $request->input('id'));
-                break;
-            case 'comment':
-                $report = Report::where('comment_id', '=', $request->input('id'));
-                break;
-            case 'user':
-                $report = Report::where('reported_id', '=', $request->input('id'));
-                break;
-            default:
-                break;
-        }
-
-        if(isset($report)){
-            $report->update(['viewed' => true]);
-        }
         
+        $report = Report::find($request->input('id'))->update(['viewed' => true]);
+
         $reports = $this->getReports($request);
 
         return response()->json([
@@ -96,25 +77,31 @@ class ManageReportsController extends Controller {
     }
 
     public function delete(Request $request){
-    
-        switch($request->input('type')) {
-            case 'question':
-                Question::find($request->input('id'))->update(['deleted' => true]);
-                break;
-            case 'answer':
-                Answer::find($request->input('id'))->update(['deleted' => true, ]);
-                break;
-            case 'comment':
-                Comment::find($request->input('id'))->update(['deleted' => true]);
-                break;
-            case 'user':
-                User::find($request->input('id'))->update(['ban' => true]);
-                break;
-            default:
-                break;
+
+        $report = Report::find($request->input('id'));
+
+        // Delete Reported Content
+        if(!is_null($report->question_id)){
+            Question::find($report->question_id)->update(['deleted' => true]);
+        }
+        else if(!is_null($report->answer_id)){
+            Answer::find($report->answer_id)->update(['deleted' => true]);
+        }
+        else if(!is_null($report->comment_id)){
+            Comment::find($report->comment_id)->update(['deleted' => true]);
+        }
+        else{
+            User::find($report->reported_id)->update(['ban' => true]);
         }
 
-        return $this->discard($request);
+        // Now the trigger will discard all reports associated with the deleted content
+
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'success'=> 'Your request was completed',
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
     }
 
     private function filterReportsByOwner($reports, Request $request){
