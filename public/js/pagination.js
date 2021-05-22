@@ -12,7 +12,6 @@
  * Example: pagination-item-1; pagination-item-2.
  *
  * Similarly buttons must have the following syntax: pagination-button-x.
- *
  */
 
 let page_link_list = []; // Instances of pagination-button-x.
@@ -70,6 +69,7 @@ function setItemsInvisible() {
     element.style.display = "none";
   });
 }
+
 /**
  * Removes the active instance from all pagination-button's.
  */

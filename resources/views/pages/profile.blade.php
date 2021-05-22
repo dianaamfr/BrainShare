@@ -4,6 +4,7 @@
 
     @section('scripts')
         <script src={{ asset('js/profile.js') }} defer></script>
+        <script src={{ asset('js/pagination.js') }} defer></script>
     @endsection
 
 <div class="page-margin">
@@ -80,13 +81,13 @@
 
     <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
         <h3 class="mb-4">My Questions</h3>
-            @include('partials.profile.question', $questions)
-    </section>
+            
+        </section>
 
-    <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
-        <h3 class="mb-4">My Answers</h3>
-            @include('partials.profile.answer', $answers)
+        <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
+            <h3 class="mb-4">My Answers</h3>
+                @include('partials.profile.answer', $answers)
+        </section>
     </section>
-
 </div>
 @endsection

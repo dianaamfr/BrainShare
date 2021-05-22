@@ -16,7 +16,7 @@ class Comment extends Model
     return $this->belongsTo(User::class, 'comment_owner_id');
 }
 
-  public function question() {
+  public function answer() {
     return $this->belongsTo(Answer::class, 'answer_id');
   }
 }

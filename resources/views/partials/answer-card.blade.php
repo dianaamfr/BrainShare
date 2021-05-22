@@ -70,7 +70,5 @@
     <div id="question-comments">
         @each('partials.comment-card', $answer->comments, 'comment')
     </div>
-
-    
 </div>
 

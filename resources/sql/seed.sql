@@ -114,14 +114,14 @@ CREATE TABLE comment(
 
 
 CREATE TABLE "notification"(
-                               id  SERIAL PRIMARY KEY,
-                               user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                               comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                               answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                               date timestamp with time zone NOT NULL DEFAULT current_timestamp,
-                               viewed boolean NOT NULL DEFAULT false,
+    id  SERIAL PRIMARY KEY,
+    user_id  INTEGER NOT NULL REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comment(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    answer_id INTEGER REFERENCES answer(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    date timestamp with time zone NOT NULL DEFAULT current_timestamp,
+    viewed boolean NOT NULL DEFAULT false,
 
-                               CONSTRAINT exclusive_notification CHECK ((comment_id IS NULL AND answer_id IS NOT NULL) OR (comment_id IS NOT NULL AND answer_id IS NULL))
+    CONSTRAINT exclusive_notification CHECK ((comment_id IS NULL AND answer_id IS NOT NULL) OR (comment_id IS NOT NULL AND answer_id IS NULL))
 );
 
 CREATE TABLE vote(

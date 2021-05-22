@@ -22,6 +22,7 @@ function sendDataAjaxRequest(method, url, data, handleResponse) {
         },
     ).then(response => response.json()).then(json => handleResponse(json));
 }
+
 /* TO IMPORT
 */
 
