@@ -1192,6 +1192,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 #profile-main .one {
   grid-area: one;
+    margin-right: 30px;
 }
 
 #profile-main .two {

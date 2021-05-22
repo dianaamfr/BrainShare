@@ -4,11 +4,12 @@
 
     @section('scripts')
         <script src={{ asset('js/profile.js') }} defer></script>
+        <script src={{ asset('js/report.js') }} defer></script>
     @endsection
 
 <div class="page-margin">
     <section id="profile-main" class="card grid-profile container-lg">
-        <div class="one">
+        <div class="one text-center mb-5">
             <h3 class="nickname mb-4">{{ $user->username }}</h3>
             <div class="profile-pic col-md mb-4">
                 <img class="rounded-circle img-thumbnail" src="{{ $user->image ? asset('storage/' . $user->image) : asset('images/profile.png')}}" alt="Profile Image">
@@ -50,6 +51,8 @@
                 <div class="col-md d-flex justify-content-end align-items-end">
                     <a class="btn btn-primary my-2" href="{{route('show-edit-profile', $user->id)}}">Edit Profile</a>
                 </div>
+                @else
+                    @include('partials.report', ['type'=> 'reported', 'margin' => '', 'id'=>$user->id])
                 @endif
             </div>
         </section>
@@ -89,4 +92,5 @@
     </section>
 
 </div>
+@include('partials.report-modal')
 @endsection

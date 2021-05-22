@@ -7,7 +7,6 @@ listenReportFlag();
 listenReportModal();
 
 
-
 function createModal(){
     const reportModalElement = document.querySelector("#reportModal");
     const reportContent = reportModalElement.querySelector("#report-content");

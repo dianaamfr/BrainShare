@@ -53,7 +53,7 @@
             @include('partials.question.tags')
 
             <!-- Report Button -->
-                @include('partials.question.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
+                @include('partials.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
 
             </footer>
 
