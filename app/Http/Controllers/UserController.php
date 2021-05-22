@@ -28,25 +28,26 @@ class UserController extends Controller
         return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
     }
 
-    public function showEditProfile()
+    public function showEditProfile($id)
     {
         if (!Auth::check()) return redirect('/login');
-
-        $id = Auth::id();
         $user = User::find($id);
+        $this->authorize('showEditUserProfile', $user);
+
         $courses = Course::all();
         $tags = Tag::all();
 
         $this->authorize('editUserProfile', $user);
 
-        return view('/pages.edit-profile', ['user' => $user, 'courses' => $courses, 'tags' => $tags]);
+        return view('/pages.edit-profile', ['id'=> $user->id, 'user' => $user, 'courses' => $courses, 'tags' => $tags]);
 
     }
 
-    public function editProfile(Request $request)
+    public function editProfile(Request $request, $id)
     {
         if (!Auth::check()) return redirect('/login');
-        $id = Auth::id();
+
+        // TODO : erro de commit. Auth.
         $user = User::find($id);
         $this->authorize('editUserProfile', $user);
 
@@ -79,7 +80,7 @@ class UserController extends Controller
         }
 
         $result = DB::transaction(function () use ($request) {
-            $id = Auth::id();
+            $id = Auth::id();       // TODO: aldready have the id.
             $user = User::find($id);
             if (isset($request->name) && !is_null($request->name))
                 $user->name = $request->name;
@@ -124,7 +125,7 @@ class UserController extends Controller
         });
 
 
-        return redirect()->route('show-profile', ['id' => $user->id]);
+        return redirect()->route('show-profile', ['id' => $id]);
     }
 
     public function paginateQuestions(Request $request, $id)

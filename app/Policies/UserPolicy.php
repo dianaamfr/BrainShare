@@ -22,14 +22,14 @@ class UserPolicy
     }
 
     // Only the user can edit it's profile.
-    public function showEditUserProfile(User $user): bool
+    public function showEditUserProfile(User $user, User $editUser): bool
     {
-        return Auth::user()->id == $user->id;
+        return $editUser->id == $user->id;
     }
 
-    public function editUserProfile(User $user): bool
+    public function editUserProfile(User $user, User $editUser): bool
     {
-        return Auth::user()->id == $user->id;
+        return $editUser->id == $user->id;
     }
 
     public function delete(User $user, User $deleted): bool

@@ -42,9 +42,10 @@
 <script  src={{ asset('js/editor.js') }}  defer></script>
 <script  src={{ asset('js/upvote.js') }}  defer></script>
 <script  src={{ asset('js/valid-answer.js') }}  defer></script>
-<script  src={{ asset('js/answer.js') }} type="module"></script>
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
 <script  src={{ asset('js/notification.js') }} defer></script>
+
+@yield('scripts')
 
 <!-- Library to translate MD to html -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"

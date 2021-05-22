@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Course;
+
 use Illuminate\Http\Request;
+
+
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // TODO : create the authorization for do these actions.
 class CategoriesController extends Controller

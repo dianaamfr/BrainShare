@@ -38,7 +38,7 @@ export function encodeForAjax(data) {
 
 export function sendAjaxGetRequest(url, data, handler) {
     let request = new XMLHttpRequest();
-    
+
     request.open("get", url + '?' + encodeForAjax(data), true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.addEventListener('load', handler);
@@ -69,6 +69,17 @@ export function sendDataAjaxRequest(method, url, data, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
+function sendAjaxPostRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.addEventListener('load', handler);
+    request.send(encodeForAjax(data));
+}
+
+
 
 export function sendAjaxRequest(method, url, data, handleResponse) {
     let dataJson = JSON.stringify(data);
@@ -86,10 +97,6 @@ export function sendAjaxRequest(method, url, data, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
-// TODO: ask the professor if this is safe.
-export function getToken(){
-    return document.querySelector("meta[name='csrf-token']").getAttribute('content');
-}
 
 /**
  * src: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -137,3 +144,35 @@ export function showAlert(message, type, element){
     element.innerHTML = '';
     element.appendChild(alert);
 }
+
+/**
+ * Shows a toast message in at the right bottom position of the screen.
+ * @param message{string} Message to be displayed.
+ * @param color{string} Toast color: yellow, blue, red. The default is yellow.
+ */
+export function showToast(message, color){
+    const toastElement = document.querySelector('.toast');
+    toastElement.querySelector('.toast-body').innerText = message;
+    removeToastColor(toastElement);
+
+    if (color === 'red'){
+        toastElement.classList.add('bg-danger');
+        toastElement.classList.add('text-white');
+    } else if (color === 'blue'){
+        toastElement.classList.add('bg-primary');
+        toastElement.classList.add('text-white');
+    }else if (color === 'yellow'){
+        toastElement.classList.add('bg-warning');
+    }
+
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
+
+function removeToastColor(toastElement){
+    toastElement.classList.remove('text-white');
+    toastElement.classList.remove('bg-warning');
+    toastElement.classList.remove('bg-primary');
+    toastElement.classList.remove('bg-danger');
+}
+

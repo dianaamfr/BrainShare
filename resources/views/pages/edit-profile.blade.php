@@ -8,7 +8,7 @@
             else
               $image_path = 'images/profile.png';
         @endphp
-        <form method="post" action="{{route('edit-profile')}}" data-toggle="validator" autocomplete="off"
+        <form method="post" action="{{route('edit-profile', $user->id)}}" data-toggle="validator" autocomplete="off"
               enctype="multipart/form-data">
             @method('put')
             {{ csrf_field() }}

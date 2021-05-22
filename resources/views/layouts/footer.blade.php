@@ -22,6 +22,8 @@
                 <li><a class="link-secondary" href="{{ route('question') }}">Add Question</a></li>
             </ul>
         </div>
+
+        @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator())) 
         <div class="col-6 col-md">
             <h5>Management</h5>
             <ul class="list-unstyled text-small">
@@ -30,5 +32,6 @@
                 <li><a class="link-secondary" href="{{route('manage-users')}}">Manage Users</a></li>
             </ul>
         </div>
+        @endif
     </nav>
 </footer>

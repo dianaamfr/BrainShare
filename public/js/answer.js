@@ -1,8 +1,42 @@
-import {sendAjaxRequest} from "./common.js";
+import {sendAjaxGetRequest, sendDataAjaxRequest, encodeForAjax} from "./common.js"; 
 
-addEvenListeners();
+function submitAnswer(event){
 
-function addEvenListeners(){
+    event.preventDefault();
+    console.log("begin");
+
+
+    let text = this.querySelector('textarea[name="content"]').value;
+    let id = this.querySelector('input[name="questionID"]').value;
+    console.log(text);
+    console.log(id);
+
+    //sendAjaxPostRequest("POST",'/api/question/' + id + '/answer/add',{'text':text},handler); 
+
+    sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
+
+    console.log("sent request");
+
+}
+
+function handler(responseJson){
+    console.log("RESPONSE SUCESSFULLY REACHED THIS POINT");
+    console.log(responseJson);
+    console.log(responseJson.html);
+}
+
+let form = document.getElementById('submit-answer');
+
+form.addEventListener("submit",submitAnswer);
+
+
+//import {sendDataAjaxRequest} from "./common.js";
+
+/*
+
+addEventListeners();
+
+function addEventListeners(){
 
     console.log("Entered Loop");
 
@@ -13,7 +47,8 @@ function addEvenListeners(){
     //let deleteButton = form.querySelector("");
 
     console.log(form);
-    console.log(button);
+    console.log(addButton);
+    console.log("saved");
 
 
     // POST method
@@ -24,13 +59,13 @@ function addEvenListeners(){
 
         event.preventDefault();
 
-        let text = form.querySelector('textarea').value; // testar .textContent se value não der
+        let content = form.querySelector('textarea').value; // testar .textContent se value não der
         let id = form.querySelector("input[name='questionID']").value;
 
-        console.log(text);
+        console.log(content);
         console.log(id);
 
-        sendAjaxRequest('post','/api/question/' + id + '/answer/add',{text: text},submitAnswerHandler);
+        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{content: 'hello',},requestHandler);
 
     });
     
@@ -44,7 +79,7 @@ function addEvenListeners(){
     
     // Get method
     // EventListener for Removing an answer
-    
+    /*
     addEventListener('click',function(event){
 
         
@@ -53,26 +88,21 @@ function addEvenListeners(){
 
     });
     
+    
 
 
 }
 
-/**
- * Handler for the submit answer put form
- * This function get's the value of query parameters
- * @param response {Array} Json array containing the answers to the question
- */
 
-function submitAnswerHandler(response) {
-
+function requestHandler(json) {
+    console.log("here");
     console.log(response);
     let div = document.getElementById("all-answers");
-    div.innerHTML = response;
+    div.innerHTML = json.html;
 
 
 }
 
-function createAnswer(text){
-    let answersDiv = document.querySelector('#page-top section.answers div.answer' );
 
-}
+
+

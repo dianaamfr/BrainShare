@@ -47,9 +47,10 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 //Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
 // Answer
-Route::post('/api/question/{id}/answer/add','AnswerController@addAnswer')->name('add-answer');
-Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@EditAnswer')->name('edit-answer');
-Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@DeleteAnswer')->name('delete-answer');
+Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
+
+Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
+Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
 
 // Comment
 Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
@@ -68,10 +69,9 @@ Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profi
 Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
 Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 
-Route::put('/user/{id}/delete', "UserController@deleteUserOnProfile")->name('delete-user');
-Route::get('/user/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
-Route::put('/edit/profile/edit/put', "UserController@editProfile")->name('edit-profile');
-
+Route::put('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user');
+Route::get('/user/{id}/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
+Route::put('/user/{id}/profile/edit', "UserController@editProfile")->name('edit-profile');
 
 // Management: change in A9 when we implement this user stories
 Route::get('/admin/reports', 'StaticController@showReports')->name('manage-reports');
@@ -79,6 +79,7 @@ Route::get('/admin/reports', 'StaticController@showReports')->name('manage-repor
 // Manage categories
 Route::get('/admin/tags', 'CategoriesController@showTags')->name('manage-tags');
 Route::get('/api/admin/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
+// TODO: adicionar o id da tag e tirar o add.
 Route::post('/api/admin/tags/add', 'CategoriesController@addTag')->name('manage-tags-add');
 Route::delete('/api/admin/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
 
@@ -90,13 +91,28 @@ Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')-
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
 Route::put('api/admin/user/{id}', 'ManageUsersController@update');
-Route::delete('api/admin/user/{id}', 'ManageUsersController@delete');
 Route::get('api/admin/user', 'ManageUsersController@search');
+
+// Manage Reports
+Route::get('/admin/reports', 'ManageReportsController@show')->name('manage-reports');
+Route::put('api/admin/reports/discard', 'ManageReportsController@discard');
+Route::put('api/admin/reports/delete', 'ManageReportsController@delete');
+Route::get('api/admin/reports', 'ManageReportsController@search');
+
 // Password Reset
 Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
 Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
 Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
 Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
+
+
+// Report
+Route::get('api/report/status', 'ReportController@isReported');
+Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
+Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
+Route::post('api/report/comment/{id}', 'ReportController@reportComment');
+Route::post('api/report/user/{id}', 'ReportController@reportUser');
+
 
 // Notifications
 Route::post('/api/notification/read/{id}', 'NotificationController@read');

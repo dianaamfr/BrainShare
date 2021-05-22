@@ -9,11 +9,11 @@
     <!-- Mobile -  Management Navigation Top Bar-->
     @include('partials.management.mobile-side-bar')
 
-    <div class="d-flex justify-content-between page-margin categories-content">
+    <div class="d-flex justify-content-between page-margin management-content">
         <!-- Management Navigation SideBar -->
         @include('partials.management.side-bar')
 
-        <div class="col-md-9 ms-md-auto col-lg-9 px-md-4">
+        <div class="col-md-9 ms-md-auto col-lg-10 px-md-4">
 
         <!-- Manage courses-->
             <section class="management manage-categories w-100 mt-5">

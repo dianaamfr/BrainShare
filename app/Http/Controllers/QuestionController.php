@@ -17,6 +17,9 @@ use App\Models\User;
 
 class QuestionController extends Controller
 {
+    public function newRoute(Request $request){
+        return response()->json(['success' => 'true']);
+    }
 
     public function show($id)
     {
@@ -168,7 +171,7 @@ class QuestionController extends Controller
     {
         if (!Auth::check()) return redirect('login');
 
-        if ($request->vote !== "1" && $request->vote !== "-1") 
+        if ($request->vote !== "1" && $request->vote !== "-1")
             return response()->json(array('success' => false, 'score' => 'ERROR'));
 
         try {
@@ -180,7 +183,7 @@ class QuestionController extends Controller
 
             try {
                 $vote->save();
-            
+
             } catch(\Exception $e) {
                 $question = Question::find($questionId);
                 $score = $question->score;
@@ -203,7 +206,7 @@ class QuestionController extends Controller
     public function voteAnswer(Request $request, $questionId, $answerId)
     {
         if (!Auth::check()) return redirect('login');
-        
+
         if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
 
         try {
@@ -215,7 +218,7 @@ class QuestionController extends Controller
 
             try {
                 $vote->save();
-            
+
             } catch(\Exception $e) {
                 $answer = Answer::find($answerId);
                 $score = $answer->score;
@@ -234,4 +237,5 @@ class QuestionController extends Controller
             return response()->json(array('success' => false, 'score' => $score));
         }
     }
+
 }
