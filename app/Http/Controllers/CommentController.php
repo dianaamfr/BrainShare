@@ -11,10 +11,10 @@ use App\Models\Answer;
 
 class CommentController extends Controller
 {
-    public function addComment(Request $request, $questionID, $answerID){
+    public function addComment(Request $request, $id){
 
         // Authorization
-        //if(!$this->authorize('create', Comment::class)) return redirect('login');
+        $this->authorize('create', Comment::class);
 
         // Validation
          $validated = $request->validate([
@@ -23,36 +23,37 @@ class CommentController extends Controller
  
          // Add Comment
          $comment = new Comment;
-         $comment->answer_id = $answerID;
+         $comment->answer_id = $id;
          $comment->comment_owner_id = Auth::user()->id;
          $comment->content = $request->text;
          $comment->save();
          
         // Return the changed view
-         $answer = Answer::find(intval($answerID));
+         $answer = Answer::find(intval($id));
          $response = view('partials.comments', ['comment' => $answer->comments])->render();
-         return response()->json(array('success' => true, 'html' => $response));
+         return response()->json(array('success' => true, 'answerID' => $id, html => $response));
 
     }
-        public function deleteComment(Request $request, $commentID){
+        public function deleteComment(Request $request, $id){
                 
             // Find Comment
-            $comment = Answer::find($commentID);
+            $comment = Answer::find($id);
+            $answer =  Answer::find($comment->$answer_id);
     
             // Authorization
-            //$this->authorize('delete', $comment);
+            $this->authorize('delete', $comment);
             
             // Delete Comment
             $comment->delete();
             
             // Return the chaged view
-            $answer =  Answer::find($comment->$answer_id);
+            
             $response = view('partials.comments', ['comment' => $answer->comments])->render();
-            return response()->json(array('success' => true, 'html' => $response));
+            return response()->json(array('success' => true, 'answerID' => $answer->id, 'html' => $response));
         }
 
 
-    public function editComment(Request $request, $commentID){
+    public function editComment(Request $request, $id){
 
         // Validation
         $validated = $request->validate([
@@ -60,7 +61,7 @@ class CommentController extends Controller
         ]);
         
         // Find Comment
-        $comment = Comment::find(intval($commentID));
+        $comment = Comment::find(intval($id));
         
         // Authorization
         $this->authorize('edit', $comment);
@@ -72,7 +73,7 @@ class CommentController extends Controller
         // Return view of comments to refresh view
         $answer = Answer::find(intval($comment->$answer_id));
         $response = view('partials.comments', ['comment' => $answer->comments])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        return response()->json(array('success' => true, 'answerID' => $answer->id, 'html' => $response));
         
     }
 

@@ -4,11 +4,6 @@
     @can('delete', $answer)
     @endcan
     --}}
-    
-
-   
-    
-
     <header class="question-author pagination align-items-center justify-content-end card-header">
 
         <div>
@@ -107,7 +102,7 @@
             </form>
         </div>
 
-        <div id="question-comments">
+        <div id="question-comments comments-answer-{{$answer->id}}">
             @include('partials.comments',['comment'=>$answer->comments])
         </div>
     </div>

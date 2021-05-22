@@ -57,9 +57,9 @@ Route::delete('/api/answer/{id}/delete','AnswerController@deleteAnswer')->name('
 // Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
 // Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
 // Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
-Route::post('/api/answer/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
-Route::put('/api//comment/{id-c}','CommentController@editComment')->name('edit-comment');
-Route::delete('/api//comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
+Route::post('/api/answer/{id}/comment/add','CommentController@addComment')->name('add-comment');
+Route::put('/api//comment/{id}/edit','CommentController@editComment')->name('edit-comment');
+Route::delete('/api//comment/{id}/delete','CommentController@deleteComment')->name('delete-comment');
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -43,7 +43,6 @@ class AnswerController extends Controller{
 
     public function deleteAnswer(Request $request,$id){
 
-        //return json(array('success' => true));
         // Find Answer
         $answer = Answer::find(intval($id));
 
