@@ -78,7 +78,6 @@
         @include('partials.question.answer-form')
     </form>
 </div>
-
-
 @include('partials.report-modal')
+@include('partials.common.toast')
 @endsection

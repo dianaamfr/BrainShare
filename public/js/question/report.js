@@ -1,10 +1,21 @@
-import {sendAjaxGetRequest} from "../common.js";
+import {sendAjaxGetRequest, showToast} from "../common.js";
 
 let reportDiv;
 let reportInfo;
-
+let modal = createModal();
 listenReportFlag();
 listenReportModal();
+
+
+
+function createModal(){
+    const reportModalElement = document.querySelector("#reportModal");
+    const reportContent = reportModalElement.querySelector("#report-content");
+    reportContent.value = "";
+
+    return new bootstrap.Modal(reportModalElement);
+}
+
 /**
  * Listen to the report button.
  */
@@ -31,20 +42,12 @@ function canReport(e) {
 function showModal(){
     const json = JSON.parse(this.responseText);
     if (json['isReported'] === false)
-        createModal().show();
+        modal.show();
     else {
-        // TODO; show already reported toast.
-        console.log('show toast');
+        showToast('You have already reported this question', 'yellow');
     }
 }
 
-function createModal(){
-    const reportModalElement = document.querySelector("#reportModal");
-    const reportContent = reportModalElement.querySelector("#report-content");
-    reportContent.value = "";
-
-    return new bootstrap.Modal(reportModalElement);
-}
 
 function handleReport(reportInfo){
     const elementType = reportInfo[0].value;
@@ -54,9 +57,9 @@ function handleReport(reportInfo){
     if (elementType === "question")
         requestReport(elementId, "/api/report/question/"+ elementId, content);
     else if (elementType === "answer")
-        requestReport(elementId, 'api/report/answer/' + elementId, content);
+        requestReport(elementId, '/api/report/answer/' + elementId, content);
     else if (elementType === "comment")
-        requestReport(elementId,'api/report/comment/' + elementId, content);
+        requestReport(elementId,'/api/report/comment/' + elementId, content);
 }
 
 function requestReport(id, url, content){
@@ -67,14 +70,14 @@ function requestReport(id, url, content){
  * This function shows the message of report and toggle the reportIcon.
  */
 function handleReportRequestAns(responseJson){
-
     if (!responseJson['success']) {
         document.querySelector("#reportModal .error").innerHTML = responseJson['error'];
         setTimeout(() => {
             document.querySelector("#reportModal .error").innerHTML = ""
         }, 5000);
     } else{
-        // TODO: show success toast
+        modal.hide();
+        showToast('Report done!', 'blue');
     }
 }
 

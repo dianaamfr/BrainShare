@@ -84,9 +84,9 @@ class ReportController
 
         $alreadyReported = DB::table('report')
             ->where($type.'_id', $id)
-            ->where('user_id', Auth::user()->id);
+            ->where('user_id', Auth::user()->id)->get();
 
-        if ($alreadyReported != null)
+        if (sizeof($alreadyReported) >= 1)
             return response()->json(array('success' => false, 'error' => 'This question has already been reported'));
 
 
@@ -101,9 +101,9 @@ class ReportController
     {
         $alreadyReported = DB::table('report')
             ->where($request->reportType.'_id', $request->id)
-            ->where('user_id', Auth::user()->id);
+            ->where('user_id', Auth::user()->id)->get();
 
-        if ($alreadyReported != null)
+        if (sizeof($alreadyReported) >= 1)
             return response()->json(array('isReported' => true));
 
         return response()->json(array('isReported' => false));

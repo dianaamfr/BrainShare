@@ -144,3 +144,35 @@ export function showAlert(message, type, element){
     element.innerHTML = '';
     element.appendChild(alert);
 }
+
+/**
+ * Shows a toast message in at the right bottom position of the screen.
+ * @param message{string} Message to be displayed.
+ * @param color{string} Toast color: yellow, blue, red. The default is yellow.
+ */
+export function showToast(message, color){
+    const toastElement = document.querySelector('.toast');
+    toastElement.querySelector('.toast-body').innerText = message;
+    removeToastColor(toastElement);
+
+    if (color === 'red'){
+        toastElement.classList.add('bg-danger');
+        toastElement.classList.add('text-white');
+    } else if (color === 'blue'){
+        toastElement.classList.add('bg-primary');
+        toastElement.classList.add('text-white');
+    }else if (color === 'yellow'){
+        toastElement.classList.add('bg-warning');
+    }
+
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
+
+function removeToastColor(toastElement){
+    toastElement.classList.remove('text-white');
+    toastElement.classList.remove('bg-warning');
+    toastElement.classList.remove('bg-primary');
+    toastElement.classList.remove('bg-danger');
+}
+
