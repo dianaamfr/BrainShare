@@ -62,7 +62,7 @@ class ManageUsersController extends Controller {
       else if($request->input('action') == 'unban') $this->updateBan($user, 0);
       else return response()->json(['error'=>'Invalid action']);
 
-      $html = view('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])->render();
+      $html = view('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban, 'date' => date('d-m-Y', strtotime($user->signup_date))])->render();
       return response()->json(['success'=> 'Your request was completed', 'id'=> $user->id, 'html' => $html]);
     }
 

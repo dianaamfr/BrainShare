@@ -1,6 +1,6 @@
 <td class="ban-td">{{$ban == 1 ? 'Banned' : 'Not Banned'}}</td>
 <td class="role-td">{{$role == 'RegisteredUser' ? 'Registered User' : $role }}</td>
-<td> {{ date('d-m-Y', strtotime($user->getAttribute('signup_date'))) }}</td>
+<td> {{$date}}</td>
 <td>
     @if(Auth::user()->isAdmin() || (Auth::user()->isModerator() && $role == "RegisteredUser"))
         @if (Auth::user()->isAdmin() && Auth::user()->id == $id)

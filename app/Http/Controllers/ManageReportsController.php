@@ -38,7 +38,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReportsByState($request);
 
         // Filter Reports by Content Type
-        switch($request->input('type-filter')) {
+        switch($request->input('report-type')) {
             case 'questions':
                 $reports = $reports->whereNotNull('question_id');
                 break;
@@ -65,80 +65,98 @@ class ManageReportsController extends Controller {
     }
 
     public function discard(Request $request) {
-
-        switch($request->input('type')) {
-            case 'question':
-                $report = Report::where('question_id', '=', $request->input('id'));
-                break;
-            case 'answer':
-                $report = Report::where('answer_id', '=', $request->input('id'));
-                break;
-            case 'comment':
-                $report = Report::where('comment_id', '=', $request->input('id'));
-                break;
-            case 'user':
-                $report = Report::where('reported_id', '=', $request->input('id'));
-                break;
-            default:
-                break;
-        }
-
-        if(isset($report)){
-            $report->update(['viewed' => true]);
-        }
         
+        $report = Report::find($request->input('id'))->update(['viewed' => true]);
+
         $reports = $this->getReports($request);
 
         return response()->json([
+            'success'=> 'Your request was completed',
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
 
     public function delete(Request $request){
-    
-        switch($request->input('type')) {
-            case 'question':
-                Question::find($request->input('id'))->update(['deleted' => true]);
-                break;
-            case 'answer':
-                Answer::find($request->input('id'))->update(['deleted' => true, ]);
-                break;
-            case 'comment':
-                Comment::find($request->input('id'))->update(['deleted' => true]);
-                break;
-            case 'user':
-                // TODO: DISCUSS THIS
-                User::find($request->input('id'))->update(['ban' => true]);
-                break;
-            default:
-                break;
+
+        $report = Report::find($request->input('id'));
+
+        // Delete Reported Content
+        if(!is_null($report->question_id)){
+            Question::find($report->question_id)->update(['deleted' => true]);
+        }
+        else if(!is_null($report->answer_id)){
+            Answer::find($report->answer_id)->update(['deleted' => true]);
+        }
+        else if(!is_null($report->comment_id)){
+            Comment::find($report->comment_id)->update(['deleted' => true]);
+        }
+        else{
+            User::find($report->reported_id)->update(['ban' => true]);
         }
 
-        return $this->discard($request);
+        // Now the trigger will discard all reports associated with the deleted content
+
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'success'=> 'Your request was completed',
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
+    }
+
+    public function revert(Request $request){
+
+        $report = Report::find($request->input('id'));
+
+        // Recover Deleted Content
+        if(!is_null($report->question_id)){
+            Question::find($report->question_id)->update(['deleted' => false]);
+        }
+        else if(!is_null($report->answer_id)){
+            Answer::find($report->answer_id)->update(['deleted' => false]);
+        }
+        else if(!is_null($report->comment_id)){
+            Comment::find($report->comment_id)->update(['deleted' => false]);
+        }
+        else{
+            User::find($report->reported_id)->update(['ban' => false]);
+        }
+
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'success'=> 'Your request was completed',
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
     }
 
     private function filterReportsByOwner($reports, Request $request){
 
-        return $reports->whereHas('reported', function ($query) use ($request){
-            $query->where('username', 'ILIKE', $request->input('search-username') . '%');
-        })->orWhereHas('question', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        })->orWhereHas('answer', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        })->orWhereHas('comment', function ($query) use ($request){
-            $query->whereHas('owner', function ($query2) use ($request){
-                $query2->where('username', 'ILIKE', $request->input('search-username') . '%');
-            });
-        }); 
+        return $reports->where(function($query) use ($request){
+            $query->whereHas('reported', function ($query) use ($request){
+                $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+            })
+            ->orWhereHas('question', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            })
+            ->orWhereHas('answer', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            })
+            ->orWhereHas('comment', function ($query) use ($request){
+                $query->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+                });
+            }); 
+        });
         
     }
 
     private function getReportsByState(Request $request){
-        switch($request->input('state-filter')){
+        switch($request->input('report-state')){
             case 'all':
                 return new Report();
             case 'handled':

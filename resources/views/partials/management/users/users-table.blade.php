@@ -29,7 +29,7 @@
                             <span>{{$user->username}}</span>
                         </a>
                     </td>
-                    @include('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
+                    @include('partials.management.users.user-actions', ['date' => date('d-m-Y', strtotime($user->signup_date)), 'id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban])
                 </tr>
             @endforeach
         </tbody>

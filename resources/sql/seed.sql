@@ -40,6 +40,14 @@ DROP FUNCTION IF EXISTS update_answer_search;
 DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
 DROP FUNCTION IF EXISTS already_reported_check CASCADE;
 DROP TRIGGER IF EXISTS already_reported ON question_course;
+DROP FUNCTION IF EXISTS discard_question_reports;
+DROP TRIGGER IF EXISTS discard_question_reports ON question CASCADE;
+DROP FUNCTION IF EXISTS discard_answer_reports;
+DROP TRIGGER IF EXISTS discard_answer_reports ON answer CASCADE;
+DROP FUNCTION IF EXISTS discard_comment_reports;
+DROP TRIGGER IF EXISTS discard_comment_reports ON comment CASCADE;
+DROP FUNCTION IF EXISTS discard_user_reports;
+DROP TRIGGER IF EXISTS discard_user_reports ON "user" CASCADE;
 
 -----------
 -- Types --
@@ -436,7 +444,80 @@ LANGUAGE plpgsql;
 CREATE TRIGGER already_reported_check
     BEFORE INSERT ON report
     FOR EACH ROW
-    EXECUTE PROCEDURE already_reported_check();
+    EXECUTE PROCEDURE already_reported_check();    
+
+-- Set Reports has handled when the content is deleted
+CREATE FUNCTION discard_question_reports() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.deleted = true 
+    THEN
+        UPDATE report
+        SET viewed = true
+        WHERE question_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE FUNCTION discard_answer_reports() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.deleted = true 
+    THEN
+        UPDATE report
+        SET viewed = true
+        WHERE answer_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE FUNCTION discard_comment_reports() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.deleted = true 
+    THEN
+        UPDATE report
+        SET viewed = true
+        WHERE comment_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE FUNCTION discard_user_reports() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.ban = true 
+    THEN
+        UPDATE report
+        SET viewed = true
+        WHERE reported_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER discard_question_reports
+    AFTER UPDATE OF deleted ON question
+    FOR EACH ROW
+    EXECUTE PROCEDURE discard_question_reports();
+
+CREATE TRIGGER discard_answer_reports
+    AFTER UPDATE OF deleted ON answer
+    FOR EACH ROW
+    EXECUTE PROCEDURE discard_answer_reports();
+
+CREATE TRIGGER discard_comment_reports
+    AFTER UPDATE OF deleted ON comment
+    FOR EACH ROW
+    EXECUTE PROCEDURE discard_comment_reports();
+
+CREATE TRIGGER discard_user_reports
+    AFTER UPDATE OF ban ON "user"
+    FOR EACH ROW
+    EXECUTE PROCEDURE discard_user_reports();
 
 -- FULL TEXT SEARCH
 -- Creating/Updating tsvector for a Question: with the title and the content
