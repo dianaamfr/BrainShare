@@ -49,8 +49,8 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 // Answer
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 //Route::post('/api/test','AnswerController@newRoute');
-Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
-Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
+Route::put('/api/answer/{id}/edit','AnswerController@editAnswer')->name('edit-answer');
+Route::delete('/api/answer/{id}/delete','AnswerController@deleteAnswer')->name('delete-answer');
 
 // Comment
 // I dont need the questions in the route, I only need the answers, so I am switching the routes (change de API later)

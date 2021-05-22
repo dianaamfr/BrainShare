@@ -6,24 +6,32 @@
     --}}
     
 
-    <div class="edit-answer">
-        <a class="icon-hover" title="Edit-answer">
-            <i class="far fa-edit"></i>
-            <i class="fas fa-edit"></i>
-        </a>
-        <form title="Delete-answer" class="answer-delete-form">
-            @csrf
-            <input type="hidden" name="questionID" value="{{$answer->question_id}}">
-            <input type="hidden" name="answerID" value="{{$answer->id}}">
-            <button class="icon-hover" type="submit">
-                <i class="far fa-trash-alt"></i>
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </form>
-    </div>
+   
     
 
     <header class="question-author pagination align-items-center justify-content-end card-header">
+
+        <div>
+            <form title="Edit-answer" class="answer-edit-form">
+                @csrf
+                <button class="icon-hover" title="Edit-answer" class="edit-answer-button" type="submit">
+                    <input type="hidden" name="dummyText" value="dummyText">
+                    <input type="hidden" name="answerID" value="{{$answer->id}}">
+                    <i class="far fa-edit"></i>
+                    <i class="fas fa-edit"></i>
+                </button>
+            </form>
+            <form title="Delete-answer" class="answer-delete-form">
+                @csrf
+                <input type="hidden" name="questionID" value="{{$answer->question_id}}">
+                <input type="hidden" name="answerID" value="{{$answer->id}}">
+                <button class="icon-hover" type="submit">
+                    <i class="far fa-trash-alt"></i>
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+        </div>
+
         <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
         <!-- Small Profile Image -->
         <div class="d-flex flex-wrap">

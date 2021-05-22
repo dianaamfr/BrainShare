@@ -18,7 +18,7 @@ class AnswerController extends Controller{
     public function newAnswer(Request $request, $id){
         
         // Authorization
-        //if(!$this->authorize('create', Answer::class)) return redirect('login');
+        $this->authorize('create', Answer::class);
         
         // Validation
         $validated = $request->validate([
@@ -41,20 +41,22 @@ class AnswerController extends Controller{
         
     }
 
-    public function deleteAnswer(Request $request, $questionID, $answerID){
+    public function deleteAnswer(Request $request,$id){
 
-        
+        //return json(array('success' => true));
         // Find Answer
-        $answer = Answer::find(intval($answerID));
+        $answer = Answer::find(intval($id));
 
         // Authorization
-        //$this->authorize('delete', $answer);
+        $this->authorize('delete', $answer);
+
+        // Return the changed view
+        $question = Question::find(intval($answer->question_id));
 
         // Delete Answer
         $answer->delete();
 
-        // Return the changed view
-        $question =  Question::find(intval($questionID));
+        
         $response = view('partials.answers', ['answer' => $question->answers])->render();
         return response()->json(array('success' => true, 'html' => $response));
 
@@ -62,24 +64,27 @@ class AnswerController extends Controller{
 
 
     public function editAnswer(Request $request, $id){
+
         // Validation
+        /*
         $validated = $request->validate([
             'text' => 'required'
         ]);
+        */
         
         // Find Comment
         $answer = Answer::find(intval($id));
         
         // Authorization
-        //$this->authorize('edit', $answer);
+        $this->authorize('edit', $answer);
         
-        // Edit comment
-        $comment->text = $request->text;
-        $comment->save();
+        // Edit Answer
+        $answer->content = $request->text;
+        $answer->save();
 
         // Return view of comments to refresh view
-        $answer = Answer::find(intval($comment->$answer_id));
-        $response = view('partials.comments', ['comment' => $answer->comments])->render();
+        $question =  Question::find(intval($answer->question_id));
+        $response = view('partials.answers', ['answer' => $question->answers])->render();
         return response()->json(array('success' => true, 'html' => $response));
     }
 

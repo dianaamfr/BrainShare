@@ -33,7 +33,7 @@ class CommentController extends Controller
          $response = view('partials.comments', ['comment' => $answer->comments])->render();
          return response()->json(array('success' => true, 'html' => $response));
 
-
+    }
         public function deleteComment(Request $request, $commentID){
                 
             // Find Comment

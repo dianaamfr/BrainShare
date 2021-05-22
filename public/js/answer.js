@@ -6,11 +6,13 @@ form.addEventListener("submit",submitAnswer);
 
 // Delete Answer
 let deleteButtons = document.getElementsByClassName('answer-delete-form');
+console.log(deleteButtons);
 let deletionList = [...deleteButtons];
 deletionList.forEach(addDeleteListeners);
 
 // Edit Answer
-let editButtons = document.getElementsByClassName('answer-edit-form');
+let editButtons = document.getElementsByClassName("answer-edit-form");
+console.log(editButtons);
 let editList = [...editButtons];
 editList.forEach(addEditListeners);
 
@@ -41,43 +43,49 @@ function removeAnswer(event){
     // Not sure if this is needed, check later
     event.preventDefault();
 
-    let questionID = this.querySelector('input[name="questionID"]').value;
+    //let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
 
     console.log(this);
-    console.log(questionID);
+    //console.log(questionID);
     console.log(answerID);
 
     //Route::delete('/api/question/{id-q}/answer/{id-a}
-    // Preciso de ti Juliane para limpar as routes, que não sei porque é que não está a encontrar este path
-    sendDataAjaxRequest("DELETE",'api/question/'+ questionID +'/answer/'+ answerID, {'dummy':'1'}, handler);
+    sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', {'text':'1'}, handler);
     
 
 }
 
-
+// Falta dar fix ao css de modo a que consiga ir buscar o texto
 function editAnswer(event){
 
     event.preventDefault();
 
-    let questionID = this.querySelector('input[name="questionID"]').value;
+    //let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
-    let text = this.querySelector('textarea[name="content"]').value;
+    //let text = this.querySelector('textarea[name="content"]').value;
+    //let text = "hello my friend"
+    let text = this.querySelector('input[name="dummyText"]').value;
 
     console.log(this);
-    console.log(questionID);
+    //console.log(questionID);
     console.log(answerID);
+    console.log(text);
 
 
-    sendDataAjaxRequest("PUT",'api/question/' + questionID + '/answer' + answerID,{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/answer/'+ answerID + '/edit',{'text':text}, handler);
 }
 
 
 function handler(responseJson){
 
     console.log(responseJson);
-    let answers = document.getElementById('all-answers');
-    answers.innerHTML = responseJson.html;
+    console.log(responseJson.success);
+    if(responseJson.success){
+        let answers = document.getElementById('all-answers');
+        answers.innerHTML = responseJson.html;
+    }
+    
     
 }
 
