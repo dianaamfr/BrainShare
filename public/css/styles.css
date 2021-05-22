@@ -1382,6 +1382,12 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   font-size: 0.85rem;
 }
 
+.deleted-report {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--bs-gray);;
+}
+
 .management td a {
   color: var(--main-blue);
   text-decoration: none;

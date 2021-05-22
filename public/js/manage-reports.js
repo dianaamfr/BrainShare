@@ -29,6 +29,9 @@ function updateReport(event){
     } 
     else if (action.value == 'delete') {
         sendDataAjaxRequest('put', '/api/admin/reports/delete', data, reportsUpdateHandler);
+    } 
+    else if (action.value == 'revert') {
+        sendDataAjaxRequest('put', '/api/admin/reports/revert', data, reportsUpdateHandler);
     }
 }
 

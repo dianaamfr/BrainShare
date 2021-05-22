@@ -104,6 +104,32 @@ class ManageReportsController extends Controller {
         ]);
     }
 
+    public function revert(Request $request){
+
+        $report = Report::find($request->input('id'));
+
+        // Recover Deleted Content
+        if(!is_null($report->question_id)){
+            Question::find($report->question_id)->update(['deleted' => false]);
+        }
+        else if(!is_null($report->answer_id)){
+            Answer::find($report->answer_id)->update(['deleted' => false]);
+        }
+        else if(!is_null($report->comment_id)){
+            Comment::find($report->comment_id)->update(['deleted' => false]);
+        }
+        else{
+            User::find($report->reported_id)->update(['ban' => false]);
+        }
+
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'success'=> 'Your request was completed',
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
+    }
+
     private function filterReportsByOwner($reports, Request $request){
 
         return $reports->where(function($query) use ($request){
