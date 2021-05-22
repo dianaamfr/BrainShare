@@ -1,11 +1,10 @@
-import {sendAjaxGetRequest, showToast} from "../common.js";
+import {sendAjaxGetRequest, showToast} from "./common.js";
 
 let reportDiv;
 let reportInfo;
 let modal = createModal();
 listenReportFlag();
 listenReportModal();
-
 
 function createModal(){
     const reportModalElement = document.querySelector("#reportModal");
@@ -59,6 +58,9 @@ function handleReport(reportInfo){
         requestReport(elementId, '/api/report/answer/' + elementId, content);
     else if (elementType === "comment")
         requestReport(elementId,'/api/report/comment/' + elementId, content);
+    else if (elementType === "reported")
+        requestReport(elementId,'/api/report/user/' + elementId, content);
+
 }
 
 function requestReport(id, url, content){

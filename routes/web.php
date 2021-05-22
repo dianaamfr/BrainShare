@@ -111,3 +111,4 @@ Route::get('api/report/status', 'ReportController@isReported');
 Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
 Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
 Route::post('api/report/comment/{id}', 'ReportController@reportComment');
+Route::post('api/report/user/{id}', 'ReportController@reportUser');

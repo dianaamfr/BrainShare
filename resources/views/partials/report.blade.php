@@ -1,5 +1,5 @@
 
-<div class="report-icon {{$margin}}" title="Report">
+<div class="report-icon float-end {{$margin}}" title="Report">
     <input type="hidden" value="{{$type}}">
     <input type="hidden" value="{{$id}}">
     <button class="icon-hover" >

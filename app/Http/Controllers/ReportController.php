@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,13 +45,13 @@ class ReportController
         $validReport = $this->validateReport("answer", $answerId, $request);
         if ($validReport != null) return $validReport;
 
-        $reportQuestion = new Report([
+        $reportAnswer = new Report([
             'content' => $request->get('content'),
             'answer_id' => $answerId,
             'user_id' => Auth::user()->id,
             'date' => Carbon::now(),
         ]);
-        $reportQuestion->save();
+        $reportAnswer->save();
 
         return response()->json(array('success' => true));
     }
@@ -61,16 +62,31 @@ class ReportController
         $validReport = $this->validateReport("comment", $commentId, $request);
         if ($validReport != null) return $validReport;
 
-        $reportQuestion = new Report([
+        $reportComment= new Report([
             'content' => $request->get('content'),
             'comment_id' => $commentId,
+            'user_id' => Auth::user()->id,
+            'date' => Carbon::now(),
+        ]);
+        $reportComment->save();
+
+        return response()->json(array('success' => true));
+
+    }
+
+    function reportUser(Request $request, $userId){
+        $validReport = $this->validateReport("reported", $userId, $request);
+        if ($validReport != null) return $validReport;
+
+        $reportQuestion = new Report([
+            'content' => $request->get('content'),
+            'reported_id' => $userId,
             'user_id' => Auth::user()->id,
             'date' => Carbon::now(),
         ]);
         $reportQuestion->save();
 
         return response()->json(array('success' => true));
-
     }
 
     function validateReport($type, $id, $request){
