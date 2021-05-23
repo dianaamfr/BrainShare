@@ -36,7 +36,7 @@ function updateReport(event){
 }
 
 function reportsUpdateHandler(response) {
-    console.log(response)
+ 
     if(response.hasOwnProperty('error')){
         showAlert(response.error, "error", manageReportsAlert);
         return;

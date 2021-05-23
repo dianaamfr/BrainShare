@@ -15,19 +15,20 @@ class UserPolicy
       return Auth::check();
     }
 
-    public function showManageUsers(){
-      return Auth::user()->isAdmin() || Auth::user()->isModerator();
+    public function showManageUsers(User $user){
+      return Auth::check() && ($user->isAdmin() || $user->isModerator());
     }
 
     public function updateState(User $user, User $updated){
-
+      if(!Auth::check()) return false;
+      
       // Administrators can change the role of any user
-      if($user->isAdmin()){
+      if ($user->isAdmin()){
         return true;
       }
 
       // Moderators can only change the role of Registered Users or of themselves
-      $updatedIsRegisteredUser = !$updated->isAdmin() && !$updated->isModerator();
+      $updatedIsRegisteredUser =  !$updated->isAdmin() && !$updated->isModerator();
 
       return $updatedIsRegisteredUser && $user->isModerator();
     }
