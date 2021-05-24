@@ -81,16 +81,16 @@
             @include('partials.question.report', ['margin' => ''])
         </div>
 
-        <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm{{$answer->id}}" role="button"
-           aria-expanded="false" aria-controls="collapseCommentForm{{$answer->id}}">Add Comment</a>
+        <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm-{{$answer->id}}" role="button"
+           aria-expanded="false" aria-controls="collapseCommentForm-{{$answer->id}}">Add Comment</a>
     </footer>
 
     <div class="comments">
         <div class="collapse" id="collapseCommentForm-{{$answer->id}}">
             <form class="submit-comments">
-                <input type="hidden" value="{{$answer->question_id}}">
+                <input type="hidden" name="answerID" value="{{$answer->id}}">
                 <div class="mb-3 p-3">
-                    <textarea class="form-control" rows="2" placeholder="Type your comment here"></textarea>
+                    <textarea class="form-control" rows="2" name="content" placeholder="Type your comment here"></textarea>
                     <div class="d-grid gap-2 d-flex justify-content-end">
                         <button class="btn btn-primary mt-3" type="submit">Submit</button>
                         <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse"
@@ -101,8 +101,8 @@
                 </div>
             </form>
         </div>
-
-        <div id="question-comments comments-answer-{{$answer->id}}">
+        <!-- <div id="question-comments"> -->
+        <div id="comments-answer-{{$answer->id}}">
             @include('partials.comments',['comment'=>$answer->comments])
         </div>
     </div>

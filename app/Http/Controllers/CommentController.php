@@ -31,17 +31,20 @@ class CommentController extends Controller
         // Return the changed view
          $answer = Answer::find(intval($id));
          $response = view('partials.comments', ['comment' => $answer->comments])->render();
-         return response()->json(array('success' => true, 'answerID' => $id, html => $response));
+         return response()->json(array('success' => true, 'answerID' => $id, 'html' => $response));
 
     }
-        public function deleteComment(Request $request, $id){
+        public function deleteComment($id){
                 
             // Find Comment
-            $comment = Answer::find($id);
-            $answer =  Answer::find($comment->$answer_id);
+            $comment = Comment::find($id);
+
+            //return array('success' => true, 'comment' => $comment);
+
+            $answer = Answer::find(intval($comment->answer_id));
     
             // Authorization
-            $this->authorize('delete', $comment);
+            //$this->authorize('delete', $comment);
             
             // Delete Comment
             $comment->delete();
@@ -67,11 +70,13 @@ class CommentController extends Controller
         $this->authorize('edit', $comment);
         
         // Edit comment
-        $comment->text = $request->text;
+        $comment->content = $request->text;
         $comment->save();
 
+        //return array('success' => true, 'comment' => $comment);
+
         // Return view of comments to refresh view
-        $answer = Answer::find(intval($comment->$answer_id));
+        $answer = Answer::find(intval($comment->answer_id));
         $response = view('partials.comments', ['comment' => $answer->comments])->render();
         return response()->json(array('success' => true, 'answerID' => $answer->id, 'html' => $response));
         

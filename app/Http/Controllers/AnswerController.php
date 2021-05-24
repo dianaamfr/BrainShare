@@ -41,7 +41,7 @@ class AnswerController extends Controller{
         
     }
 
-    public function deleteAnswer(Request $request,$id){
+    public function deleteAnswer($id){
 
         // Find Answer
         $answer = Answer::find(intval($id));
@@ -65,11 +65,9 @@ class AnswerController extends Controller{
     public function editAnswer(Request $request, $id){
 
         // Validation
-        /*
         $validated = $request->validate([
             'text' => 'required'
         ]);
-        */
         
         // Find Comment
         $answer = Answer::find(intval($id));

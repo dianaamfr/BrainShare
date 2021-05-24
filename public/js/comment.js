@@ -1,15 +1,34 @@
 import {sendDataAjaxRequest} from "./common.js"; 
 
-// Add Comment
-let comments = document.getElementsByClassName('submit-comment-form');
-let commentsList = [...comments];
-commentsList.forEach(addCommentEventListener);
+window.addEventListener('load', addEventListeners);
 
-// Delete Comment
+function addEventListeners(){
+    // Add Comment
+    let comments = document.getElementsByClassName('submit-comments');
+    let commentsList = [...comments];
+    commentsList.forEach(addCommentEventListener);
 
-let deleteCommentButtons = document.getElementsByClassName('delete-comment-form');
-let deleteCommentButtonsList = [...deleteCommentButtons];
-deleteCommentButtonsList.forEach(deleteCommentEventListener);
+    // Delete Comment
+    let deleteCommentButtons = document.getElementsByClassName('comment-delete-form');
+    let deleteCommentButtonsList = [...deleteCommentButtons];
+    deleteCommentButtonsList.forEach(deleteCommentEventListener);
+
+    // Edit Comment
+    let editCommentButtons = document.getElementsByClassName('comment-edit-form');
+    let editCommentButtonsList = [...editCommentButtons];
+    editCommentButtonsList.forEach(editCommentEventListener);
+    
+    // console.log(comments);
+    // console.log(commentsList);
+
+    // console.log(deleteCommentButtons);
+    // console.log(deleteCommentButtonsList);
+
+    // console.log(editCommentButtons);
+    // console.log(editCommentButtonsList);
+}
+
+
 
 function addCommentEventListener(element){
     element.addEventListener('submit',addComment);
@@ -19,7 +38,10 @@ function deleteCommentEventListener(element){
     element.addEventListener('submit',deleteComment);
 }
 
-// Edit Comment
+function editCommentEventListener(element){
+    element.addEventListener('submit',editComment);
+}
+
 
 function addComment(event){
 
@@ -34,7 +56,7 @@ function addComment(event){
     console.log(answerID);
     console.log(text);
 
-    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/' + answerID + 'comment/add', {'text':text}, handler);
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
     
 }
 
@@ -44,15 +66,32 @@ function deleteComment(event){
 
     // let questionID = this.querySelector('input[name="questionID"]').value;
     let commentID = this.querySelector('input[name="commentID"]').value;
-    let text = this.querySelector('textarea[name="content"]').value;
-
 
     // console.log(questionID);
-    console.log(answerID);
+    console.log(commentID);
+
+    sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
+    
+}
+
+// Falta dar fix ao css de modo a que consiga ir buscar o texto
+function editComment(event){
+
+    event.preventDefault();
+
+    //let questionID = this.querySelector('input[name="questionID"]').value;
+    let commentID = this.querySelector('input[name="commentID"]').value;
+    //let text = this.querySelector('textarea[name="content"]').value;
+    //let text = "hello my friend"
+    let text = this.querySelector('input[name="dummyText"]').value;
+
+    console.log(this);
+    //console.log(questionID);
+    console.log(commentID);
     console.log(text);
 
-    sendDataAjaxRequest("PUT",'/api/comment/' + commentID, {'text':text}, handler);
-    
+
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
 }
 
 function handler(responseJson){
@@ -60,8 +99,12 @@ function handler(responseJson){
     // need to receive the answerID in the request
     // then, all comments for that answer should be refreshed
     console.log(responseJson);
-    let answer = document.getElementById('comment-' + responseJson.commentID);
+    let answer = document.getElementById('comments-answer-' + responseJson.answerID);
+    console.log(answer);
     answer.innerHTML = responseJson.html;
+
+    // modificar isto para não refrescar tudo, mas apenas o modificado?
+    addEventListeners();
     
 }
 

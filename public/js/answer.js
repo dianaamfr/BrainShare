@@ -1,20 +1,29 @@
 import {sendDataAjaxRequest} from "./common.js"; 
 
-// Add Answer
-let form = document.getElementById('submit-answer');
-form.addEventListener("submit",submitAnswer);
+window.addEventListener('load', addEventListeners);
 
-// Delete Answer
-let deleteButtons = document.getElementsByClassName('answer-delete-form');
-console.log(deleteButtons);
-let deletionList = [...deleteButtons];
-deletionList.forEach(addDeleteListeners);
 
-// Edit Answer
-let editButtons = document.getElementsByClassName("answer-edit-form");
-console.log(editButtons);
-let editList = [...editButtons];
-editList.forEach(addEditListeners);
+function addEventListeners(){
+    // Add Answer
+    let form = document.getElementById('submit-answer');
+    form.addEventListener("submit",submitAnswer);
+
+    // Delete Answer
+    let deleteButtons = document.getElementsByClassName('answer-delete-form');
+
+    let deletionList = [...deleteButtons];
+    deletionList.forEach(addDeleteListeners);
+
+    // Edit Answer
+    let editButtons = document.getElementsByClassName("answer-edit-form");
+    let editList = [...editButtons];
+    editList.forEach(addEditListeners);
+
+    // console.log(editButtons);
+    // console.log(deleteButtons);
+
+}
+
 
 
 function addDeleteListeners(element){
@@ -51,7 +60,7 @@ function removeAnswer(event){
     console.log(answerID);
 
     //Route::delete('/api/question/{id-q}/answer/{id-a}
-    sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', {'text':'1'}, handler);
+    sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', null, handler);
     
 
 }
@@ -84,6 +93,7 @@ function handler(responseJson){
     if(responseJson.success){
         let answers = document.getElementById('all-answers');
         answers.innerHTML = responseJson.html;
+        addEventListeners();
     }
     
     
