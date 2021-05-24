@@ -37,7 +37,8 @@ class AnswerController extends Controller{
         // Return the changed view
         $question =  Question::find(intval($id));
         $response = view('partials.answers', ['answer' => $question->answers])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+
         
     }
 
@@ -49,15 +50,16 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('delete', $answer);
 
-        // Return the changed view
-        $question = Question::find(intval($answer->question_id));
-
+        
+        $answer_id = $answer->question_id;
+        
         // Delete Answer
         $answer->delete();
 
-        
+        // Return the changed view
+        $question = Question::find(intval($answer_id));
         $response = view('partials.answers', ['answer' => $question->answers])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
 
     }
 
@@ -82,7 +84,8 @@ class AnswerController extends Controller{
         // Return view of comments to refresh view
         $question =  Question::find(intval($answer->question_id));
         $response = view('partials.answers', ['answer' => $question->answers])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+
     }
 
 

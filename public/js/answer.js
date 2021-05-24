@@ -1,4 +1,5 @@
-import {sendDataAjaxRequest} from "./common.js"; 
+import {sendDataAjaxRequest} from "./common.js";
+import {addCommentEventListeners} from "./comment.js"; 
 
 window.addEventListener('load', addEventListeners);
 
@@ -39,9 +40,12 @@ function submitAnswer(event){
 
     event.preventDefault();
 
-    let text = this.querySelector('textarea[name="content"]').value;
     let id = this.querySelector('input[name="questionID"]').value;
+    let textElement = this.querySelector('textarea[name="content"]');
+    let text = textElement.value;
 
+    // This is not doing anytihing because of the markdown framework
+    textElement.value = "";
 
     sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
 
@@ -93,7 +97,10 @@ function handler(responseJson){
     if(responseJson.success){
         let answers = document.getElementById('all-answers');
         answers.innerHTML = responseJson.html;
+        let number_answers = document.getElementById("question-number-answers");
+        number_answers.innerHTML = responseJson.number_answers + ' answers';
         addEventListeners();
+        addCommentEventListeners();
     }
     
     

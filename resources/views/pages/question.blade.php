@@ -64,7 +64,7 @@
     <!-- Questions -->
     <section class="answers">
         <header class="d-flex align-items-center">
-            <h4 class="d-inline-block">{{$question->number_answer}} answers</h4>
+            <h4 id="question-number-answers" class="d-inline-block">{{$question->number_answer}} answers</h4>
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">

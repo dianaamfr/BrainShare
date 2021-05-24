@@ -1,8 +1,8 @@
 import {sendDataAjaxRequest} from "./common.js"; 
 
-window.addEventListener('load', addEventListeners);
+window.addEventListener('load', addCommentEventListeners);
 
-function addEventListeners(){
+export function addCommentEventListeners(){
     // Add Comment
     let comments = document.getElementsByClassName('submit-comments');
     let commentsList = [...comments];
@@ -49,12 +49,23 @@ function addComment(event){
 
     // let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
-    let text = this.querySelector('textarea[name="content"]').value;
+    let textElement = this.querySelector('textarea[name="content"]')
+    let text = textElement.value;
+    textElement.value = "";
+
+    console.log(text);
+    console.log(textElement);
+
 
 
     // console.log(questionID);
     console.log(answerID);
     console.log(text);
+
+    
+
+
+
 
     sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
     
@@ -99,12 +110,18 @@ function handler(responseJson){
     // need to receive the answerID in the request
     // then, all comments for that answer should be refreshed
     console.log(responseJson);
-    let answer = document.getElementById('comments-answer-' + responseJson.answerID);
-    console.log(answer);
-    answer.innerHTML = responseJson.html;
+    if(responseJson.success){
+        let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
+        console.log(answer);
+        answer.innerHTML = responseJson.html;
 
-    // modificar isto para não refrescar tudo, mas apenas o modificado?
-    addEventListeners();
+        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
+        number_comments.innerHTML = responseJson.number_comments + " Comments";
+
+        // modificar isto para não refrescar tudo, mas apenas o modificado?
+        addCommentEventListeners();
+    }
+    
     
 }
 

@@ -15,6 +15,7 @@
         </div>
 
         <div>
+            @can('edit',$comment)
             <form title="Edit-comment" class="comment-edit-form">
                 <button class="icon-hover" title="Edit-comment" class="edit-comment-button" type="submit">
                     <input type="hidden" name="dummyText" value="dummyText">
@@ -23,6 +24,9 @@
                     <i class="fas fa-edit"></i>
                 </button>
             </form>
+            @endcan
+
+            @can('delete',$comment)
             <form title="Delete-comment" class="comment-delete-form">
                 <input type="hidden" name="commentID" value="{{$comment->id}}">
                 <button class="icon-hover" type="submit">
@@ -30,6 +34,8 @@
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </form>
+            @endcan
+            
         </div>
     </div>
 </div>

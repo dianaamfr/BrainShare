@@ -31,29 +31,30 @@ class CommentController extends Controller
         // Return the changed view
          $answer = Answer::find(intval($id));
          $response = view('partials.comments', ['comment' => $answer->comments])->render();
-         return response()->json(array('success' => true, 'answerID' => $id, 'html' => $response));
+         return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $id, 'html' => $response));
 
     }
-        public function deleteComment($id){
-                
-            // Find Comment
-            $comment = Comment::find($id);
 
-            //return array('success' => true, 'comment' => $comment);
+    public function deleteComment($id){
+            
+        // Find Comment
+        $comment = Comment::find($id);
 
-            $answer = Answer::find(intval($comment->answer_id));
-    
-            // Authorization
-            //$this->authorize('delete', $comment);
-            
-            // Delete Comment
-            $comment->delete();
-            
-            // Return the chaged view
-            
-            $response = view('partials.comments', ['comment' => $answer->comments])->render();
-            return response()->json(array('success' => true, 'answerID' => $answer->id, 'html' => $response));
-        }
+        // Authorization
+        $this->authorize('delete', $comment);
+        
+        // Getting answer ID before deletion
+        $answer_id = $comment->answer_id;
+
+        // Delete Comment
+        $comment->delete();
+        
+        // Return the chaged view
+        
+        $answer = Answer::find(intval($answer_id));
+        $response = view('partials.comments', ['comment' => $answer->comments])->render();
+        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer_id, 'html' => $response));
+    }
 
 
     public function editComment(Request $request, $id){
@@ -78,7 +79,7 @@ class CommentController extends Controller
         // Return view of comments to refresh view
         $answer = Answer::find(intval($comment->answer_id));
         $response = view('partials.comments', ['comment' => $answer->comments])->render();
-        return response()->json(array('success' => true, 'answerID' => $answer->id, 'html' => $response));
+        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer->id, 'html' => $response));
         
     }
 

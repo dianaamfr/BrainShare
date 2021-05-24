@@ -24,6 +24,6 @@ class CommentPolicy{
 
     public function delete(User $user, Comment $comment){
         // Only a comment owner can delete it or the Administrator
-        return $user->id === $comment->comment_onwer_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
+        return $user->id === $comment->comment_owner_id || Auth::user()->isAdmin() || Auth::user()->isModerator();
     }
 }

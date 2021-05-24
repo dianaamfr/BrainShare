@@ -7,6 +7,7 @@
     <header class="question-author pagination align-items-center justify-content-end card-header">
 
         <div>
+            @can('edit',$answer)
             <form title="Edit-answer" class="answer-edit-form">
                 @csrf
                 <button class="icon-hover" title="Edit-answer" class="edit-answer-button" type="submit">
@@ -16,6 +17,8 @@
                     <i class="fas fa-edit"></i>
                 </button>
             </form>
+            @endcan
+            @can('delete',$answer)
             <form title="Delete-answer" class="answer-delete-form">
                 @csrf
                 <input type="hidden" name="questionID" value="{{$answer->question_id}}">
@@ -25,6 +28,7 @@
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </form>
+            @endcan
         </div>
 
         <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
@@ -65,7 +69,7 @@
     </div>
 
     <footer class="d-flex align-items-center">
-        <span class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
+        <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
 
         <!-- if question owner -->
         @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
