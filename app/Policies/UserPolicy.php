@@ -11,8 +11,9 @@ class UserPolicy
 {
     use HandlesAuthorization;
     
-    public function show(){
-      return Auth::check();
+    public function show(User $user, User $profile){
+
+      return Auth::check() && ($profile->ban === false || $user->isAdmin() || $user->isModerator());
     }
 
     public function showManageUsers(User $user){

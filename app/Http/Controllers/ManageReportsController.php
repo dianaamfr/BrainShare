@@ -145,20 +145,21 @@ class ManageReportsController extends Controller {
     }
 
     private function excludeOwnReports($reports){
-        return $reports->where(function($query){
-            $query->where(function($query) {
-                $query->where('reported_id', '!=', Auth::user()->id);
-            })
-            ->orWhereHas('question', function ($query){
-                $query->where('question_owner_id', '!=', Auth::user()->id);
-            })
-            ->orWhereHas('answer', function ($query){
-                $query->where('answer_owner_id', '!=', Auth::user()->id);
-            })
-            ->orWhereHas('comment', function ($query){
-                $query->where('comment_owner_id', '!=', Auth::user()->id);
-            }); 
-        });
+        return $reports->where('user_id', '!=', Auth::user()->id)
+            ->where(function($query){
+                $query->whereHas('reported', function($query) {
+                    $query->where('reported_id', '!=', Auth::user()->id);
+                })
+                ->orWhereHas('question', function ($query){
+                    $query->where('question_owner_id', '!=', Auth::user()->id);
+                })
+                ->orWhereHas('answer', function ($query){
+                    $query->where('answer_owner_id', '!=', Auth::user()->id);
+                })
+                ->orWhereHas('comment', function ($query){
+                    $query->where('comment_owner_id', '!=', Auth::user()->id);
+                }); 
+            });
         
     }
 
@@ -187,33 +188,34 @@ class ManageReportsController extends Controller {
 
     private function filterReportsByOwner($reports, Request $request){
 
-        return $reports->where(function($query) use ($request){
-            $query->whereHas('reported', function ($query) use ($request){
-                $query->where('id', '!=', Auth::user()->id)
-                ->where('user_role', '=', 'RegisteredUser')
-                ->where('username', 'ILIKE', $request->input('search-username') . '%');
-            })
-            ->orWhereHas('question', function ($query) use ($request){
-                $query->where('question_owner_id', '!=', Auth::user()->id)
-                ->whereHas('owner', function ($query) use ($request){
-                    $query->where('user_role', '=', 'RegisteredUser')
+        return $reports->where('user_id', '!=', Auth::user()->id)
+            ->where(function($query) use ($request){
+                $query->whereHas('reported', function ($query) use ($request){
+                    $query->where('id', '!=', Auth::user()->id)
+                    ->where('user_role', '=', 'RegisteredUser')
                     ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                });
-            })
-            ->orWhereHas('answer', function ($query) use ($request){
-                $query->where('answer_owner_id', '!=', Auth::user()->id)
-                ->whereHas('owner', function ($query) use ($request){
-                    $query->where('user_role', '=', 'RegisteredUser')
-                    ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                });
-            })
-            ->orWhereHas('comment', function ($query) use ($request){
-                $query->where('comment_owner_id', '!=', Auth::user()->id)
-                ->whereHas('owner', function ($query) use ($request){
-                    $query->where('user_role', '=', 'RegisteredUser')
-                    ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                });
-            }); 
+                })
+                ->orWhereHas('question', function ($query) use ($request){
+                    $query->where('question_owner_id', '!=', Auth::user()->id)
+                    ->whereHas('owner', function ($query) use ($request){
+                        $query->where('user_role', '=', 'RegisteredUser')
+                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
+                    });
+                })
+                ->orWhereHas('answer', function ($query) use ($request){
+                    $query->where('answer_owner_id', '!=', Auth::user()->id)
+                    ->whereHas('owner', function ($query) use ($request){
+                        $query->where('user_role', '=', 'RegisteredUser')
+                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
+                    });
+                })
+                ->orWhereHas('comment', function ($query) use ($request){
+                    $query->where('comment_owner_id', '!=', Auth::user()->id)
+                    ->whereHas('owner', function ($query) use ($request){
+                        $query->where('user_role', '=', 'RegisteredUser')
+                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
+                    });
+                }); 
         });
         
     }

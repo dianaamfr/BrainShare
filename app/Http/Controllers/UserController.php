@@ -16,7 +16,10 @@ class UserController extends Controller
     public function showProfile($id){
   
       if (!Auth::check()) return redirect('/login');
+
       $user = User::find($id);
+      $this->authorize('show', $user);
+      
       $questions = $user->questions()->simplePaginate(3);
       $answers = $user->answers()->simplePaginate(3);
 

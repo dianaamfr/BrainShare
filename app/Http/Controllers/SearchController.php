@@ -63,7 +63,7 @@ class SearchController extends Controller
       $rules = array('courses'=>'numericarray',
                     'tags'=>'numericarray');
 
-      $questions = Question::with(['owner','courses', 'tags']);
+      $questions = Question::with(['owner','courses', 'tags'])->where('deleted', '=', false);
 
       // Filter by course
       if($courses != null && count($courses) > 0){

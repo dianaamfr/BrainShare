@@ -15,8 +15,10 @@ class QuestionController extends Controller
 {
 
     public function show($id)
-    {
+    {       
         $question = Question::find($id);
+        $this->authorize('show', $question);
+
         return view('pages.question', ['question' => $question]);
     }
 
@@ -32,9 +34,8 @@ class QuestionController extends Controller
     public function showEditQuestionForm($id)
     {
         $question = Question::find($id);
-        $question_owner_id = $question['question_owner_id'];
-        if (!Auth::check()) return redirect('/login');
-        else if (!(Auth::user()->id == $question_owner_id || Auth::user()->isModerator() || Auth::user()->isAdmin())) return redirect('/error');
+        $this->authorize('edit', $question);
+
         $courses = Course::all();
         $tags = Tag::all();
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
