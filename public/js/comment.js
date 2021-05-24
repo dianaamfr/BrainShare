@@ -114,7 +114,7 @@ function handler(responseJson){
         let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
         console.log(answer);
         answer.innerHTML = responseJson.html;
-
+        
         let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
         number_comments.innerHTML = responseJson.number_comments + " Comments";
 
