@@ -7,6 +7,7 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
         request.addEventListener('load', handler);
         request.send();
     }
+    
     function requestHandler(){
         if (this.status != 200) window.location = '';
         let response = JSON.parse(this.responseText);

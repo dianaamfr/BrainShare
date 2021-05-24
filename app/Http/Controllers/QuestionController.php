@@ -188,18 +188,18 @@ class QuestionController extends Controller
                 $question = Question::find($questionId);
                 $score = $question->score;
 
-                return response()->json(array('success' => false, 'score' => $score));
+                return response()->json(array('success' => false, 'id' => $question->id, 'score' => $score));
             }
 
             $question = Question::find($questionId);
             $score = $question->score;
 
-            return response()->json(array('success' => true, 'score' => $score));
+            return response()->json(array('success' => true, 'id' => $question->id, 'score' => $score));
         } catch(QueryException $e) {
             $question = Question::find($questionId);
             $score = $question->score;
 
-            return response()->json(array('success' => false, 'score' => $score));
+            return response()->json(array('success' => false, 'id' => $question->id, 'score' => $score));
         }
     }
 
@@ -223,18 +223,18 @@ class QuestionController extends Controller
                 $answer = Answer::find($answerId);
                 $score = $answer->score;
 
-                return response()->json(array('success' => false, 'score' => $score));
+                return response()->json(array('success' => false, 'id' => $answer->id, 'score' => $score));
             }
 
             $answer = Answer::find($answerId);
             $score = $answer->score;
 
-            return response()->json(array('success' => true, 'score' => $score));
+            return response()->json(array('success' => true, 'id' => $answer->id, 'score' => $score));
         } catch(QueryException $e) {
             $answer = Answer::find($answerId);
             $score = $answer->score;
 
-            return response()->json(array('success' => false, 'score' => $score));
+            return response()->json(array('success' => false, 'id' => $answer->id, 'score' => $score));
         }
     }
 

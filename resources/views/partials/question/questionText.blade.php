@@ -12,33 +12,33 @@
 
     @if ($value == 1)
         <button id="score" class="icon-hover vote_btn" title="Up Vote" type="submit">
-            <i class="bi bi-caret-up-fill upvote-question"></i>
-            <i class="bi bi-caret-up upvote-question"></i>
+            <i class="bi bi-caret-up-fill upvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-up-fill upvote-question-{{ $question->id }} text-dark"></i>
         </button>
         <p class="points m-0 question-score">{{$question->score}}</p>
         <button class="icon-hover vote_btn" title="Down Vote" type="submit">
-            <i class="bi bi-caret-down downvote-question"></i>
-            <i class="bi bi-caret-down-fill downvote-question"></i>
+            <i class="bi bi-caret-down downvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-down-fill downvote-question-{{ $question->id }} text-dark"></i>
         </button>
     @elseif ($value == -1)
         <button id="score" class="icon-hover vote_btn" title="Up Vote" type="submit">
-            <i class="bi bi-caret-up upvote-question"></i>
-            <i class="bi bi-caret-up-fill upvote-question"></i>
+            <i class="bi bi-caret-up upvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-up-fill upvote-question-{{ $question->id }} text-dark"></i>
         </button>
         <p class="points m-0 question-score">{{$question->score}}</p>
         <button class="icon-hover vote_btn" title="Down Vote" type="submit">
-            <i class="bi bi-caret-down-fill downvote-question"></i>
-            <i class="bi bi-caret-down downvote-question"></i>
+            <i class="bi bi-caret-down-fill downvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-down-fill downvote-question-{{ $question->id }} text-dark"></i>
         </button>
     @else
         <button id="score" class="icon-hover vote_btn" title="Up Vote" type="submit">
-            <i class="bi bi-caret-up upvote-question"></i>
-            <i class="bi bi-caret-up-fill upvote-question"></i>
+            <i class="bi bi-caret-up upvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-up-fill upvote-question-{{ $question->id }} text-dark"></i>
         </button>
         <p class="points m-0 question-score">{{$question->score}}</p>
         <button class="icon-hover vote_btn" title="Down Vote" type="submit">
-            <i class="bi bi-caret-down downvote-question"></i>
-            <i class="bi bi-caret-down-fill downvote-question"></i>
+            <i class="bi bi-caret-down downvote-question-{{ $question->id }}"></i>
+            <i class="bi bi-caret-down-fill downvote-question-{{ $question->id }} text-dark"></i>
         </button>
     @endif
 </div>

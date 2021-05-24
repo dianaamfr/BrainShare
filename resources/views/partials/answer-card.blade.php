@@ -17,47 +17,43 @@
                 }
             }
         @endphp
-        
-        @if ($value == 1)
-            <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+
+        <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+            @if ($value == 1)
                 <input class="answer-id" value="{{ $answer->id }}" hidden/>
                 <button class="icon-hover vote_btn" title="Up Vote" type="submit">
                     <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill"></i>
-                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up"></i>
+                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
                 </button>
                 <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
                 <button class="icon-hover vote_btn" title="Down Vote" type="submit">
                     <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down"></i>
-                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill"></i>
+                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
                 </button>
-            </div>
-        @elseif ($value == -1)
-            <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+            @elseif ($value == -1)
                 <input class="answer-id" value="{{ $answer->id }}" hidden/>
                 <button class="icon-hover vote_btn" title="Up Vote" type="submit">
                     <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up"></i>
-                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill"></i>
+                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
                 </button>
                 <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
                 <button class="icon-hover vote_btn" title="Down Vote" type="submit">
                     <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill"></i>
-                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down"></i>
+                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
                 </button>
-            </div>
-        @else
-            <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+            @else
                 <input class="answer-id" value="{{ $answer->id }}" hidden/>
                 <button class="icon-hover vote_btn" title="Up Vote" type="submit">
                     <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up"></i>
-                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill"></i>
+                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
                 </button>
                 <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
                 <button class="icon-hover vote_btn" title="Down Vote" type="submit">
                     <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down"></i>
-                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill"></i>
+                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
                 </button>
-            </div>
-        @endif
+            @endif
+        </div>
 
 
 
