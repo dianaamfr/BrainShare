@@ -35,7 +35,7 @@ class User extends Authenticatable
     ];
 
     public function questions() {
-        return $this->hasMany(Question::class, 'question_owner_id');
+        return $this->hasMany(Question::class, 'question_owner_id')->where('deleted', '=', false);
     }
 
     public function answers() {

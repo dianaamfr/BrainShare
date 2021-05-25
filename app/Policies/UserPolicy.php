@@ -10,30 +10,26 @@ use Illuminate\Support\Facades\Auth;
 class UserPolicy
 {
     use HandlesAuthorization;
+    
+    public function show(User $user, User $profile){
 
-    public function show()
-    {
-        return Auth::check();
+      return Auth::check() && ($profile->ban === false || $user->isAdmin() || $user->isModerator());
     }
 
-    public function showManageUsers()
-    {
-        return Auth::user()->isAdmin() || Auth::user()->isModerator();
+    public function showManageUsers(User $user){
+      return Auth::check() && ($user->isAdmin() || $user->isModerator());
     }
 
-    // Only the user can edit it's profile.
-    public function showEditUserProfile(User $user, User $editUser): bool
-    {
-        return $editUser->id == $user->id;
-    }
+    public function updateState(User $user, User $updated){
+      if(!Auth::check()) return false;
+      
+      // Administrators can change the role of any user
+      if ($user->isAdmin()){
+        return true;
+      }
 
-    public function editUserProfile(User $user, User $editUser): bool
-    {
-        return $editUser->id == $user->id;
-    }
-
-    public function delete(User $user, User $deleted): bool
-    {
+      // Moderators can only change the role of Registered Users or of themselves
+      $updatedIsRegisteredUser =  !$updated->isAdmin() && !$updated->isModerator();
 
         // Administrators can delete any user
         if ($user->isAdmin()) {
