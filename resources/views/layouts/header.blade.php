@@ -54,6 +54,7 @@
                 <i class="far fa-bell"></i>
                 <i class="fas fa-bell"></i>
               </button>
+              
               <form method="post" action="{{ route('logout')}}">
                 {{ csrf_field() }}
                 <button class="registration-button btn btn-outline-primary">Logout</button>
@@ -69,4 +70,7 @@
     </nav>
 </header>
 
-@include('partials.notifications.notifications')
+<!-- Registered Users options -->
+@if (Auth::check()) 
+  @include('partials.notifications.notifications')
+@endif

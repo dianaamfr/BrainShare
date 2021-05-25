@@ -1,30 +1,4 @@
-/* TO IMPORT
-*/
-function encodeForAjax(data) {
-    if (data == null) return null;
-    return Object.keys(data).map(function(k){
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&');
-}
-
-function sendDataAjaxRequest(method, url, data, handleResponse) {
-    let dataJson = JSON.stringify(data);
-    fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Request-With': "XMLHttpRequest",
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
-            method: method,
-            credentials: 'same-origin',
-            body: dataJson
-        },
-    ).then(response => response.json()).then(json => handleResponse(json));
-}
-
-/* TO IMPORT
-*/
+import {sendDataAjaxRequest} from './common.js';
 
 function markValidHandler(json) {
     let element = document.querySelector(".valid-icon-" + json.answerId);
