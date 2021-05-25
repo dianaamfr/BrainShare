@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="page-margin" id="search-page">
-
+    {{dd(session()->get("message"))}}
   <!-- Questions Results -->
   <div class="mt-md-5">
     <header>

@@ -38,6 +38,8 @@ class LoginController extends Controller
     }
 
     public function getUser(){
+        dd("shit");
+        session("message", "Logged with success");
         return $request->user();
     }
 
