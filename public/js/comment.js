@@ -17,6 +17,16 @@ export function addCommentEventListeners(){
     let editCommentButtons = document.getElementsByClassName('comment-edit-form');
     let editCommentButtonsList = [...editCommentButtons];
     editCommentButtonsList.forEach(editCommentEventListener);
+
+
+    let edit = document.getElementsByClassName("submit-edit-comments");
+    let editButtonList = [...edit];
+    editButtonList.forEach(editEventListener);
+
+
+    let cancelEdit = document.querySelectorAll(".submit-edit-comments button[type=button]");
+    let cancelEditList = [...cancelEdit];
+    cancelEditList.forEach(cancelEventListener);
     
     // console.log(comments);
     // console.log(commentsList);
@@ -24,8 +34,10 @@ export function addCommentEventListeners(){
     // console.log(deleteCommentButtons);
     // console.log(deleteCommentButtonsList);
 
-    // console.log(editCommentButtons);
-    // console.log(editCommentButtonsList);
+    console.log(editCommentButtons);
+    console.log(editCommentButtonsList);
+    console.log(cancelEdit);
+    console.log(cancelEditList);
 }
 
 
@@ -38,8 +50,21 @@ function deleteCommentEventListener(element){
     element.addEventListener('submit',deleteComment);
 }
 
+// function editCommentEventListener(element){
+//     element.addEventListener('submit',editComment);
+// }
+
 function editCommentEventListener(element){
-    element.addEventListener('submit',editComment);
+    element.addEventListener('submit',editComment2);
+}
+
+function editEventListener(element){
+    element.addEventListener('submit',submitEdit);
+}
+
+function cancelEventListener(element){
+    console.log(element);
+    element.addEventListener('click',cancelEditComment);
 }
 
 
@@ -105,6 +130,68 @@ function editComment(event){
     sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
 }
 
+function editComment2(event){
+
+    event.preventDefault();
+
+    let commentID = this.querySelector('input[name="commentID"]').value;
+    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
+    let comment = document.getElementById('comment-' + commentID);
+    
+    console.log(commentID);
+
+    if(hiddenForm.style.display == 'none'){
+        hiddenForm.style.display = 'block';
+        comment.style.display = 'none';
+    }
+    else if (comment.style.display == 'none' ){
+        hiddenForm.style.display = 'none';
+        comment.style.display = 'block';
+    }
+
+}
+
+function cancelEditComment(event){
+
+    event.preventDefault();
+
+    let commentID = this.name;
+    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
+    let comment = document.getElementById('comment-' + commentID);
+
+    // This block is not necessary 
+    if(hiddenForm.style.display == 'none'){
+        hiddenForm.style.display = 'block';
+        comment.style.display = 'none';
+    }
+    else if (comment.style.display == 'none' ){
+        hiddenForm.style.display = 'none';
+        comment.style.display = 'block';
+    }
+
+}
+
+
+// Falta dar fix ao css de modo a que consiga ir buscar o texto
+function submitEdit(event){
+
+    event.preventDefault();
+
+    //let questionID = this.querySelector('input[name="questionID"]').value;
+    let commentID = this.querySelector('input[name="commentID"]').value;
+    //let text = this.querySelector('textarea[name="content"]').value;
+    //let text = "hello my friend"
+    let text = this.querySelector('textarea').value;
+
+    console.log(this);
+    //console.log(questionID);
+    console.log(commentID);
+    console.log(text);
+
+
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+}
+
 function handler(responseJson){
 
     // need to receive the answerID in the request
@@ -114,7 +201,7 @@ function handler(responseJson){
         let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
         console.log(answer);
         answer.innerHTML = responseJson.html;
-        
+
         let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
         number_comments.innerHTML = responseJson.number_comments + " Comments";
 
@@ -125,79 +212,5 @@ function handler(responseJson){
     
 }
 
-/*
 
-addEvenListeners();
-
-function addEvenListeners(){
-
-    
-    let forms = document.getElementsByClassName("submit-comment");
-
-
-    // POST method
-    // EventListener for adding an answer
-    form.forEach(element => {
-
-        element.addEventListener('submit',function(event){
-
-            event.preventDefault();
-    
-            let text = element.querySelector('textarea').value; // testar .textContent se value não der
-            let questionID = element.querySelector('input[type="hidden"]').value;
-            let answerID = element.parent.parentNode.id.split("-")[1];
-    
-            // Preciso de somehow obter o id da answer
-            sendAjaxRequest('post','/api/question/' + questionID + '/answer/' + answerID, {text: 'hello'},submitCommentHandler);
-            
-        });
-    });
-
-    
-    // PUT method
-    // EventListener for Editing an answer
-    addEventListener('click',function(event){
-        event.preventDefault();
-
-    
-    });
-    
-    
-    // Get method
-    // EventListener for Removing an answer
-    addEventListener('click',function(event){
-
-        // Não tenho a certeza se é preciso o preventDefault
-        event.preventDefault();
-
-
-    });
-    
-
-}
-
-function submitCommentHandler(response) {
-
-    console.log(response);
-    let div = document.getElementById("question-comments");
-    div.innerHTML = response;
-}
-
-function sendDataAjaxRequest(method, url, data, handleResponse) {
-    let dataJson = JSON.stringify(data);
-    fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Request-With': "XMLHttpRequest",
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
-            method: method,
-            credentials: 'same-origin',
-            body: dataJson
-        },
-    ).then(response => response.json()).then(json => handleResponse(json));
-}
-
-*/
 

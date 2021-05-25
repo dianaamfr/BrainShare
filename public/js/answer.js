@@ -93,7 +93,6 @@ function editAnswer(event){
 function handler(responseJson){
 
     console.log(responseJson);
-    console.log(responseJson.success);
     if(responseJson.success){
         let answers = document.getElementById('all-answers');
         answers.innerHTML = responseJson.html;
