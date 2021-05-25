@@ -48,14 +48,18 @@ Route::delete('question/{id}', 'QuestionController@delete')->name('delete-questi
 
 // Answer
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
-
-Route::put('/api/question/{id-q}/answer/{id-a}','AnswerController@editAnswer')->name('edit-answer');
-Route::delete('/api/question/{id-q}/answer/{id-a}','AnswerController@deleteAnswer')->name('delete-answer');
+//Route::post('/api/test','AnswerController@newRoute');
+Route::put('/api/answer/{id}/edit','AnswerController@editAnswer')->name('edit-answer');
+Route::delete('/api/answer/{id}/delete','AnswerController@deleteAnswer')->name('delete-answer');
 
 // Comment
-Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
-Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
-Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
+// I dont need the questions in the route, I only need the answers, so I am switching the routes (change de API later)
+// Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
+// Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
+// Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
+Route::post('/api/answer/{id}/comment/add','CommentController@addComment')->name('add-comment');
+Route::put('/api/comment/{id}/edit','CommentController@editComment')->name('edit-comment');
+Route::delete('/api/comment/{id}/delete','CommentController@deleteComment')->name('delete-comment');
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

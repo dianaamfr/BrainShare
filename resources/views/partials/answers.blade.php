@@ -1,1 +1,3 @@
-@each('partials.answer-card', $question->answers, 'answer')
+
+
+@each('partials.answer-card', $answer, 'answer')

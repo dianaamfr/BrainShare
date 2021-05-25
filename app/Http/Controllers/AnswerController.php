@@ -18,16 +18,15 @@ class AnswerController extends Controller{
     public function newAnswer(Request $request, $id){
         
         // Authorization
-        //if(!$this->authorize('create', Answer::class)) return redirect('login');
+        $this->authorize('create', Answer::class);
         
-        // Validate the parameters of the request (TODO: Check if this is ok)
+        // Validation
         $validated = $request->validate([
             'text' => 'required'
         ]);
 
-        
 
-        // Add the answer to the database (Id has default value, hence should be omissible)
+        // Add the Answer
         $answer = new Answer;
         $answer->question_id = $id;
         $answer->answer_owner_id = Auth::user()->id;
@@ -35,19 +34,58 @@ class AnswerController extends Controller{
         $answer->save();
 
         
-        // Get the quuestion in order to find all the answers again
+        // Return the changed view
         $question =  Question::find(intval($id));
-        $answers = $question->answers;
+        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
 
-        return response()->json($answers);
+        
+    }
 
-        /*
-        $response = view('partials.answers', ['answer' => $answers])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+    public function deleteAnswer($id){
+
+        // Find Answer
+        $answer = Answer::find(intval($id));
+
+        // Authorization
+        $this->authorize('delete', $answer);
+
         
-            */
-        //return response()->json(['success' => 'true']);
+        $answer_id = $answer->question_id;
         
+        // Delete Answer
+        $answer->delete();
+
+        // Return the changed view
+        $question = Question::find(intval($answer_id));
+        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+
+    }
+
+
+    public function editAnswer(Request $request, $id){
+
+        // Validation
+        $validated = $request->validate([
+            'text' => 'required'
+        ]);
+        
+        // Find Comment
+        $answer = Answer::find(intval($id));
+        
+        // Authorization
+        $this->authorize('edit', $answer);
+        
+        // Edit Answer
+        $answer->content = $request->text;
+        $answer->save();
+
+        // Return view of comments to refresh view
+        $question =  Question::find(intval($answer->question_id));
+        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+
     }
 
 

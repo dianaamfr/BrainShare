@@ -11,79 +11,78 @@ use App\Models\Answer;
 
 class CommentController extends Controller
 {
-    public function addComment(Request $request){
-
+    public function addComment(Request $request, $id){
 
         // Authorization
-        if(!$this->authorize('create', Comment::class)) return redirect('login');
+        $this->authorize('create', Comment::class);
 
-        // UPDATE ANSWER TO ONLY SHOW A CERTAIN AMMOUNT OF COMMENTS
-        // Request validation
+        // Validation
          $validated = $request->validate([
-             'answer_id' => 'integer',
-             'content' => 'required'
+            'text' => 'required'
          ]);
  
-         // Add comment
+         // Add Comment
          $comment = new Comment;
-         $comment->answer_id = $request->input('answer_id');
+         $comment->answer_id = $id;
          $comment->comment_owner_id = Auth::user()->id;
-         $comment->content = $request->input('content');
+         $comment->content = $request->text;
          $comment->save();
          
-         
-        // Return view of comments to refresh view
-         $answer = Answer::find($request->input('answer_id'));
-         
-         $response = view('partials.comment-card', [$answer->comments, 'answer'])->render();
-         return response()->json(array('success' => true, 'html' => $response));
+        // Return the changed view
+         $answer = Answer::find(intval($id));
+         $response = view('partials.comments', ['comment' => $answer->comments])->render();
+         return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $id, 'html' => $response));
+
+    }
+
+    public function deleteComment($id){
+            
+        // Find Comment
+        $comment = Comment::find($id);
+
+        // Authorization
+        $this->authorize('delete', $comment);
+        
+        // Getting answer ID before deletion
+        $answer_id = $comment->answer_id;
+
+        // Delete Comment
+        $comment->delete();
+        
+        // Return the chaged view
+        
+        $answer = Answer::find(intval($answer_id));
+        $response = view('partials.comments', ['comment' => $answer->comments])->render();
+        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer_id, 'html' => $response));
     }
 
 
-    public function editComment(Request $request){
+    public function editComment(Request $request, $id){
 
-        // Request validation
+        // Validation
         $validated = $request->validate([
-            'content' => 'required'
+            'text' => 'required'
         ]);
         
+        // Find Comment
+        $comment = Comment::find(intval($id));
+        
         // Authorization
-        $this->authorize('edit', $comment_id);
+        $this->authorize('edit', $comment);
         
         // Edit comment
-        $comment = Comment::find(intval($request->id));
-        $comment->content = $request->content;
+        $comment->content = $request->text;
         $comment->save();
 
+        //return array('success' => true, 'comment' => $comment);
 
         // Return view of comments to refresh view
-        $answer = Answer::find($comment->$answer_id);
-        $response = view('partials.comment-card', [$answer->comments, 'comment'])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        $answer = Answer::find(intval($comment->answer_id));
+        $response = view('partials.comments', ['comment' => $answer->comments])->render();
+        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer->id, 'html' => $response));
         
     }
 
-    public function deleteComment(Request $request){
-
-        // Validate the parameters of the request (TODO: Check if this is ok)
-        $validated = $request->validate([
-            'comment_id' => 'integer',
-        ]); 
-
-        $comment = Answer::find($comment_id);
-
-        // Verify if the deelte-answer operation is allowed
-        $this->authorize('delete', $comment_id);
-
-        
-        // Delete the question from the table
-        $comment->delete();
-         // Get the quuestion in order to find all the answers again
-        
-        // Return view of comments to refresh view
-        $answer =  Answer::find($comment->$answer_id);
-        $response = view('partials.comment-card', [$answer->comments, 'comment'])->render();
-        return response()->json(array('success' => true, 'html' => $response));
-    }
+    
 
   }

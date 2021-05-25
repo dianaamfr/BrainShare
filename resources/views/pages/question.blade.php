@@ -3,7 +3,9 @@
 @section('content')
 
 @section('scripts')
-    <script src={{ asset('js/answer.js')}}  type="module"></script>
+<script  src={{ asset('js/answer.js')}}  type="module"></script>
+<script  src={{ asset('js/comment.js')}}  type="module"></script>
+
     <script src={{ asset('js/report.js') }} type="module"></script>
 @endsection
 
@@ -64,7 +66,7 @@
     <!-- Answer -->
     <section class="answers">
         <header class="d-flex align-items-center">
-            <h4 class="d-inline-block">{{$question->number_answer}} answers</h4>
+            <h4 id="question-number-answers" class="d-inline-block">{{$question->number_answer}} answers</h4>
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
