@@ -11,9 +11,11 @@
     <div class="row align-items-center px-3">
         @php
             $value = 0;
-            foreach ($answer->votes as $element) { 
-                if ($element['user_id'] == Auth::user()->id) {
-                    $value = $element['value_vote'];
+            if(Auth::check()) {
+                foreach ($answer->votes as $element) { 
+                    if ($element['user_id'] == Auth::user()->id) {
+                        $value = $element['value_vote'];
+                    }
                 }
             }
         @endphp

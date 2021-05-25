@@ -3,9 +3,11 @@
 
     @php
         $value = 0;
-        foreach ($question->votes as $element) { 
-            if ($element['user_id'] == Auth::user()->id) {
-                $value = $element['value_vote'];
+        if(Auth::check()) {
+            foreach ($question->votes as $element) { 
+                if ($element['user_id'] == Auth::user()->id) {
+                    $value = $element['value_vote'];
+                }
             }
         }
     @endphp
