@@ -1,5 +1,5 @@
 @if (@count($questions) > 0)
-    @each('partials.question-card', $questions, 'question')
+    @each('partials.common.question-card', $questions, 'question')
 @else
     <p>You haven't submitted any questions yet.</p>
 @endif

@@ -36,10 +36,7 @@
                 <div class="table-responsive" id="category-table">
                     @include('partials.management.category.table', ['categories' => $courses])
                 </div>
-
             </section>
-
         </div>
-
     </div>
 @endsection

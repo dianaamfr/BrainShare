@@ -2,37 +2,39 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="page-margin">
-    <section class="background-light container-sm add-question card rounded-1">
-        <h2 class="mb-4">Edit Question</h2>
-        <form action="{{ route('edit-question', $question->id) }}" method="post"  class="text-start" data-toggle="validator" autocomplete="off">
-            @method('PUT')
-            @csrf
+    @section('scripts')
+        <script> const tags = @json($tags);</script>
+        <script> const courses = @json($courses);</script>
+        <script> const max_tags = 5; </script>
+        <script> const oldTagsList = @json($question->tags); </script>
+        <script> const oldCoursesList = @json($question->courses);</script>
+    @endsection
 
-            <!-- Question Title -->
-            @include('partials.add-question.title', ["value" => $question->title ])
+    <div class="page-margin">
+        <section class="background-light container-sm add-question card rounded-1">
+            <h2 class="mb-4">Edit Question</h2>
+            <form action="{{ route('edit-question', $question->id) }}" method="post"  class="text-start" data-toggle="validator" autocomplete="off">
+                @method('PUT')
+                @csrf
 
-            <!-- Question Body -->
-            @include('partials.add-question.body', ["value" => $question->content ])
+                <!-- Question Title -->
+                @include('partials.add-question.title', ["value" => $question->title ])
 
-            <!-- Course -->
-            @include('partials.add-question.courses')
+                <!-- Question Body -->
+                @include('partials.add-question.body', ["value" => $question->content ])
 
-            <!-- Tags -->
-            @include('partials.add-question.tags')
+                <!-- Course -->
+                @include('partials.add-question.courses')
 
-            <!-- Toast -->
-            @include('partials.common.toast')
+                <!-- Tags -->
+                @include('partials.add-question.tags')
 
-            <input value="{{$question->id}}" name="id" hidden>
-            <button type="submit" class="btn btn-primary btn-block btn-register" value="Update Question">Update Question</button>
-        </form>
-    </section>
-</div>
+                <!-- Toast -->
+                @include('partials.common.toast')
 
-<script> const tags = @json($tags);</script>
-<script> const courses = @json($courses);</script>
-<script> const max_tags = 5; </script>
-<script> const oldTagsList = @json($question->tags); </script>
-<script> const oldCoursesList = @json($question->courses);</script>
+                <input value="{{$question->id}}" name="id" hidden>
+                <button type="submit" class="btn btn-primary btn-block btn-register" value="Update Question">Update Question</button>
+            </form>
+        </section>
+    </div>
 @endsection
