@@ -23,28 +23,28 @@ class SearchController extends Controller
       $validated = $request->validate([
         'filter' => Rule::in(['votes', 'new', 'relevance']),
         'page' => 'integer',
-      ]); 
+      ]);
 
       $courses = Course::has('questions')->get();
       $questions = $this->filterQuestions($request);
-      
+
       session()->flashInput($request->input());
       return view('pages.search', ['courses' => $courses, 'questions' => $questions->simplePaginate(10)]);
     }
-    
+
     /**
      * Get the rendered questions that match the search for Ajax calls
      */
     public function advancedSearch(Request $request){
-      
+
       $validated = $request->validate([
         'filter' => Rule::in(['votes', 'new', 'relevance']),
         'page' => 'integer'
       ]);
-      
+
 
       $questions = $this->filterQuestions($request);
-  
+
       $response = view('partials.search.search-questions', ['questions' => $questions->simplePaginate(10)])->render();
       return response()->json(array('success' => true, 'html' => $response));
     }
@@ -52,7 +52,7 @@ class SearchController extends Controller
     public function filterQuestions(Request $request){
 
       $trimSearch = trim($request->input('search-input'));
-      $pattern = "/[^0-9a-zA-Z\s]/";
+      $pattern = "/[^0-9a-zA-ZÀ-ú\s]/";
       $stripSearch = preg_replace($pattern, "", $trimSearch);
 
       $hasTextSearch = $trimSearch != '';
@@ -68,16 +68,16 @@ class SearchController extends Controller
       if($courses != null && count($courses) > 0){
         $questions = $questions->whereHas('courses', function ($query) use ($courses){
           $query->whereIn('id', $courses);
-        });   
-      } 
+        });
+      }
 
       // Filter by tag
       if($tags != null && count($tags) > 0){
         $questions = $questions->whereHas('tags', function ($query) use ($tags){
           $query->whereIn('id', $tags);
-        });   
-      } 
-    
+        });
+      }
+
       // Filter by text search
       if($hasTextSearch){
         $search = str_replace(' ',' | ', $stripSearch);
@@ -94,7 +94,7 @@ class SearchController extends Controller
       }
       else {
         $questions = $questions->orderBy('id', 'desc');
-      } 
+      }
 
       return $questions;
     }
