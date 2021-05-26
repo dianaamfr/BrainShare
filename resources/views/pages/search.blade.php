@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="page-margin" id="search-page">
-
   <!-- Questions Results -->
   <div class="mt-md-5">
     <header>
@@ -24,6 +23,5 @@
   <div class="mt-5 question-search-results">
       @include('partials.search.search-questions', $questions)
   </div>
-
 </div>
 @endsection
