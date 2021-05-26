@@ -39,6 +39,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        session()->forget("message");
+        session(["message" => "Registered with success!"]);
         $this->middleware('guest');
     }
 
