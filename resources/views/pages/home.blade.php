@@ -30,7 +30,7 @@
             <h2 class="mb-4 text-center">Featured Questions</h2>
             <div class="my-5">
                 <!-- First questions -->
-                @each('partials.question-card', $questions, 'question')
+                @each('partials.common.question-card', $questions, 'question')
             </div> 
         </section>
     </div>

@@ -118,7 +118,7 @@
             </button>
         @endif
 
-        @include('partials.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
+        @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm-{{$answer->id}}" role="button"
            aria-expanded="false" aria-controls="collapseCommentForm-{{$answer->id}}">Add Comment</a>
@@ -142,7 +142,7 @@
         </div>
         <!-- <div id="question-comments"> -->
         <div id="comments-answer-{{$answer->id}}">
-            @include('partials.comments',['comment'=>$answer->comments])
+            @include('partials.common.comment-list',['comment'=>$answer->comments])
         </div>
     </div>
 </div>

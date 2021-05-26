@@ -61,7 +61,7 @@
                     </div>
                 @else
                     <div>
-                        @include('partials.report', ['type'=> 'reported', 'margin' => '', 'id'=>$user->id])
+                        @include('partials.common.report', ['type'=> 'reported', 'margin' => '', 'id'=>$user->id])
                     </div>
                 @endif
             </div>
@@ -101,6 +101,6 @@
         @include('partials.profile.answer', $answers)
     </section>
 </div>
-@include('partials.report-modal')
+@include('partials.common.report-modal')
 @include('partials.common.toast')
 @endsection

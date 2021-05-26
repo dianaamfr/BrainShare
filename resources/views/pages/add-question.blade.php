@@ -9,6 +9,7 @@
 
             <!-- Question Title -->
             @include('partials.add-question.title', ["value" => old('title')])
+
             <!-- Question Body -->
             @include('partials.add-question.body', ["value" => old('content')])
 
@@ -28,6 +29,6 @@
 
 <script>const tags = @json($tags);</script>
 <script>const courses = @json($courses);</script>
-<script> const max_tags = 5; </script>
+<script>const max_tags = 5; </script>
 @endsection
 

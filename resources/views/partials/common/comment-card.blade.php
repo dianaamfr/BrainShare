@@ -45,6 +45,6 @@
             @endcan
             
         </div>
-        @include('partials.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
+        @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
     </div>
 </div>

@@ -7,7 +7,7 @@
 
         <!-- Tablet Search Bar -->
         <form class="header-search d-flex me-auto tablet-header-search" action="{{ route('search') }}" >
-          @include('partials.header-search-bar')
+          @include('partials.header.search-bar')
         </form>
 
         <!-- Mobile Menu Icon -->
@@ -19,7 +19,7 @@
 
           <!-- Search Bar -->
         <form class="header-search d-flex me-auto main-search" action="{{ route('search') }}" >
-          @include('partials.header-search-bar')
+          @include('partials.header.search-bar')
         </form>
 
         <!-- Main Pages -->
@@ -72,5 +72,5 @@
 
 <!-- Registered Users options -->
 @if (Auth::check()) 
-  @include('partials.notifications.notifications')
+  @include('partials.header.notification-list')
 @endif
