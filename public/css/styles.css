@@ -1394,10 +1394,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   min-width: 42px;
 }
 
-.fa-file-excel {
-  padding: 0 0.10em;
-}
-
 .deleted-report {
   font-size: 0.8rem;
   font-style: italic;
