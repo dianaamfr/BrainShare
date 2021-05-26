@@ -39,7 +39,7 @@
             @php
                 $value = 0;
                 if(Auth::check()) {
-                    foreach ($answer->votes as $element) { 
+                    foreach ($answer->votes as $element) {
                         if ($element['user_id'] == Auth::user()->id) {
                             $value = $element['value_vote'];
                         }
@@ -85,14 +85,14 @@
             </div>
 
 
-            
+
             <div class="col align-self-start ps-4" id="answer-content-{{$answer->id}}">
                 {{ $answer->content }}
             </div>
-            
-            
-            <div class="col align-self-start ps-4" >
-                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms" style="display:none;">
+
+
+            <div class="col align-self-start ps-4 d-none">
+                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms" >
                     <div class="border form-control testing-editor" >
                         <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
                         <div class="editor-toolbar"></div>
@@ -102,7 +102,7 @@
                     <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel </button>
                 </form>
             </div>
-            
+
 
 
             <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
