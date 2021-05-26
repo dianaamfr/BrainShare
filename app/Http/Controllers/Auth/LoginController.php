@@ -34,12 +34,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        session(["message" => "Logged with success"]);
         $this->middleware('guest')->except('logout');
     }
 
     public function getUser(){
-        dd("shit");
-        session("message", "Logged with success");
         return $request->user();
     }
 

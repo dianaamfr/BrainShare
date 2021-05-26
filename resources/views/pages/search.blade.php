@@ -2,28 +2,38 @@
 
 @section('content')
 
-<div class="page-margin" id="search-page">
-    {{dd(session()->get("message"))}}
-  <!-- Questions Results -->
-  <div class="mt-md-5">
-    <header>
-      <div id="search-header" class="d-flex">
-        <h2>Search</h2>
+    <div class="page-margin" id="search-page">
 
-        <!-- Search Results Order -->
-        @include('partials.search.order')
-      </div>
+        @section('scripts')
+            <script  src={{ asset('js/toastReplies.js')}}  type="module"></script>
+        @endsection
 
-      <!-- Search Filters -->
-      @include('partials.search.filters')
+        @if(session("message") != null)
+            <script>let toastMessageReply = "{{session("message")}}"</script>
+            @include('partials.common.toast')
+            {{session()->forget("message")}}
+        @endif
 
-    </header>
-  </div>
+    <!-- Questions Results -->
+        <div class="mt-md-5">
+            <header>
+                <div id="search-header" class="d-flex">
+                    <h2>Search</h2>
 
-  <!-- Questions -->
-  <div class="mt-5 question-search-results">
-      @include('partials.search.search-questions', $questions)
-  </div>
+                    <!-- Search Results Order -->
+                    @include('partials.search.order')
+                </div>
 
-</div>
+                <!-- Search Filters -->
+                @include('partials.search.filters')
+
+            </header>
+        </div>
+
+        <!-- Questions -->
+        <div class="mt-5 question-search-results">
+            @include('partials.search.search-questions', $questions)
+        </div>
+
+    </div>
 @endsection
