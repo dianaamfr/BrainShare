@@ -1293,8 +1293,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
  /* --- Edit Profile -- */
 
-
-
 #profile-main input[type="file"] {
     display: none;
 }
@@ -1345,14 +1343,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   margin-right: 0.5rem;
 }
 
-#reports table th, #reports table td{
-  font-size: 0.9rem;
-}
-
-#reports table td {
-  padding: 0.5rem 0.3rem !important;
-}
-
 #reports table tr td:nth-last-child(2){
   min-width: 100px;
 }
@@ -1372,18 +1362,20 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 #reports table tr td:nth-child(6){
   min-width: 180px;
+  max-width: 300px;
+  word-break: break-all;
 }
 
 .management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-#reports .report-action, .user-action{
+.user-action{
   font-size: 0.85rem;
   padding: .2rem 1.7rem .2rem .5rem;
 }
 
-#reports .report-actions button, .user-actions button {
+.user-actions button {
   padding: 0.5rem;
 }
 
@@ -1391,8 +1383,19 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   font-size: 0.85rem;
 }
 
-#reports .fa-check{
-  font-size: 0.85rem;
+#reports table th, #reports table td{
+  font-size: 0.9rem;
+}
+
+.report-action-btn {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+  padding: .2rem .55rem;
+  min-width: 42px;
+}
+
+.fa-file-excel {
+  padding: 0 0.10em;
 }
 
 .deleted-report {

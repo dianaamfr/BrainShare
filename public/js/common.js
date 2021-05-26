@@ -176,3 +176,27 @@ function removeToastColor(toastElement){
     toastElement.classList.remove('bg-danger');
 }
 
+
+export function tooltipLoad(){
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            trigger : 'manual',
+            boundary: tooltipTriggerEl.parentElement,
+            container: 'body',
+            placement: 'top',
+            fallbackPlacements: ['top']
+        });
+    });
+
+    tooltipTriggerList.forEach(function(tooltipTg){
+        tooltipTg.addEventListener('mouseover', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].show();
+        });
+    
+        tooltipTg.addEventListener('mouseleave', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
+        });
+    });
+}
+

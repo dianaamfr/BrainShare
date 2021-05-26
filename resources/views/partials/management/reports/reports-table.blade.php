@@ -13,8 +13,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
-                <th scope="col">State</th>
-                <th scope="col">Content</th>
+                <th scope="col" class="text-center">State</th>
+                <th scope="col" class="text-center">Content</th>
                 <th scope="col">Owner</th>
                 <th scope="col">Description</th>
                 <th scope="col">Reported By</th>
@@ -107,7 +107,7 @@
                         @endif
                     @elseif ($report->comment_id) 
                         @if($report->comment->comment_owner_id)
-                        <a href="/user/{{$report->comment_owner_id}}/profile">
+                        <a href="/user/{{$report->comment->comment_owner_id}}/profile">
                             <span>{{$report->comment->owner->username}}</span>
                         </a>
                         @else
