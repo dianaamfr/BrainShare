@@ -25,7 +25,7 @@
                         <button class="btn btn-primary">Add Course</button>
                     </div>
                     <div class="input-group manage-search mb-3 ms-3">
-                        <input type="text" class="form-control" placeholder="Search course...">
+                        <input type="text" class="form-control" placeholder="Search course..." value="{{ app('request')->get('search-name')}}">
                     </div>
                 </div>
 
@@ -39,4 +39,7 @@
             </section>
         </div>
     </div>
+
+    @include('partials.common.confirmation-modal')
+
 @endsection
