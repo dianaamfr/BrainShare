@@ -11,7 +11,6 @@ function ajaxUpvoteUpdate(goalDiv, voteButton, value, id, type) {
         
         let updateElem = document.querySelector(voteButton);
         let oldElem = document.querySelector(older);
-        console.log(older)
         if(updateElem.classList.contains("bi-caret-up-fill")) {
             updateElem.classList.remove("bi-caret-up-fill");
             updateElem.classList.add("bi-caret-up");
@@ -48,7 +47,6 @@ function ajaxUpvoteUpdate(goalDiv, voteButton, value, id, type) {
             'vote' : value,
         };
 
-        console.log("here")
         sendDataAjaxRequest('POST', id, data, requestHandler);
     }
 

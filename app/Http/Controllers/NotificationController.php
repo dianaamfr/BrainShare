@@ -13,8 +13,6 @@ class NotificationController extends Controller
 {
 
     public function read(Request $request) {
-        if (!Auth::check()) return response()->json(['error' => 'Not logged in']);
-
         $notification = Notification::find($request->id);
 
         $this->authorize('valid', $notification);
@@ -30,8 +28,6 @@ class NotificationController extends Controller
     }
     
     public function delete(Request $request) {
-        if (!Auth::check()) return response()->json(['error' => 'Not logged in']);
-
         $notification = Notification::find($request->id);
 
         $this->authorize('valid', $notification);

@@ -1,9 +1,6 @@
 <div class="card-body card answer-question-card">
-
     <div id="display-answercard-{{$answer->id}}">
-
         <header class="question-author pagination align-items-center justify-content-end card-header">
-
             <div>
                 @can('edit',$answer)
                 <form title="Edit-answer" class="answer-edit-form">
@@ -120,10 +117,9 @@
 
         <!-- if question owner -->
         @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
-            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark
-                as valid
+            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid
             </button>
-            @elif (Auth::id() === $answer->question->question_owner_id)
+        @elseif (Auth::id() === $answer->question->question_owner_id)
             <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid
             </button>
         @endif
