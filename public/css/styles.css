@@ -638,6 +638,7 @@ article.question .card-body .card-header {
 .answer .card-body .card-header {
   background-color: unset;
   border: unset;
+    margin-left: 1.3rem;
 }
 
 article.question .card-title {
@@ -721,12 +722,12 @@ article.question .card-title {
 }
 
 .vote_btn i {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: var(--main-blue);
 }
 
 .points {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--main-blue);
 }
 
@@ -736,13 +737,15 @@ article.question .card-title {
 }
 
 .comments {
-  padding-left: 6rem;
-  margin: 1.5rem 0;
+  padding-left: 5.5rem;
+    font-style: italic;
+    color: var(--bs-gray);
 }
 
 .comments .comment {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   padding: 1rem;
+
 }
 
 .comment-author span {
