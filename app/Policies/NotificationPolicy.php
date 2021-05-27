@@ -13,6 +13,6 @@ class NotificationPolicy{
 
     public function valid(User $user, Notification $notification){
       // Only a question owner can mark answers as valid
-      return $user->id === $notification->user_id;
+      return Auth::check() && ($user->id === $notification->user_id);
   }
 }

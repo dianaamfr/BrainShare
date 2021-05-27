@@ -34,9 +34,6 @@ Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
 
-// Mark Answer as Valid
-Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
-
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
@@ -51,6 +48,9 @@ Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 //Route::post('/api/test','AnswerController@newRoute');
 Route::put('/api/answer/{id}/edit','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}/delete','AnswerController@deleteAnswer')->name('delete-answer');
+
+// Mark Answer as Valid
+Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 
 // Comment
 // I dont need the questions in the route, I only need the answers, so I am switching the routes (change de API later)

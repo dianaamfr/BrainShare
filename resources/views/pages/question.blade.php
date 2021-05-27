@@ -3,9 +3,8 @@
 @section('content')
 
 @section('scripts')
-<script  src={{ asset('js/answer.js')}}  type="module"></script>
-<script  src={{ asset('js/comment.js')}}  type="module"></script>
-
+    <script src={{ asset('js/answer.js')}}  type="module"></script>
+    <script src={{ asset('js/comment.js')}}  type="module"></script>
     <script src={{ asset('js/report.js') }} type="module"></script>
 @endsection
 
@@ -22,10 +21,10 @@
                     <!-- Mobile Question details -->
                     <div class="d-none question-details d-flex mb-3">
                         <!-- Course -->
-                    @include('partials.question.courses')
+                        @include('partials.question.courses')
 
-                    <!-- Edit/Delete: only for Registred Users -->
-                        @include('partials.question.editDelete', ['margin' => 'ms-auto'])
+                        <!-- Edit/Delete: only for Registred Users -->
+                        @include('partials.question.update', ['margin' => 'ms-auto'])
 
                     </div>
 
@@ -34,11 +33,10 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
+                        @include('partials.question.courses')
 
-                    @include('partials.question.courses')
-
-                    <!-- Edit/Delete: only for Registred Users -->
-                        @include('partials.question.editDelete', ['margin' => ''])
+                        <!-- Edit/Delete: only for Registred Users -->
+                        @include('partials.question.update', ['margin' => ''])
                     </div>
                 </div>
 
@@ -49,7 +47,7 @@
 
             <!-- Question Text -->
             <div class="row align-items-center px-3">
-                @include('partials.question.questionText')
+                @include('partials.question.question-content')
             </div>
 
 
@@ -57,10 +55,10 @@
             <footer class="d-flex">
 
                 <!-- Tags -->
-            @include('partials.question.tags')
+                @include('partials.question.tags')
 
-            <!-- Report Button -->
-                @include('partials.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
+                <!-- Report Button -->
+                @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
 
             </footer>
 
@@ -75,7 +73,7 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.answers',['answer'=>$question->answers])
+            @include('partials.common.answer-list',['answer'=>$question->answers])
         </div>
     </section>
 
@@ -85,6 +83,7 @@
         @include('partials.question.answer-form')
     </form>
 </div>
-@include('partials.report-modal')
+
+@include('partials.common.report-modal')
 @include('partials.common.toast')
 @endsection

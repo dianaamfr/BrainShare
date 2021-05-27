@@ -34,6 +34,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        session()->forget("message");
+        session(["message" => "Logged with success!"]);
         $this->middleware('guest')->except('logout');
     }
 

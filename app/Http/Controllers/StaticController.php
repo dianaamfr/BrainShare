@@ -28,17 +28,6 @@ class StaticController extends Controller
       return view('pages.edit-profile');
     }
 
-    // In A9 implement this in other controllers
-    /*
-    public function showTags(){
-      return view('pages.manage-tags');
-    }
-
-    public function showCourses(){
-      return view('pages.manage-courses');
-    }
-    */
-
     public function showReports(){
       return view('pages.manage-reports');
     }

@@ -13,10 +13,7 @@ use App\Models\User;
 use App\Models\Question;
 
 class AnswerController extends Controller{
-
-    
     public function newAnswer(Request $request, $id){
-        
         // Authorization
         $this->authorize('create', Answer::class);
         
@@ -36,14 +33,11 @@ class AnswerController extends Controller{
         
         // Return the changed view
         $question =  Question::find(intval($id));
-        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
         return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
-
-        
     }
 
     public function deleteAnswer($id){
-
         // Find Answer
         $answer = Answer::find(intval($id));
 
@@ -58,14 +52,12 @@ class AnswerController extends Controller{
 
         // Return the changed view
         $question = Question::find(intval($answer_id));
-        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
         return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
-
     }
 
 
     public function editAnswer(Request $request, $id){
-
         // Validation
         $validated = $request->validate([
             'text' => 'required'
@@ -83,10 +75,24 @@ class AnswerController extends Controller{
 
         // Return view of comments to refresh view
         $question =  Question::find(intval($answer->question_id));
-        $response = view('partials.answers', ['answer' => $question->answers])->render();
+        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
         return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
-
     }
 
+    public function markValid(Request $request) {
+        $answer = Answer::find($request->answerId);
 
+        if (!Auth::check()) return response()->json(['error' => 'Not logged in']);
+
+        $this->authorize('valid', $answer);
+
+        if ($answer->valid) {
+            $answer->valid = false;
+        } else {
+            $answer->valid = true;
+        }
+        $answer->update();
+
+        return response()->json(['success'=> 'Your request was completed', 'valid' => $answer->valid, 'answerId' => $request->answerId]);
+    }
 }

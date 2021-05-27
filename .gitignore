@@ -14,3 +14,4 @@ yarn-error.log
 # Vscode
 .vscode
 .env
+.idea

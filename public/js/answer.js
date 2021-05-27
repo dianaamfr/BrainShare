@@ -18,11 +18,29 @@ function addEventListeners(){
     // Edit Answer
     let editButtons = document.getElementsByClassName("answer-edit-form");
     let editList = [...editButtons];
-    editList.forEach(addEditListeners);
+    editList.forEach(addEditFormListeners);
 
+    let submitEditForm = document.getElementsByClassName('edit-answer-forms');
+    let submitEditFormList = [...submitEditForm];
+    submitEditFormList.forEach(addEditListeners);
+
+    let cancelEditForm = document.querySelectorAll('.edit-answer-forms button[type=button]');
+    let cancelEditFormList = [...cancelEditForm];
+    cancelEditFormList.forEach(addCancelListeners);
+
+
+
+
+
+    // console.log(form);
     // console.log(editButtons);
     // console.log(deleteButtons);
+    console.log(cancelEditForm);
 
+}
+
+function editorToolbares(element){
+    
 }
 
 
@@ -33,6 +51,14 @@ function addDeleteListeners(element){
 
 function addEditListeners(element){
     element.addEventListener('submit',editAnswer);
+}
+
+function addEditFormListeners(element){
+    element.addEventListener('submit',showEditForm);
+}
+
+function addCancelListeners(element){
+    element.addEventListener('click',cancelEditForm)
 }
 
 
@@ -56,7 +82,6 @@ function removeAnswer(event){
     // Not sure if this is needed, check later
     event.preventDefault();
 
-    //let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
 
     console.log(this);
@@ -78,7 +103,7 @@ function editAnswer(event){
     let answerID = this.querySelector('input[name="answerID"]').value;
     //let text = this.querySelector('textarea[name="content"]').value;
     //let text = "hello my friend"
-    let text = this.querySelector('input[name="dummyText"]').value;
+    let text = this.querySelector('textarea').value;
 
     console.log(this);
     //console.log(questionID);
@@ -87,6 +112,30 @@ function editAnswer(event){
 
 
     sendDataAjaxRequest("put",'/api/answer/'+ answerID + '/edit',{'text':text}, handler);
+}
+
+function showEditForm(event){
+    event.preventDefault();
+
+    let answerID = this.querySelector('input[name="answerID"]').value;
+    let editForm = document.getElementById('edit-answer-'+ answerID);
+    let answer = document.getElementById('answer-content-' + answerID);
+
+    
+    editForm.style.display = 'block';
+    answer.style.display = 'none';
+    
+}
+
+function cancelEditForm(){
+
+    let answerID = this.name;
+    let editForm = document.getElementById('edit-answer-'+ answerID);
+    let answer = document.getElementById('answer-content-' + answerID);
+
+    editForm.style.display = 'none';
+    answer.style.display = 'block';
+
 }
 
 
@@ -105,77 +154,6 @@ function handler(responseJson){
     
 }
 
-
-/*
-
-addEventListeners();
-
-function addEventListeners(){
-
-    console.log("Entered Loop");
-
-    let form = document.getElementById('submit-answer');
-    let addButton = form.querySelector("button"); 
-
-    //let editDeleteForm = document.getElementsByClassName()
-    //let deleteButton = form.querySelector("");
-
-    console.log(form);
-    console.log(addButton);
-    console.log("saved");
-
-
-    // POST method
-    // EventListener for adding an answer
-    // Falta só meter o botão de edit em condições
-    
-    addButton.addEventListener('click',function(event){
-
-        event.preventDefault();
-
-        let content = form.querySelector('textarea').value; // testar .textContent se value não der
-        let id = form.querySelector("input[name='questionID']").value;
-
-        console.log(content);
-        console.log(id);
-
-        sendDataAjaxRequest('post','/api/question/' + id + '/answer/add',{content: 'hello',},requestHandler);
-
-    });
-    
-    // PUT method
-    // EventListener for Editing an answer
-    addEventListener('click',function(event){
-        event.preventDefault();
-
-    
-    });
-    
-    // Get method
-    // EventListener for Removing an answer
-    /*
-    addEventListener('click',function(event){
-
-        
-        event.preventDefault();
-
-
-    });
-    
-    
-
-
-}
-
-
-function requestHandler(json) {
-    console.log("here");
-    console.log(response);
-    let div = document.getElementById("all-answers");
-    div.innerHTML = json.html;
-
-
-}
 
 
 

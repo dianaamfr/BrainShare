@@ -37,7 +37,6 @@
             </section>
 
         </div>
-
     </div>
 
     @include('partials.common.confirmation-modal')
