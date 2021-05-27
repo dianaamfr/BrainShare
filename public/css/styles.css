@@ -1314,6 +1314,12 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 }
 
+.deleted-alert {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ---- User/Reports Management ---- */
 
 .management .table>:not(:last-child)>:last-child>*{

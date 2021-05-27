@@ -9,6 +9,9 @@
     @endsection
 
 <div class="page-margin">
+    @if($user->ban === true)
+        @include('partials.common.alert',['content' => 'User', 'name' => $user->username, 'state' => 'banned'])
+    @endif
     <section id="profile-main" class="card grid-profile container-lg">
         <div class="one text-center mb-5">
             <h3 class="nickname mb-4">{{ $user->username }}</h3>

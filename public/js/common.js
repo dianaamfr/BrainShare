@@ -197,6 +197,10 @@ export function tooltipLoad(){
         tooltipTg.addEventListener('mouseleave', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
+
+        tooltipTg.addEventListener('click', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
+        });
     });
 }
 

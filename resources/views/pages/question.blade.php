@@ -10,6 +10,9 @@
 @endsection
 
 <div id="page-top" class="page-margin question-page">
+    @if($question->deleted === true)
+        @include('partials.common.alert',['content' => 'Question', 'state' => 'deleted'])
+    @endif
     <article class="question card">
         <div class="card-body">
             <header class="card-header">

@@ -83,7 +83,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The report was successfully discarded and marked as "handled".',
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -98,7 +98,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The report was successfully marked as "pending".',
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -111,16 +111,21 @@ class ManageReportsController extends Controller {
 
         // Delete Reported Content
         if(!is_null($report->question_id)){
+            $type = 'Question';
             Question::find($report->question_id)->update(['deleted' => true]);
         }
         else if(!is_null($report->answer_id)){
+            $type = 'Answer';
             Answer::find($report->answer_id)->update(['deleted' => true]);
         }
         else if(!is_null($report->comment_id)){
+            'Comment';
             Comment::find($report->comment_id)->update(['deleted' => true]);
         }
         else{
-            User::find($report->reported_id)->update(['ban' => true]);
+            $type = 'User';
+            $user = User::find($report->reported_id);
+            $user->update(['ban' => true]);
         }
 
         // Now the trigger will discard all reports associated with the deleted content
@@ -128,7 +133,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The ' . $type . '<strong>' . ($user ? ' ' . $user->username : '') . '</strong> was successfully ' . ($user ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -140,22 +145,27 @@ class ManageReportsController extends Controller {
 
         // Recover Deleted Content
         if(!is_null($report->question_id)){
+            $type = "Question";
             Question::find($report->question_id)->update(['deleted' => false]);
         }
         else if(!is_null($report->answer_id)){
+            $type = "Answer";
             Answer::find($report->answer_id)->update(['deleted' => false]);
         }
         else if(!is_null($report->comment_id)){
+            $type = "Comment";
             Comment::find($report->comment_id)->update(['deleted' => false]);
         }
         else{
-            User::find($report->reported_id)->update(['ban' => false]);
+            $type = "User";
+            $user = User::find($report->reported_id);
+            $user->update(['ban' => false]);
         }
 
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The ' . $type . '<strong>' . ($user ? ' ' . $user->username : '') . '</strong> was successfully ' . ($user ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
