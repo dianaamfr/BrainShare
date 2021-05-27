@@ -16,9 +16,9 @@
                     <!-- Mobile Question details -->
                     <div class="d-none question-details d-flex mb-3">
                         <!-- Course -->
-                    @include('partials.question.courses')
+                        @include('partials.question.courses')
 
-                    <!-- Edit/Delete: only for Registred Users -->
+                        <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.update', ['margin' => 'ms-auto'])
 
                     </div>
@@ -28,10 +28,9 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
+                        @include('partials.question.courses')
 
-                    @include('partials.question.courses')
-
-                    <!-- Edit/Delete: only for Registred Users -->
+                        <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.update', ['margin' => ''])
                     </div>
                 </div>
@@ -51,9 +50,9 @@
             <footer class="d-flex">
 
                 <!-- Tags -->
-            @include('partials.question.tags')
+                @include('partials.question.tags')
 
-            <!-- Report Button -->
+                <!-- Report Button -->
                 @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
 
             </footer>

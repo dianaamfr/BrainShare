@@ -20,11 +20,10 @@ function markValidAnswer(answerId) {
     sendDataAjaxRequest('POST', '/api/answer/valid/' + answerId, data, markValidHandler);
 }
 
-if (document.querySelector('.mark-valid')) {
+if (document.querySelector('.answer-question-card')) {
     let numberDivs = document.querySelectorAll('.answer-question-card');
     for (let i = 0; i < numberDivs.length; i++) {
         let answerId = numberDivs[i].querySelector(".answer-id").value;
-        
         document.querySelector('.mark-valid-' + answerId).addEventListener('click', function() { markValidAnswer(answerId); });
     }
 }
