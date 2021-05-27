@@ -9,11 +9,14 @@
 @endsection
 
 <div id="page-top" class="page-margin question-page">
+
+    <!-- Delete Question Alert -->
     @if($question->deleted === true)
         <div class="alert alert-danger deleted-alert max-size" role="alert">
             This Question has been deleted. Only Administrators and Moderators can see this page.
         </div>
     @endif
+    
     <article class="question card">
         <div class="card-body">
             <header class="card-header">
