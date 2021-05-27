@@ -25,14 +25,7 @@
 
         <p class="notification-id" hidden>{{ $notification->id }}</p>
 
-        <div class="dropdown ms-auto">
-            <button class="btn dropdown-toggle rounded-circle notifications-more" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ...
-            </button>
-            <ul class="dropdown-menu notification-list">
-                <li class="dropdown-item mark-read-{{ $notification->id }}">Mark as read</li>
-                <li class="dropdown-item delete-{{ $notification->id }}">Remove Notification</li>
-            </ul>
-        </div>
+        <button class="mark-read-{{ $notification->id }}"><i class="bi bi-check"></i></button>
+        <button class="delete-{{ $notification->id }}"><i class="bi bi-trash"></i></button>
     </div>
 </li>
