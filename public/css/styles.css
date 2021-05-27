@@ -1393,7 +1393,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   font-size: 0.9rem;
 }
 
-.report-action-btn {
+.management-action-btn {
   font-size: 1.1rem;
   margin-right: 0.5rem;
   padding: .2rem .55rem;

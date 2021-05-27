@@ -15,7 +15,7 @@ INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Biology','2020-12-
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Genetics','2020-04-16 19:23:16');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Natural_Evolution','2021-11-01 02:36:56');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'IART','2021-08-30 00:24:23');
-INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Artificial_Itelligence','2021-09-09 14:38:57');
+INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Artificial_Intelligence','2021-09-09 14:38:57');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'MIPS','2020-06-24 01:06:53');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'COMP','2020-07-20 07:49:07');
 INSERT INTO "tag" (id, name, creation_date) VALUES (DEFAULT, 'Assembly','2022-02-19 23:43:43');

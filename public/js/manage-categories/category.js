@@ -49,18 +49,15 @@ export function listenSearchCategory(url, searchDiv) {
  * @param url{String} Url page where this request must happen.
  */
 export function listenDeleteCategory(url) {
-    const deleteButtons = document.querySelectorAll('.icon-hover');
+    const deleteButtons = document.querySelectorAll('.management-action-btn');
 
     // TODO: change to support tag and course.
-    deleteButtons.forEach(element => element.addEventListener("click", (event) => {
-
-            sendDataAjaxRequest("delete", "/api"+url+"/delete", {
-                input: getCategoryName(event.target),
-            }, handleCategoryResponse);
-            listenPageCategory();
-        }
-        )
-    );
+    deleteButtons.forEach(element => element.addEventListener("click", function() {
+        sendDataAjaxRequest("delete", "/api" + url + "/delete", {
+            input: getCategoryName(element),
+        }, handleCategoryResponse);
+        listenPageCategory();
+    }))
 }
 
 export function listenPageCategory(url) {
@@ -109,8 +106,9 @@ export function listenAddCategory(url){
 }
 
 export function getCategoryName(deleteButton) {
-    const categoryRow = deleteButton.parentElement.parentElement.parentElement;
-    return categoryRow.querySelector('td').innerText;
+    const categoryRow = deleteButton.parentElement.parentElement;
+    console.log(categoryRow)
+    return categoryRow.querySelector('.category-name').innerText;
 }
 
 function getSearchInput() {

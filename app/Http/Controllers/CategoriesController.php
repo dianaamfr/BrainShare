@@ -48,7 +48,7 @@ class CategoriesController extends Controller
         $tag->setAttribute('creation_date', Carbon::now());
         $tag->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
+        return response()->json(['success'=> 'The tag <strong>' . $tag->name . '</strong> was successfully added.', 'url'=> '/admin/tags']);
 
     }
 
@@ -56,9 +56,9 @@ class CategoriesController extends Controller
         
         $this->authorize('deleteTag', Tag::class);
         $jsonTag = json_decode($request->getContent(), true);
-        DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
+        Tag::where('name', "=", $jsonTag['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
+        return response()->json(['success'=> 'The tag <strong>' . $jsonTag['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/tags']);
 
     }
 
@@ -96,16 +96,16 @@ class CategoriesController extends Controller
         $course->setAttribute('creation_date', Carbon::now());
         $course->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
+       return response()->json(['success'=> 'The course <strong>' . $jsonCourse['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/courses']);
 
     }
 
     public function deleteCourse(Request $request): \Illuminate\Http\JsonResponse {
         $this->authorize('deleteCourse', Course::class);
         $jsonCourse = json_decode($request->getContent(), true);
-        DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
+        Course::where('name', "=", $jsonCourse['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
+        return response()->json(['success'=> 'The tag <strong>' . $jsonCourse['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/courses']);
     }
 
 
