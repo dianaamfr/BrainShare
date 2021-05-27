@@ -10,7 +10,9 @@
 
 <div class="page-margin">
     @if($user->ban === true)
-        @include('partials.common.alert',['content' => 'User', 'name' => $user->username, 'state' => 'banned'])
+        <div class="alert alert-danger deleted-alert container-lg" role="alert">
+            This User <strong>{{$user->username}}</strong> has been banned. Only Administrators and Moderators can see this page.
+        </div>
     @endif
     <section id="profile-main" class="card grid-profile container-lg">
         <div class="one text-center mb-5">

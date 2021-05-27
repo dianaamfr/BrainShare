@@ -133,7 +133,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'The ' . $type . '<strong>' . ($user ? ' ' . $user->username : '') . '</strong> was successfully ' . ($user ? 'banned' : 'deleted'). '.' ,
+            'success'=> 'The ' . $type . '<strong>' . (isset($user) ? ' ' . $user->username : '') . '</strong> was successfully ' . (isset($user) ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -165,7 +165,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'The ' . $type . '<strong>' . ($user ? ' ' . $user->username : '') . '</strong> was successfully ' . ($user ? 'banned' : 'deleted'). '.' ,
+            'success'=> 'The ' . $type . '<strong>' . (isset($user) ? ' ' . $user->username : '') . '</strong> was successfully ' . (isset($user)  ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }

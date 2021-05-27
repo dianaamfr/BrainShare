@@ -1315,9 +1315,12 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 }
 
 .deleted-alert {
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.max-size {
+  max-width: 1200px;
 }
 
 /* ---- User/Reports Management ---- */

@@ -51,7 +51,6 @@ export function listenSearchCategory(url, searchDiv) {
 export function listenDeleteCategory(url, modal) {
     const deleteButtons = document.querySelectorAll('.management-action-btn');
 
-    // TODO: change to support tag and course.
     deleteButtons.forEach(element => element.addEventListener("click", function() {
         setConfirmationModal('Delete Tag', 
             'Are you sure you want to delete the tag <strong>"' + getCategoryName(element) + '"</strong>?',

@@ -11,7 +11,9 @@
 
 <div id="page-top" class="page-margin question-page">
     @if($question->deleted === true)
-        @include('partials.common.alert',['content' => 'Question', 'state' => 'deleted'])
+        <div class="alert alert-danger deleted-alert max-size" role="alert">
+            This Question has been deleted. Only Administrators and Moderators can see this page.
+        </div>
     @endif
     <article class="question card">
         <div class="card-body">
