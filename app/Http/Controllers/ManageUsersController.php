@@ -32,7 +32,7 @@ class ManageUsersController extends Controller {
       ]);
     }
 
-    public function getFilteredUsers($search){
+    private function getFilteredUsers($search){
       if(isset($search) && !empty($search)){
         return User::where('username', 'ILIKE', $search . '%')->orderBy('username', 'asc');
       }

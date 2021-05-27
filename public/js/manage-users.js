@@ -1,4 +1,4 @@
-import {encodeForAjax, sendAjaxGetRequest, sendDataAjaxRequest, showAlert} from './common.js';
+import {encodeForAjax, sendAjaxGetRequest, sendDataAjaxRequest, showAlert, setConfirmationModal} from './common.js';
 
 // Add event listener for each submit action button
 function manageUsers(){
@@ -16,8 +16,29 @@ function updateUser(event){
     if(actionValue === 'none') return;
 
     let id = this.getAttribute('data-user-id');
+    let action = getActionMessage(actionValue, this);
 
-    sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);
+    setConfirmationModal(action.title, 
+    `Are you sure you want to ${action.text}?`, 
+    function(){sendDataAjaxRequest('put', '/api/admin/user/' + id, {action: actionValue}, userUpdatedHandler);},
+    modal);  
+}
+
+function getActionMessage(actionValue, form){
+    const name = `<strong>${form.parentElement.parentElement.children[1].innerText}</strong>`;
+
+    switch(actionValue){
+        case 'admin':
+            return {title: 'Change User Role', text: `promote the User ${name} to "Administrator"`};
+        case 'moderator':
+            return {title: 'Change User Role', text: `change the role of the User ${name} to "Moderator"`};
+        case 'ru':
+            return {title: 'Change User Role', text: `demote the User ${name} to "Registered User"`};
+        case 'ban':
+            return {title: 'Ban User', text: `ban the User ${name}`};
+        case 'unban':
+            return {title: 'Unban User', text: `unban the User ${name}`};
+    }
 }
 
 // Handle the response to a request to update the role or the ban status of a user
@@ -84,6 +105,9 @@ function updateUsersPagination() {
 let usernameInput = document.getElementById('search-username');
 let manageUsersAlert = document.getElementById('manage-users-alert');
 let userManagementArea = document.getElementById('users-manage-area');
+
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
+
 manageUsers();
 searchUsers();
 updateUsersPagination();

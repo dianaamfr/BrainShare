@@ -1,4 +1,4 @@
-import {sendAjaxGetRequest, sendDataAjaxRequest, showAlert, encodeForAjax} from "../common.js";
+import {sendAjaxGetRequest, sendDataAjaxRequest, showAlert, encodeForAjax, setConfirmationModal} from "../common.js";
 
 
 /**
@@ -48,15 +48,21 @@ export function listenSearchCategory(url, searchDiv) {
  * Listens for the delete button.
  * @param url{String} Url page where this request must happen.
  */
-export function listenDeleteCategory(url) {
+export function listenDeleteCategory(url, modal) {
     const deleteButtons = document.querySelectorAll('.management-action-btn');
 
     // TODO: change to support tag and course.
     deleteButtons.forEach(element => element.addEventListener("click", function() {
-        sendDataAjaxRequest("delete", "/api" + url + "/delete", {
-            input: getCategoryName(element),
-        }, handleCategoryResponse);
-        listenPageCategory();
+        setConfirmationModal('Delete Tag', 
+            'Are you sure you want to delete the tag <strong>"' + getCategoryName(element) + '"</strong>?',
+            function(){
+                sendDataAjaxRequest("delete", "/api" + url + "/delete", {
+                    input: getCategoryName(element),
+                    }, handleCategoryResponse);
+                    listenPageCategory(); 
+            },
+            modal
+        );     
     }))
 }
 
