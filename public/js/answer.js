@@ -40,7 +40,7 @@ function addEventListeners(){
 }
 
 function editorToolbares(element){
-    
+
 }
 
 
