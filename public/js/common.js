@@ -184,7 +184,8 @@ export function tooltipLoad(){
     let {tooltipTriggerList, tooltipList} = tooltipCreate();
 
     tooltipTriggerList.forEach(function(tooltipTg){
-        tooltipTg.addEventListener('mouseover', function () {
+        
+        tooltipTg.addEventListener('mouseenter', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].show();
         });
     
@@ -192,7 +193,7 @@ export function tooltipLoad(){
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
         
-        tooltipTg.addEventListener('click', function (event) {
+        tooltipTg.addEventListener('click', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
     });

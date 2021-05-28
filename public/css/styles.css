@@ -108,6 +108,11 @@
     min-width: 150px;
 }
 
+/* Tooltips */
+.tooltip { 
+  pointer-events: none;
+}
+
 /* ---- Body ---- */
 
 html {
@@ -500,6 +505,7 @@ a.profile-button {
   color: var(--light-grey);
   padding-right: unset;
 }
+
 
 .icon-hover :last-child,
 .icon-hover :last-child,
