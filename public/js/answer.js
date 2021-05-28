@@ -153,8 +153,3 @@ function handler(responseJson){
     
     
 }
-
-
-
-
-

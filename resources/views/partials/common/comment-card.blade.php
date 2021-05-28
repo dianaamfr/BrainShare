@@ -1,4 +1,4 @@
-{{-- Form for eidting a comment --}}
+{{-- Form for editing a comment --}}
 <form class="submit-edit-comments" id="submit-edit-comments-{{$comment->id}}" style="display:none;">
     <input type="hidden" name="commentID" value="{{$comment->id}}">
     <div class="mb-3 p-3">
@@ -11,7 +11,6 @@
 </form>
 
 <div class="comment" id="comment-{{$comment->id}}">
-
     <div class="comment-text d-inline-block" id="show-edit-comment-{{$comment->id}}">
         {{ $comment->content }}
     </div>

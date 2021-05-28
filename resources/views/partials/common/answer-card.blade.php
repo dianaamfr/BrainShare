@@ -1,4 +1,4 @@
-<div class="card-body card answer-question-card">
+<div class="card-body card answer-question-card answer-{{$answer->id}}">
     <div id="display-answercard-{{$answer->id}}">
         <header class="question-author pagination align-items-center justify-content-end card-header">
             <div>

@@ -43,6 +43,7 @@
 <script  src={{ asset('js/upvote.js') }}  type="module"></script>
 <script  src={{ asset('js/valid-answer.js') }}  type="module"></script>
 <script  src={{ asset('js/imagePreview.js') }} defer></script>
+<script  src={{ asset('js/hashchange.js') }} defer></script>
 <script  src={{ asset('js/notification.js') }} defer></script>
 
 
