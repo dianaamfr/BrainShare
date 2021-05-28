@@ -37,7 +37,9 @@ class UserPolicy
 
         // Administrators can delete any user
         if ($user->isAdmin()) {
-            return true;
+          // An Administrator can only delete his account if there is another Administrator
+          $admins = User::where('user_role','Administrator')->count();
+          return $admins > 1;
         }
 
         // Moderators can only delete Registered Users

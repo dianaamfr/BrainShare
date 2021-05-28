@@ -3,9 +3,10 @@
 @section('content')
 
 @section('scripts')
-    <script src={{ asset('js/answer.js')}}  type="module"></script>
-    <script src={{ asset('js/comment.js')}}  type="module"></script>
+    <script src={{ asset('js/answer.js') }}  type="module"></script>
+    <script src={{ asset('js/comment.js') }}  type="module"></script>
     <script src={{ asset('js/report.js') }} type="module"></script>
+    <script src={{ asset('js/question.js') }} type="module"></script>
 @endsection
 
 <div id="page-top" class="page-margin question-page">
@@ -88,5 +89,6 @@
 </div>
 
 @include('partials.common.report-modal')
+@include('partials.common.confirmation-modal')
 @include('partials.common.toast')
 @endsection

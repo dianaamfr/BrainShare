@@ -165,8 +165,7 @@ function removeToastColor(toastElement){
     toastElement.classList.remove('bg-danger');
 }
 
-
-export function tooltipLoad(){
+export function tooltipCreate(){
     let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
@@ -178,6 +177,12 @@ export function tooltipLoad(){
         });
     });
 
+    return {tooltipTriggerList, tooltipList};
+}
+
+export function tooltipLoad(){
+    let {tooltipTriggerList, tooltipList} = tooltipCreate();
+
     tooltipTriggerList.forEach(function(tooltipTg){
         tooltipTg.addEventListener('mouseover', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].show();
@@ -186,8 +191,8 @@ export function tooltipLoad(){
         tooltipTg.addEventListener('mouseleave', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
-
-        tooltipTg.addEventListener('click', function () {
+        
+        tooltipTg.addEventListener('click', function (event) {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
     });
@@ -199,7 +204,8 @@ export function setConfirmationModal(title, message, handler, modalObj){
 
     document.querySelector(".confirmationModal .modal-footer button[name='confirm']").addEventListener('click', function(){
         modalObj.hide();
-        handler();
+
+        if(handler) handler();
     });
 
     modalObj.show();
