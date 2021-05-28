@@ -1,11 +1,17 @@
 <div class="card-body card answer-question-card my-2 p-2">
     <div id="display-answercard-{{$answer->id}}">
         <header class="question-author d-flex align-items-center card-header p-0 me-2">
-            <div>
+
+            <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
+            <!-- Small Profile Image -->
+
+            <span> {{$answer->owner->username}}</span> <!-- Username -->
+            <span class="mx-2"> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
+            <div class="d-flex ms-auto">
                 @can('edit',$answer)
                     <form title="Edit-answer" class="answer-edit-form">
-                        <button class="icon-hover edit-answer" title="Edit-answer" class="edit-answer-button" type="submit">
-                            <input type="hidden" name="answerID" value="{{$answer->id}}">
+                        <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
+                        <button class="icon-hover edit-answer ps-0 pe-1" title="Edit-answer" type="submit">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
                         </button>
@@ -14,20 +20,12 @@
                 @can('delete',$answer)
                     <form title="Delete-answer" class="answer-delete-form">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" type="submit">
+                        <button class="icon-hover edit-answer ps-0" type="submit">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </form>
                 @endcan
-            </div>
-
-            <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
-            <!-- Small Profile Image -->
-
-            <span> {{$answer->owner->username}}</span> <!-- Username -->
-            <span class="mx-2"> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
-            <div class="ms-auto">
                 @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
             </div>
         </header>
@@ -100,6 +98,7 @@
                     <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel</button>
                 </form>
             </div>
+
 
 
             <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">

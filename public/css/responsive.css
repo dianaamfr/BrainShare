@@ -255,6 +255,7 @@
   .management-content {
     display: block!important;
   }
+
 }
 
 @media (max-width: 600px) {
@@ -287,6 +288,13 @@
   #order-filters li label {
     padding: 0.1rem 0.4rem;
   }
+
+    .answer .card-body a.btn,.answer .card-body button.btn,
+    .answer .card-body .comments{
+        font-size: 0.8rem;
+        padding-left: 0.8rem;
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 450px) {
@@ -390,6 +398,13 @@
 
     .answers > header {
       padding: 2rem 1rem 1rem;
+    }
+
+    .answer .card-body a.btn,.answer .card-body button.btn,
+    .answer .card-body .comments{
+        font-size: 0.8rem;
+        padding-left: 0.8rem;
+        padding-right: 0;
     }
 
     /* Login/Register */

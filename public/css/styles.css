@@ -558,6 +558,7 @@ a.btn {
   font-size: 0.85rem;
 }
 
+
 .homepage-feature {
   justify-content: space-around;
 }
@@ -640,6 +641,12 @@ article.question .card-body .card-header {
   border: unset;
     margin-left: 1.3rem;
 }
+
+.answer .card-body a.btn,.answer .card-body button.btn,
+.answer .card-body .comments{
+    font-size: 0.85rem;
+}
+
 
 article.question .card-title {
   margin-right: 2rem;
