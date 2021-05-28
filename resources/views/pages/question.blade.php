@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- Question Owner details -->
-                @include('partials.question.author')
+                @include('partials.question.author', ['element' => $question])
 
             </header>
 

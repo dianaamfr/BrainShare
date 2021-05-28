@@ -639,12 +639,12 @@ article.question .card-body .card-header {
 .answer .card-body .card-header {
   background-color: unset;
   border: unset;
-    margin-left: 1.3rem;
+  margin-left: 1.3rem;
 }
 
 .answer .card-body a.btn,.answer .card-body button.btn,
 .answer .card-body .comments{
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 
@@ -652,10 +652,16 @@ article.question .card-title {
   margin-right: 2rem;
 }
 
-.question-author span {
-  color: var(--bs-gray);
-  font-style: italic;
+/*username*/
+.question-author a span:nth-of-type(1) {
+    color: var(--main-blue);
 }
+
+/*date*/
+.question-author span:nth-of-type(1) {
+  color: var(--bs-gray);
+}
+
 
 .question-author img {
   height: 2.6rem;
@@ -751,10 +757,13 @@ article.question .card-title {
   padding-left: 1.8rem;
 }
 
+footer .comments{
+    color: var(--bs-gray);
+}
+
 .comments .comment {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
   padding: 1rem;
-
 }
 
 .comment-author span {

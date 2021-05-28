@@ -2,11 +2,7 @@
     <div id="display-answercard-{{$answer->id}}">
         <header class="question-author d-flex align-items-center card-header p-0 me-2">
 
-            <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
-            <!-- Small Profile Image -->
-
-            <span> {{$answer->owner->username}}</span> <!-- Username -->
-            <span class="mx-2"> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
+            @include('partials.question.author', ['element' =>$answer])
             <div class="d-flex ms-auto">
                 @can('edit',$answer)
                     <form title="Edit-answer" class="answer-edit-form">
@@ -100,7 +96,6 @@
             </div>
 
 
-
             <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
                 @if ($answer->valid)
                     <i class="fas fa-check text-center"></i>
@@ -110,9 +105,10 @@
         </div>
 
     </div>
-
-    <hr>
-    <footer class="d-flex align-items-center">
+    <div class="ps-3">
+        <hr>
+    </div>
+    <footer class="d-flex align-items-center pb-2">
         <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
         <hr>
         <!-- if question owner -->
