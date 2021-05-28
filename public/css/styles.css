@@ -767,7 +767,6 @@ footer .comments{
 }
 
 .comment-author span {
-    padding-left: 0.4rem;
     font-size: small;
   color: var(--bs-gray);
 }
@@ -776,9 +775,7 @@ footer .comments{
     color: var(--main-blue);
 }
 
-.comment-author span:first-of-type:before {
-  content: "-";
-}
+
 
 #submit-answer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);

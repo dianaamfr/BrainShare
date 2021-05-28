@@ -12,17 +12,18 @@
 
 <div class="comment" id="comment-{{$comment->id}}">
 
-    <div class="comment-text d-inline-block d-flex" id="show-edit-comment-{{$comment->id}}">
+    <div class="comment-text d-inline-block w-100" id="show-edit-comment-{{$comment->id}}">
         {{ $comment->content }}
-        <div class="comment-author text-primary ">
+
+    </div>
+
+    <div class="d-flex">
+        <div class="comment-author me-auto">
             <span> {{ $comment->owner->username }} </span> <!-- Username -->
             <span> {{ date('d-m-Y H:i', strtotime($comment->date)) }} </span> <!-- Date -->
         </div>
-    </div>
-
-    <div class="d-flex justify-content-end">
         @can('edit',$comment)
-            <form title="Edit-comment" class="comment-edit-form float-right text-primary">
+            <form title="Edit-comment" class="comment-edit-form">
                 <input type="hidden" name="dummyText" value="dummyText">
                 <input type="hidden" name="commentID" value="{{$comment->id}}">
                 <button class="icon-hover edit-comment ps-0 pe-1" title="Edit-comment" type="submit">
@@ -41,6 +42,7 @@
                 </button>
             </form>
         @endcan
+
         <div>
             @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
         </div>
