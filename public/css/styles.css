@@ -684,7 +684,7 @@ article.question .card-title {
   margin-left: 2rem;
 }
 
-.edit-question i {
+.edit-question i, .edit-answer i, .edit-comment i{
   color: var(--main-blue);
   margin-left: 1rem;
 }
@@ -721,6 +721,10 @@ article.question .card-title {
   padding: 2rem 0.5rem 1rem;
 }
 
+.edit-answer i, .edit-comment i {
+    max-width: 10px;
+}
+
 .vote_btn i {
   font-size: 1.4rem;
   color: var(--main-blue);
@@ -737,9 +741,7 @@ article.question .card-title {
 }
 
 .comments {
-  padding-left: 5.5rem;
-    font-style: italic;
-    color: var(--bs-gray);
+  padding-left: 1.8rem;
 }
 
 .comments .comment {
@@ -749,9 +751,13 @@ article.question .card-title {
 }
 
 .comment-author span {
-  padding: 0.5rem;
+    padding-left: 0.4rem;
+    font-size: small;
   color: var(--bs-gray);
-  font-style: italic;
+}
+
+.comment-author span:nth-of-type(1){
+    color: var(--main-blue);
 }
 
 .comment-author span:first-of-type:before {

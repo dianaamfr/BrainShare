@@ -4,7 +4,7 @@
             <div>
                 @can('edit',$answer)
                     <form title="Edit-answer" class="answer-edit-form">
-                        <button class="icon-hover" title="Edit-answer" class="edit-answer-button" type="submit">
+                        <button class="icon-hover edit-answer" title="Edit-answer" class="edit-answer-button" type="submit">
                             <input type="hidden" name="answerID" value="{{$answer->id}}">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
@@ -14,7 +14,7 @@
                 @can('delete',$answer)
                     <form title="Delete-answer" class="answer-delete-form">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover" type="submit">
+                        <button class="icon-hover edit-answer" type="submit">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
                         </button>
@@ -111,7 +111,8 @@
         </div>
 
     </div>
-    <hr class="my-2 p-0">
+
+    <hr>
     <footer class="d-flex align-items-center">
         <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
         <hr>
