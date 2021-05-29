@@ -20,12 +20,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/search';
 
     /**
      * Create a new controller instance.
@@ -34,16 +28,27 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        session()->forget("message");
-        session(["message" => "Logged with success!"]);
         $this->middleware('guest')->except('logout');
     }
 
-    public function getUser(){
+    /**
+     * Where to redirect users after login with some processing.
+     *
+     * @return string
+     */
+    protected function redirectTo(): string {
+        session()->forget("message");
+        session(["message" => "Logged with success!"]);
+        return '/search';
+    }
+
+    public function getUser()
+    {
         return $request->user();
     }
 
-    public function home() {
+    public function home()
+    {
         return redirect('home');
     }
 

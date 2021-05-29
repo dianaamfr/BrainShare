@@ -25,12 +25,7 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/search';
+
 
     /**
      * Create a new controller instance.
@@ -39,9 +34,19 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+
+        $this->middleware('guest');
+    }
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @return String
+     */
+    protected function redirectTo(): String{
         session()->forget("message");
         session(["message" => "Registered with success!"]);
-        $this->middleware('guest');
+        return '/search';
     }
 
     /**

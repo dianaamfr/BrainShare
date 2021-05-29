@@ -1,32 +1,28 @@
-<div class="card-body card answer-question-card" id="answer-{{$answer->id}}">
+<div class="card-body card answer-question-card my-2 p-2" id="answer-{{$answer->id}}">
     <div>
-        <header class="question-author pagination align-items-center justify-content-end card-header">
-            <div>
+        <header class="question-author d-flex align-items-center card-header p-0 me-2">
+
+            @include('partials.question.author', ['element' =>$answer])
+            <div class="d-flex ms-auto">
                 @can('edit',$answer)
-                <form title="Edit-answer" class="answer-edit-form">
-                    <button class="icon-hover" title="Edit-answer" class="edit-answer-button" type="submit">
-                        <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <i class="far fa-edit"></i>
-                        <i class="fas fa-edit"></i>
-                    </button>
-                </form>
+                    <form title="Edit-answer" class="answer-edit-form">
+                        <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
+                        <button class="icon-hover edit-answer ps-0 pe-1" title="Edit-answer" type="submit">
+                            <i class="far fa-edit"></i>
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </form>
                 @endcan
                 @can('delete',$answer)
-                <form title="Delete-answer" class="answer-delete-form">
-                    <input type="hidden" name="answerID" value="{{$answer->id}}">
-                    <button class="icon-hover" type="submit">
-                        <i class="far fa-trash-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
+                    <form title="Delete-answer" class="answer-delete-form">
+                        <input type="hidden" name="answerID" value="{{$answer->id}}">
+                        <button class="icon-hover edit-answer ps-0" type="submit">
+                            <i class="far fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
                 @endcan
-            </div>
-
-            <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image">
-            <!-- Small Profile Image -->
-            <div class="d-flex flex-wrap">
-                <span> {{$answer->owner->username}}</span> <!-- Username -->
-                <span> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
+                @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
             </div>
         </header>
 
@@ -56,23 +52,23 @@
             </div>
 
 
-            <div class="col align-self-start ps-4" id="answer-content-{{$answer->id}}">
+            <div class="col align-self-start ps-4 mt-2" id="answer-content-{{$answer->id}}">
                 {{ $answer->content }}
             </div>
 
 
             <div class="col align-self-start ps-4 d-none">
-                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms" >
-                    <div class="border form-control testing-editor" >
-                        <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
+                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms">
+                    <div class="border form-control testing-editor">
+                        <textarea class="form-control" placeholder="Type your answer here"
+                                  name="content"> {{$answer->content}} </textarea>
                         <div class="editor-toolbar"></div>
                     </div>
                     <input type="hidden" name="answerID" value="{{$answer->id}}">
-                    <button class="btn btn-primary mt-3" type="submit">Apply Changes </button>
-                    <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel </button>
+                    <button class="btn btn-primary mt-3" type="submit">Apply Changes</button>
+                    <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel</button>
                 </form>
             </div>
-
 
 
             <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
@@ -84,20 +80,22 @@
         </div>
 
     </div>
-
-    <footer class="d-flex align-items-center">
+    <div class="ps-3">
+        <hr>
+    </div>
+    <footer class="d-flex align-items-center pb-2">
         <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
-
+        <hr>
         <!-- if question owner -->
         @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
-            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid
+            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark
+                as valid
             </button>
         @elseif (Auth::id() === $answer->question->question_owner_id)
             <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid
             </button>
         @endif
 
-        @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm-{{$answer->id}}" role="button"
            aria-expanded="false" aria-controls="collapseCommentForm-{{$answer->id}}">Add Comment</a>
@@ -108,7 +106,8 @@
             <form class="submit-comments">
                 <input type="hidden" name="answerID" value="{{$answer->id}}">
                 <div class="mb-3 p-3">
-                    <textarea class="form-control" rows="2" name="content" placeholder="Type your comment here"></textarea>
+                    <textarea class="form-control" rows="2" name="content"
+                              placeholder="Type your comment here"></textarea>
                     <div class="d-grid gap-2 d-flex justify-content-end">
                         <button class="btn btn-primary mt-3" type="submit">Submit</button>
                         <button class="btn btn-outline-primary mt-3" type="button" data-bs-toggle="collapse"
