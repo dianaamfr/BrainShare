@@ -1,5 +1,5 @@
-<div class="card-body card answer-question-card answer-{{$answer->id}}">
-    <div id="display-answercard-{{$answer->id}}">
+<div class="card-body card answer-question-card" id="answer-{{$answer->id}}">
+    <div>
         <header class="question-author pagination align-items-center justify-content-end card-header">
             <div>
                 @can('edit',$answer)
@@ -29,8 +29,6 @@
                 <span> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
             </div>
         </header>
-
-
 
         <div class="row align-items-center px-3">
             @php
