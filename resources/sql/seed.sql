@@ -4,6 +4,7 @@
 DROP TABLE IF EXISTS tag CASCADE;
 DROP TABLE IF EXISTS course CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS "password_resets" CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
 DROP TABLE IF EXISTS answer CASCADE;
 DROP TABLE IF EXISTS comment CASCADE;
@@ -71,7 +72,7 @@ CREATE TABLE course(
 );
 
 CREATE TABLE "user"(
-    id  SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
@@ -86,6 +87,12 @@ CREATE TABLE "user"(
     user_role "role" NOT NULL DEFAULT 'RegisteredUser',
 
     CONSTRAINT birthday_date CHECK (birthday < CURRENT_DATE)
+);
+
+CREATE TABLE "password_resets" (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone NOT NULL
 );
 
 CREATE TABLE question(
@@ -163,7 +170,6 @@ CREATE TABLE report(
 );
 
 
-
 CREATE TABLE question_tag(
     question_id INTEGER REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
     tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -195,6 +201,8 @@ CREATE INDEX search_question_answer_idx ON question USING GIST(answers_search);
 CREATE INDEX search_question_idx ON question USING GIST(search);
 
 CREATE INDEX search_answer_idx ON answer USING GIST(search);
+
+CREATE INDEX password_resets_email_index ON "password_resets" USING btree(email);
 
 --------------
 -- Triggers --
