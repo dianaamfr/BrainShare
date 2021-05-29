@@ -122,3 +122,4 @@ Route::post('api/report/user/{id}', 'ReportController@reportUser');
 // Notifications
 Route::post('/api/notification/read/{id}', 'NotificationController@read');
 Route::post('/api/notification/delete/{id}', 'NotificationController@delete');
+Route::get('/api/notification/load', 'NotificationController@load');

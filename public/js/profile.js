@@ -37,7 +37,8 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
 function profileSearch(event){  
     event.preventDefault(); 
     let search = this.querySelector("input[type='search']");
-    
+    let userId = document.getElementById('profile-id').innerHTML;
+
     if(search.value == '') return;
 
     if(document.querySelector('#pagination-item-1').style.display == "block"){
@@ -48,6 +49,22 @@ function profileSearch(event){
         // Search Answers
         sendAjaxGetRequest( '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);  
     }
+}
+
+function profileQuestionsUpdate() {
+    let response = JSON.parse(this.responseText);
+    document.querySelector('#pagination-item-1').innerHTML = response.html;
+
+    let userId = document.getElementById('profile-id').innerHTML;
+    ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
+}
+
+function profileAnswersUpdate() {
+    let response = JSON.parse(this.responseText);
+    document.querySelector('#pagination-item-2').innerHTML = response.html;
+    
+    let userId = document.getElementById('profile-id').innerHTML;
+    ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
 }
 
 if (document.getElementById('profile-id')) {

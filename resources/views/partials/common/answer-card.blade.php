@@ -117,10 +117,10 @@
 
         <!-- if question owner -->
         @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
-            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid
+            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark as valid
             </button>
         @elseif (Auth::id() === $answer->question->question_owner_id)
-            <button class="btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid
+            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid
             </button>
         @endif
 

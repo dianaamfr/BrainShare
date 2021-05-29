@@ -1470,10 +1470,10 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 /* ---- Notifications Modal ---- */
 
-
-#notificationsModal .dropdown-toggle::after{
+#notificationsModal .dropdown-toggle::after {
   border: none;
   content: unset;
+  
 }
 
 #notificationsModal div.modal-header i {
