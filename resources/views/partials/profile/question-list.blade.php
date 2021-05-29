@@ -4,4 +4,4 @@
     <p>You haven't submitted any questions yet.</p>
 @endif
 
-<div class="profile-questions-paginate">{{ $questions->links() }} </div>
+<div class="profile-questions-paginate"> {{ $questions->links() }} </div>

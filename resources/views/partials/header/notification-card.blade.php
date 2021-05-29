@@ -20,7 +20,7 @@
     </div>
     <div class="d-flex align-items-center">
         <div class="flex-grow-1 fw-light">
-            {{ $notification->date }}
+            {{ date('d-m-Y H:i', strtotime($notification->date)) }}
         </div>
 
         <p class="notification-id" hidden>{{ $notification->id }}</p>

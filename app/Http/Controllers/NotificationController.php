@@ -11,7 +11,6 @@ use App\Models\User;
 
 class NotificationController extends Controller
 {
-
     public function read(Request $request) {
         $notification = Notification::find($request->id);
 

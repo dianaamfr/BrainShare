@@ -8,8 +8,9 @@
         </div>
         <div class="modal-body">
             <ul class="list-group">
-              @if (@count(Auth::user()->notifications) > 0)
-                @each('partials.header.notification-card', Auth::user()->notifications->reverse(), 'notification')
+              @if (@count($notifications) > 0) 
+                @each('partials.header.notification-card', $notifications, 'notification')
+                {{ $notifications->links() }}
               @else
                 No notifications
               @endif
