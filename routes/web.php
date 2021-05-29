@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -110,7 +109,6 @@ Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')-
 Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
 Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
 
-
 // Report
 Route::get('api/report/status', 'ReportController@isReported');
 Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
@@ -118,8 +116,11 @@ Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
 Route::post('api/report/comment/{id}', 'ReportController@reportComment');
 Route::post('api/report/user/{id}', 'ReportController@reportUser');
 
-
 // Notifications
 Route::post('/api/notification/read/{id}', 'NotificationController@read');
 Route::post('/api/notification/delete/{id}', 'NotificationController@delete');
 Route::get('/api/notification/load', 'NotificationController@load');
+
+Route::fallback(function() {
+    return view('errors.404');
+});

@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view)
         {
             if(Auth::user()) {
-                $notifications = Notification::where('user_id', Auth::user()->id)->paginate(5);
+                $notifications = Notification::where('user_id', Auth::user()->id)->orderBy('date', 'DESC')->paginate(5);
                 View::share('notifications', $notifications);
             }
         });

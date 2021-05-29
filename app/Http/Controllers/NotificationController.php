@@ -39,7 +39,7 @@ class NotificationController extends Controller
     public function load(Request $request) {
         $notificiation = Notification::where('user_id', Auth::user()->id);
 
-        $response = view('partials.header.notification-list', ['notifications' => $notificiation->simplePaginate(5)])->render();
+        $response = view('partials.header.notification-list', ['notifications' => $notificiation->orderBy('date', 'DESC')->paginate(5)])->render();
 
         return response()->json(['success'=> True, 'id' => $request->page, 'response' => $response, 'lastPage' => $notificiation->paginate(5)->lastPage()]);
     }

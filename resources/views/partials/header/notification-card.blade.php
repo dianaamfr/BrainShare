@@ -15,7 +15,7 @@
         </a>
 
         @if (!$notification->viewed)
-            <i id="viewed-{{ $notification->id }}" class="fas fa-circle ms-auto"></i>
+            <i id="viewed-{{ $notification->id }}" class="text-blue fas fa-circle ms-auto"></i>
         @endif
     </div>
     <div class="d-flex align-items-center">
@@ -25,7 +25,14 @@
 
         <p class="notification-id" hidden>{{ $notification->id }}</p>
 
-        <button class="mark-read-{{ $notification->id }}"><i class="bi bi-check"></i></button>
-        <button class="delete-{{ $notification->id }}"><i class="bi bi-trash"></i></button>
+        <button class="icon-hover mark-read-{{ $notification->id }} btn-link">
+            <i class="far fa-check-circle"></i>
+            <i class="fas fa-check-circle"></i>
+        </button>
+
+        <button class="icon-hover delete-{{ $notification->id }} btn-link">
+            <i class="far fa-trash-alt"></i>
+            <i class="fas fa-trash-alt"></i>
+        </button>
     </div>
 </li>
