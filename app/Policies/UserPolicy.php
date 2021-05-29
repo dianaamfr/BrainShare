@@ -65,4 +65,9 @@ class UserPolicy
       return $updatedIsRegisteredUser && $user->isModerator();
     }
 
+    public function passwordRecovery(?User $user){
+
+      return !Auth::check();
+    }
+
 }
