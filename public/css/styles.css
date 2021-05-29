@@ -186,6 +186,14 @@ a {
   color: var(--light-grey);
 }
 
+p a {
+  color: var(--bs-gray);
+}
+
+p a:hover {
+  color: var(--text-black);
+}
+
 a:hover {
   color: var(--white);
 }

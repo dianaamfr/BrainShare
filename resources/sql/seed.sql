@@ -748,10 +748,7 @@ this is the flexbox version : https://web-platform-wtfgmj.stackblitz.io/
 and this is the css grid version : https://web-platform-wtfgmj.stackblitz.io/index2.html
 Open the developper tools in chrome and enable paint flashing (tools/rendering has to be enabled). When typing in one of the input boxes, the css grid version will repaint all items in the list. The flexbox version does not have this problem.
 I would like to understand why css grid repaints all items in the list when typing in the input box ? And can it somehow be avoided ?', '2021-01-01');
-INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B', 'A particle traveling with velocity va
-in the medium A and with velocity vb in the medium B. The particle starts at time t=0 from the point Pi and has to get in the minimum time to the point Pj.
-How can i determine the trajectory that this particle must follow to reach the point Pf
-in minimum time.', '2020-06-21');
+INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 9, 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B', 'A particle traveling with velocity va in the medium A and with velocity vb in the medium B. The particle starts at time t=0 from the point Pi and has to get in the minimum time to the point Pj. How can i determine the trajectory that this particle must follow to reach the point Pf in minimum time.', '2020-06-21');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 5, 'Best way to initialize (empty) array in PHP', 'In certain other languages (AS3 for example), it has been noted that initializing a new array is faster if done like this var foo = [] rather than var foo = new Array() for reasons of object creation and instantiation. I wonder whether there are any equivalences in PHP?', '2021-01-01');
 INSERT INTO question (id, question_owner_id, title, content, "date") VALUES (DEFAULT, 3, 'Building bridges problem - how to apply longest increasing subsequence?', 'The building bridges problem is stated as follows:
 There is a river that runs horizontally through an area. There are a set of cities above and below the river. Each city above the river is matched with a city below the river, and you are given this matching as a set of pairs.
@@ -841,21 +838,19 @@ INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'tr
 INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'true',70,92,'I am receiving a lot of spam emails from this user and my friends are too! I think he is using this website to get emails from other users.');
 INSERT INTO "report" (id,viewed,user_id,reported_id,content) VALUES (DEFAULT,'false',42,46,'This account seems to be used to promote transphobia... It should be banned.');
 
--- Reported questions (1-5)
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,2,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',94,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',84,2,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',67,5,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',60,5,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',60,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
-INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',76,4,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+-- Reported questions
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,2,'The title of the question is not even a question...Questions should sum the problem.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,3,'Reese has a lot of trouble choosing the tags and courses of his questions...');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',94,1,'The issue is reported as a bug but actually the error was from the user. Maybe that is the reason why it has negative points.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',84,3,'The Master in Engineering and Industrial Management doesn''t include any subject related to Programming...or am I confused?');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',7,2,'Sanders did not even consider rereading the question he made. Poor english.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',67,2,'I don''t think Computer Engineering is related with this problem. Maybe changing the course and the tag would be better.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',84,3,'Shouldn''t this question be related to MIEIC? It seems more appropriate. I had trouble finding this page and Ĩ had a similar question.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',60,2,'I had Numerical Methods and nothing like this was ever lectured. Maybe Sanders selected the wrong tag.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'false',60,1,'Economy? Well i don''t think this is an Economy question... nor Numerical Methods actually. Galloway seems to want all the attention for himself.');
+INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'true',76,4,'How is this related to php? Tag misclick?');
 
--- Reported answers (1-3)
-
+-- Reported answers 
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',59,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',25,1,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
@@ -866,7 +861,7 @@ INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',95,2,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
 
--- Reported comments(1)
+-- Reported comments
 INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',33,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
 INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',25,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
 INSERT INTO "report" (id,viewed,user_id,comment_id,content) VALUES (DEFAULT,'false',21,1,'Non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.  ');
