@@ -72,5 +72,5 @@ if (document.getElementById('notificationsModal')) {
     }
 
     let showMore = document.querySelector('.show-more-notifications');
-    showMore.addEventListener('click', loadMore);
+    if(showMore) showMore.addEventListener('click', loadMore);
 }

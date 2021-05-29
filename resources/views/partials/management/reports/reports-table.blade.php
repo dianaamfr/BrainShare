@@ -70,7 +70,7 @@
                         @endif
                     <!-- Comment -->
                     @elseif ($report->comment_id) 
-                        <a href="/question/{{$report->comment->question_id}}#comment-{{$report->comment_id}}">
+                        <a href="/question/{{$report->comment->answer->question_id}}#comment-{{$report->comment_id}}">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                         @if($report->comment->deleted == true)
