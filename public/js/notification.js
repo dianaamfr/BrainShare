@@ -54,7 +54,7 @@ function markRead(notificationId) {
         'id': notificationId,
     };
 
-    sendDataAjaxRequest('POST', '/api/notification/read/' + notificationId, data, readHandler);
+    sendDataAjaxRequest('POST', '/api/notification/' + notificationId, data, readHandler);
 }
 
 function deleteNotification(notificationId) {
@@ -62,7 +62,7 @@ function deleteNotification(notificationId) {
         'id': notificationId,
     };
 
-    sendDataAjaxRequest('POST', '/api/notification/delete/' + notificationId, data, deleteHandler);
+    sendDataAjaxRequest('DELETE', '/api/notification/' + notificationId, data, deleteHandler);
 }
 
 

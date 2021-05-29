@@ -1,8 +1,10 @@
-import {sendDataAjaxRequest} from "./common.js";
+import {sendDataAjaxRequest,sendAjaxGetRequest} from "./common.js";
 import {addCommentEventListeners} from "./comment.js"; 
 
-window.addEventListener('load', addEventListeners);
+addEventListeners();
 
+console.log("Reaches here");
+let page = 1;
 
 function addEventListeners(){
     // Add Answer
@@ -36,13 +38,8 @@ function addEventListeners(){
     // console.log(editButtons);
     // console.log(deleteButtons);
     console.log(cancelEditForm);
-
+    
 }
-
-function editorToolbares(element){
-
-}
-
 
 
 function addDeleteListeners(element){
@@ -73,7 +70,7 @@ function submitAnswer(event){
     // This is not doing anytihing because of the markdown framework
     textElement.value = "";
 
-    sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
+    sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text, 'page': page}, handler);
 
 }
 
@@ -89,12 +86,11 @@ function removeAnswer(event){
     console.log(answerID);
 
     //Route::delete('/api/question/{id-q}/answer/{id-a}
-    sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', null, handler);
+    sendDataAjaxRequest("delete",'/api/answer/'+ answerID, null, handler);
     
 
 }
 
-// Falta dar fix ao css de modo a que consiga ir buscar o texto
 function editAnswer(event){
 
     event.preventDefault();
@@ -111,7 +107,7 @@ function editAnswer(event){
     console.log(text);
 
 
-    sendDataAjaxRequest("put",'/api/answer/'+ answerID + '/edit',{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/answer/'+ answerID,{'text':text}, handler);
 }
 
 function showEditForm(event){
@@ -153,6 +149,48 @@ function handler(responseJson){
     
     
 }
+
+console.log("no working");
+let debugging = document.getElementById('debuggiiing');
+console.log(debugging);
+
+
+debugging.addEventListener("submit",checkForNewDiv);
+
+
+
+function checkForNewDiv(event) {
+
+    console.log("handling event");
+    //event.preventDefault();
+
+    let lastDiv = document.querySelector("#all-answers > div:last-child");
+    let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+
+    // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em 
+
+    if(pageOffset > lastDivOffset + 1300) {
+        let id = document.querySelector("#submit-answer > input[name=questionID]").value;
+        sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
+        checkForNewDiv();
+        
+    }
+}
+
+function handlePagination(){
+
+    let response = JSON.parse(this.responseText);
+    console.log(response);
+    console.log("Entered handler");
+    console.log(response.success);
+    let newAnswers = response.html;
+    document.getElementById("all-answers").appendChild(newAnswers);
+    checkForNewDiv();
+    console.log("APPEDNING NEW DIV ASDHSADHSAJDHÇAASÇJDHJSJDA");
+    page +=1;
+}
+
 
 
 

@@ -29,6 +29,7 @@ class QuestionController extends Controller
         return view('pages.question', ['question' => $question]);
     }
 
+
     public function showQuestionForm()
     {
         if (!Auth::check()) return redirect('/login');

@@ -62,6 +62,13 @@
 
     </article>
 
+    <!-- Submit Answer Form -->
+    <form id="submit-answer">
+        <input type="hidden" name="questionID" value="{{$question->id}}">
+        @include('partials.question.answer-form')
+    </form>
+
+
     <!-- Answer -->
     <section class="answers">
         <header class="d-flex align-items-center">
@@ -69,15 +76,18 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answer'=>$question->answers])
+            @include('partials.common.answer-list',['answer'=>$question->answers()->simplePaginate(2)])
         </div>
     </section>
 
-    <!-- Submit Answer Form -->
-    <form id="submit-answer">
-        <input type="hidden" name="questionID" value="{{$question->id}}">
-        @include('partials.question.answer-form')
+    <form id="debuggiiing" >
+        <button type="submit">CLICK HERE</button>>
     </form>
+
+
+     
+
+    
 </div>
 
 @include('partials.common.report-modal')

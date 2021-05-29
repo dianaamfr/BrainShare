@@ -12,7 +12,21 @@ use App\Models\Answer;
 use App\Models\User;
 use App\Models\Question;
 
+
 class AnswerController extends Controller{
+
+
+    public function appendInfiniteScroll(Request $request, $id){
+
+        // Validation
+        $validated = $request->validate([
+            'page' => 'integer'
+        ]);
+
+        $question =  Question::find(intval($id));
+        $response = view('partials.common.answer-list', ['answer' => $question->answers()->simplePaginate(2)])->render();
+        return response()->json(array('success' => true, 'html' => $response));
+    }
 
     
     public function newAnswer(Request $request, $id){
@@ -22,7 +36,8 @@ class AnswerController extends Controller{
         
         // Validation
         $validated = $request->validate([
-            'text' => 'required'
+            'text' => 'required',
+            'page' => 'integer',
         ]);
 
 
@@ -36,7 +51,7 @@ class AnswerController extends Controller{
         
         // Return the changed view
         $question =  Question::find(intval($id));
-        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
+        $response = view('partials.common.answer-list', ['answer' => $question->answers()->simplePaginate(2)])->render();
         return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
 
         
@@ -84,7 +99,7 @@ class AnswerController extends Controller{
         // Return view of comments to refresh view
         $question =  Question::find(intval($answer->question_id));
         $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+        return response()->json(array(success => true, 'number_answers' => $question->number_answer,'html' => $response));
 
     }
 

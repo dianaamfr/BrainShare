@@ -92,7 +92,7 @@ function addComment(event){
 
 
 
-    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text}, handler);
     
 }
 
@@ -106,7 +106,7 @@ function deleteComment(event){
     // console.log(questionID);
     console.log(commentID);
 
-    sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
+    sendDataAjaxRequest("delete",'/api/comment/' + commentID, null, handler);
     
 }
 
@@ -117,17 +117,14 @@ function editComment(event){
 
     //let questionID = this.querySelector('input[name="questionID"]').value;
     let commentID = this.querySelector('input[name="commentID"]').value;
-    //let text = this.querySelector('textarea[name="content"]').value;
-    //let text = "hello my friend"
     let text = this.querySelector('input[name="dummyText"]').value;
 
     console.log(this);
-    //console.log(questionID);
     console.log(commentID);
     console.log(text);
 
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, handler);
 }
 
 function editComment2(event){
@@ -189,7 +186,7 @@ function submitEdit(event){
     console.log(text);
 
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, handler);
 }
 
 function handler(responseJson){
