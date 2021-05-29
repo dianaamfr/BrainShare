@@ -31,7 +31,6 @@ class ReportPolicy
 
         // Administrators cannot discard a report made by themselves
         if($user->isAdmin()){
-            if($user->id === $report->user_id) return false;
             return true;
         }
 

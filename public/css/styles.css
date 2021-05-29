@@ -108,6 +108,11 @@
     min-width: 150px;
 }
 
+/* Tooltips */
+.tooltip { 
+  pointer-events: none;
+}
+
 /* ---- Body ---- */
 
 html {
@@ -179,6 +184,14 @@ p {
 
 a {
   color: var(--light-grey);
+}
+
+p a {
+  color: var(--bs-gray);
+}
+
+p a:hover {
+  color: var(--text-black);
 }
 
 a:hover {
@@ -500,6 +513,7 @@ a.profile-button {
   color: var(--light-grey);
   padding-right: unset;
 }
+
 
 .icon-hover :last-child,
 .icon-hover :last-child,
@@ -1293,8 +1307,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
  /* --- Edit Profile -- */
 
-
-
 #profile-main input[type="file"] {
     display: none;
 }
@@ -1314,6 +1326,15 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 .about-me {
   height: 31em;
 
+}
+
+.deleted-alert {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.max-size {
+  max-width: 1200px;
 }
 
 /* ---- User/Reports Management ---- */
@@ -1345,14 +1366,6 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   margin-right: 0.5rem;
 }
 
-#reports table th, #reports table td{
-  font-size: 0.9rem;
-}
-
-#reports table td {
-  padding: 0.5rem 0.3rem !important;
-}
-
 #reports table tr td:nth-last-child(2){
   min-width: 100px;
 }
@@ -1372,18 +1385,20 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 #reports table tr td:nth-child(6){
   min-width: 180px;
+  max-width: 300px;
+  word-break: break-all;
 }
 
 .management table thead tr th i{
   margin-right: 0.6rem;
 }
 
-#reports .report-action, .user-action{
+.user-action{
   font-size: 0.85rem;
   padding: .2rem 1.7rem .2rem .5rem;
 }
 
-#reports .report-actions button, .user-actions button {
+.user-actions button {
   padding: 0.5rem;
 }
 
@@ -1391,8 +1406,15 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   font-size: 0.85rem;
 }
 
-#reports .fa-check{
-  font-size: 0.85rem;
+#reports table th, #reports table td{
+  font-size: 0.9rem;
+}
+
+.management-action-btn {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+  padding: .2rem .55rem;
+  min-width: 42px;
 }
 
 .deleted-report {

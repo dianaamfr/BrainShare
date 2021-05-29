@@ -12,18 +12,19 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-// TODO : create the authorization for do these actions.
 class CategoriesController extends Controller
 {
     public function showTags(Request $request){
         $this->authorize('showTags', Tag::class);
+
         $tags = $this->getFilteredTag($request->input('search-name'));
 
         return view('pages.manage-tags', ['tags' => $tags->paginate(10), 'url'=> '/admin/tags']);
     }
 
     public function searchTags(Request $request){
-        // TODO: add authorization
+        $this->authorize('showTags', Tag::class);
+
         $tags = $this->getFilteredTag($request->input('search-name'));
 
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags',
@@ -32,8 +33,8 @@ class CategoriesController extends Controller
 
     }
 
-    public function getFilteredTag($search){
-        // TODO: add authorization
+    private function getFilteredTag($search){
+        
         if (isset($search) && !empty($search)){
             return Tag::where('name', 'ILIKE', $search . '%');
         }
@@ -48,7 +49,7 @@ class CategoriesController extends Controller
         $tag->setAttribute('creation_date', Carbon::now());
         $tag->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
+        return response()->json(['success'=> 'The tag <strong>' . $tag->name . '</strong> was successfully added.', 'url'=> '/admin/tags']);
 
     }
 
@@ -56,9 +57,9 @@ class CategoriesController extends Controller
         
         $this->authorize('deleteTag', Tag::class);
         $jsonTag = json_decode($request->getContent(), true);
-        DB::table('tag')->where('name', "=", $jsonTag['input'])->delete();
+        Tag::where('name', "=", $jsonTag['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/tags']);
+        return response()->json(['success'=> 'The tag <strong>' . $jsonTag['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/tags']);
 
     }
 
@@ -72,7 +73,8 @@ class CategoriesController extends Controller
     }
 
     public function searchCourses(Request $request): \Illuminate\Http\JsonResponse {
-        // TODO: add authorization
+        $this->authorize('showCourses', Course::class);
+
         $courses= $this->getFilteredCourses($request->input('search-name'));
 
         return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses',
@@ -80,8 +82,8 @@ class CategoriesController extends Controller
         ]);
 
     }
-    public function getFilteredCourses($search){
-        // TODO: add authorization
+    private function getFilteredCourses($search){
+
         if (isset($search) && !empty($search)){
             return Course::where('name', 'ILIKE', $search . '%');
         }
@@ -90,22 +92,24 @@ class CategoriesController extends Controller
 
     public function addCourse(Request $request){
         $this->authorize('addCourse', Course::class);
+
         $course= new Course();
         $jsonCourse= json_decode($request->getContent(), true);
         $course->name = $jsonCourse['input'];
         $course->setAttribute('creation_date', Carbon::now());
         $course->save();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
+       return response()->json(['success'=> 'The course <strong>' . $jsonCourse['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/courses']);
 
     }
 
     public function deleteCourse(Request $request): \Illuminate\Http\JsonResponse {
         $this->authorize('deleteCourse', Course::class);
+        
         $jsonCourse = json_decode($request->getContent(), true);
-        DB::table('course')->where('name', "=", $jsonCourse['input'])->delete();
+        Course::where('name', "=", $jsonCourse['input'])->delete();
 
-        return response()->json(['success'=> 'Your request was completed', 'url'=> '/admin/courses']);
+        return response()->json(['success'=> 'The tag <strong>' . $jsonCourse['input'] . '</strong> was successfully deleted.', 'url'=> '/admin/courses']);
     }
 
 

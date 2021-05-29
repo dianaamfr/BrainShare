@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -14,12 +16,16 @@ class PasswordResetController extends Controller
 {
 
     public function show()
-    {
-      return view('auth.forgot-password');
+    {   
+        $this->authorize('password-recovery', User::class);
+        
+        return view('auth.forgot-password');
     }
 
     public function requestRecovery(Request $request)
     {
+        $this->authorize('password-recovery', User::class);
+
         $request->validate(['email' => 'required|email']);
 
         $status = Password::sendResetLink(
@@ -32,11 +38,14 @@ class PasswordResetController extends Controller
     }
 
     public function showResetPassword($token){
+        $this->authorize('password-recovery', User::class);
         return view('auth.reset-password', ['token' => $token]);
     }
 
     public function resetPassword(Request $request) {
-        
+
+        $this->authorize('password-recovery', User::class);
+
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',

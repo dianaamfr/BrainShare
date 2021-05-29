@@ -69,17 +69,6 @@ export function sendDataAjaxRequest(method, url, data, handleResponse) {
     ).then(response => response.json()).then(json => handleResponse(json));
 }
 
-function sendAjaxPostRequest(method, url, data, handler) {
-    let request = new XMLHttpRequest();
-
-    request.open(method, url, true);
-    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.addEventListener('load', handler);
-    request.send(encodeForAjax(data));
-}
-
-
 
 export function sendAjaxRequest(method, url, data, handleResponse) {
     let dataJson = JSON.stringify(data);
@@ -176,3 +165,49 @@ function removeToastColor(toastElement){
     toastElement.classList.remove('bg-danger');
 }
 
+export function tooltipCreate(){
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            trigger : 'manual',
+            boundary: tooltipTriggerEl.parentElement,
+            container: 'body',
+            placement: 'top',
+            fallbackPlacements: ['top']
+        });
+    });
+
+    return {tooltipTriggerList, tooltipList};
+}
+
+export function tooltipLoad(){
+    let {tooltipTriggerList, tooltipList} = tooltipCreate();
+
+    tooltipTriggerList.forEach(function(tooltipTg){
+        
+        tooltipTg.addEventListener('mouseenter', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].show();
+        });
+    
+        tooltipTg.addEventListener('mouseleave', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
+        });
+        
+        tooltipTg.addEventListener('click', function () {
+            tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
+        });
+    });
+}
+
+export function setConfirmationModal(title, message, handler, modalObj){
+    document.querySelector(".confirmationModal .modal-body").innerHTML = message;
+    document.querySelector(".confirmationModal .modal-title").innerHTML = title;
+
+    document.querySelector(".confirmationModal .modal-footer button[name='confirm']").addEventListener('click', function(){
+        modalObj.hide();
+
+        if(handler) handler();
+    });
+
+    modalObj.show();
+}

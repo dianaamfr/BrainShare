@@ -30,4 +30,6 @@
         </div>
     </div>
 
+    @include('partials.common.confirmation-modal')
+
 @endsection
