@@ -9,6 +9,14 @@
     @endsection
 
     <div class="page-margin">
+
+        <!-- Banned User Alert -->
+        @if($user->ban === true)
+            <div class="alert alert-danger deleted-alert container-lg" role="alert">
+                This User <strong>{{$user->username}}</strong> has been banned. Only Administrators and Moderators can see this page.
+            </div>
+        @endif
+
         <!-- Profile Info -->
         @include('partials.profile.profile-info', $user)
 

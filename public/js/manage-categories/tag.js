@@ -4,7 +4,9 @@ let InputDiv = document.getElementById("input-category");
 let searchDiv = InputDiv.querySelectorAll("div")[1];
 const url = "/admin/tags";
 
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
+
 listenPageCategory( url);
 listenSearchCategory(url, searchDiv);
-listenDeleteCategory(url);
+listenDeleteCategory(url, modal);
 listenAddCategory(url);

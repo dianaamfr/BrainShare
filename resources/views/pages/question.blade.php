@@ -3,12 +3,21 @@
 @section('content')
 
 @section('scripts')
-    <script src={{ asset('js/answer.js')}}  type="module"></script>
-    <script src={{ asset('js/comment.js')}}  type="module"></script>
+    <script src={{ asset('js/answer.js') }}  type="module"></script>
+    <script src={{ asset('js/comment.js') }}  type="module"></script>
     <script src={{ asset('js/report.js') }} type="module"></script>
+    <script src={{ asset('js/question.js') }} type="module"></script>
 @endsection
 
 <div id="page-top" class="page-margin question-page">
+
+    <!-- Delete Question Alert -->
+    @if($question->deleted === true)
+        <div class="alert alert-danger deleted-alert max-size" role="alert">
+            This Question has been deleted. Only Administrators and Moderators can see this page.
+        </div>
+    @endif
+    
     <article class="question card">
         <div class="card-body">
             <header class="card-header">
@@ -80,5 +89,6 @@
 </div>
 
 @include('partials.common.report-modal')
+@include('partials.common.confirmation-modal')
 @include('partials.common.toast')
 @endsection

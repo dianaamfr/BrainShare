@@ -20,13 +20,12 @@
             @foreach ($categories as $category)
                 <tr>
                     <th scope="row">{{$loop->index + 1 + $categories->perpage() * ($categories->currentpage()-1)}}</th>
-                    <td>{{ $category->name }} </td>
+                    <td class="category-name">{{ $category->name }} </td>
                     <td>{{ sizeof($category->questions) }}</td>
                     <td>{{ date('d-m-Y', strtotime($category->getAttribute('creation_date'))) }}</td>
                     <td>
-                        <button class="icon-hover" type="submit">
+                        <button class="btn btn-outline-primary management-action-btn" type="submit">
                             <i class="far fa-trash-alt"></i>
-                            <i class="fas fa-trash-alt"></i>
                         </button>
                     </td>
                 </tr>
@@ -35,5 +34,10 @@
 
         </tbody>
     </table>
+
+    @if($categories->isEmpty())
+        <span>Nothing found</span>
+    @endif 
+
     <!-- Pagination -->
     {{$categories->links()}}

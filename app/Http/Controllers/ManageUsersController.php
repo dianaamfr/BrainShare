@@ -32,7 +32,7 @@ class ManageUsersController extends Controller {
       ]);
     }
 
-    public function getFilteredUsers($search){
+    private function getFilteredUsers($search){
       if(isset($search) && !empty($search)){
         return User::where('username', 'ILIKE', $search . '%')->orderBy('username', 'asc');
       }
@@ -55,15 +55,30 @@ class ManageUsersController extends Controller {
         return response()->json(['error'=>'Invalid action.']);
       } 
 
-      if($request->input('action') == 'admin') $this->updateRole($user, 'Administrator');
-      else if ($request->input('action') == 'moderator') $this->updateRole($user, 'Moderator');
-      else if ($request->input('action') == 'ru') $this->updateRole($user, 'RegisteredUser');
-      else if($request->input('action') == 'ban') $this->updateBan($user, 1);
-      else if($request->input('action') == 'unban') $this->updateBan($user, 0);
+      if($request->input('action') == 'admin'){
+        $this->updateRole($user, 'Administrator');
+        $action = "Administrator";
+      }
+      else if ($request->input('action') == 'moderator'){
+        $this->updateRole($user, 'Moderator');
+        $action = "Moderator";
+      }
+      else if ($request->input('action') == 'ru'){
+        $this->updateRole($user, 'RegisteredUser');
+        $action = "Registered User";
+      } 
+      else if($request->input('action') == 'ban'){
+        $this->updateBan($user, true);
+        $action = "Banned";
+      }
+      else if($request->input('action') == 'unban'){
+        $this->updateBan($user, false);
+        $action = "Unbanned";
+      } 
       else return response()->json(['error'=>'Invalid action']);
 
       $html = view('partials.management.users.user-actions', ['id' => $user->id, 'role'=> $user->user_role, 'ban'=> $user->ban, 'date' => date('d-m-Y', strtotime($user->signup_date))])->render();
-      return response()->json(['success'=> 'Your request was completed', 'id'=> $user->id, 'html' => $html]);
+      return response()->json(['success'=> $this->successMessage($action, $user->username), 'id'=> $user->id, 'html' => $html]);
     }
 
     public function updateRole($user, $role){
@@ -99,5 +114,13 @@ class ManageUsersController extends Controller {
       return response()->json(['success'=> 'Your request was completed',
         'html' => view('partials.management.users.users-table', ['users' => $users->paginate(10)])->render()
       ]);
+    }
+
+    public function successMessage($action, $user){
+      if (stripos($action,'ban')){
+        return 'The User <strong>'. $user . '</strong> was successfully ' . $action . '.';
+      }
+      
+      return 'The role of the User <strong>' . $user . '</strong> was successfully changed to ' . $action . '.';
     }
   }

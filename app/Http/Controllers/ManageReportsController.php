@@ -74,7 +74,7 @@ class ManageReportsController extends Controller {
     }
 
     public function discard(Request $request) {
-
+        
         $report = Report::find($request->input('id'));
         $this->authorize('update', $report);
 
@@ -83,10 +83,26 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The report was successfully discarded and marked as "handled".',
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
+
+    public function undiscard(Request $request) {
+        
+        $report = Report::find($request->input('id'));
+        $this->authorize('update', $report);
+
+        $report->update(['viewed' => false]);
+
+        $reports = $this->getReports($request);
+
+        return response()->json([
+            'success'=> 'The report was successfully marked as "pending".',
+            'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
+        ]);
+    }
+
 
     public function delete(Request $request){
 
@@ -95,16 +111,21 @@ class ManageReportsController extends Controller {
 
         // Delete Reported Content
         if(!is_null($report->question_id)){
+            $type = 'Question';
             Question::find($report->question_id)->update(['deleted' => true]);
         }
         else if(!is_null($report->answer_id)){
+            $type = 'Answer';
             Answer::find($report->answer_id)->update(['deleted' => true]);
         }
         else if(!is_null($report->comment_id)){
+            'Comment';
             Comment::find($report->comment_id)->update(['deleted' => true]);
         }
         else{
-            User::find($report->reported_id)->update(['ban' => true]);
+            $type = 'User';
+            $user = User::find($report->reported_id);
+            $user->update(['ban' => true]);
         }
 
         // Now the trigger will discard all reports associated with the deleted content
@@ -112,7 +133,7 @@ class ManageReportsController extends Controller {
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The ' . $type . '<strong>' . (isset($user) ? ' ' . $user->username : '') . '</strong> was successfully ' . (isset($user) ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
@@ -124,29 +145,33 @@ class ManageReportsController extends Controller {
 
         // Recover Deleted Content
         if(!is_null($report->question_id)){
+            $type = "Question";
             Question::find($report->question_id)->update(['deleted' => false]);
         }
         else if(!is_null($report->answer_id)){
+            $type = "Answer";
             Answer::find($report->answer_id)->update(['deleted' => false]);
         }
         else if(!is_null($report->comment_id)){
+            $type = "Comment";
             Comment::find($report->comment_id)->update(['deleted' => false]);
         }
         else{
-            User::find($report->reported_id)->update(['ban' => false]);
+            $type = "User";
+            $user = User::find($report->reported_id);
+            $user->update(['ban' => false]);
         }
 
         $reports = $this->getReports($request);
 
         return response()->json([
-            'success'=> 'Your request was completed',
+            'success'=> 'The ' . $type . '<strong>' . (isset($user) ? ' ' . $user->username : '') . '</strong> was successfully ' . (isset($user)  ? 'banned' : 'deleted'). '.' ,
             'html' => view('partials.management.reports.reports-table', ['reports' => $reports])->render()
         ]);
     }
 
     private function excludeOwnReports($reports){
-        return $reports->where('user_id', '!=', Auth::user()->id)
-            ->where(function($query){
+        return $reports->where(function($query){
                 $query->whereHas('reported', function($query) {
                     $query->where('reported_id', '!=', Auth::user()->id);
                 })
@@ -187,35 +212,43 @@ class ManageReportsController extends Controller {
     }
 
     private function filterReportsByOwner($reports, Request $request){
+            
+        return $reports->where(function($query) use ($request){
+            $query->whereHas('reported', function ($query) use ($request){
+                $query->where('id', '!=', Auth::user()->id)
+                ->where('username', 'ILIKE', $request->input('search-username') . '%');
 
-        return $reports->where('user_id', '!=', Auth::user()->id)
-            ->where(function($query) use ($request){
-                $query->whereHas('reported', function ($query) use ($request){
-                    $query->where('id', '!=', Auth::user()->id)
-                    ->where('user_role', '=', 'RegisteredUser')
-                    ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                })
-                ->orWhereHas('question', function ($query) use ($request){
-                    $query->where('question_owner_id', '!=', Auth::user()->id)
-                    ->whereHas('owner', function ($query) use ($request){
-                        $query->where('user_role', '=', 'RegisteredUser')
-                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                    });
-                })
-                ->orWhereHas('answer', function ($query) use ($request){
-                    $query->where('answer_owner_id', '!=', Auth::user()->id)
-                    ->whereHas('owner', function ($query) use ($request){
-                        $query->where('user_role', '=', 'RegisteredUser')
-                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                    });
-                })
-                ->orWhereHas('comment', function ($query) use ($request){
-                    $query->where('comment_owner_id', '!=', Auth::user()->id)
-                    ->whereHas('owner', function ($query) use ($request){
-                        $query->where('user_role', '=', 'RegisteredUser')
-                        ->where('username', 'ILIKE', $request->input('search-username') . '%');
-                    });
-                }); 
+                if(Auth::user()->isModerator())
+                    $query = $query->where('user_role', '=', 'RegisteredUser');
+                
+            })
+            ->orWhereHas('question', function ($query) use ($request){
+                $query->where('question_owner_id', '!=', Auth::user()->id)
+                ->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+
+                    if(Auth::user()->isModerator())
+                        $query = $query->where('user_role', '=', 'RegisteredUser');
+                });
+            })
+            ->orWhereHas('answer', function ($query) use ($request){
+                $query->where('answer_owner_id', '!=', Auth::user()->id)
+                ->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+
+                    if(Auth::user()->isModerator())
+                        $query = $query->where('user_role', '=', 'RegisteredUser');
+                });
+            })
+            ->orWhereHas('comment', function ($query) use ($request){
+                $query->where('comment_owner_id', '!=', Auth::user()->id)
+                ->whereHas('owner', function ($query) use ($request){
+                    $query->where('username', 'ILIKE', $request->input('search-username') . '%');
+
+                    if(Auth::user()->isModerator())
+                        $query = $query->where('user_role', '=', 'RegisteredUser');
+                });
+            }); 
         });
         
     }

@@ -13,8 +13,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
-                <th scope="col">State</th>
-                <th scope="col">Content</th>
+                <th scope="col" class="text-center">State</th>
+                <th scope="col" class="text-center">Content</th>
                 <th scope="col">Owner</th>
                 <th scope="col">Description</th>
                 <th scope="col">Reported By</th>
@@ -62,7 +62,7 @@
                         @endif
                     <!-- Answer -->
                     @elseif ($report->answer_id) 
-                        <a href="/question/{{$report->answer->question_id}}">
+                        <a href="/question/{{$report->answer->question_id}}/answer-{{$report->answer_id}}">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                         @if($report->answer->deleted == true)
@@ -70,7 +70,7 @@
                         @endif
                     <!-- Comment -->
                     @elseif ($report->comment_id) 
-                        <a href="/question/{{$report->comment->question_id}}">
+                        <a href="/question/{{$report->comment->question_id}}/comment-{{$report->comment_id}}">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                         @if($report->comment->deleted == true)
@@ -107,7 +107,7 @@
                         @endif
                     @elseif ($report->comment_id) 
                         @if($report->comment->comment_owner_id)
-                        <a href="/user/{{$report->comment_owner_id}}/profile">
+                        <a href="/user/{{$report->comment->comment_owner_id}}/profile">
                             <span>{{$report->comment->owner->username}}</span>
                         </a>
                         @else
