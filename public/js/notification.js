@@ -46,9 +46,18 @@ function deleteHandler(json) {
         obj.remove();
     }
     
+    let goalDiv = document.querySelector('.goal-notification');
     if(json.response) {
-        let goalDiv = document.querySelector('.goal-notification');
         goalDiv.innerHTML += json.response;
+    }
+
+    if(json.lastPage == CURRENT_PAGE) {
+        if(document.querySelector('.show-more-notifications')) {
+            let button = document.querySelector('.show-more-notifications');
+            button.remove();
+
+            goalDiv.innerHTML += `<p class="mb-2 mt-2 text-center" >No more notifications to be displayed</p>`;
+        }
     }
 
     updateNotifications();

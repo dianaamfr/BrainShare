@@ -42,7 +42,7 @@ class NotificationController extends Controller
             $response = view('partials.header.notification-card', ['notification' => $notificiation->orderBy('date', 'DESC')->paginate(5, ['*'], 'page', $request->page)->items()[4]])->render();
         }
         
-        return response()->json(['success'=> True, 'id' => $request->id, 'response' => $response]);
+        return response()->json(['success'=> True, 'id' => $request->id, 'response' => $response, 'lastPage' => $notificiation->paginate(5)->lastPage()]);
     }
 
     public function load(Request $request) {
