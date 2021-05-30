@@ -8,6 +8,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,6 @@ class UserController extends Controller
     {
         if (!Auth::check()) return redirect('/login');
 
-        // TODO : erro de commit. Auth.
         $user = User::find($id);
         $this->authorize('editUserProfile', $user);
 
@@ -82,9 +82,8 @@ class UserController extends Controller
             ]);
         }
 
-        $result = DB::transaction(function () use ($request) {
-            $id = Auth::id();       // TODO: aldready have the id.
-            $user = User::find($id);
+        $result = DB::transaction(function () use ($user, $request) {
+
             if (isset($request->name) && !is_null($request->name))
                 $user->name = $request->name;
             if (isset($request->email) && !is_null($request->email))
@@ -173,6 +172,8 @@ class UserController extends Controller
     {
 
         $deleted = User::find($toDeleteId);
+        $image = $deleted->image;
+
         $this->authorize('delete', $deleted);
 
         // Check if it's to also change the password.
@@ -186,6 +187,12 @@ class UserController extends Controller
         ]);
 
         $deleted->delete();
+
+        // Delete Profile Picture if any
+        if(Storage::disk('public')->exists($image)) {
+            Storage::disk('public')->delete($image);
+        }
+
         return redirect()->route('home');
 
     }
@@ -194,11 +201,17 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+        $image = $user->image;
 
-        // if you are not the user, you cannot delete your profile
+        // If you are not the user, you cannot delete your profile
         if (Auth::user()->id != $id) return redirect('/user/{' . $id . '}');
 
         $user->delete();
+
+        // Delete Profile Picture if any
+        if(Storage::disk('public')->exists($image)) {
+            Storage::disk('public')->delete($image);
+        }
 
         return view('/home');
     }
