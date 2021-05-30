@@ -34,10 +34,10 @@ export function addCommentEventListeners(){
     // console.log(deleteCommentButtons);
     // console.log(deleteCommentButtonsList);
 
-    console.log(editCommentButtons);
-    console.log(editCommentButtonsList);
-    console.log(cancelEdit);
-    console.log(cancelEditList);
+    // console.log(editCommentButtons);
+    // console.log(editCommentButtonsList);
+    // console.log(cancelEdit);
+    // console.log(cancelEditList);
 }
 
 

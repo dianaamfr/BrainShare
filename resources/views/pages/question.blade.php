@@ -65,6 +65,7 @@
     <!-- Submit Answer Form -->
     <form id="submit-answer">
         <input type="hidden" name="questionID" value="{{$question->id}}">
+        <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
         @include('partials.question.answer-form')
     </form>
 
@@ -76,16 +77,13 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answer'=>$question->answers()->simplePaginate(2)])
+            @include('partials.common.answer-list',['answer'=>$question->answers()->simplePaginate(5)])
         </div>
     </section>
 
     <form id="debuggiiing" >
         <button type="submit">CLICK HERE</button>>
     </form>
-
-
-     
 
     
 </div>

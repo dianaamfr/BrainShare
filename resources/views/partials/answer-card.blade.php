@@ -1,3 +1,4 @@
+{{-- WRONG PARTIAL
 <div class="card-body card answer-question-card">
 
     <div id="display-answercard-{{$answer->id}}">
@@ -155,5 +156,5 @@
             @include('partials.comments',['comment'=>$answer->comments])
         </div>
     </div>
-</div>
+</div> --}}
 

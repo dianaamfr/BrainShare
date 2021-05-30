@@ -20,12 +20,14 @@ class AnswerController extends Controller{
 
         // Validation
         $validated = $request->validate([
-            'page' => 'integer'
+            'counter' => 'integer'
         ]);
 
         $question =  Question::find(intval($id));
-        $response = view('partials.common.answer-list', ['answer' => $question->answers()->simplePaginate(2)])->render();
-        return response()->json(array('success' => true, 'html' => $response));
+        $query = $question->answers()->offset($request->counter)->limit(5)->get();
+
+        $response = view('partials.common.answer-list', ['answer' => $query])->render();
+        return response()->json(array('success' => true,'number_answers' => $question->number_answer, 'html' => $response));
     }
 
     
@@ -34,13 +36,15 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('create', Answer::class);
         
+
+        
         // Validation
         $validated = $request->validate([
             'text' => 'required',
-            'page' => 'integer',
+            'counter' => 'integer'
         ]);
-
-
+        
+        $number_answer = Question::find(intval($id))->number_answer;
         // Add the Answer
         $answer = new Answer;
         $answer->question_id = $id;
@@ -49,10 +53,13 @@ class AnswerController extends Controller{
         $answer->save();
 
         
+
+        if( ($request->counter + 1) < $number_answer){
+            return response()->json(array('success' => true, 'number_answers' => $number_answer));
+        }
         // Return the changed view
-        $question =  Question::find(intval($id));
-        $response = view('partials.common.answer-list', ['answer' => $question->answers()->simplePaginate(2)])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+        $response = view('partials.common.answer-list', ['answer' => array($answer)])->render();
+        return response()->json(array('success' => true, 'number_answers' => $number_answer,'html' => $response));
 
         
     }
@@ -66,15 +73,14 @@ class AnswerController extends Controller{
         $this->authorize('delete', $answer);
 
         
-        $answer_id = $answer->question_id;
+        $question_id = $answer->question_id;
         
         // Delete Answer
         $answer->delete();
 
+        $question =  Question::find(intval($question_id));
         // Return the changed view
-        $question = Question::find(intval($answer_id));
-        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer, 'answer_id' => $id));
 
     }
 
@@ -98,8 +104,7 @@ class AnswerController extends Controller{
 
         // Return view of comments to refresh view
         $question =  Question::find(intval($answer->question_id));
-        $response = view('partials.common.answer-list', ['answer' => $question->answers])->render();
-        return response()->json(array(success => true, 'number_answers' => $question->number_answer,'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'content' => $request->text, 'answer_id' => $id));
 
     }
 

@@ -29,7 +29,7 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
-Route::post('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
+Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
 
 // Vote Question and Answer
 Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');

@@ -1,4 +1,4 @@
-<div class="card-body card answer-question-card">
+<div class="card-body card answer-question-card" id="answer-{{$answer->id}}">
 
     <div id="display-answercard-{{$answer->id}}">
 
@@ -91,10 +91,11 @@
             </div>
 
 
-            <div class="col align-self-start ps-4 d-none">
-                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms" >
+            <div class="col align-self-start ps-4 d-none" id="edit-answer-{{$answer->id}}">
+                <form  class="edit-answer-forms" >
                     <div class="border form-control testing-editor" >
                         <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
+                        
                         <div class="editor-toolbar"></div>
                     </div>
                     <input type="hidden" name="answerID" value="{{$answer->id}}">
