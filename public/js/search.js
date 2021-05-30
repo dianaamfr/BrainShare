@@ -132,7 +132,7 @@ let searchPage = document.getElementById('search-page');
 let searchBarBtn = document.querySelector('button[name="search-submit"]');
 let searchBar = document.getElementById('questions-search-bar');
 let searchFilters = document.querySelectorAll('#order-filters li input');
-let resetSearchBtn = document.getElementById('reset-search');
+let resetSearchBtn = document.getElementsByClassName('reset-search')[0];
 let questionsDiv = document.querySelector('#search-page .question-search-results');
 
 let courseFilters = document.querySelectorAll(".course-filter-input");

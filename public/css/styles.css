@@ -934,12 +934,12 @@ footer .comments{
   color: var(--white);
 }
 
-#reset-search {
+.reset-search {
   color: var(--main-blue);
   text-decoration: none;
 }
 
-#reset-search:hover {
+.reset-search:hover {
   text-decoration: underline;
 }
 

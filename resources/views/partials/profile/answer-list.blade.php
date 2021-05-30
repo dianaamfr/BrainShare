@@ -1,4 +1,3 @@
-<h3 class="mb-4">My Answers</h3>
 @if (@count($answers) > 0)
     @each('partials.profile.answer-card', $answers, 'answer')
 @else
