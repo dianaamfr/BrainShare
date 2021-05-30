@@ -1,14 +1,13 @@
-import {sendDataAjaxRequest} from './common.js';
+import {sendDataAjaxRequest, showAlert} from './common.js';
 
 function ajaxUpvoteUpdate(goalDiv, voteButton, value, id, type) {
-    function requestHandler(json) {      
+    function requestHandler(json) {
         let older;
         let downVote = ".downvote-" + type + "-" + json.id;
         let upVote = ".upvote-" + type + "-" + json.id; 
         if (downVote == voteButton) older = upVote;
         else older = downVote;
 
-        
         let updateElem = document.querySelector(voteButton);
         let oldElem = document.querySelector(older);
         if(updateElem.classList.contains("bi-caret-up-fill")) {

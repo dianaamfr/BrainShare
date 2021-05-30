@@ -27,30 +27,43 @@
         </header>
 
         <div class="d-flex align-items-center px-3">
-            @php
-                $value = 0;
-                if(Auth::check()) {
+            @if(Auth::check() && (Auth::user()->id != $answer->answer_owner_id))
+                @php
+                    $value = 0;
+                    
                     foreach ($answer->votes as $element) {
                         if ($element['user_id'] == Auth::user()->id) {
                             $value = $element['value_vote'];
                         }
                     }
-                }
-            @endphp
+                @endphp
 
-            <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
-                <input class="answer-id" value="{{ $answer->id }}" hidden/>
-                <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
-                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$value == 1 ? '-fill' : ''}}" ></i>
-                    <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
-                </button>
-                <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
-                <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
-                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down{{$value == -1 ? '-fill' : ''}}"></i>
-                    <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
-                </button>
-            </div>
-
+                <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+                    <input class="answer-id" value="{{ $answer->id }}" hidden/>
+                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$value == 1 ? '-fill' : ''}}" ></i>
+                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
+                    </button>
+                    <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
+                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down{{$value == -1 ? '-fill' : ''}}"></i>
+                        <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
+                    </button>
+                </div>
+            @else
+                <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
+                    <input class="answer-id" hidden/>
+                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <i class="bi bi-caret-up text-secondary" ></i>
+                        <i class="bi bi-caret-up-fill text-secondary"></i>
+                    </button>
+                    <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
+                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <i class="bi bi-caret-down text-secondary"></i>
+                        <i class="bi bi-caret-down-fill text-secondary"></i>
+                    </button>
+                </div>
+            @endif
 
             <div class="col align-self-start ps-4 mt-2" id="answer-content-{{$answer->id}}">
                 {{ $answer->content }}
