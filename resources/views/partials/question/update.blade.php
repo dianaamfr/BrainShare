@@ -7,7 +7,7 @@
     <form method="post" action="{{ route('delete-question', $question->id) }}" class="delete-question-form" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
         @method('delete')
         @csrf
-        <button class="icon-hover" type="submit">
+        <button class="icon-hover ps-3" type="submit">
             <i class="far fa-trash-alt"></i>
             <i class="fas fa-trash-alt"></i>
         </button>

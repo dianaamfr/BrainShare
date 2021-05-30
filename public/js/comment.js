@@ -1,46 +1,29 @@
-import {sendDataAjaxRequest} from "./common.js"; 
+import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js"; 
 
-window.addEventListener('load', addCommentEventListeners);
+tooltipLoad();
+addCommentEventListeners();
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 export function addCommentEventListeners(){
     // Add Comment
-    let comments = document.getElementsByClassName('submit-comments');
-    let commentsList = [...comments];
-    commentsList.forEach(addCommentEventListener);
+    let comments = Array.from(document.getElementsByClassName('submit-comments'));
+    comments.forEach(addCommentEventListener);
 
     // Delete Comment
-    let deleteCommentButtons = document.getElementsByClassName('comment-delete-form');
-    let deleteCommentButtonsList = [...deleteCommentButtons];
-    deleteCommentButtonsList.forEach(deleteCommentEventListener);
+    let deleteCommentButtons = Array.from(document.getElementsByClassName('comment-delete-form'));
+    deleteCommentButtons.forEach(deleteCommentEventListener);
 
     // Edit Comment
-    let editCommentButtons = document.getElementsByClassName('comment-edit-form');
-    let editCommentButtonsList = [...editCommentButtons];
-    editCommentButtonsList.forEach(editCommentEventListener);
+    let editCommentButtons = Array.from(document.getElementsByClassName('comment-edit-form'));
+    editCommentButtons.forEach(editCommentEventListener);
 
+    let edit = Array.from(document.getElementsByClassName("submit-edit-comments"));
+    edit.forEach(editEventListener);
 
-    let edit = document.getElementsByClassName("submit-edit-comments");
-    let editButtonList = [...edit];
-    editButtonList.forEach(editEventListener);
-
-
-    let cancelEdit = document.querySelectorAll(".submit-edit-comments button[type=button]");
-    let cancelEditList = [...cancelEdit];
-    cancelEditList.forEach(cancelEventListener);
+    let cancelEdit = Array.from(document.querySelectorAll(".submit-edit-comments button[type=button]"));
+    cancelEdit.forEach(cancelEventListener);
     
-    // console.log(comments);
-    // console.log(commentsList);
-
-    // console.log(deleteCommentButtons);
-    // console.log(deleteCommentButtonsList);
-
-    console.log(editCommentButtons);
-    console.log(editCommentButtonsList);
-    console.log(cancelEdit);
-    console.log(cancelEditList);
 }
-
-
 
 function addCommentEventListener(element){
     element.addEventListener('submit',addComment);
@@ -49,10 +32,6 @@ function addCommentEventListener(element){
 function deleteCommentEventListener(element){
     element.addEventListener('submit',deleteComment);
 }
-
-// function editCommentEventListener(element){
-//     element.addEventListener('submit',editComment);
-// }
 
 function editCommentEventListener(element){
     element.addEventListener('submit',editComment2);
@@ -63,7 +42,6 @@ function editEventListener(element){
 }
 
 function cancelEventListener(element){
-    console.log(element);
     element.addEventListener('click',cancelEditComment);
 }
 
@@ -72,25 +50,10 @@ function addComment(event){
 
     event.preventDefault();
 
-    // let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
     let textElement = this.querySelector('textarea[name="content"]')
     let text = textElement.value;
     textElement.value = "";
-
-    console.log(text);
-    console.log(textElement);
-
-
-
-    // console.log(questionID);
-    console.log(answerID);
-    console.log(text);
-
-    
-
-
-
 
     sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
     
@@ -100,13 +63,14 @@ function deleteComment(event){
 
     event.preventDefault();
 
-    // let questionID = this.querySelector('input[name="questionID"]').value;
     let commentID = this.querySelector('input[name="commentID"]').value;
 
-    // console.log(questionID);
-    console.log(commentID);
-
-    sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
+    setConfirmationModal(
+        'Delete Answer', 
+        'Are you sure you want to delete this Answer?', 
+        function(){
+            sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
+        }, modal);  
     
 }
 
@@ -115,17 +79,8 @@ function editComment(event){
 
     event.preventDefault();
 
-    //let questionID = this.querySelector('input[name="questionID"]').value;
     let commentID = this.querySelector('input[name="commentID"]').value;
-    //let text = this.querySelector('textarea[name="content"]').value;
-    //let text = "hello my friend"
     let text = this.querySelector('input[name="dummyText"]').value;
-
-    console.log(this);
-    //console.log(questionID);
-    console.log(commentID);
-    console.log(text);
-
 
     sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
 }
@@ -137,8 +92,6 @@ function editComment2(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
     let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
     let comment = document.getElementById('comment-' + commentID);
-    
-    console.log(commentID);
 
     if(hiddenForm.style.display == 'none'){
         hiddenForm.style.display = 'block';
@@ -177,17 +130,8 @@ function submitEdit(event){
 
     event.preventDefault();
 
-    //let questionID = this.querySelector('input[name="questionID"]').value;
     let commentID = this.querySelector('input[name="commentID"]').value;
-    //let text = this.querySelector('textarea[name="content"]').value;
-    //let text = "hello my friend"
     let text = this.querySelector('textarea').value;
-
-    console.log(this);
-    //console.log(questionID);
-    console.log(commentID);
-    console.log(text);
-
 
     sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
 }
@@ -196,10 +140,10 @@ function handler(responseJson){
 
     // need to receive the answerID in the request
     // then, all comments for that answer should be refreshed
-    console.log(responseJson);
+
     if(responseJson.success){
         let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
-        console.log(answer);
+  
         answer.innerHTML = responseJson.html;
 
         let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
@@ -207,6 +151,7 @@ function handler(responseJson){
 
         // modificar isto para não refrescar tudo, mas apenas o modificado?
         addCommentEventListeners();
+        tooltipLoad();
     }
     
     

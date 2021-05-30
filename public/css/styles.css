@@ -713,7 +713,6 @@ article.question .card-title {
 
 .edit-question i, .edit-answer i, .edit-comment i{
   color: var(--main-blue);
-  margin-left: 1rem;
 }
 
 .question-content p {
@@ -746,10 +745,6 @@ article.question .card-title {
 
 .answers > header {
   padding: 2rem 0.5rem 1rem;
-}
-
-.edit-answer i, .edit-comment i {
-    max-width: 10px;
 }
 
 .vote_btn i {

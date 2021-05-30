@@ -202,12 +202,20 @@ export function tooltipLoad(){
 export function setConfirmationModal(title, message, handler, modalObj){
     document.querySelector(".confirmationModal .modal-body").innerHTML = message;
     document.querySelector(".confirmationModal .modal-title").innerHTML = title;
-
-    document.querySelector(".confirmationModal .modal-footer button[name='confirm']").addEventListener('click', function(){
+    let confirmationBtn = document.querySelector(".confirmationModal .modal-footer button[name='confirm']");
+    let cancelBtns = document.querySelectorAll(".confirmationModal .cancel-confirm");
+    
+    let listener = function(){
         modalObj.hide();
-
+        confirmationBtn.removeEventListener('click', listener);
         if(handler) handler();
-    });
+    };
+
+    confirmationBtn.addEventListener('click', listener);
+
+    cancelBtns.forEach(cancelBtn => cancelBtn.addEventListener('click', function(){
+        confirmationBtn.removeEventListener('click', listener);
+    }));
 
     modalObj.show();
 }

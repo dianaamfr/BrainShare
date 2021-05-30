@@ -50,7 +50,7 @@
             </header>
 
             <!-- Question Text -->
-            <div class="row align-items-center px-3">
+            <div class="d-flex align-items-center px-3">
                 @include('partials.question.question-content')
             </div>
 

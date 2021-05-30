@@ -7,16 +7,16 @@
                 @can('edit',$answer)
                     <form title="Edit-answer" class="answer-edit-form">
                         <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer ps-0 pe-1" title="Edit-answer" type="submit">
+                        <button class="icon-hover edit-answer" title="Edit" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
                         </button>
                     </form>
                 @endcan
-                @can('delete',$answer)
-                    <form title="Delete-answer" class="answer-delete-form">
+                @can('delete', $answer)
+                    <form class="answer-delete-form">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer ps-0" type="submit">
+                        <button class="icon-hover edit-answer" type="submit" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
                         </button>
@@ -26,7 +26,7 @@
             </div>
         </header>
 
-        <div class="row align-items-center px-3">
+        <div class="d-flex align-items-center px-3">
             @php
                 $value = 0;
                 if(Auth::check()) {
@@ -71,7 +71,7 @@
             </div>
 
 
-            <div class="d-flex flex-column justify-content-center col-auto valid-icon-{{$answer->id}}">
+            <div class="col-auto d-flex flex-column justify-content-center valid-icon-{{$answer->id}}">
                 @if ($answer->valid)
                     <i class="fas fa-check text-center"></i>
                 @endif

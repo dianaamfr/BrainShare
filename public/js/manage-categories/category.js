@@ -112,7 +112,6 @@ export function listenAddCategory(url){
 
 export function getCategoryName(deleteButton) {
     const categoryRow = deleteButton.parentElement.parentElement;
-    console.log(categoryRow)
     return categoryRow.querySelector('.category-name').innerText;
 }
 
