@@ -1,6 +1,6 @@
 <div class="question-author d-inline-flex align-items-center">
-    <img class="rounded-circle" src="{{asset('images/profile.png')}}" alt="Profile Image"> <!-- Small Profile Image -->
-    <div class="d-flex flex-wrap">
+    <img src="{{ $element->owner ? ($element->owner->image ? asset('storage/' . $element->owner->image) : asset('images/profile.png')) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
+        <div class="d-flex flex-wrap">
         @if ($element->owner)
             <a href="{{route('show-profile', ['id' =>$element->owner->id])}}" >
                 <span>{{$element->owner->username}}</span>

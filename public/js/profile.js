@@ -67,13 +67,36 @@ function profileAnswersUpdate() {
     ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
 }
 
+function resetSearch(){
+    let search = document.querySelector("input[type='search']");
+
+    let userId = document.getElementById('profile-id').innerHTML;
+
+    // TODO
+    /*
+    search.value = '';
+
+    if(document.querySelector('#pagination-item-1').style.display == "block"){
+        // Search Questions
+        sendAjaxGetRequest( '/api/user/' + userId + '/questions', {}, profileQuestionsUpdate);
+    }
+    else {
+        // Search Answers
+        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {}, profileAnswersUpdate);  
+    }
+    */
+}
+
 if (document.getElementById('profile-id')) {
     let userId = document.getElementById('profile-id').innerHTML;
+    let resetBtn = document.getElementById('reset-search');
 
     // Question paginate
     ajaxProfileUpdate(document.querySelector('#pagination-item-1'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
     
     // Answer paginate
     ajaxProfileUpdate(document.querySelector('#pagination-item-2'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
-    document.getElementById('profile-search').addEventListener('submit', profileSearch)
+   
+    document.getElementById('profile-search').addEventListener('submit', profileSearch);
+    resetBtn.addEventListener('click', resetSearch);
 }
