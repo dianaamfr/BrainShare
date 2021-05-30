@@ -50,7 +50,7 @@
                   <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>
-              <button class="registration-button icon-hover" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+              <button class="registration-button icon-hover notification-open" data-bs-toggle="modal" data-bs-target="#notificationsModal">
                 <i class="far fa-bell"></i>
                 <i class="fas fa-bell"></i>
               </button>

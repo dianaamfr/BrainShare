@@ -1,7 +1,7 @@
 <div class="card-body card answer-question-card my-2 p-2" id="answer-{{$answer->id}}">
     <div>
         <header class="question-author d-flex align-items-center card-header p-0 me-2">
-
+            <input type="hidden" class="answer-id" value="{{$answer->id}}">
             @include('partials.question.author', ['element' =>$answer])
             <div class="d-flex ms-auto">
                 @can('edit',$answer)
@@ -101,11 +101,11 @@
         <hr>
         <!-- if question owner -->
         @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
-            <button class="btn btn-link mark-valid-{{ $answer->id }} mark-valid" title="Down Vote" type="submit">Unmark
+            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Unmark
                 as valid
             </button>
         @elseif (Auth::id() === $answer->question->question_owner_id)
-            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" title="Down Vote" type="submit">Mark as valid
+            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Mark as valid
             </button>
         @endif
 
