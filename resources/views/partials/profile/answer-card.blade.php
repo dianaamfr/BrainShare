@@ -1,3 +1,4 @@
+<!-- Todo: should the structure be like this? -->
 <article class="question-preview card flex-row align-items-center">
         <div class="counts">
             <div>{{ @count($answer->comments) }}</div>
@@ -38,9 +39,11 @@
                     @endforeach
                 </div>
                 <div class="question-author d-inline-flex align-items-center">
-                    <img class="rounded-circle" src="images/profile.png" alt="profile image"> <!-- Small Profile Image -->
+                    <img src="{{ $answer->owner->image ? asset('storage/' . $answer->owner->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                     <div class="d-flex flex-wrap">
-                        <span> {{$answer->owner->username}}</span> <!-- Username -->
+                        <a href="{{route('show-profile', ['id' =>$answer->owner->id])}}" >
+                            <span>{{$answer->owner->username}}</span>
+                        </a> 
                         <span> {{ date('d-m-Y H:i', strtotime($answer->date)) }} </span> <!-- Date -->
                     </div>
                 </div>

@@ -12,6 +12,12 @@
 
 <div class="comment" id="comment-{{$comment->id}}">
 
+    @if($comment->deleted === true)
+        <div class="alert alert-danger small-deleted-alert container-lg" role="alert">
+            This Comment has been deleted. Only Administrators and Moderators can see it.
+        </div>
+    @endif
+
     <div class="comment-text d-inline-block w-100" id="show-edit-comment-{{$comment->id}}">
         {{ $comment->content }}
 
@@ -19,7 +25,13 @@
 
     <div class="d-flex">
         <div class="comment-author me-auto">
-            <span> {{ $comment->owner->username }} </span> <!-- Username -->
+            @if ($comment->owner)
+            <a href="{{route('show-profile', ['id' =>$comment->owner->id])}}">
+                <span>{{$comment->owner->username}}</span>
+            </a> <!-- Username -->
+            @else
+                <span>Anonymous</span>
+            @endif
             <span> {{ date('d-m-Y H:i', strtotime($comment->date)) }} </span> <!-- Date -->
         </div>
         @can('edit',$comment)

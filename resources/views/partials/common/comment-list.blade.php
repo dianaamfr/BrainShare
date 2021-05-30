@@ -1,1 +1,1 @@
-@each('partials.common.comment-card', $comment, 'comment')
+@each('partials.common.comment-card', $comments, 'comment')

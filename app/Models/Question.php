@@ -44,6 +44,10 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function answersNotDeleted(){
+        return $this->hasMany(Answer::class)->where('deleted','=',false);
+    }
+
     public function votes(){
         return $this->hasMany(Vote::class);
     }

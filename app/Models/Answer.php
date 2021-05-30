@@ -20,6 +20,10 @@ class Answer extends Model
     return $this->hasMany(Comment::class);
   }
 
+  public function commentsNotDeleted(){
+    return $this->hasMany(Comment::class)->where('deleted','=',false);
+}
+
   public function votes(){
     return $this->hasMany(Vote::class);
   }

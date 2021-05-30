@@ -77,7 +77,7 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answer'=>$question->answers])
+            @include('partials.common.answer-list',['answers'=> Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers : $question->answersNotDeleted])
         </div>
     </section>
 

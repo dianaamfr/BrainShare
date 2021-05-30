@@ -1,5 +1,11 @@
 <div class="card-body card answer-question-card my-2 p-2" id="answer-{{$answer->id}}">
     <div>
+        @if($answer->deleted === true)
+            <div class="alert alert-danger small-deleted-alert container-lg" role="alert">
+                This Answer has been deleted. Only Administrators and Moderators can see it.
+            </div>
+        @endif
+
         <header class="question-author d-flex align-items-center card-header p-0 me-2">
             <input type="hidden" class="answer-id" value="{{$answer->id}}">
             @include('partials.question.author', ['element' =>$answer])
@@ -133,7 +139,7 @@
         </div>
         <!-- <div id="question-comments"> -->
         <div id="comments-answer-{{$answer->id}}">
-            @include('partials.common.comment-list',['comment'=>$answer->comments])
+            @include('partials.common.comment-list',['comments'=> Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $answer->comments : $answer->commentsNotDeleted])
         </div>
     </div>
 </div>

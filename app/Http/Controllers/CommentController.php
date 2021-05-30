@@ -30,8 +30,10 @@ class CommentController extends Controller
          
         // Return the changed view
          $answer = Answer::find(intval($id));
-         $response = view('partials.common.comment-list', ['comment' => $answer->comments])->render();
-         return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $id, 'html' => $response));
+         $comments = $this->getComments($answer);
+         
+         $response = view('partials.common.comment-list', ['comments' => $comments])->render();
+         return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $id, 'html' => $response));
 
     }
 
@@ -52,8 +54,10 @@ class CommentController extends Controller
         // Return the chaged view
         
         $answer = Answer::find(intval($answer_id));
-        $response = view('partials.common.comment-list', ['comment' => $answer->comments])->render();
-        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer_id, 'html' => $response));
+        $comments = $this->getComments($answer);
+
+        $response = view('partials.common.comment-list', ['comments' => $comments])->render();
+        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer_id, 'html' => $response));
     }
 
 
@@ -78,11 +82,15 @@ class CommentController extends Controller
 
         // Return view of comments to refresh view
         $answer = Answer::find(intval($comment->answer_id));
-        $response = view('partials.common.comment-list', ['comment' => $answer->comments])->render();
-        return response()->json(array('success' => true,'number_comments' => count($answer->comments), 'answer_id' => $answer->id, 'html' => $response));
+        $comments = $this->getComments($answer);
+
+        $response = view('partials.common.comment-list', ['comments' => $comments])->render();
+        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer->id, 'html' => $response));
         
     }
 
-    
+    private function getComments(Answer $answer){
+        return Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $answer->comments : $answer->commentsNotDeleted;
+    }
 
   }
