@@ -4,7 +4,7 @@
 set -e
 
 DOCKER_USERNAME=lbaw2152 # Replace by your docker hub username
-IMAGE_NAME=lbaw2152                 # Replace with your group's image name
+IMAGE_NAME=lbaw2152      # Replace with your group's image name
 
 # Ensure that dependencies are available
 composer install
