@@ -25,9 +25,9 @@
 
         <p class="notification-id" hidden>{{ $notification->id }}</p>
 
-        <button class="icon-hover mark-read-{{ $notification->id }} btn-link" title="Mark as Read" data-bs-toggle="tooltip" data-bs-placement="top">
-            <i class="far fa-check-circle"></i>
-            <i class="fas fa-check-circle"></i>
+        <button class="icon-hover mark-read-{{ $notification->id }} btn-link" title="Mark as read" data-bs-toggle="tooltip" data-bs-placement="top">
+            <i class="far fa-eye"></i>
+            <i class="fas fa-eye"></i>
         </button>
 
         <button class="icon-hover delete-{{ $notification->id }} btn-link" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">

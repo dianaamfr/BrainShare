@@ -214,7 +214,9 @@ CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
 SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
-INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+IF NEW.answer_owner_id <> owner_id THEN
+    INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+END IF;
 RETURN NEW;
 END
 $BODY$
@@ -231,7 +233,9 @@ CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
 SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
-INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+IF NEW.comment_owner_id <> owner_id THEN
+    INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+END IF;
 RETURN NEW;
 END
 $BODY$
@@ -247,8 +251,7 @@ CREATE TRIGGER comment_notification
 -- Um user não pode dar upvote na própria questão
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
 BEGIN
-  IF
-NEW.answer_id IS NOT NULL AND
+  IF NEW.answer_id IS NOT NULL AND
   	EXISTS (SELECT * FROM answer WHERE answer.id = NEW.answer_id AND
 		NEW.user_id = answer.answer_owner_id)
   THEN
