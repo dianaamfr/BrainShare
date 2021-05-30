@@ -81,8 +81,3 @@ function handleReportRequestAns(responseJson){
         showToast('Report done!', 'blue');
     }
 }
-
-
-
-
-

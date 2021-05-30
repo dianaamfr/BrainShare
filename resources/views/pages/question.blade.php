@@ -3,9 +3,10 @@
 @section('content')
 
 @section('scripts')
-    <script src={{ asset('js/answer.js')}}  type="module"></script>
-    <script src={{ asset('js/comment.js')}}  type="module"></script>
+    <script src={{ asset('js/answer.js') }}  type="module"></script>
+    <script src={{ asset('js/comment.js') }}  type="module"></script>
     <script src={{ asset('js/report.js') }} type="module"></script>
+    <script src={{ asset('js/question.js') }} type="module"></script>
 @endsection
 
 <div id="page-top" class="page-margin question-page">
@@ -44,12 +45,12 @@
                 </div>
 
                 <!-- Question Owner details -->
-                @include('partials.question.author')
+                @include('partials.question.author', ['element' => $question])
 
             </header>
 
             <!-- Question Text -->
-            <div class="row align-items-center px-3">
+            <div class="d-flex align-items-center px-3">
                 @include('partials.question.question-content')
             </div>
 
@@ -88,5 +89,6 @@
 </div>
 
 @include('partials.common.report-modal')
+@include('partials.common.confirmation-modal')
 @include('partials.common.toast')
 @endsection

@@ -39,7 +39,6 @@ function sendSearchTagsRequest() {
 }
 
 function getTagByIdRequest(badge) {
-    console.log('api/tag/' + badge.getAttribute('data-tag-id'),)
     sendAjaxGetRequest('api/tag/' + badge.getAttribute('data-tag-id'), null, 
         function(){
             let response = JSON.parse(this.responseText);

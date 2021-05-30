@@ -2,9 +2,10 @@
 
 @section('content')
     @section('scripts')
-        <script src={{ asset('js/profile.js') }} defer></script>
-        <script src={{ asset('js/pagination.js') }} defer></script>
+        <script src={{ asset('js/profile.js') }} type="module"></script>
         <script src={{ asset('js/report.js') }} type="module"></script>
+
+        <script src={{ asset('js/pagination.js') }} defer></script>
     @endsection
 
     <div class="page-margin">

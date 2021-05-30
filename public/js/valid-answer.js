@@ -20,7 +20,7 @@ function markValidAnswer(answerId) {
     sendDataAjaxRequest('POST', '/api/answer/valid/' + answerId, data, markValidHandler);
 }
 
-if (document.querySelector('.answer-question-card')) {
+if (document.querySelector('.mark-valid')) {
     let numberDivs = document.querySelectorAll('.answer-question-card');
     for (let i = 0; i < numberDivs.length; i++) {
         let answerId = numberDivs[i].querySelector(".answer-id").value;

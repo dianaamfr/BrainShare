@@ -23,7 +23,6 @@ if(fileInput){
 
 function validateFile(file) {
 
-    console.log(file.name);
     const allowedExtensions = ['jpeg', 'jpg', 'png'];
     const fileExtension = file.name.split('.').pop().toLowerCase();
 

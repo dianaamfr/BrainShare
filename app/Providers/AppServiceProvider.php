@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use App\Models\Notification;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,5 +30,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+
+        view()->composer('*', function($view)
+        {
+            if(Auth::user()) {
+                $notifications = Notification::where('user_id', Auth::user()->id)->orderBy('date', 'DESC')->paginate(5);
+                View::share('notifications', $notifications);
+            }
+        });
     }
 }

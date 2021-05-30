@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @section('scripts')
+        <script src={{ asset('js/delete-account.js') }}  type="module"></script>
+    @endsection
+
     <div class="page-margin background-light">
         @php
             if (isset($user->image))
@@ -206,7 +211,7 @@
         </form>
 
         <form method="post" action="{{route('delete-user', $user->id)}}" data-toggle="validator" autocomplete="off"
-              enctype="multipart/form-data">
+              enctype="multipart/form-data" id="delete-account-form">
             @method('put')
             {{csrf_field()}}
 
@@ -264,4 +269,6 @@
     <script>const max_tags = 2</script>
     <script>const tags = @json($tags);</script>
     <script> const oldTagsList = @json($user->tags); </script>
+    
+    @include('partials.common.confirmation-modal')
 @endsection

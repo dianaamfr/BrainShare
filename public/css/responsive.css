@@ -11,7 +11,7 @@
   body {
     font-size: 15px;
   }
-  
+
   .navbar-dark .navbar-nav .nav-link{
     font-size: 14px;
   }
@@ -53,22 +53,22 @@
     .tablet-header-search {
       display: flex!important;
     }
-  
+
     .main-search {
       display: none!important;
-    }  
-    
+    }
+
     .navbar-expand-xl .navbar-nav {
         margin: 0;
     }
-  
+
     .navbar-expand-xl .navbar-nav .nav-link {
         padding-right: 0;
         padding-left: 0;
     }
-  
+
     /* Ressponsive Menu */
-    
+
     .navbar-expand-xl .navbar-collapse{
       padding-top: 0.5rem;
   }
@@ -76,38 +76,38 @@
   .registration-menu {
     margin-left: 0!important;
   }
-  
+
     .navbar-expand-xl .navbar-nav .nav-link {
         border-top: 1px solid rgba(255,255,255,0.2);
     }
-  
+
     .notifications-mobile {
         display: inline-block;
         margin: 0;
     }
-  
+
     .navbar-dark .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
     }
-  
+
     .navbar-toggler:focus {
         box-shadow: none;
     }
-  
+
     .registration-menu .registration-button.btn{
         float: right;
     }
-  
+
     .notifications {
         display: none;
-    } 
-  
+    }
+
     body > header .btn-toolbar {
         border-top: 1px solid rgba(255,255,255,0.2);
         padding-top: 1rem;
         justify-content: flex-end;
     }
-  
+
 }
 
 @media (max-width: 992px){
@@ -146,7 +146,7 @@
   .grid-profile {
     display: inline-block;
   }
-  
+
 
   /* About page  */
   .about-container, .homepage-feature-text {
@@ -154,7 +154,7 @@
     text-align: center;
     padding: 1.5rem;
   }
-  
+
   .about-container > p {
     max-width: 80%;
     margin: auto;
@@ -163,17 +163,17 @@
   .nickname {
     text-align: center;
   }
-  
+
   .profile-pic {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   #about-image1, #about-image2,.homepage-feature-image1 {
     width: 100%;
   }
-  
+
   /* Categories */
   .management-content {
     margin-top: 3rem;
@@ -189,40 +189,37 @@
     }
 
     /* Header */
-  
+
     .navbar-dark .navbar-brand {
       flex: 1;
     }
-  
+
     .tablet-header-search {
       display: none!important;
     }
-  
+
     .main-search {
       display: flex!important;
       padding-bottom: 1rem;
     }
-  
+
     /* Questions */
-  
+
     .question-header{
         display: block!important;
     }
-  
+
     .question-details:first-child {
         display: flex!important;
     }
-  
+
     .question-details:last-child {
         display: none!important;
     }
-  
-    .comments {
-        padding-left: 0;
-    }
-  
+
+
   /* About page  */
-  
+
   .about-container > p {
     max-width: 100%;
   }
@@ -255,6 +252,7 @@
   .management-content {
     display: block!important;
   }
+
 }
 
 @media (max-width: 600px) {
@@ -287,8 +285,15 @@
   #order-filters li label {
     padding: 0.1rem 0.4rem;
   }
+
+    .answer .card-body a.btn,.answer .card-body button.btn,
+    .answer .card-body .comments{
+        font-size: 0.8rem;
+        padding-left: 0.8rem;
+        padding-right: 0;
+    }
 }
-  
+
 @media (max-width: 450px) {
     /* Smaller screens - Mobile */
     .page-margin {
@@ -313,15 +318,15 @@
       margin-top: 0;
       padding: 1.5rem;
     }
-  
+
     /* Questions */
     .navbar > .container-fluid,  .side-content > header, .profile-questions-preview {
       padding-right: 1.5rem;
       padding-left: 1.5rem;
     }
-  
+
     /* Search Page */
-  
+
     #search-page {
       padding-top: unset;
     }
@@ -336,11 +341,11 @@
     #order-filters li#mobile-search-filters svg {
       color: var(--main-blue);
     }
-  
+
     .bd-subnavbar .nav-link {
       padding: .5rem 0.5rem;
     }
-  
+
     .side-content > header {
       padding-right: 1.5rem;
       padding-left: 1.5rem;
@@ -353,23 +358,24 @@
     #search-page {
       padding-top: 3rem;
     }
-  
+
     .question-author, .category,  .question-preview .counts-mobile {
       font-size: 0.85rem;
     }
-  
+
     .category {
       padding: 0.3rem 0.5rem;
     }
-  
+
     /* Question Page */
-  
-    article.question.card, #search-page .answer.card .card-body, 
+
+    article.question.card, #search-page .answer.card .card-body,
     #search-page, .question-preview.card,
-    .question-preview.card, 
+    .question-preview.card,
     .answer.card .card-body {
         box-shadow: unset;
     }
+
 
     .question-preview.card .question-header > h4 > a {
       font-size: 1.2rem;
@@ -382,27 +388,34 @@
     .question-preview.card {
       padding: 0;
     }
-  
+
     article.question.card {
       padding-top: 1rem;
     }
-  
+
     .answers > header {
       padding: 2rem 1rem 1rem;
     }
-  
+
+    .answer .card-body a.btn,.answer .card-body button.btn,
+    .answer .card-body .comments{
+        font-size: 0.8rem;
+        padding-left: 0.8rem;
+        padding-right: 0;
+    }
+
     /* Login/Register */
     #login, #register {
       box-shadow: unset!important;
       border: 0;
     }
-  
+
     #login-limit {
       background-color: #fff;
     }
-  
+
     /* Add Question */
-  
+
     .add-question {
       padding: 3rem 1rem;
     }
@@ -412,4 +425,3 @@
       padding: 30px;
     }
 }
-  

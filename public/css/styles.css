@@ -108,6 +108,11 @@
     min-width: 150px;
 }
 
+/* Tooltips */
+.tooltip { 
+  pointer-events: none;
+}
+
 /* ---- Body ---- */
 
 html {
@@ -179,6 +184,14 @@ p {
 
 a {
   color: var(--light-grey);
+}
+
+p a {
+  color: var(--bs-gray);
+}
+
+p a:hover {
+  color: var(--text-black);
 }
 
 a:hover {
@@ -501,6 +514,7 @@ a.profile-button {
   padding-right: unset;
 }
 
+
 .icon-hover :last-child,
 .icon-hover :last-child,
 .icon-hover:hover :first-child,
@@ -557,6 +571,7 @@ a.btn {
   display: inline-block;
   font-size: 0.85rem;
 }
+
 
 .homepage-feature {
   justify-content: space-around;
@@ -638,16 +653,29 @@ article.question .card-body .card-header {
 .answer .card-body .card-header {
   background-color: unset;
   border: unset;
+  margin-left: 1.3rem;
 }
+
+.answer .card-body a.btn,.answer .card-body button.btn,
+.answer .card-body .comments{
+  font-size: 0.85rem;
+}
+
 
 article.question .card-title {
   margin-right: 2rem;
 }
 
-.question-author span {
-  color: var(--bs-gray);
-  font-style: italic;
+/*username*/
+.question-author a span:nth-of-type(1) {
+    color: var(--main-blue);
 }
+
+/*date*/
+.question-author span:nth-of-type(1) {
+  color: var(--bs-gray);
+}
+
 
 .question-author img {
   height: 2.6rem;
@@ -683,9 +711,8 @@ article.question .card-title {
   margin-left: 2rem;
 }
 
-.edit-question i {
+.edit-question i, .edit-answer i, .edit-comment i{
   color: var(--main-blue);
-  margin-left: 1rem;
 }
 
 .question-content p {
@@ -721,12 +748,12 @@ article.question .card-title {
 }
 
 .vote_btn i {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: var(--main-blue);
 }
 
 .points {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--main-blue);
 }
 
@@ -736,8 +763,11 @@ article.question .card-title {
 }
 
 .comments {
-  padding-left: 6rem;
-  margin: 1.5rem 0;
+  padding-left: 1.8rem;
+}
+
+footer .comments{
+    color: var(--bs-gray);
 }
 
 .comments .comment {
@@ -746,14 +776,15 @@ article.question .card-title {
 }
 
 .comment-author span {
-  padding: 0.5rem;
+    font-size: small;
   color: var(--bs-gray);
-  font-style: italic;
 }
 
-.comment-author span:first-of-type:before {
-  content: "-";
+.comment-author span:nth-of-type(1){
+    color: var(--main-blue);
 }
+
+
 
 #submit-answer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
@@ -1478,10 +1509,10 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 
 /* ---- Notifications Modal ---- */
 
-
-#notificationsModal .dropdown-toggle::after{
+#notificationsModal .dropdown-toggle::after {
   border: none;
   content: unset;
+  
 }
 
 #notificationsModal div.modal-header i {

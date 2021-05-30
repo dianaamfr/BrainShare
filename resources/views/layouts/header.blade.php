@@ -72,5 +72,5 @@
 
 <!-- Registered Users options -->
 @if (Auth::check()) 
-  @include('partials.header.notification-list')
+  @include('partials.header.notification')
 @endif

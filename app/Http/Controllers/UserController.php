@@ -133,7 +133,6 @@ class UserController extends Controller
 
     public function paginateQuestions(Request $request, $id)
     {
-
         $user = User::find($id);
         $questions = $user->questions();
 
@@ -147,7 +146,7 @@ class UserController extends Controller
             }
         }
 
-        $response = view('partials.profile.question', ['questions' => $questions->simplePaginate(3)])->render();
+        $response = view('partials.profile.question-list', ['questions' => $questions->simplePaginate(3)])->render();
         return response()->json(array('success' => true, 'html' => $response));
     }
 
@@ -166,7 +165,7 @@ class UserController extends Controller
             }
         }
 
-        $response = view('partials.profile.answer', ['answers' => $answers->simplePaginate(3)])->render();
+        $response = view('partials.profile.answer-list', ['answers' => $answers->simplePaginate(3)])->render();
         return response()->json(array('success' => true, 'html' => $response));
     }
 

@@ -11,7 +11,7 @@
         <header class="card-header">
 
             <div class="question-header d-flex align-items-center">
-                
+
                 <!-- Mobile Question details -->
                 <div class="d-none question-details d-flex mb-3">
                      <!-- Courses -->
@@ -20,7 +20,7 @@
 
                 <!-- Question Title -->
                 <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}">{{ $question->title }}</a></h4>
-                
+
                 <!-- Desktop Question details -->
                 <div class="question-details d-flex">
                     <!-- Courses -->
@@ -39,7 +39,7 @@
                 @include('partials.question.tags')
             </div>
 
-            @include('partials.question.author')
+            @include('partials.question.author', ['element' => $question])
 
         </footer>
     </div>

@@ -60,11 +60,9 @@ if(document.getElementById('question-vote-id') != null) {
 
     ajaxUpvoteUpdate(document.querySelector('.question-score'), '.upvote-question-' + questionId, '1', '/api/question/' + questionId + '/vote', 'question');
     ajaxUpvoteUpdate(document.querySelector('.question-score'), '.downvote-question-' + questionId, '-1', '/api/question/' + questionId + '/vote', 'question');
-
     let numberDivs = document.querySelectorAll('.answer-question-card');
     for (let i = 0; i < numberDivs.length; i++) {
         let answerId = numberDivs[i].querySelector(".answer-id").value;
-
         ajaxUpvoteUpdate(document.querySelector('.answer-score-' + answerId), '.upvote-answer-' + answerId, '1', '/api/question/' + questionId + '/answer/'  + answerId, 'answer');
         ajaxUpvoteUpdate(document.querySelector('.answer-score-' + answerId), '.downvote-answer-' + answerId, '-1', '/api/question/' + questionId + '/answer/' + answerId, 'answer');
     }

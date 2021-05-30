@@ -1,8 +1,9 @@
-import {sendDataAjaxRequest} from "./common.js";
+import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js";
 import {addCommentEventListeners} from "./comment.js"; 
 
-window.addEventListener('load', addEventListeners);
-
+tooltipLoad();
+addEventListeners();
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 function addEventListeners(){
     // Add Answer
@@ -10,57 +11,20 @@ function addEventListeners(){
     form.addEventListener("submit",submitAnswer);
 
     // Delete Answer
-    let deleteButtons = document.getElementsByClassName('answer-delete-form');
-
-    let deletionList = [...deleteButtons];
-    deletionList.forEach(addDeleteListeners);
+    let deleteButtons = Array.from(document.getElementsByClassName('answer-delete-form'));
+    deleteButtons.forEach(element => element.addEventListener('submit', removeAnswer));
 
     // Edit Answer
-    let editButtons = document.getElementsByClassName("answer-edit-form");
-    let editList = [...editButtons];
-    editList.forEach(addEditFormListeners);
+    let editButtons = Array.from(document.getElementsByClassName("answer-edit-form"));
+    editButtons.forEach(element => element.addEventListener('submit',showEditForm));
 
-    let submitEditForm = document.getElementsByClassName('edit-answer-forms');
-    let submitEditFormList = [...submitEditForm];
-    submitEditFormList.forEach(addEditListeners);
+    let submitEditForm = Array.from(document.getElementsByClassName('edit-answer-forms'));
+    submitEditForm.forEach(element => element.addEventListener('submit', editAnswer));
 
-    let cancelEditForm = document.querySelectorAll('.edit-answer-forms button[type=button]');
-    let cancelEditFormList = [...cancelEditForm];
-    cancelEditFormList.forEach(addCancelListeners);
-
-
-
-
-
-    // console.log(form);
-    // console.log(editButtons);
-    // console.log(deleteButtons);
-    console.log(cancelEditForm);
+    let cancelEditForm = Array.from(document.querySelectorAll('.edit-answer-forms button[type=button]'));
+    cancelEditForm.forEach(element => element.addEventListener('click',cancelEditForm));
 
 }
-
-function editorToolbares(element){
-    
-}
-
-
-
-function addDeleteListeners(element){
-    element.addEventListener('submit',removeAnswer);
-}
-
-function addEditListeners(element){
-    element.addEventListener('submit',editAnswer);
-}
-
-function addEditFormListeners(element){
-    element.addEventListener('submit',showEditForm);
-}
-
-function addCancelListeners(element){
-    element.addEventListener('click',cancelEditForm)
-}
-
 
 function submitAnswer(event){
 
@@ -70,7 +34,7 @@ function submitAnswer(event){
     let textElement = this.querySelector('textarea[name="content"]');
     let text = textElement.value;
 
-    // This is not doing anytihing because of the markdown framework
+    // TODO: This is not doing anything because of the markdown framework
     textElement.value = "";
 
     sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
@@ -78,23 +42,20 @@ function submitAnswer(event){
 }
 
 function removeAnswer(event){
-
-    // Not sure if this is needed, check later
     event.preventDefault();
 
     let answerID = this.querySelector('input[name="answerID"]').value;
 
-    console.log(this);
-    //console.log(questionID);
-    console.log(answerID);
-
-    //Route::delete('/api/question/{id-q}/answer/{id-a}
-    sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', null, handler);
-    
+    setConfirmationModal(
+        'Delete Answer', 
+        'Are you sure you want to delete this Answer?', 
+        function(){
+            sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', null, handler);
+        }, modal);  
 
 }
 
-// Falta dar fix ao css de modo a que consiga ir buscar o texto
+// TODO: dar fix ao css de modo a que se consiga ir buscar o texto
 function editAnswer(event){
 
     event.preventDefault();
@@ -104,12 +65,6 @@ function editAnswer(event){
     //let text = this.querySelector('textarea[name="content"]').value;
     //let text = "hello my friend"
     let text = this.querySelector('textarea').value;
-
-    console.log(this);
-    //console.log(questionID);
-    console.log(answerID);
-    console.log(text);
-
 
     sendDataAjaxRequest("put",'/api/answer/'+ answerID + '/edit',{'text':text}, handler);
 }
@@ -127,7 +82,7 @@ function showEditForm(event){
     
 }
 
-function cancelEditForm(){
+function cancelEditForm(event){
 
     let answerID = this.name;
     let editForm = document.getElementById('edit-answer-'+ answerID);
@@ -138,10 +93,8 @@ function cancelEditForm(){
 
 }
 
-
 function handler(responseJson){
 
-    console.log(responseJson);
     if(responseJson.success){
         let answers = document.getElementById('all-answers');
         answers.innerHTML = responseJson.html;
@@ -149,12 +102,7 @@ function handler(responseJson){
         number_answers.innerHTML = responseJson.number_answers + ' answers';
         addEventListeners();
         addCommentEventListeners();
+        tooltipLoad();
     }
     
-    
 }
-
-
-
-
-

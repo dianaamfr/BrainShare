@@ -165,8 +165,7 @@ function removeToastColor(toastElement){
     toastElement.classList.remove('bg-danger');
 }
 
-
-export function tooltipLoad(){
+export function tooltipCreate(){
     let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {
@@ -178,15 +177,22 @@ export function tooltipLoad(){
         });
     });
 
+    return {tooltipTriggerList, tooltipList};
+}
+
+export function tooltipLoad(){
+    let {tooltipTriggerList, tooltipList} = tooltipCreate();
+
     tooltipTriggerList.forEach(function(tooltipTg){
-        tooltipTg.addEventListener('mouseover', function () {
+        
+        tooltipTg.addEventListener('mouseenter', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].show();
         });
     
         tooltipTg.addEventListener('mouseleave', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
-
+        
         tooltipTg.addEventListener('click', function () {
             tooltipList[tooltipTriggerList.indexOf(tooltipTg)].hide();
         });
@@ -196,11 +202,20 @@ export function tooltipLoad(){
 export function setConfirmationModal(title, message, handler, modalObj){
     document.querySelector(".confirmationModal .modal-body").innerHTML = message;
     document.querySelector(".confirmationModal .modal-title").innerHTML = title;
-
-    document.querySelector(".confirmationModal .modal-footer button[name='confirm']").addEventListener('click', function(){
+    let confirmationBtn = document.querySelector(".confirmationModal .modal-footer button[name='confirm']");
+    let cancelBtns = document.querySelectorAll(".confirmationModal .cancel-confirm");
+    
+    let listener = function(){
         modalObj.hide();
-        handler();
-    });
+        confirmationBtn.removeEventListener('click', listener);
+        if(handler) handler();
+    };
+
+    confirmationBtn.addEventListener('click', listener);
+
+    cancelBtns.forEach(cancelBtn => cancelBtn.addEventListener('click', function(){
+        confirmationBtn.removeEventListener('click', listener);
+    }));
 
     modalObj.show();
 }
