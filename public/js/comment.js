@@ -1,6 +1,6 @@
 import {sendDataAjaxRequest} from "./common.js"; 
 
-window.addEventListener('load', addCommentEventListeners);
+addCommentEventListeners();
 
 export function addCommentEventListeners(){
     // Add Comment
@@ -28,8 +28,8 @@ export function addCommentEventListeners(){
     let cancelEditList = [...cancelEdit];
     cancelEditList.forEach(cancelEventListener);
     
-    // console.log(comments);
-    // console.log(commentsList);
+    console.log(comments);
+    console.log(commentsList);
 
     // console.log(deleteCommentButtons);
     // console.log(deleteCommentButtonsList);
@@ -38,11 +38,13 @@ export function addCommentEventListeners(){
     // console.log(editCommentButtonsList);
     // console.log(cancelEdit);
     // console.log(cancelEditList);
+    
 }
 
 
 
 function addCommentEventListener(element){
+    console.log(element);
     element.addEventListener('submit',addComment);
 }
 
@@ -70,6 +72,7 @@ function cancelEventListener(element){
 
 function addComment(event){
 
+    console.log("comment added");
     event.preventDefault();
 
     // let questionID = this.querySelector('input[name="questionID"]').value;

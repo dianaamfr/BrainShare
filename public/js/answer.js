@@ -75,9 +75,29 @@ function submitAnswer(event){
     // This is not doing anytihing because of the markdown framework
     textElement.value = "";
 
+    // if(document.getElementById('question-text-area') != null) {
+    //     let temp = document.getElementById("submitAnswerTextarea");
+
+    //     let textarea = temp.querySelector("textarea");
+    //     temp.innerHTML = '';
+    //     temp.appendChild(textarea);
+
+    //     console.log(temp);
+    //     console.log(textarea);
+
+    //     let editor = new Editor({
+    //       element: document.getElementById('question-text-area')
+    //     });
+      
+    //     editor.render();
+    //     //window.scrollTo(0,0);
+    //   }
+
     console.log(counter);
 
     sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text, 'counter':counter}, addAnswerHandler);
+
+
 
 }
 
