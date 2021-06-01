@@ -29,12 +29,12 @@
             </div>
         </header>
 
-        <div class="limited-text-3 card-body md-remove">
+        <div class="limited-text-3 md-remove">
             {{ Str::limit($question->content, 400) }}
         </div>
 
         <!-- Tags and User -->
-        <footer class="card-footer d-flex align-items-center flex-wrap">
+        <footer class="d-flex align-items-center flex-wrap">
             <div class="flex-grow-1 mb-1">
                 @include('partials.question.tags')
             </div>

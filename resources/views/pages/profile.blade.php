@@ -25,10 +25,10 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs mb-5">
                 <li class="page-question active nav-item ">
-                    <button id="pagination-button-1" class="nav-link page-link">My Questions</button>
+                    <button id="pagination-button-1" class="nav-link page-link">Questions</button>
                 </li>
                 <li class="page-answer nav-item">
-                    <button id="pagination-button-2" class="nav-link page-link">My Answers</button>
+                    <button id="pagination-button-2" class="nav-link page-link">Answers</button>
                 </li>
             </ul>
         </div>

@@ -89,6 +89,9 @@ if (document.getElementById('profile-id')) {
     let userId = document.getElementById('profile-id').innerHTML;
     let resetSearchBtns = Array.from(document.getElementsByClassName('reset-search'));
 
+    // Update url to first page
+    window.history.pushState({}, '', 'profile?page=1');
+
     // Question paginate
     ajaxProfileUpdate(document.querySelector('#pagination-item-1 > div:last-child'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
     
