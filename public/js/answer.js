@@ -15,17 +15,18 @@ function addEventListeners() {
     form.addEventListener("submit", submitAnswer);
 
     // Delete Answer
-    let deleteButtons = Array.from(document.getElementsByClassName('answer-delete-form'));
+    let deleteButtons = document.querySelectorAll('.answer-delete-form');
     deleteButtons.forEach(element => element.addEventListener('submit', removeAnswer));
 
     // Edit Answer
-    let editButtons = Array.from(document.getElementsByClassName("answer-edit-form"));
-    editButtons.forEach(element => element.addEventListener('click', showEditForm));
+    let editButtons = document.querySelectorAll(".answer-edit-form");
+    console.log(editButtons);
+    editButtons.forEach(element => {element.addEventListener('submit', showEditForm); console.log("added event")});
 
-    let submitEditForm = Array.from(document.getElementsByClassName('edit-answer-forms'));
+    let submitEditForm = document.querySelectorAll('.edit-answer-forms');
     submitEditForm.forEach(element => element.addEventListener('submit', editAnswer));
 
-    let cancelEditForm = Array.from(document.querySelectorAll('.edit-answer-forms button[type=button]'));
+    let cancelEditForm = document.querySelectorAll('.edit-answer-forms button[type=button]');
     cancelEditForm.forEach(element => element.addEventListener('click', cancelEditForm));
 
 }
@@ -81,7 +82,6 @@ function editAnswer(event) {
 function showEditForm(event) {
     event.preventDefault();
 
-    console.log("here");
     let answerID = this.querySelector('input[name="answerID"]').value;
     let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);

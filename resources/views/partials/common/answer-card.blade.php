@@ -11,17 +11,17 @@
             @include('partials.question.author', ['element' =>$answer])
             <div class="d-flex ms-auto">
                 @can('edit',$answer)
-                    <div title="Edit-answer" class="answer-edit-form">
+                    <form title="Edit-answer" action="#" class="answer-edit-form">
                         <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" title="Edit" type="button" data-bs-toggle="tooltip"
+                        <button class="icon-hover edit-answer" title="Edit" type="submit" data-bs-toggle="tooltip"
                                 data-bs-placement="top">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
                         </button>
-                    </div>
+                    </form>
                 @endcan
                 @can('delete', $answer)
-                    <form class="answer-delete-form">
+                    <form class="answer-delete-form" action="#">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
                         <button class="icon-hover edit-answer" type="button" title="Delete" data-bs-toggle="tooltip"
                                 data-bs-placement="top">
