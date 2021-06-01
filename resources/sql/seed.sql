@@ -477,6 +477,18 @@ BEGIN
         UPDATE report
         SET viewed = true
         WHERE question_id = NEW.id;
+
+        -- delete all notifications related to answers to the deleted question
+        DELETE FROM "notification"
+        WHERE answer_id IN (SELECT id FROM answer WHERE question_id = NEW.id);
+
+        -- delete all notifications related to comments to answers to the deleted question
+        DELETE FROM "notification"
+        WHERE comment_id IN (
+            SELECT comment.id AS id 
+            FROM comment, answer 
+            WHERE answer.question_id = NEW.id AND 
+            comment.answer_id = answer.id);
     END IF;
     RETURN NEW;
 END
@@ -500,6 +512,10 @@ BEGIN
         -- delete all notifications related to the deleted answer
         DELETE FROM "notification"
         WHERE answer_id = NEW.id;
+
+        -- delete all notifications related to comments to the deleted answer
+        DELETE FROM "notification"
+        WHERE comment_id IN (SELECT id FROM comment WHERE answer_id = NEW.id);
 
         -- decrease number of answers to the question
         UPDATE question
