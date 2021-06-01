@@ -536,9 +536,19 @@ CREATE TRIGGER discard_user_reports
 -- Updates the tsvector of a question when its content or title are changed
 CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') ||
-        setweight(to_tsvector('simple',NEW.content),'B');
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title)) THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || setweight(to_tsvector('simple',NEW.content),'B');
+END IF;
+RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE FUNCTION update_search_answer_of_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title)) THEN
+        UPDATE answer
+        SET search = setweight(to_tsvector('simple',answer.content),'A') || setweight(to_tsvector('simple',NEW.title),'B')
+        WHERE NEW.id = answer.question_id;
 END IF;
 RETURN NEW;
 END
@@ -546,15 +556,23 @@ $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER search_question
     BEFORE INSERT OR UPDATE ON question
-                         FOR EACH ROW
-                         EXECUTE PROCEDURE update_search_question();
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_search_question();
 
--- Creating/Updating tsvector for an Answer or Comment
--- Insert/Update the tsvector of an answer or comment
+CREATE TRIGGER search_answer_of_question
+    AFTER INSERT OR UPDATE ON question
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_search_answer_of_question();
+
+-- Creating/Updating tsvector for an Answer
+-- Insert/Update the tsvector of an Answer
 CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
+DECLARE
+question_title TEXT;
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
+        SELECT title INTO question_title FROM question WHERE id = NEW.question_id;
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A') || setweight(to_tsvector('simple',question_title),'B');
 END IF;
 RETURN NEW;
 END
@@ -562,8 +580,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER answer_search
     BEFORE INSERT OR UPDATE ON answer
-                         FOR EACH ROW
-                         EXECUTE PROCEDURE update_answer_search();
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_answer_search();
 
 -- SEARCH PAGE: full text search
 -- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted

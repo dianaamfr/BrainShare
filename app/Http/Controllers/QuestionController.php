@@ -26,6 +26,7 @@ class QuestionController extends Controller
         $question = Question::find($id);
         $this->authorize('show', $question);
         $answers =  (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->limit(5)->get();
+        
         return view('pages.question', ['question' => $question, 'answers'=>$answers]);
     }
 

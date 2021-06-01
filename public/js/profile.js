@@ -1,5 +1,7 @@
 import {encodeForAjax, sendAjaxGetRequest} from './common.js';
 
+let resetSearchBtns = Array.from(document.getElementsByClassName('reset-search'));
+
 function ajaxProfileUpdate(goalDiv, paginationElem, id) {
     function requestHandler() {
         if (this.status != 200) window.location = '';
@@ -43,10 +45,12 @@ function profileSearch(event){
 
     if(document.querySelector('#pagination-item-1').style.display == "block"){
         // Search Questions
+        resetDisplay(resetSearchBtns[0]);
         sendAjaxGetRequest( '/api/user/' + userId + '/questions', {"profile-search": search.value}, profileQuestionsUpdate);
     }
     else {
         // Search Answers
+        resetDisplay(resetSearchBtns[1]);
         sendAjaxGetRequest( '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);  
     }
 }
@@ -73,21 +77,34 @@ function resetSearch(){
 
     if(document.querySelector('#pagination-item-1').style.display == "block"){
         document.querySelector('#search-questions input[type="search"]').value = '';
+        resetDisplay(resetSearchBtns[0]);
 
         // Search Questions
         sendAjaxGetRequest( '/api/user/' + userId + '/questions', {}, profileQuestionsUpdate);
     }
     else {
         document.querySelector('#search-answers input[type="search"]').value = '';
+        resetDisplay(resetSearchBtns[1]);
+
         // Search Answers
         sendAjaxGetRequest( '/api/user/' + userId + '/answers', {}, profileAnswersUpdate);  
     }
 
 }
 
+function resetDisplay(resetBtn){
+    
+    if(resetBtn.classList.contains('d-block')){
+        resetBtn.classList.remove('d-block');
+        resetBtn.classList.add('d-none');
+    } else {
+        resetBtn.classList.add('d-block');
+        resetBtn.classList.remove('d-none');
+    }
+}
+
 if (document.getElementById('profile-id')) {
     let userId = document.getElementById('profile-id').innerHTML;
-    let resetSearchBtns = Array.from(document.getElementsByClassName('reset-search'));
 
     // Update url to first page
     window.history.pushState({}, '', 'profile?page=1');
