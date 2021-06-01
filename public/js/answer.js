@@ -9,6 +9,7 @@ let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 addEventListeners();
 setInterval(update, 1500);
 
+
 function addEventListeners() {
     // Add Answer
     let form = document.getElementById('submit-answer');
@@ -20,7 +21,6 @@ function addEventListeners() {
 
     // Edit Answer
     let editButtons = document.querySelectorAll(".answer-edit-form");
-    console.log(editButtons);
     editButtons.forEach(element => {element.addEventListener('submit', showEditForm); console.log("added event")});
 
     let submitEditForm = document.querySelectorAll('.edit-answer-forms');
@@ -31,6 +31,9 @@ function addEventListeners() {
 
 }
 
+function removeAddEventListeners(){
+    let deleteButtons = document.querySelectorAll('.answer-delete-form');
+}
 
 function submitAnswer(event) {
 
@@ -81,7 +84,7 @@ function editAnswer(event) {
 
 function showEditForm(event) {
     event.preventDefault();
-
+    console.log("showEditForm");
     let answerID = this.querySelector('input[name="answerID"]').value;
     let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
@@ -157,17 +160,17 @@ function editAnswerHandler(responseJson) {
 function checkInfiniteScroll(parentSelector, childSelector) {
     let lastDiv = document.querySelector(parentSelector + childSelector);
     let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
-    let pageOffset = window.pageYOffset + window.innerHeight;
 
-    if (pageOffset > lastDivOffset - 20) {
-
+    if (window.scrollY > lastDivOffset - 20) {
+        console.log("scroll y");
         // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
         // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
         let counter = document.getElementById("all-answers").childElementCount;
-
+        console.log("Answer counter " + answerCounter);
+        console.log("Counter " + counter);
         if (counter < answerCounter) {
             sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
         }
@@ -180,9 +183,10 @@ function update() {
 
 function addScroll() {
     let response = JSON.parse(this.responseText);
-
     if (response.success) {
         document.getElementById("all-answers").innerHTML += response.html;
+
+        addEventListeners();
     }
 }
 
