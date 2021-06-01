@@ -13,7 +13,8 @@
                 @can('edit',$answer)
                     <form title="Edit-answer" class="answer-edit-form">
                         <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" title="Edit" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <button class="icon-hover edit-answer" title="Edit" type="submit" data-bs-toggle="tooltip"
+                                data-bs-placement="top">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
                         </button>
@@ -22,7 +23,8 @@
                 @can('delete', $answer)
                     <form class="answer-delete-form">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" type="submit" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <button class="icon-hover edit-answer" type="submit" title="Delete" data-bs-toggle="tooltip"
+                                data-bs-placement="top">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
                         </button>
@@ -36,7 +38,7 @@
             @if(Auth::check() && (Auth::user()->id != $answer->answer_owner_id))
                 @php
                     $value = 0;
-                    
+
                     foreach ($answer->votes as $element) {
                         if ($element['user_id'] == Auth::user()->id) {
                             $value = $element['value_vote'];
@@ -46,12 +48,14 @@
 
                 <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
                     <input class="answer-id" value="{{ $answer->id }}" hidden/>
-                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
-                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$value == 1 ? '-fill' : ''}}" ></i>
+                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip"
+                            data-bs-placement="top">
+                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$value == 1 ? '-fill' : ''}}"></i>
                         <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
                     </button>
                     <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
-                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip"
+                            data-bs-placement="top">
                         <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down{{$value == -1 ? '-fill' : ''}}"></i>
                         <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
                     </button>
@@ -59,19 +63,21 @@
             @else
                 <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
                     <input class="answer-id" hidden/>
-                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
-                        <i class="bi bi-caret-up text-secondary" ></i>
+                    <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip"
+                            data-bs-placement="top">
+                        <i class="bi bi-caret-up text-secondary"></i>
                         <i class="bi bi-caret-up-fill text-secondary"></i>
                     </button>
                     <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
-                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                    <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip"
+                            data-bs-placement="top">
                         <i class="bi bi-caret-down text-secondary"></i>
                         <i class="bi bi-caret-down-fill text-secondary"></i>
                     </button>
                 </div>
             @endif
 
-            <div class="col align-self-start ps-4 mt-2" id="answer-content-{{$answer->id}}">
+            <div class="col align-self-start ps-4 mt-2 md-content" id="answer-content-{{$answer->id}}">
                 {{ $answer->content }}
             </div>
 
@@ -94,6 +100,7 @@
                 @if ($answer->valid)
                     <i class="fas fa-check text-center"></i>
                 @endif
+
             </div>
 
         </div>

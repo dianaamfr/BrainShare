@@ -1,5 +1,7 @@
 @if (@count($questions) > 0)
-    @each('partials.common.question-card', $questions, 'question')
+    @foreach($questions as $question)
+        @include('partials.common.question-card', ['question' => $question, 'isProfile'=>true])
+    @endforeach
 @else
     <p>No questions to show.</p>
 @endif
