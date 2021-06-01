@@ -26,9 +26,9 @@
     <div class="d-flex">
         <div class="comment-author me-auto">
             @if ($comment->owner)
-            <a href="{{route('show-profile', ['id' =>$comment->owner->id])}}">
-                <span>{{$comment->owner->username}}</span>
-            </a> <!-- Username -->
+                <a href="{{route('show-profile', ['id' =>$comment->owner->id])}}">
+                    <span>{{$comment->owner->username}}</span>
+                </a> <!-- Username -->
             @else
                 <span>Anonymous</span>
             @endif
@@ -38,7 +38,8 @@
             <form title="Edit-comment" class="comment-edit-form">
                 <input type="hidden" name="dummyText" value="dummyText">
                 <input type="hidden" name="commentID" value="{{$comment->id}}">
-                <button class="icon-hover edit-comment ps-0 pe-1" title="Edit" type="submit" data-bs-toggle="tooltip" data-bs-placement="top">
+                <button class="icon-hover edit-comment ps-0 pe-1" title="Edit" type="submit" data-bs-toggle="tooltip"
+                        data-bs-placement="top">
                     <i class="far fa-edit"></i>
                     <i class="fas fa-edit"></i>
                 </button>
@@ -48,15 +49,18 @@
         @can('delete',$comment)
             <form title="Delete-comment" class="comment-delete-form">
                 <input type="hidden" name="commentID" value="{{$comment->id}}">
-                <button class="icon-hover edit-comment ps-0" type="submit" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                <button class="icon-hover edit-comment ps-0" type="submit" title="Delete" data-bs-toggle="tooltip"
+                        data-bs-placement="top">
                     <i class="far fa-trash-alt"></i>
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </form>
         @endcan
 
-        <div>
-            @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
-        </div>
+        @if($comment->owner && $comment->owner->id != Auth::user()->id)
+            <div>
+                @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
+            </div>
+        @endif
     </div>
 </div>

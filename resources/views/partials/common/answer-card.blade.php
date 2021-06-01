@@ -6,7 +6,7 @@
             </div>
         @endif
 
-        <header class="question-author d-flex align-items-center card-header p-0 me-2">
+        <header class="question-author d-flex align-items-center card-header p-0 pt-2 me-2">
             <input type="hidden" class="answer-id" value="{{$answer->id}}">
             @include('partials.question.author', ['element' =>$answer])
             <div class="d-flex ms-auto">
@@ -30,7 +30,10 @@
                         </button>
                     </form>
                 @endcan
-                @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
+
+                @if($answer->owner && $answer->owner->id != Auth::user()->id)
+                    @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
+                @endif
             </div>
         </header>
 
@@ -146,7 +149,7 @@
         </div>
         <!-- <div id="question-comments"> -->
         <div id="comments-answer-{{$answer->id}}">
-            @include('partials.common.comment-list',['comments'=> Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $answer->comments : $answer->commentsNotDeleted])
+            @include('partials.common.comment-list',['comments'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $answer->comments : $answer->commentsNotDeleted])
         </div>
     </div>
 </div>

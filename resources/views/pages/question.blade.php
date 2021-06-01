@@ -17,7 +17,7 @@
             This Question has been deleted. Only Administrators and Moderators can see this page.
         </div>
     @endif
-    
+
     <article class="question card">
         <div class="card-body">
             <header class="card-header">
@@ -25,9 +25,9 @@
                     <!-- Mobile Question details -->
                     <div class="d-none question-details d-flex mb-3">
                         <!-- Course -->
-                        @include('partials.question.courses')
+                    @include('partials.question.courses')
 
-                        <!-- Edit/Delete: only for Registred Users -->
+                    <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.update', ['margin' => 'ms-auto'])
 
                     </div>
@@ -37,9 +37,9 @@
 
                     <!-- Desktop Question details -->
                     <div class="question-details d-flex">
-                        @include('partials.question.courses')
+                    @include('partials.question.courses')
 
-                        <!-- Edit/Delete: only for Registred Users -->
+                    <!-- Edit/Delete: only for Registred Users -->
                         @include('partials.question.update', ['margin' => ''])
                     </div>
                 </div>
@@ -59,10 +59,12 @@
             <footer class="d-flex">
 
                 <!-- Tags -->
-                @include('partials.question.tags')
+            @include('partials.question.tags')
 
-                <!-- Report Button -->
-                @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
+            <!-- Report Button -->
+                @if($question->owner && $question->owner->id != Auth::user()->id)
+                    @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
+                @endif
 
             </footer>
 
@@ -77,7 +79,7 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answers'=> Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers : $question->answersNotDeleted])
+            @include('partials.common.answer-list',['answers'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers : $question->answersNotDeleted])
         </div>
     </section>
 

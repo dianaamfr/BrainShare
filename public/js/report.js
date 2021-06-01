@@ -1,4 +1,4 @@
-import {sendAjaxGetRequest, showToast} from "./common.js";
+import {sendAjaxGetRequest, sendDataAjaxRequest, showToast} from "./common.js";
 
 let reportDiv;
 let reportInfo;
@@ -34,13 +34,16 @@ function canReport(e) {
     reportInfo = reportDiv.querySelectorAll("input");
     const elementType = reportInfo[0].value;
     const elementId = reportInfo[1].value;
-    sendAjaxGetRequest( '/api/report/status', {'reportType': elementType, 'id': elementId}, showModal);
+    sendAjaxGetRequest('/api/report/status', {'reportType': elementType, 'id': elementId}, showModal);
 }
 
 function showModal(){
     const json = JSON.parse(this.responseText);
+    console.log(json);
     if (json['isReported'] === false)
         modal.show();
+    else if (json['exception'])
+        showToast("Error on report. Make sure you're logged.", 'red');
     else {
         showToast('You have already reported this question', 'yellow');
     }

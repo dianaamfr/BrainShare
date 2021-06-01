@@ -41,7 +41,6 @@ class ReportController
     function reportAnswer(Request $request, $answerId)
     {
 
-
         $validReport = $this->validateReport("answer", $answerId, $request);
         if ($validReport != null) return $validReport;
 

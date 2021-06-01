@@ -15,10 +15,10 @@
                     <!-- Question Title -->
                     <h4 class="card-title flex-grow-1"><a href="/question/{{ $answer->question->id }}">{{$answer->question->title}}</a></h4>
 
-                    @include('partials.question.courses', ['question' => $answer->question])
                     <div class="d-flex flex-column justify-content-center col-auto mx-2">
                         <i class="fas fa-check text-center"></i>
                     </div>
+                    @include('partials.question.courses', ['question' => $answer->question])
                 </div>
             </header>
 
