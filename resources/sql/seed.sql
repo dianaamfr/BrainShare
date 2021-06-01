@@ -21,34 +21,42 @@ DROP FUNCTION IF EXISTS generate_answer_notification CASCADE;
 DROP TRIGGER IF EXISTS answer_notification ON answer;
 DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
 DROP TRIGGER IF EXISTS comment_notification ON answer;
+
 DROP FUNCTION IF EXISTS process_vote CASCADE;
 DROP TRIGGER IF EXISTS vote_trigger ON vote;
 DROP FUNCTION IF EXISTS update_vote CASCADE;
 DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
+
 DROP FUNCTION IF EXISTS score CASCADE;
 DROP TRIGGER IF EXISTS score_trigger ON vote;
+
 DROP FUNCTION IF EXISTS number_answer_update CASCADE;
 DROP TRIGGER IF EXISTS action_answer ON answer;
+
 DROP FUNCTION IF EXISTS tag_limit CASCADE;
 DROP TRIGGER IF EXISTS tag_trigger ON question_course;
 DROP FUNCTION IF EXISTS course_limit CASCADE;
 DROP TRIGGER IF EXISTS course_trigger ON question_course;
-DROP FUNCTION IF EXISTS update_search_question;
-DROP TRIGGER IF EXISTS search_question ON question CASCADE;
-DROP FUNCTION IF EXISTS update_search_question_answers;
-DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_answer_search;
-DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+
+DROP FUNCTION IF EXISTS update_search_question CASCADE;
+DROP TRIGGER IF EXISTS search_question ON question;
+DROP FUNCTION IF EXISTS update_search_question_answers CASCADE;
+DROP TRIGGER IF EXISTS search_question_answers ON answer;
+DROP FUNCTION IF EXISTS update_answer_search CASCADE;
+DROP TRIGGER IF EXISTS answer_search ON answer;
 DROP FUNCTION IF EXISTS already_reported_check CASCADE;
 DROP TRIGGER IF EXISTS already_reported ON question_course;
-DROP FUNCTION IF EXISTS discard_question_reports;
-DROP TRIGGER IF EXISTS discard_question_reports ON question CASCADE;
-DROP FUNCTION IF EXISTS discard_answer_reports;
-DROP TRIGGER IF EXISTS discard_answer_reports ON answer CASCADE;
-DROP FUNCTION IF EXISTS discard_comment_reports;
-DROP TRIGGER IF EXISTS discard_comment_reports ON comment CASCADE;
-DROP FUNCTION IF EXISTS discard_user_reports;
-DROP TRIGGER IF EXISTS discard_user_reports ON "user" CASCADE;
+DROP FUNCTION IF EXISTS update_search_answer_of_question CASCADE;
+DROP TRIGGER IF EXISTS search_answer_of_question ON question;
+
+DROP FUNCTION IF EXISTS deleted_question CASCADE;
+DROP TRIGGER IF EXISTS delete_question ON question;
+DROP FUNCTION IF EXISTS deleted_answer CASCADE;
+DROP TRIGGER IF EXISTS delete_answer ON answer;
+DROP FUNCTION IF EXISTS deleted_comment CASCADE;
+DROP TRIGGER IF EXISTS delete_comment ON comment;
+DROP FUNCTION IF EXISTS discard_user_reports CASCADE;
+DROP TRIGGER IF EXISTS discard_user_reports ON "user";
 
 -----------
 -- Types --
@@ -213,9 +221,11 @@ CREATE INDEX password_resets_email_index ON "password_resets" USING btree(email)
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
-IF NEW.answer_owner_id <> owner_id THEN
-    INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+IF NEW.deleted = false THEN
+    SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
+    IF NEW.answer_owner_id <> owner_id THEN
+        INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+    END IF;
 END IF;
 RETURN NEW;
 END
@@ -232,9 +242,11 @@ CREATE TRIGGER answer_notification
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
-IF NEW.comment_owner_id <> owner_id THEN
-    INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+IF NEW.deleted = false THEN
+    SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
+    IF NEW.comment_owner_id <> owner_id THEN
+        INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+    END IF;
 END IF;
 RETURN NEW;
 END
@@ -351,24 +363,24 @@ CREATE TRIGGER score_trigger
 -- Update number of answers
 CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
 BEGIN
-	IF TG_OP = 'INSERT'
-	THEN
-UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
-ELSE
-UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
-END IF;
+    IF TG_OP = 'INSERT' THEN
+        IF NEW.deleted = false THEN
+            UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
+        END IF;
+    ELSE
+        UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
+    END IF;
 RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
--- QUESTION COURSES AND TAGS
--- Limit the number of tags to 5
 CREATE TRIGGER action_answer
     AFTER INSERT OR DELETE ON answer
     FOR EACH ROW
     EXECUTE PROCEDURE number_answer_update();
 
+-- QUESTION COURSES AND TAGS
 CREATE FUNCTION tag_limit() RETURNS TRIGGER AS $$
 DECLARE number_tags INTEGER;
 BEGIN
@@ -437,7 +449,7 @@ IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Answer already reported';
 ELSE
-			RETURN NEW;
+	RETURN NEW;
 END IF;
 ELSE
 SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.comment_id = NEW.comment_id;
@@ -445,7 +457,7 @@ IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Comment already reported';
 ELSE
-			RETURN NEW;
+	RETURN NEW;
 END IF;
 END IF;
 END
@@ -458,7 +470,7 @@ CREATE TRIGGER already_reported_check
     EXECUTE PROCEDURE already_reported_check();    
 
 -- Set Reports has handled when the content is deleted
-CREATE FUNCTION discard_question_reports() RETURNS TRIGGER AS $$
+CREATE FUNCTION deleted_question() RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.deleted = true 
     THEN
@@ -471,31 +483,67 @@ END
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION discard_answer_reports() RETURNS TRIGGER AS $$
+CREATE TRIGGER delete_question
+    AFTER UPDATE OF deleted ON question
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_question();
+
+
+CREATE FUNCTION deleted_answer() RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.deleted = true 
-    THEN
+    IF NEW.deleted = true THEN 
+        -- set all reports related to the deleted answer to viewed
         UPDATE report
         SET viewed = true
         WHERE answer_id = NEW.id;
+
+        -- delete all notifications related to the deleted answer
+        DELETE FROM "notification"
+        WHERE answer_id = NEW.id;
+
+        -- decrease number of answers to the question
+        UPDATE question
+        SET number_answer = number_answer - 1
+        WHERE id = NEW.question_id;
+    ELSE
+        -- increase number of answers to the question
+        UPDATE question
+        SET number_answer = number_answer + 1
+        WHERE id = NEW.question_id;
     END IF;
     RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION discard_comment_reports() RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.deleted = true 
-    THEN
+CREATE TRIGGER delete_answer
+    AFTER UPDATE OF deleted ON answer
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_answer();
+
+
+CREATE FUNCTION deleted_comment() RETURNS TRIGGER AS $$
+BEGIN   
+    IF NEW.deleted = false THEN
+        -- set all reports related to the deleted comment to viewed
         UPDATE report
         SET viewed = true
+        WHERE comment_id = NEW.id;
+
+        -- delete all notifications related to the deleted comment
+        DELETE FROM "notification"
         WHERE comment_id = NEW.id;
     END IF;
     RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_comment
+    AFTER UPDATE OF deleted ON comment
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_comment();
+
 
 CREATE FUNCTION discard_user_reports() RETURNS TRIGGER AS $$
 BEGIN
@@ -509,21 +557,6 @@ BEGIN
 END
 $$
 LANGUAGE plpgsql;
-
-CREATE TRIGGER discard_question_reports
-    AFTER UPDATE OF deleted ON question
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_question_reports();
-
-CREATE TRIGGER discard_answer_reports
-    AFTER UPDATE OF deleted ON answer
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_answer_reports();
-
-CREATE TRIGGER discard_comment_reports
-    AFTER UPDATE OF deleted ON comment
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_comment_reports();
 
 CREATE TRIGGER discard_user_reports
     AFTER UPDATE OF ban ON "user"
