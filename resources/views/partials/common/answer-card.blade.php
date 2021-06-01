@@ -11,19 +11,19 @@
             @include('partials.question.author', ['element' =>$answer])
             <div class="d-flex ms-auto">
                 @can('edit',$answer)
-                    <form title="Edit-answer" class="answer-edit-form">
+                    <div title="Edit-answer" class="answer-edit-form">
                         <input type="hidden" class="d-none" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" title="Edit" type="submit" data-bs-toggle="tooltip"
+                        <button class="icon-hover edit-answer" title="Edit" type="button" data-bs-toggle="tooltip"
                                 data-bs-placement="top">
                             <i class="far fa-edit"></i>
                             <i class="fas fa-edit"></i>
                         </button>
-                    </form>
+                    </div>
                 @endcan
                 @can('delete', $answer)
                     <form class="answer-delete-form">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" type="submit" title="Delete" data-bs-toggle="tooltip"
+                        <button class="icon-hover edit-answer" type="button" title="Delete" data-bs-toggle="tooltip"
                                 data-bs-placement="top">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
@@ -41,7 +41,6 @@
             @if(Auth::check() && (Auth::user()->id != $answer->answer_owner_id))
                 @php
                     $value = 0;
-
                     foreach ($answer->votes as $element) {
                         if ($element['user_id'] == Auth::user()->id) {
                             $value = $element['value_vote'];
@@ -85,11 +84,11 @@
             </div>
 
 
-            <div class="col align-self-start ps-4 d-none">
-                <form id="edit-answer-{{$answer->id}}" class="edit-answer-forms">
-                    <div class="border form-control testing-editor">
-                        <textarea class="form-control" placeholder="Type your answer here"
-                                  name="content"> {{$answer->content}} </textarea>
+            <div class="col align-self-start ps-4 d-none" id="edit-answer-{{$answer->id}}">
+                <form  class="edit-answer-forms" >
+                    <div class="border form-control testing-editor" >
+                        <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
+
                         <div class="editor-toolbar"></div>
                     </div>
                     <input type="hidden" name="answerID" value="{{$answer->id}}">

@@ -1,14 +1,18 @@
-import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js";
-import {addCommentEventListeners} from "./comment.js"; 
+import {sendDataAjaxRequest, setConfirmationModal, sendAjaxGetRequest, tooltipLoad} from "./common.js";
+import {addCommentEventListeners} from "./comment.js";
 
 tooltipLoad();
-addEventListeners();
+let all_answers = document.getElementById("all-answers");
+let lastScrollTime = Date.now();
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
-function addEventListeners(){
+addEventListeners();
+setInterval(update, 1500);
+
+function addEventListeners() {
     // Add Answer
     let form = document.getElementById('submit-answer');
-    form.addEventListener("submit",submitAnswer);
+    form.addEventListener("submit", submitAnswer);
 
     // Delete Answer
     let deleteButtons = Array.from(document.getElementsByClassName('answer-delete-form'));
@@ -16,17 +20,18 @@ function addEventListeners(){
 
     // Edit Answer
     let editButtons = Array.from(document.getElementsByClassName("answer-edit-form"));
-    editButtons.forEach(element => element.addEventListener('submit',showEditForm));
+    editButtons.forEach(element => element.addEventListener('click', showEditForm));
 
     let submitEditForm = Array.from(document.getElementsByClassName('edit-answer-forms'));
     submitEditForm.forEach(element => element.addEventListener('submit', editAnswer));
 
     let cancelEditForm = Array.from(document.querySelectorAll('.edit-answer-forms button[type=button]'));
-    cancelEditForm.forEach(element => element.addEventListener('click',cancelEditForm));
+    cancelEditForm.forEach(element => element.addEventListener('click', cancelEditForm));
 
 }
 
-function submitAnswer(event){
+
+function submitAnswer(event) {
 
     event.preventDefault();
 
@@ -34,75 +39,152 @@ function submitAnswer(event){
     let textElement = this.querySelector('textarea[name="content"]');
     let text = textElement.value;
 
-    // TODO: This is not doing anything because of the markdown framework
+    let counter = document.getElementById("all-answers").childElementCount;
+
+    // This is not doing anytihing because of the markdown framework
     textElement.value = "";
 
-    sendDataAjaxRequest("POST",'/api/question/'+ id + '/answer', {'text':text}, handler);
+    sendDataAjaxRequest("POST", '/api/question/' + id + '/answer', {
+        'text': text,
+        'counter': counter
+    }, addAnswerHandler);
+
 
 }
 
-function removeAnswer(event){
+function removeAnswer(event) {
     event.preventDefault();
 
     let answerID = this.querySelector('input[name="answerID"]').value;
 
+    //Route::delete('/api/question/{id-q}/answer/{id-a}
     setConfirmationModal(
-        'Delete Answer', 
-        'Are you sure you want to delete this Answer?', 
-        function(){
-            sendDataAjaxRequest("delete",'/api/answer/'+ answerID + '/delete', null, handler);
-        }, modal);  
+        'Delete Answer',
+        'Are you sure you want to delete this Answer?',
+        function () {
+            sendDataAjaxRequest("delete", '/api/answer/' + answerID, null, deleteAnswerHandler);
+        }, modal);
 
 }
 
-// TODO: dar fix ao css de modo a que se consiga ir buscar o texto
-function editAnswer(event){
+function editAnswer(event) {
 
     event.preventDefault();
 
-    //let questionID = this.querySelector('input[name="questionID"]').value;
     let answerID = this.querySelector('input[name="answerID"]').value;
-    //let text = this.querySelector('textarea[name="content"]').value;
-    //let text = "hello my friend"
     let text = this.querySelector('textarea').value;
 
-    sendDataAjaxRequest("put",'/api/answer/'+ answerID + '/edit',{'text':text}, handler);
+
+    sendDataAjaxRequest("put", '/api/answer/' + answerID, {'text': text}, editAnswerHandler);
 }
 
-function showEditForm(event){
+function showEditForm(event) {
     event.preventDefault();
 
+    console.log("here");
     let answerID = this.querySelector('input[name="answerID"]').value;
-    let editForm = document.getElementById('edit-answer-'+ answerID);
+    let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
 
-    
-    editForm.style.display = 'block';
-    answer.style.display = 'none';
-    
+    editForm.classList.toggle('d-none');
+    answer.classList.toggle('d-none');
+
 }
 
-function cancelEditForm(event){
+function cancelEditForm(event) {
 
     let answerID = this.name;
-    let editForm = document.getElementById('edit-answer-'+ answerID);
+    let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
 
-    editForm.style.display = 'none';
-    answer.style.display = 'block';
+    editForm.classList.toggle('d-none');
+    answer.classList.toggle('d-none');
 
 }
 
-function handler(responseJson){
 
-    if(responseJson.success){
-        let answers = document.getElementById('all-answers');
-        answers.innerHTML = responseJson.html;
+function addAnswerHandler(responseJson) {
+    if (responseJson.success) {
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
-        addEventListeners();
-        addCommentEventListeners();
-        tooltipLoad();
+
+        // Append if the limit as not been reached
+        if (responseJson.html != undefined) {
+            document.getElementById("all-answers").innerHTML += responseJson.html;
+            addEventListeners();
+            addCommentEventListeners();
+        }
     }
-    
 }
+
+function deleteAnswerHandler(responseJson) {
+    if (responseJson.success) {
+
+        let number_answers = document.getElementById("question-number-answers");
+        number_answers.innerHTML = responseJson.number_answers + ' answers';
+
+        let deletedElement = document.getElementById("answer-" + responseJson.answer_id);
+
+        if (deletedElement != undefined) {
+            deletedElement.parentNode.removeChild(deletedElement);
+            // answer_counter--;
+        }
+    }
+}
+
+function editAnswerHandler(responseJson) {
+
+    if (responseJson.success) {
+
+        let number_answers = document.getElementById("question-number-answers");
+        number_answers.innerHTML = responseJson.number_answers + ' answers';
+
+        let editElement = document.getElementById("answer-content-" + responseJson.answer_id);
+        if (editElement != undefined) {
+            editElement.innerHTML = responseJson.content;
+
+            let editForm = document.getElementById('edit-answer-' + responseJson.answer_id);
+            let answer = document.getElementById('answer-content-' + responseJson.answer_id);
+
+            editForm.classList.toggle('d-none');
+            answer.classList.toggle('d-none');
+        }
+
+    }
+}
+
+
+function checkInfiniteScroll(parentSelector, childSelector) {
+    let lastDiv = document.querySelector(parentSelector + childSelector);
+    let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+
+    if (pageOffset > lastDivOffset - 20) {
+
+        // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
+        let id = document.querySelector("#submit-answer > input[name=questionID]").value;
+        let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
+
+        // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
+        let counter = document.getElementById("all-answers").childElementCount;
+
+        if (counter < answerCounter) {
+            sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
+        }
+    }
+}
+
+function update() {
+    checkInfiniteScroll("#all-answers", "> div:last-child");
+}
+
+function addScroll() {
+    let response = JSON.parse(this.responseText);
+
+    if (response.success) {
+        document.getElementById("all-answers").innerHTML += response.html;
+    }
+}
+
+
+

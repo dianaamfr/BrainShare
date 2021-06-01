@@ -1,5 +1,4 @@
-import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js"; 
-
+import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js";
 tooltipLoad();
 addCommentEventListeners();
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
@@ -22,7 +21,9 @@ export function addCommentEventListeners(){
 
     let cancelEdit = Array.from(document.querySelectorAll(".submit-edit-comments button[type=button]"));
     cancelEdit.forEach(cancelEventListener);
-    
+
+
+
 }
 
 function addCommentEventListener(element){
@@ -55,8 +56,8 @@ function addComment(event){
     let text = textElement.value;
     textElement.value = "";
 
-    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
-    
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text}, handler);
+
 }
 
 function deleteComment(event){
@@ -66,12 +67,9 @@ function deleteComment(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
 
     setConfirmationModal(
-        'Delete Answer', 
-        'Are you sure you want to delete this Answer?', 
-        function(){
-            sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
-        }, modal);  
-    
+        'Delete Answer',
+        sendDataAjaxRequest("delete",'/api/comment/' + commentID, null, handler));
+
 }
 
 // Falta dar fix ao css de modo a que consiga ir buscar o texto
@@ -82,7 +80,8 @@ function editComment(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
     let text = this.querySelector('input[name="dummyText"]').value;
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, handler);
 }
 
 function editComment2(event){
@@ -112,12 +111,12 @@ function cancelEditComment(event){
     let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
     let comment = document.getElementById('comment-' + commentID);
 
-    // This block is not necessary 
-    if(hiddenForm.style.display == 'none'){
+    // This block is not necessary
+    if(hiddenForm.style.display === 'none'){
         hiddenForm.style.display = 'block';
         comment.style.display = 'none';
     }
-    else if (comment.style.display == 'none' ){
+    else if (comment.style.display === 'none' ){
         hiddenForm.style.display = 'none';
         comment.style.display = 'block';
     }
@@ -133,7 +132,7 @@ function submitEdit(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
     let text = this.querySelector('textarea').value;
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, handler);
 }
 
 function handler(responseJson){
@@ -143,18 +142,16 @@ function handler(responseJson){
 
     if(responseJson.success){
         let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
-  
+
         answer.innerHTML = responseJson.html;
 
-        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
+        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
         number_comments.innerHTML = responseJson.number_comments + " Comments";
 
         // modificar isto para não refrescar tudo, mas apenas o modificado?
         addCommentEventListeners();
         tooltipLoad();
     }
-    
-    
 }
 
 

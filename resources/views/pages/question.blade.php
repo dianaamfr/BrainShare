@@ -72,6 +72,14 @@
 
     </article>
 
+    <!-- Submit Answer Form -->
+    <form id="submit-answer">
+        <input type="hidden" name="questionID" value="{{$question->id}}">
+        <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
+        @include('partials.question.answer-form')
+    </form>
+
+
     <!-- Answer -->
     <section class="answers">
         <header class="d-flex align-items-center">
@@ -79,15 +87,10 @@
             <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answers'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers : $question->answersNotDeleted])
+            @include('partials.common.answer-list',['answers'=>$answers])
         </div>
     </section>
 
-    <!-- Submit Answer Form -->
-    <form id="submit-answer">
-        <input type="hidden" name="questionID" value="{{$question->id}}">
-        @include('partials.question.answer-form')
-    </form>
 </div>
 
 @include('partials.common.report-modal')

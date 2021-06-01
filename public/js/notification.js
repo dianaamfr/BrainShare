@@ -89,7 +89,7 @@ function markRead(notificationId) {
         'id': notificationId,
     };
 
-    sendDataAjaxRequest('POST', '/api/notification/read/' + notificationId, data, readHandler);
+    sendDataAjaxRequest('POST', '/api/notification/' + notificationId, data, readHandler);
 }
 
 // --- Notification infinite scroll --- //

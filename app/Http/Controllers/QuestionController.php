@@ -22,12 +22,13 @@ class QuestionController extends Controller
     }
 
     public function show($id)
-    {       
+    {
         $question = Question::find($id);
         $this->authorize('show', $question);
-
-        return view('pages.question', ['question' => $question]);
+        $answers =  (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->limit(5)->get();
+        return view('pages.question', ['question' => $question, 'answers'=>$answers]);
     }
+
 
     public function showQuestionForm()
     {

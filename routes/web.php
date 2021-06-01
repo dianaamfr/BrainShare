@@ -28,6 +28,7 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
+Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
 
 // Vote Question and Answer
 Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
@@ -37,28 +38,21 @@ Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@v
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
 
-// Deletes
+// Delete Question
 Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
-//Route::delete('/question/{id-q}/answer/{id-a}','QuestionController@deleteComment')->name('delete-comment');
-//Route::delete('user/{id}/delete', 'UserController@deleteUser')->name('delete-user');
 
 // Answer
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
-//Route::post('/api/test','AnswerController@newRoute');
-Route::put('/api/answer/{id}/edit','AnswerController@editAnswer')->name('edit-answer');
-Route::delete('/api/answer/{id}/delete','AnswerController@deleteAnswer')->name('delete-answer');
+Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
+Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
 // Mark Answer as Valid
 Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 
 // Comment
-// I dont need the questions in the route, I only need the answers, so I am switching the routes (change de API later)
-// Route::post('/api/question/{id-q}/{id-a}/comment/add','CommentController@addComment')->name('add-comment');
-// Route::put('/api/question/{id-q}/comment/{id-c}','CommentController@editComment')->name('edit-comment');
-// Route::delete('/api/question/{id-q}/comment/{id-c}','CommentController@deleteComment')->name('delete-comment');
-Route::post('/api/answer/{id}/comment/add','CommentController@addComment')->name('add-comment');
-Route::put('/api/comment/{id}/edit','CommentController@editComment')->name('edit-comment');
-Route::delete('/api/comment/{id}/delete','CommentController@deleteComment')->name('delete-comment');
+Route::post('/api/answer/{id}/comment','CommentController@addComment')->name('add-comment');
+Route::put('/api/comment/{id}','CommentController@editComment')->name('edit-comment');
+Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('delete-comment');
 
 // Module M01: Authentication
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

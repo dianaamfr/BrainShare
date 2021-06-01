@@ -12,32 +12,54 @@ use App\Models\Answer;
 use App\Models\User;
 use App\Models\Question;
 
-// TODO: decide how to update number of answers in the db when the answer is deleted
 class AnswerController extends Controller{
+
+
+    public function appendInfiniteScroll(Request $request, $id){
+
+        // Validation
+        $validated = $request->validate([
+            'counter' => 'integer'
+        ]);
+
+        $question =  Question::find(intval($id));
+        $query = $this->getAnswers($question)->offset($request->counter)->limit(5)->get();
+
+        $response = view('partials.common.answer-list', ['answers' => $query])->render();
+        return response()->json(array('success' => true,'number_answers' => $question->number_answer, 'html' => $response));
+    }
+
+
     public function newAnswer(Request $request, $id){
         // Authorization
         $this->authorize('create', Answer::class);
-        
+
+
+
         // Validation
         $validated = $request->validate([
-            'text' => 'required'
+            'text' => 'required',
+            'counter' => 'integer'
         ]);
 
-
+        $number_answer = Question::find(intval($id))->number_answer;
         // Add the Answer
-        $answer = new Answer;
+        $answer = new Answer();
         $answer->question_id = $id;
         $answer->answer_owner_id = Auth::user()->id;
         $answer->content = $request->text;
         $answer->save();
 
-        
-        // Return the changed view
-        $question =  Question::find(intval($id));
-        $answers = $this->getAnswers($question);
 
-        $response = view('partials.common.answer-list', ['answers' => $answers])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+
+        if( ($request->counter + 1) < $number_answer){
+            return response()->json(array('success' => true, 'number_answers' => $number_answer));
+        }
+        // Return the changed view
+        $response = view('partials.common.answer-card', ['answer' => $answer])->render();
+        return response()->json(array('success' => true, 'number_answers' => $number_answer,'html' => $response));
+
+
     }
 
     public function deleteAnswer($id){
@@ -47,46 +69,43 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('delete', $answer);
 
-        $answer_id = $answer->question_id;
-        
+
+        $question_id = $answer->question_id;
+
         // Delete Answer
         $answer->delete();
 
+        $question =  Question::find(intval($question_id));
         // Return the changed view
-        $question = Question::find(intval($answer_id));
-        $answers = $this->getAnswers($question);
-        
-        $response = view('partials.common.answer-list', ['answers' => $answers])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer, 'answer_id' => $id));
+
     }
 
 
-    public function editAnswer(Request $request, $id){
+    public function editAnswer(Request $request, $id)
+    {
         // Validation
         $validated = $request->validate([
             'text' => 'required'
         ]);
-        
+
         // Find Comment
         $answer = Answer::find(intval($id));
-        
+
         // Authorization
         $this->authorize('edit', $answer);
-        
+
         // Edit Answer
         $answer->content = $request->text;
         $answer->save();
 
         // Return view of comments to refresh view
-        $question =  Question::find(intval($answer->question_id));
-        $answers = $this->getAnswers($question);
-
-        $response = view('partials.common.answer-list', ['answers' => $answers])->render();
-        return response()->json(array('success' => true, 'number_answers' => $question->number_answer,'html' => $response));
+        $question = Question::find(intval($answer->question_id));
+        return response()->json(array('success' => true, 'number_answers' => $question->number_answer, 'content' => $request->text, 'answer_id' => $id));
     }
 
     private function getAnswers(Question $question){
-        return Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers : $question->answersNotDeleted;
+        return Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers() : $question->answersNotDeleted();
     }
 
     public function markValid(Request $request) {

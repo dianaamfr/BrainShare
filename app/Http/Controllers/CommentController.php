@@ -11,6 +11,29 @@ use App\Models\Answer;
 
 class CommentController extends Controller
 {
+    public function showMoreComments(Request $request, $id){
+        
+        // Validation
+        $validated = $request->validate([
+            'counter' => 'integer'
+        ]);
+
+        $answer =  Answer::find(intval($id));
+
+        $number_comments = count($answer->comments)
+
+        if($request->counter < $number_comments){
+            $query = $answer->comments()->offset($request->counter)->get();
+            $response = view('partials.common.comment-list', ['comment' => $query])->render();
+            return response()->json(array('success' => true,'number_comments' => $number_comments, 'answer_id' => $id, 'html' => $response));
+        }
+        
+        return response()->json(array('success' => false));
+    }
+
+
+
+
     public function addComment(Request $request, $id){
 
         // Authorization
