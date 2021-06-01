@@ -28,7 +28,6 @@ Route::post('/question/add', 'QuestionController@create')->name('question');
 
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
-Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
 
 // Vote Question and Answer
 Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
@@ -42,6 +41,7 @@ Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('ed
 Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
 
 // Answer
+Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
@@ -50,6 +50,7 @@ Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-
 Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 
 // Comment
+Route::get('/api/answer/{id}/comments','CommentController@showMoreComments');
 Route::post('/api/answer/{id}/comment','CommentController@addComment')->name('add-comment');
 Route::put('/api/comment/{id}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('delete-comment');

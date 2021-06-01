@@ -20,12 +20,12 @@ class CommentController extends Controller
 
         $answer =  Answer::find(intval($id));
 
-        $number_comments = count($answer->comments)
+        $number_comments = count($answer->comments);
 
         if($request->counter < $number_comments){
             $query = $answer->comments()->offset($request->counter)->get();
-            $response = view('partials.common.comment-list', ['comment' => $query])->render();
-            return response()->json(array('success' => true,'number_comments' => $number_comments, 'answer_id' => $id, 'html' => $response));
+            $response = view('partials.common.comment-list', ['comments' => $query])->render();
+            return response()->json(array('success' => true, 'answer_id' => $id, 'html' => $response));
         }
         
         return response()->json(array('success' => false));
@@ -41,7 +41,8 @@ class CommentController extends Controller
 
         // Validation
          $validated = $request->validate([
-            'text' => 'required'
+            'text' => 'required',
+            'counter' => 'integer'
          ]);
  
          // Add Comment
@@ -53,11 +54,14 @@ class CommentController extends Controller
          
         // Return the changed view
          $answer = Answer::find(intval($id));
-         $comments = $this->getComments($answer);
-         
-         $response = view('partials.common.comment-list', ['comments' => $comments])->render();
-         return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $id, 'html' => $response));
+         $number_comments = count($this->getComments($answer));
 
+         if($request->counter + 1 < $number_comments){
+            $response = view('partials.common.comment-car', ['comment' => $comment])->render();
+            return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $id, 'html' => $response));
+         }
+
+         return response()->json(array('success' => false));
     }
 
     public function deleteComment($id){
@@ -78,9 +82,7 @@ class CommentController extends Controller
         
         $answer = Answer::find(intval($answer_id));
         $comments = $this->getComments($answer);
-
-        $response = view('partials.common.comment-list', ['comments' => $comments])->render();
-        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer_id, 'html' => $response));
+        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer_id, 'comment_id' => $id));
     }
 
 
@@ -88,7 +90,7 @@ class CommentController extends Controller
 
         // Validation
         $validated = $request->validate([
-            'text' => 'required'
+            'text' => 'required',
         ]);
         
         // Find Comment
@@ -100,15 +102,9 @@ class CommentController extends Controller
         // Edit comment
         $comment->content = $request->text;
         $comment->save();
-
-        //return array('success' => true, 'comment' => $comment);
-
-        // Return view of comments to refresh view
-        $answer = Answer::find(intval($comment->answer_id));
-        $comments = $this->getComments($answer);
-
-        $response = view('partials.common.comment-list', ['comments' => $comments])->render();
-        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer->id, 'html' => $response));
+        
+        // Return response
+        return response()->json(array('success' => true, 'answer_id' => $answer->id, 'comment_id' => $id, 'content': $request->text));
         
     }
 

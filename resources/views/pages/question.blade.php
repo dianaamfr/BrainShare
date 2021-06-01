@@ -59,13 +59,13 @@
             <footer class="d-flex">
 
                 <!-- Tags -->
-            @include('partials.question.tags')
+                @include('partials.question.tags')
 
-            <!-- Report Button -->
-                @if($question->owner && $question->owner->id != Auth::user()->id)
+                <!-- Report Button -->
+                @if(Auth::check() && ($question->owner && $question->owner->id != Auth::user()->id))
                     @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
                 @endif
-
+            
             </footer>
 
         </div>
@@ -84,7 +84,6 @@
     <section class="answers">
         <header class="d-flex align-items-center">
             <h4 id="question-number-answers" class="d-inline-block">{{$question->number_answer}} answers</h4>
-            <a class="btn btn-primary ms-auto" href="#submit-answer">Add Answer</a>
         </header>
         <div class="answer card" id="all-answers">
             @include('partials.common.answer-list',['answers'=>$answers])

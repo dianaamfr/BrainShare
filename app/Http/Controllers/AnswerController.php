@@ -34,15 +34,13 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('create', Answer::class);
 
-
-
         // Validation
         $validated = $request->validate([
             'text' => 'required',
             'counter' => 'integer'
         ]);
 
-        $number_answer = Question::find(intval($id))->number_answer;
+        
         // Add the Answer
         $answer = new Answer();
         $answer->question_id = $id;
@@ -50,9 +48,9 @@ class AnswerController extends Controller{
         $answer->content = $request->text;
         $answer->save();
 
+        $number_answer = Question::find(intval($id))->number_answer;
 
-
-        if( ($request->counter + 1) < $number_answer){
+        if( $request->counter + 1 < $number_answer){
             return response()->json(array('success' => true, 'number_answers' => $number_answer));
         }
         // Return the changed view

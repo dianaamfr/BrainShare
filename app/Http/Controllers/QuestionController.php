@@ -17,9 +17,6 @@ use App\Models\User;
 
 class QuestionController extends Controller
 {
-    public function newRoute(Request $request){
-        return response()->json(['success' => 'true']);
-    }
 
     public function show($id)
     {

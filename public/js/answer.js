@@ -1,10 +1,11 @@
-import {sendDataAjaxRequest, setConfirmationModal, sendAjaxGetRequest, tooltipLoad} from "./common.js";
+import {sendDataAjaxRequest, setConfirmationModal, sendAjaxGetRequest, tooltipLoad, showToast} from "./common.js";
 import {addCommentEventListeners} from "./comment.js";
 
 tooltipLoad();
 let all_answers = document.getElementById("all-answers");
 let lastScrollTime = Date.now();
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
+let addAnswerAlert = document.getElementById('answer-alert');
 
 addEventListeners();
 setInterval(update, 1500);
@@ -21,13 +22,13 @@ function addEventListeners() {
 
     // Edit Answer
     let editButtons = document.querySelectorAll(".answer-edit-form");
-    editButtons.forEach(element => {element.addEventListener('submit', showEditForm); console.log("added event")});
+    editButtons.forEach(element => element.addEventListener('submit', showEditForm));
 
     let submitEditForm = document.querySelectorAll('.edit-answer-forms');
     submitEditForm.forEach(element => element.addEventListener('submit', editAnswer));
 
-    let cancelEditForm = document.querySelectorAll('.edit-answer-forms button[type=button]');
-    cancelEditForm.forEach(element => element.addEventListener('click', cancelEditForm));
+    let cancelEdit = document.querySelectorAll('.edit-answer-forms button[type=button]');
+    cancelEdit.forEach(element => element.addEventListener('click', cancelEditForm));
 
 }
 
@@ -59,6 +60,8 @@ function submitAnswer(event) {
 function removeAnswer(event) {
     event.preventDefault();
 
+    console.log("removing answers");
+
     let answerID = this.querySelector('input[name="answerID"]').value;
 
     //Route::delete('/api/question/{id-q}/answer/{id-a}
@@ -84,7 +87,6 @@ function editAnswer(event) {
 
 function showEditForm(event) {
     event.preventDefault();
-    console.log("showEditForm");
     let answerID = this.querySelector('input[name="answerID"]').value;
     let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
@@ -95,6 +97,8 @@ function showEditForm(event) {
 }
 
 function cancelEditForm(event) {
+
+    event.preventDefault();
 
     let answerID = this.name;
     let editForm = document.getElementById('edit-answer-' + answerID);
@@ -107,7 +111,19 @@ function cancelEditForm(event) {
 
 
 function addAnswerHandler(responseJson) {
-    if (responseJson.success) {
+
+    console.log(responseJson);
+
+
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to add an answer","red");
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red");
+        return;
+    } else if (responseJson.success) {
+        showToast("Answer successfully added!!","blue");
+
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
 
@@ -121,7 +137,16 @@ function addAnswerHandler(responseJson) {
 }
 
 function deleteAnswerHandler(responseJson) {
-    if (responseJson.success) {
+    console.log(responseJson);
+    
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to edit an answer","red");
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red");
+        return;
+    } else if (responseJson.success) {
+        showToast("Answer successfully deleted!!","blue");
 
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
@@ -137,7 +162,14 @@ function deleteAnswerHandler(responseJson) {
 
 function editAnswerHandler(responseJson) {
 
-    if (responseJson.success) {
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to edit an answer","red");
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red");
+        return;
+    } else if (responseJson.success) {
+        showToast("Answer successfully edited!!","blue");
 
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
@@ -159,18 +191,19 @@ function editAnswerHandler(responseJson) {
 
 function checkInfiniteScroll(parentSelector, childSelector) {
     let lastDiv = document.querySelector(parentSelector + childSelector);
+
+    if(!lastDiv) return;
     let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
 
     if (window.scrollY > lastDivOffset - 20) {
-        console.log("scroll y");
+        
         // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
         // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
         let counter = document.getElementById("all-answers").childElementCount;
-        console.log("Answer counter " + answerCounter);
-        console.log("Counter " + counter);
+        
         if (counter < answerCounter) {
             sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
         }
@@ -187,6 +220,7 @@ function addScroll() {
         document.getElementById("all-answers").innerHTML += response.html;
 
         addEventListeners();
+        addCommentEventListeners();
     }
 }
 
