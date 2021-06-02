@@ -50,23 +50,13 @@ Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search')
 Route::get('/question/add', 'QuestionController@showQuestionForm');
 Route::post('/question/add', 'QuestionController@create')->name('question');
 
-// Show Question
+// Question Page
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
-
-// Search Tags
-Route::get('api/tag/search', 'TagController@search');
-Route::get('api/tag/{id}', 'TagController@find');
-
-// Vote Question and Answer
-Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
-Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
+Route::delete('/question/{id}', 'QuestionController@delete')->name('delete-question');
 
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
-
-// Delete Question
-Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
 
 // Answer
 Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
@@ -74,20 +64,37 @@ Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
-// Mark Answer as Valid
-Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
-
 // Comment
 Route::get('/api/answer/{id}/comments','CommentController@showMoreComments');
 Route::post('/api/answer/{id}/comment','CommentController@addComment')->name('add-comment');
 Route::put('/api/comment/{id}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('delete-comment');
 
+// Mark Answer as Valid
+// TODO: mudar idAnswer para id?
+// TODO: meter '/' no ínicio do path
+Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
+
+// Vote Question and Answer
+// TODO: meter '/' no ínicio dos paths
+Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
+Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
+
+
+
 // Make Report
+// TODO: Remover status?
+// TODO: meter '/' no ínicio dos paths
 Route::get('api/report/status', 'ReportController@isReported');
 Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
 Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
 Route::post('api/report/comment/{id}', 'ReportController@reportComment');
+
+// Search Tags
+// TODO: Remover search?
+// TODO: meter '/' no ínicio dos paths
+Route::get('api/tag/search', 'TagController@search');
+Route::get('api/tag/{id}', 'TagController@find');
 
 
 // MODULE 03 - Management
