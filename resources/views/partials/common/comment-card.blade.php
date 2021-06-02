@@ -57,7 +57,7 @@
             </form>
         @endcan
 
-        @if($comment->owner && $comment->owner->id != Auth::user()->id)
+        @if(Auth::check() && $comment->owner && $comment->owner->id != Auth::user()->id)
             <div>
                 @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$comment->id, 'type'=>'comment'])
             </div>

@@ -23,7 +23,7 @@
                 @can('delete', $answer)
                     <form class="answer-delete-form" action="#">
                         <input type="hidden" name="answerID" value="{{$answer->id}}">
-                        <button class="icon-hover edit-answer" type="button" title="Delete" data-bs-toggle="tooltip"
+                        <button class="icon-hover edit-answer" type="submit" title="Delete" data-bs-toggle="tooltip"
                                 data-bs-placement="top">
                             <i class="far fa-trash-alt"></i>
                             <i class="fas fa-trash-alt"></i>
@@ -31,7 +31,7 @@
                     </form>
                 @endcan
 
-                @if($answer->owner && $answer->owner->id != Auth::user()->id)
+                @if(Auth::check() && $answer->owner && $answer->owner->id != Auth::user()->id)
                     @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
                 @endif
             </div>
@@ -39,7 +39,6 @@
 
         <div class="d-flex align-items-center px-3">
             @if(Auth::check() && (Auth::user()->id != $answer->answer_owner_id))
-
                 <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
                     <input class="answer-id" value="{{ $answer->id }}" hidden/>
                     <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip"
