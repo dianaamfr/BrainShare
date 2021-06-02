@@ -15,13 +15,13 @@ class CheckBlocked
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    {
+    {   
         if (auth()->check() && auth()->user()->ban) { 
             $message = 'Your account has been suspended.';
             auth()->logout();     
             return redirect()->route('login')->with('message-ban', $message); 
         }
- 
+
         return $next($request);
     }
 }
