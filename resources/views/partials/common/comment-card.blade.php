@@ -1,4 +1,4 @@
-<div id="comment-{{$comment->id}}" >
+<div id="comment-{{$comment->id}}">
     {{-- Form for editing a comment --}}
     <form class="submit-edit-comments d-none" id="submit-edit-comments-{{$comment->id}}">
         <input type="hidden" name="commentID" value="{{$comment->id}}">
@@ -12,7 +12,7 @@
     </form>
 
 
-    <div class="comment" >
+    <div class="comment" id="display-comment-{{$comment->id}}">
 
         @if($comment->deleted === true)
             <div class="alert alert-danger small-deleted-alert container-lg" role="alert">

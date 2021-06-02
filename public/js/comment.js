@@ -41,7 +41,7 @@ function addComment(event){
 
     let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
 
-    // sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text, 'counter':counter}, addAnswerHandler);
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text, 'counter':counter}, addAnswerHandler);
 
 }
 
@@ -52,49 +52,14 @@ function deleteComment(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
 
     setConfirmationModal(
-        'Delete Answer',
-        sendDataAjaxRequest("delete",'/api/comment/' + commentID, null, deleteAnswerHandler));
+        'Delete Comment',
+        'Are you sure you want to delete this Comment?',
+        function() {       
+        sendDataAjaxRequest("delete",'/api/comment/' + commentID, null, deleteAnswerHandler)
+         },
+        modal);
 
 }
-
-function editComment(event){
-
-    event.preventDefault();
-
-    let commentID = this.querySelector('input[name="commentID"]').value;
-    let text = this.querySelector('input[name="dummyText"]').value;
-
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, editAnswerhandler);
-}
-
-function showEditCommentForm(event){
-
-    event.preventDefault();    
-
-    let commentID = this.querySelector('input[name="commentID"]').value;
-    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
-    let comment = document.getElementById('comment-' + commentID);
-
-    hiddenForm.classList.toggle('d-none');
-    comment.classList.toggle('d-none');
-
-}
-
-function cancelEditComment(event){
-
-    event.preventDefault();
-
-    let commentID = this.name;
-    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
-    let comment = document.getElementById('comment-' + commentID);
-
-
-    hiddenForm.classList.toggle('d-none');
-    comment.classList.toggle('d-none');
-
-
-}
-
 
 // Falta dar fix ao css de modo a que consiga ir buscar o texto
 function submitEdit(event){
@@ -104,8 +69,34 @@ function submitEdit(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
     let text = this.querySelector('textarea').value;
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, editAnswerhandler);
 }
+
+function showEditCommentForm(event){
+
+    event.preventDefault();
+
+    let commentID = this.querySelector('input[name="commentID"]').value;
+    toggleEditForm(commentID);
+
+}
+
+function cancelEditComment(){
+
+    let commentID = this.name;
+    toggleEditForm(commentID);
+
+}
+
+function toggleEditForm(commentID){
+    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
+    let comment = document.getElementById('display-comment-' + commentID);
+
+    hiddenForm.classList.toggle('d-none');
+    comment.classList.toggle('d-none');
+}
+
+
 
 function loadComments(event){
     event.preventDefault();
@@ -118,29 +109,34 @@ function loadComments(event){
     
 }
 
-function addAnswerHandler(responseJon){
+function addAnswerHandler(responseJson){
+
     if(responseJson.hasOwnProperty('error')){
-        showToast("An error occured while attempting to add a Comment","red")
+        showToast("An error occured while attempting to add a Comment","red");
         return;
     } else if(responseJson.hasOwnProperty('exception')){
-        showToast("Unauthorized Operation\nLogin may be necessary","red")
+        showToast("Unauthorized Operation\nLogin may be necessary","red");
         return;
     }
 
     if(responseJson.success){
-        let comments = document.getElementById('comments-answer-' + responseJson.answer_id);
-
-        answer.innerHTML += responseJson.html;
-
+        
         let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
         number_comments.innerHTML = responseJson.number_comments + " Comments";
 
-        addCommentEventListeners();
-        tooltipLoad();
+        if(responseJson.html != undefined){
+            let comments = document.getElementById('comments-answer-' + responseJson.answer_id);
+            comments.innerHTML += responseJson.html;
+
+            addCommentEventListeners();
+            tooltipLoad();
+        }
+
+        
     }
 }
 
-function editAnswerhandler(responseJon){
+function editAnswerhandler(responseJson){
     if(responseJson.hasOwnProperty('error')){
         showToast("An error occured while attempting to edit a Comment","red")
         return;
@@ -152,14 +148,12 @@ function editAnswerhandler(responseJon){
     if(responseJson.success){
 
         let comment = document.getElementById('show-edit-comment-' + responseJson.comment_id);
-        comment.innerHTML += responseJson.html;
+        comment.innerHTML = responseJson.content;
 
-        let commentEdit = document.querySelector('#submit-edit-comments' + responseJson.comment_id + ' textarea');
-        commentEdit.innerHTML += responseJson.html;
+        let commentEdit = document.querySelector('#submit-edit-comments-' + responseJson.comment_id + ' textarea');
+        commentEdit.innerHTML = responseJson.content;
 
-        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
-        number_comments.innerHTML = responseJson.number_comments + " Comments";
-
+        toggleEditForm(responseJson.comment_id);
         addCommentEventListeners();
         tooltipLoad();
     }
@@ -187,37 +181,12 @@ function deleteAnswerHandler(responseJson){
     
 }
 
-function handler(responseJson){
-
-    // need to receive the answerID in the request
-    // then, all comments for that answer should be refreshed
-
-    if(responseJson.hasOwnProperty('error')){
-        showToast("An error occured while attempting to add a Comment","red")
-        return;
-    } else if(responseJson.hasOwnProperty('exception')){
-        showToast("Unauthorized Operation\nLogin may be necessary","red")
-        return;
-    }
-
-    if(responseJson.success){
-        let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
-
-        answer.innerHTML = responseJson.html;
-
-        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
-        number_comments.innerHTML = responseJson.number_comments + " Comments";
-
-        addCommentEventListeners();
-        tooltipLoad();
-    }
-}
 
 function loadCommentHandler(){
 
     
     let response = JSON.parse(this.responseText);
-    console.log(response);
+    
     if (response.success) {
 
         let commentSection = document.getElementById("comments-answer-" + response.answer_id);

@@ -57,11 +57,13 @@ class CommentController extends Controller
          $number_comments = count($this->getComments($answer));
 
          if($request->counter + 1 < $number_comments){
-            $response = view('partials.common.comment-car', ['comment' => $comment])->render();
-            return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $id, 'html' => $response));
+            return response()->json(array('success' => true, 'number_comments' => $number_comments,'answer_id' => $id ));
          }
 
-         return response()->json(array('success' => false));
+        
+         $response = view('partials.common.comment-card', ['comment' => $comment])->render();
+         return response()->json(array('success' => true,'number_comments' => $number_comments, 'answer_id' => $id, 'html' => $response));
+      
     }
 
     public function deleteComment($id){
@@ -104,7 +106,7 @@ class CommentController extends Controller
         $comment->save();
         
         // Return response
-        return response()->json(array('success' => true, 'answer_id' => $answer->id, 'comment_id' => $id, 'content': $request->text));
+        return response()->json(array('success' => true, 'answer_id' => $comment->answer_id, 'comment_id' => $id, 'content'=> $request->text));
         
     }
 

@@ -46,25 +46,22 @@ function submitAnswer(event) {
 
     let counter = document.getElementById("all-answers").childElementCount;
 
-    // This is not doing anytihing because of the markdown framework
-    textElement.value = "";
+    // This is not doing anytihing because of the markdown framework 
+    editor.codemirror.setValue("");
 
     sendDataAjaxRequest("POST", '/api/question/' + id + '/answer', {
         'text': text,
         'counter': counter
     }, addAnswerHandler);
-
+    
 
 }
 
 function removeAnswer(event) {
     event.preventDefault();
 
-    console.log("removing answers");
-
     let answerID = this.querySelector('input[name="answerID"]').value;
 
-    //Route::delete('/api/question/{id-q}/answer/{id-a}
     setConfirmationModal(
         'Delete Answer',
         'Are you sure you want to delete this Answer?',

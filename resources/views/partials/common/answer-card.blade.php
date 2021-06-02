@@ -157,7 +157,7 @@
         </div>
         
         @if(count($answer->comments) > 3 )
-            <button id="load-comments-answer-{{$answer->id}}"class="btn btn-primary mt-3 add-more-comments" type="button" value="{{$answer->id}}"> Load {{count($answer->comments) - 3 }} more Comments</button>
+            <button id="load-comments-answer-{{$answer->id}}"class="btn btn-link add-more-comments" type="button" value="{{$answer->id}}"> Load {{count($answer->comments) - 3 }} more Comments</button>
         @endif
 
     </div>
