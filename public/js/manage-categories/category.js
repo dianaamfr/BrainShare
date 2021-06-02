@@ -1,5 +1,6 @@
 import {sendAjaxGetRequest, sendDataAjaxRequest, showAlert, encodeForAjax, setConfirmationModal} from "../common.js";
 
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 /**
  * This function treats DELETE and POST methods for categories.
@@ -48,7 +49,7 @@ export function listenSearchCategory(url, searchDiv) {
  * Listens for the delete button.
  * @param url{String} Url page where this request must happen.
  */
-export function listenDeleteCategory(url, modal) {
+export function listenDeleteCategory(url) {
     const deleteButtons = document.querySelectorAll('.management-action-btn');
 
     deleteButtons.forEach(element => element.addEventListener("click", function() {
@@ -59,10 +60,8 @@ export function listenDeleteCategory(url, modal) {
                     input: getCategoryName(element),
                     }, handleCategoryResponse);
                     listenPageCategory(); 
-            },
-            modal
-        );     
-    }))
+            }, modal);     
+        }))
 }
 
 export function listenPageCategory(url) {

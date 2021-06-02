@@ -1,4 +1,4 @@
-import {sendDataAjaxRequest, sendAjaxGetRequest} from './common.js';
+import {sendDataAjaxRequest, sendAjaxGetRequest, tooltipLoad} from './common.js';
 
 let CURRENT_PAGE = 1;
 
@@ -140,4 +140,5 @@ function updateNotifications() {
         let showMore = document.querySelector('.show-more-notifications');
         if(showMore) showMore.addEventListener('click', loadMore);
     }
+    tooltipLoad();
 }

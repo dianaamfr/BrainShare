@@ -1,4 +1,4 @@
-<div class="mb-1 p-3">
+<div class="mb-1">
     <label for="question-text-area" class="form-label">Post an Answer</label>
     <div class="border form-control" id="submitAnswerTextarea">
         <textarea id="question-text-area" class="form-control" placeholder="Type your answer here" name="content"></textarea>
