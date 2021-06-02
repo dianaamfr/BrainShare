@@ -25,8 +25,6 @@ function sendAdvancedSearchRequest(page = 1) {
 
 function searchUpdateHandler(){
 
-    console.log(this.responseText);
-
     if (this.status != 200) window.location = '/search';
     let response = JSON.parse(this.responseText);
 

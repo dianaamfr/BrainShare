@@ -20,18 +20,15 @@ class CommentController extends Controller
 
         $answer =  Answer::find(intval($id));
 
-        $number_comments = count($answer->comments);
+        $comments = $this->getComments($answer);
+        $number_comments = $comments->count();
 
-        if($request->counter < $number_comments){
-            $query = $answer->comments()->offset($request->counter)->get();
-            $response = view('partials.common.comment-list', ['comments' => $query])->render();
-            return response()->json(array('success' => true, 'answer_id' => $id, 'html' => $response));
-        }
 
-        return response()->json(array('success' => false));
+        $query = $comments->orderBy('id','DESC')->offset($request->counter)->get();
+        $response = view('partials.common.comment-list', ['comments' => $query])->render();
+        return response()->json(array('success' => true, 'answer_id' => $id, 'html' => $response));
+
     }
-
-
 
 
     public function addComment(Request $request, $id){
@@ -50,20 +47,15 @@ class CommentController extends Controller
          $comment->answer_id = $id;
          $comment->comment_owner_id = Auth::user()->id;
          $comment->content = $request->text;
-         $comment->date = Carbon::now();
          $comment->save();
+         $comment = $comment->refresh();
 
         // Return the changed view
-         $answer = Answer::find(intval($id));
-         $number_comments = count($this->getComments($answer));
+        $answer = Answer::find(intval($id));
+        $number_comments = $this->getComments($answer)->count();
 
-         if($request->counter + 1 < $number_comments){
-            return response()->json(array('success' => true, 'number_comments' => $number_comments,'answer_id' => $id ));
-         }
-
-
-         $response = view('partials.common.comment-card', ['comment' => $comment])->render();
-         return response()->json(array('success' => true,'number_comments' => $number_comments, 'answer_id' => $id, 'html' => $response));
+        $response = view('partials.common.comment-card', ['comment' => $comment])->render();
+        return response()->json(array('success' => true,'number_comments' => $number_comments, 'answer_id' => $id, 'html' => $response));
 
     }
 
@@ -85,7 +77,7 @@ class CommentController extends Controller
 
         $answer = Answer::find(intval($answer_id));
         $comments = $this->getComments($answer);
-        return response()->json(array('success' => true,'number_comments' => count($comments), 'answer_id' => $answer_id, 'comment_id' => $id));
+        return response()->json(array('success' => true,'number_comments' => $comments->count(), 'answer_id' => $answer_id, 'comment_id' => $id));
     }
 
 
@@ -112,7 +104,7 @@ class CommentController extends Controller
     }
 
     private function getComments(Answer $answer){
-        return Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $answer->comments : $answer->commentsNotDeleted;
+        return Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $answer->comments() : $answer->commentsNotDeleted();
     }
 
   }

@@ -22,9 +22,9 @@ class QuestionController extends Controller
     {
         $question = Question::find($id);
         $this->authorize('show', $question);
-        $answers =  (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->limit(5)->get();
+        $answers =  $this->getAnswers($question)->limit(5)->get();
         
-        return view('pages.question', ['question' => $question, 'answers'=>$answers]);
+        return view('pages.question', ['question' => $question, 'answers' => $answers]);
     }
 
 
@@ -46,6 +46,7 @@ class QuestionController extends Controller
         $tags = Tag::all();
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
     }
+
 
     /**
      * Creates a new question.
@@ -236,6 +237,10 @@ class QuestionController extends Controller
 
             return response()->json(array('success' => false, 'id' => $answer->id, 'score' => $score));
         }
+    }
+
+    private function getAnswers($question){
+        return (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->orderBy('id', 'DESC');
     }
 
 }

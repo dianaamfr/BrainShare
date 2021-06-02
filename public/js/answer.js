@@ -42,9 +42,11 @@ function submitAnswer(event) {
     let textElement = this.querySelector('textarea[name="content"]');
     let text = textElement.value;
 
+    if(text == '') return;
+
     let counter = document.getElementById("all-answers").childElementCount;
 
-    // This is not doing anytihing because of the markdown framework 
+    // TODO: clean markdown editor
     editor.codemirror.setValue("");
 
     sendDataAjaxRequest("POST", '/api/question/' + id + '/answer', {
@@ -82,7 +84,6 @@ function editAnswer(event) {
 
 function showEditForm(event) {
     event.preventDefault();
-    console.log("showEditForm");
     let answerID = this.querySelector('input[name="answerID"]').value;
     let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
@@ -108,13 +109,11 @@ function cancelEditForm(event) {
 
 function addAnswerHandler(responseJson) {
 
-    console.log(responseJson);
-
-
-    if(responseJson.hasOwnProperty('error')){
+    if(responseJson.hasOwnProperty('error') || responseJson.hasOwnProperty('errors')){
         showToast("An error occured while attempting to add an answer","red");
         return;
     } else if(responseJson.hasOwnProperty('exception')){
+        
         showToast("Unauthorized Operation\nLogin may be necessary","red");
         return;
     } else if (responseJson.success) {
@@ -123,9 +122,8 @@ function addAnswerHandler(responseJson) {
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
 
-        // Append if the limit as not been reached
         if (responseJson.html != undefined) {
-            document.getElementById("all-answers").innerHTML += responseJson.html;
+            document.getElementById("all-answers").innerHTML = responseJson.html + document.getElementById("all-answers").innerHTML;
             addEventListeners();
             addCommentEventListeners();
             tooltipLoad();

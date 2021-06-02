@@ -94,7 +94,7 @@ function markRead(notificationId) {
 
 // --- Notification infinite scroll --- //
 function requestNotificationsHandler() {
-    console.log(this.responseText);
+
     let json = JSON.parse(this.responseText);
 
     let goalDiv = document.querySelector('.goal-notification');

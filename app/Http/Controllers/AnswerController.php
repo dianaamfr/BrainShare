@@ -47,14 +47,10 @@ class AnswerController extends Controller{
         $answer->question_id = $id;
         $answer->answer_owner_id = Auth::user()->id;
         $answer->content = $request->text;
-        $answer->date = Carbon::now();
         $answer->save();
+        $answer = $answer->refresh();
 
         $number_answer = Question::find(intval($id))->number_answer;
-
-        if( $request->counter + 1 < $number_answer){
-            return response()->json(array('success' => true, 'number_answers' => $number_answer));
-        }
 
         // Return the changed view
         $response = view('partials.common.answer-card', ['answer' => $answer])->render();
@@ -106,8 +102,8 @@ class AnswerController extends Controller{
     }
 
     private function getAnswers(Question $question){
-        return (Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers() : $question->answersNotDeleted())
-            ->orderBy('score','DESC')->orderBy('id', 'DESC');
+        return (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())
+            ->orderBy('id','DESC');
     }
 
     public function markValid(Request $request) {
