@@ -23,6 +23,12 @@ class UserController extends Controller
         if (!Auth::check()) return redirect('/login');
 
         $user = User::find($id);
+
+        if ($user->ban && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message" => "The user is banned. You cant see his/her profile!"]);
+            return redirect(url()->previous());
+        }
+            
         $this->authorize('show', $user);
 
         $request->merge(['page' => 1]);
