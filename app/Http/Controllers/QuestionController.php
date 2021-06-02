@@ -159,7 +159,7 @@ class QuestionController extends Controller
         $question = Question::find($questionId);
 
         // If you are not logged in, redirect to the login page
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/login');
 
         $this->authorize('delete', $question);
 
@@ -172,7 +172,7 @@ class QuestionController extends Controller
 
     public function voteQuestion(Request $request, $questionId)
     {
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/login');
 
         if ($request->vote !== "1" && $request->vote !== "-1")
             return response()->json(array('success' => false, 'score' => 'ERROR'));
@@ -208,7 +208,7 @@ class QuestionController extends Controller
 
     public function voteAnswer(Request $request, $questionId, $answerId)
     {
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/login');
 
         if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
 

@@ -212,7 +212,7 @@
 
         <form method="post" action="{{route('delete-user', $user->id)}}" data-toggle="validator" autocomplete="off"
               enctype="multipart/form-data" id="delete-account-form">
-            @method('put')
+            @method('delete')
             {{csrf_field()}}
 
             <section id="profile-main" class="card profile-info container-lg mt-2">

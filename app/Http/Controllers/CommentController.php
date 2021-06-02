@@ -20,7 +20,7 @@ class CommentController extends Controller
 
         $answer =  Answer::find(intval($id));
 
-        $number_comments = count($answer->comments)
+        $number_comments = count($answer->comments);
 
         if($request->counter < $number_comments){
             $query = $answer->comments()->offset($request->counter)->get();
