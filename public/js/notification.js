@@ -11,6 +11,8 @@ function loadNotifications() {
     };
     
     sendAjaxGetRequest('/api/notification/load', data, requestNotificationsHandler);
+
+    
     updateNotifications();
 }
 
@@ -59,7 +61,7 @@ function deleteHandler(json) {
             goalDiv.innerHTML += `<p class="mb-2 mt-2 text-center" >No more notifications to be displayed</p>`;
         }
     }
-
+    
     updateNotifications();
 }
 
@@ -126,14 +128,17 @@ function loadMore() {
 
 function updateNotifications() {
     if (document.getElementById('notificationsModal')) {
+        let goalDiv = document.querySelector('.goal-notification');
+        goalDiv.innerHTML = goalDiv.innerHTML;
+
         let numberDivs = document.querySelectorAll('.notification-element');
 
         for (let i = 0; i < numberDivs.length; i++) {
             let notificationId = numberDivs[i].querySelector(".notification-id").innerHTML;
+
             numberDivs[i].querySelector('.mark-read-' + notificationId).addEventListener('click', function() { markRead(notificationId); });
             numberDivs[i].querySelector('.delete-' + notificationId).addEventListener('click', function() { deleteNotification(notificationId); });
         }
-
         let showMore = document.querySelector('.show-more-notifications');
         if(showMore) showMore.addEventListener('click', loadMore);
     }
