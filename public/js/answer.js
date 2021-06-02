@@ -134,7 +134,6 @@ function addAnswerHandler(responseJson) {
 }
 
 function deleteAnswerHandler(responseJson) {
-    console.log(responseJson);
     
     if(responseJson.hasOwnProperty('error')){
         showToast("An error occured while attempting to edit an answer","red");
@@ -192,15 +191,12 @@ function checkInfiniteScroll(parentSelector, childSelector) {
     let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
 
     if (window.scrollY > lastDivOffset - 20) {
-        console.log("scroll y");
         // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
         // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
         let counter = document.getElementById("all-answers").childElementCount;
-        console.log("Answer counter " + answerCounter);
-        console.log("Counter " + counter);
         if (counter < answerCounter) {
             sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 
 use Illuminate\Http\Request;
@@ -40,12 +41,13 @@ class AnswerController extends Controller{
             'counter' => 'integer'
         ]);
 
-        
+
         // Add the Answer
         $answer = new Answer();
         $answer->question_id = $id;
         $answer->answer_owner_id = Auth::user()->id;
         $answer->content = $request->text;
+        $answer->date = Carbon::now();
         $answer->save();
 
         $number_answer = Question::find(intval($id))->number_answer;
