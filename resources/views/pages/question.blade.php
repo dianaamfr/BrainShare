@@ -61,8 +61,8 @@
                 <!-- Tags -->
                 @include('partials.question.tags')
 
-                <!-- Report Button -->
-                @if(Auth::check() && ($question->owner && $question->owner->id != Auth::user()->id))
+            <!-- Report Button -->
+                @if(Auth::check() && $question->owner && $question->owner->id != Auth::user()->id)
                     @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
                 @endif
             

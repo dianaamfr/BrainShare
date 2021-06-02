@@ -32,4 +32,12 @@ class Answer extends Model
     return $this->belongsTo(Question::class, 'question_id');
   }
 
+  public function userVote($id){
+
+    $votes = $this->votes()->where('user_id', '=', $id);
+
+    if($votes->count() > 0)
+        return $votes->first()->value_vote;
+    return 0;
+  }
 }

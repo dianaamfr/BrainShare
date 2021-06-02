@@ -41,26 +41,17 @@
 
         <div class="d-flex align-items-center px-3">
             @if(Auth::check() && (Auth::user()->id != $answer->answer_owner_id))
-                @php
-                    $value = 0;
-                    foreach ($answer->votes as $element) {
-                        if ($element['user_id'] == Auth::user()->id) {
-                            $value = $element['value_vote'];
-                        }
-                    }
-                @endphp
-
                 <div class="py-2 col-auto d-flex flex-column justify-content-center align-items-center">
                     <input class="answer-id" value="{{ $answer->id }}" hidden/>
                     <button class="icon-hover vote_btn" title="Up Vote" type="submit" data-bs-toggle="tooltip"
                             data-bs-placement="top">
-                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$value == 1 ? '-fill' : ''}}"></i>
+                        <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up{{$answer->userVote(Auth::user()->id) == 1 ? '-fill' : ''}}"></i>
                         <i class="upvote-answer-{{ $answer->id }} bi bi-caret-up-fill text-dark"></i>
                     </button>
                     <p class="answer-score-{{ $answer->id }} points m-0">{{$answer->score}}</p>
                     <button class="icon-hover vote_btn" title="Down Vote" type="submit" data-bs-toggle="tooltip"
                             data-bs-placement="top">
-                        <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down{{$value == -1 ? '-fill' : ''}}"></i>
+                        <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down{{$answer->userVote(Auth::user()->id) == -1 ? '-fill' : ''}}"></i>
                         <i class="downvote-answer-{{ $answer->id }} bi bi-caret-down-fill text-dark"></i>
                     </button>
                 </div>

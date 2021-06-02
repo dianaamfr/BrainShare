@@ -35,7 +35,7 @@
 
         <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
             <!-- Search Bar -->
-            <form class="me-auto" id="search-questions">
+            <form class="me-auto mb-5" id="search-questions">
                 <div class="d-flex">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
@@ -44,7 +44,7 @@
                         </button>
                     </div>
                 </div>
-                <button type="button" class="d-block my-1 reset-search mb-3" id="reset-search-questions">Reset search</button>
+                <button type="button" class="d-none my-1 reset-search mb-3" id="reset-search-questions">Reset search</button>
             </form>
 
             <div>
@@ -54,7 +54,7 @@
 
         <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
             <!-- Search Bar -->
-            <form class="me-auto" id="search-answers">
+            <form class="me-auto mb-5" id="search-answers">
                 <div class="d-flex">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                     <div class="input-group-append">
@@ -63,7 +63,7 @@
                         </button>
                     </div>
                 </div>
-                <button type="button" class="d-block my-1 reset-search mb-3" id="reset-search-answers">Reset search</button>
+                <button type="button" class="d-none my-1 reset-search" id="reset-search-answers">Reset search</button>
             </form>
             
             <div>

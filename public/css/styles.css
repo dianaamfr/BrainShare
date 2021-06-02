@@ -1548,8 +1548,10 @@ input[name='tag-input'] + .input-group-append .btn-primary {
 }
 
 #notificationsModal img {
-  max-width: 40px;
+  width: 2rem;
+  height: 2rem;
   margin-right: 0.5rem;
+  object-fit: cover;
 }
 
 #notificationsModal div.modal-body a{

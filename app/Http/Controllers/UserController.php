@@ -138,7 +138,9 @@ class UserController extends Controller
         $questions = $user->questions();
 
         if ($request->input('profile-search')) {
-            $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "", $request->input('profile-search'))));
+            $trimSearch = trim($request->input('profile-search'));
+            $pattern = "/[^0-9a-zA-ZÀ-ú\s]/";
+            $stripSearch = preg_replace($pattern, "", $trimSearch);
 
             if ($stripSearch != '') {
                 $search = str_replace(' ', ' | ', $stripSearch);
@@ -157,7 +159,9 @@ class UserController extends Controller
         $answers = $user->answers();
 
         if ($request->input('profile-search')) {
-            $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "", $request->input('profile-search'))));
+            $trimSearch = trim($request->input('profile-search'));
+            $pattern = "/[^0-9a-zA-ZÀ-ú\s]/";
+            $stripSearch = preg_replace($pattern, "", $trimSearch);
 
             if ($stripSearch != '') {
                 $search = str_replace(' ', ' | ', $stripSearch);

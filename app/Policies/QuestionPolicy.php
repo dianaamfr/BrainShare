@@ -21,7 +21,7 @@ class QuestionPolicy
     public function show(?User $user, Question $question)
     {
       return $question->deleted === false || (Auth::check() && ($user->isAdmin() ||
-        $user->isModerator() || $user->id === $question->question_owner_id));
+        $user->isModerator()));
     }
 
     public function delete(User $user, Question $question)

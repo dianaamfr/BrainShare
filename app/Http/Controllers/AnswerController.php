@@ -53,6 +53,7 @@ class AnswerController extends Controller{
         if( $request->counter + 1 < $number_answer){
             return response()->json(array('success' => true, 'number_answers' => $number_answer));
         }
+
         // Return the changed view
         $response = view('partials.common.answer-card', ['answer' => $answer])->render();
         return response()->json(array('success' => true, 'number_answers' => $number_answer,'html' => $response));
@@ -103,7 +104,8 @@ class AnswerController extends Controller{
     }
 
     private function getAnswers(Question $question){
-        return Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers() : $question->answersNotDeleted();
+        return (Auth::check() && Auth::user()->isAdmin() || Auth::user()->isModerator() ? $question->answers() : $question->answersNotDeleted())
+            ->orderBy('score','DESC')->orderBy('id', 'DESC');
     }
 
     public function markValid(Request $request) {

@@ -12,6 +12,7 @@ setInterval(update, 1500);
 
 
 function addEventListeners() {
+
     // Add Answer
     let form = document.getElementById('submit-answer');
     form.addEventListener("submit", submitAnswer);
@@ -32,9 +33,6 @@ function addEventListeners() {
 
 }
 
-function removeAddEventListeners(){
-    let deleteButtons = document.querySelectorAll('.answer-delete-form');
-}
 
 function submitAnswer(event) {
 
@@ -84,6 +82,7 @@ function editAnswer(event) {
 
 function showEditForm(event) {
     event.preventDefault();
+    console.log("showEditForm");
     let answerID = this.querySelector('input[name="answerID"]').value;
     let editForm = document.getElementById('edit-answer-' + answerID);
     let answer = document.getElementById('answer-content-' + answerID);
@@ -129,6 +128,7 @@ function addAnswerHandler(responseJson) {
             document.getElementById("all-answers").innerHTML += responseJson.html;
             addEventListeners();
             addCommentEventListeners();
+            tooltipLoad();
         }
     }
 }
@@ -152,7 +152,6 @@ function deleteAnswerHandler(responseJson) {
 
         if (deletedElement != undefined) {
             deletedElement.parentNode.removeChild(deletedElement);
-            // answer_counter--;
         }
     }
 }
@@ -193,14 +192,15 @@ function checkInfiniteScroll(parentSelector, childSelector) {
     let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
 
     if (window.scrollY > lastDivOffset - 20) {
-        
+        console.log("scroll y");
         // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
         // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
         let counter = document.getElementById("all-answers").childElementCount;
-        
+        console.log("Answer counter " + answerCounter);
+        console.log("Counter " + counter);
         if (counter < answerCounter) {
             sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
         }
@@ -218,6 +218,7 @@ function addScroll() {
 
         addEventListeners();
         addCommentEventListeners();
+        tooltipLoad();
     }
 }
 
