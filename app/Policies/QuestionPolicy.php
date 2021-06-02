@@ -35,4 +35,8 @@ class QuestionPolicy
         // Only a question owner or Administrators/Moderators can edit it 
         return Auth::check() && $question->deleted === false && ($user->id == $question->question_owner_id || $user->isModerator() || $user->isAdmin());
     }
+
+    public function markValid(User $user, Question $question){
+        return Auth::check() && Auth::id() === $question->question_owner_id;
+    }
 }

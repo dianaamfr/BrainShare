@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 
 use Illuminate\Http\Request;
@@ -34,25 +35,24 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('create', Answer::class);
 
-
-
         // Validation
         $validated = $request->validate([
             'text' => 'required',
             'counter' => 'integer'
         ]);
 
-        $number_answer = Question::find(intval($id))->number_answer;
+
         // Add the Answer
         $answer = new Answer();
         $answer->question_id = $id;
         $answer->answer_owner_id = Auth::user()->id;
         $answer->content = $request->text;
+        $answer->date = Carbon::now();
         $answer->save();
 
+        $number_answer = Question::find(intval($id))->number_answer;
 
-
-        if( ($request->counter + 1) < $number_answer){
+        if( $request->counter + 1 < $number_answer){
             return response()->json(array('success' => true, 'number_answers' => $number_answer));
         }
 

@@ -105,7 +105,7 @@ export function getParameterByName(name, url = window.location.href) {
 }
 
 /**
- * Show success or error alert on the screen when the response to an action is received.
+ * Show suc cess or error alert on the screen when the response to an action is received.
  * @param message {String }Message to be displayed.
  * @param type {String} Message type: error or not.
  * @param element {Element} Element where the message will added to.

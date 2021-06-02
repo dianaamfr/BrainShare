@@ -30,10 +30,12 @@
                         </button>
                     </form>
                 @endcan
-
-                @if(Auth::check() && $answer->owner && $answer->owner->id != Auth::user()->id)
+                
+                
+                @can('report',$answer)
                     @include('partials.common.report', ['margin' => '', 'type'=>'answer', 'id'=>$answer->id])
-                @endif
+                @endcan
+                
             </div>
         </header>
 
@@ -76,15 +78,17 @@
 
 
             <div class="col align-self-start ps-4 d-none" id="edit-answer-{{$answer->id}}">
-                <form  class="edit-answer-forms" >
+                <form class="edit-answer-forms" >
+                    <input type="hidden" name="answerID" value="{{$answer->id}}">
                     <div class="border form-control testing-editor" >
                         <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
-
                         <div class="editor-toolbar"></div>
                     </div>
-                    <input type="hidden" name="answerID" value="{{$answer->id}}">
-                    <button class="btn btn-primary mt-3" type="submit">Apply Changes</button>
-                    <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel</button>
+                   
+                    <div class="d-grid gap-2 d-flex justify-content-end">
+                        <button class="btn btn-primary mt-3" type="submit"> Apply Changes </button>
+                        <button class="btn btn-outline-primary mt-3" type="button" name="{{$answer->id}}"> Cancel </button>
+                    </div>
                 </form>
             </div>
 
@@ -106,14 +110,15 @@
         <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
         <hr>
         <!-- if question owner -->
-        @if (($answer->valid) && (Auth::id() === $answer->question->question_owner_id))
-            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Unmark
-                as valid
-            </button>
-        @elseif (Auth::id() === $answer->question->question_owner_id)
-            <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Mark as valid
-            </button>
-        @endif
+        @can('markValid',$answer->question)
+            @if ($answer->valid)
+                <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Unmark as valid
+                </button>
+            @else
+                <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Mark as valid
+                </button>
+            @endif
+        @endcan
 
 
         <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseCommentForm-{{$answer->id}}" role="button"
@@ -137,10 +142,15 @@
                 </div>
             </form>
         </div>
-        <!-- <div id="question-comments"> -->
+
         <div id="comments-answer-{{$answer->id}}">
-            @include('partials.common.comment-list',['comments'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $answer->comments : $answer->commentsNotDeleted])
+            @include('partials.common.comment-list',['comments'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $answer->comments()->limit(3)->get() : $answer->commentsNotDeleted()->limit(3)->get()])
         </div>
+        
+        @if(count($answer->comments) > 3 )
+            <button id="load-comments-answer-{{$answer->id}}"class="btn btn-link add-more-comments" type="button" value="{{$answer->id}}"> Load {{count($answer->comments) - 3 }} more Comments</button>
+        @endif
+
     </div>
 </div>
 

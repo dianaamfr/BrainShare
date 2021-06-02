@@ -1,7 +1,7 @@
 "use strict"
 
 if(document.getElementById('question-text-area') != null) {
-  let editor = new Editor({
+  var editor = new Editor({
     element: document.getElementById('question-text-area')
   });
 

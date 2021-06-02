@@ -30,4 +30,8 @@ class AnswerPolicy{
       // Only a question owner can mark answers as valid.
       return $user->id === $answer->question->question_owner_id;
   }
+
+    public function report(User $user, Answer $answer){
+      return Auth::check() && ($answer->owner && $answer->owner->id != Auth::user()->id);
+    }
 }
