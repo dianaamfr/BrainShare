@@ -256,6 +256,10 @@
 }
 
 @media (max-width: 600px) {
+  #about-image1, #about-image2, .homepage-feature-image1 {
+    height: 250px;
+  }
+
   #search-header {
     display: block!important;
   }
