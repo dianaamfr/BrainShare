@@ -9,19 +9,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // Home and Static
 Route::get('/', 'HomeController@show')->name('home');
 Route::get('/about', 'StaticController@showAbout')->name('about');
 Route::get('/notfound', 'StaticController@showNotFound')->name('notfound');
 
-// MODULE 01 - Authentication and User Profile
+// MODULE 01 - Authentication
 
-// Authentication
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::get('/auth/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/auth/login', 'Auth\LoginController@login');
+Route::post('/auth/logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/auth/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/auth/register', 'Auth\RegisterController@register');
+
+// MODULE 02: Profile & User
 
 // Profile
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');

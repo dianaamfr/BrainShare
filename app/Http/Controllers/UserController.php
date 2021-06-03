@@ -17,26 +17,26 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    
+
     public function showProfile(Request $request, $id){
-  
-        if (!Auth::check()) return redirect('/login');
+
+        if (!Auth::check()) return redirect('/auth/login');
 
         $user = User::find($id);
         $this->authorize('show', $user);
 
         $request->merge(['page' => 1]);
-        
+
         $questions = $user->questions()->simplePaginate(3);
         $answers = $user->answers()->simplePaginate(3);
-      
+
         return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
     }
 
 
     public function showEditProfile($id)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
         $user = User::find($id);
         $this->authorize('showEditUserProfile', $user);
 
@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function editProfile(Request $request, $id)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         $user = User::find($id);
         $this->authorize('editUserProfile', $user);

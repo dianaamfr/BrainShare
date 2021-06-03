@@ -10,7 +10,6 @@ let addAnswerAlert = document.getElementById('answer-alert');
 addEventListeners();
 setInterval(update, 1500);
 
-
 function addEventListeners() {
 
     // Add Answer
@@ -44,14 +43,14 @@ function submitAnswer(event) {
 
     let counter = document.getElementById("all-answers").childElementCount;
 
-    // This is not doing anytihing because of the markdown framework 
+    // This is not doing anytihing because of the markdown framework
     editor.codemirror.setValue("");
 
     sendDataAjaxRequest("POST", '/api/question/' + id + '/answer', {
         'text': text,
         'counter': counter
     }, addAnswerHandler);
-    
+
 
 }
 
@@ -134,7 +133,7 @@ function addAnswerHandler(responseJson) {
 }
 
 function deleteAnswerHandler(responseJson) {
-    
+
     if(responseJson.hasOwnProperty('error')){
         showToast("An error occured while attempting to edit an answer","red");
         return;
