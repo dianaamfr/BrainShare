@@ -15,7 +15,7 @@ Route::get('/', 'HomeController@show')->name('home');
 Route::get('/about', 'StaticController@showAbout')->name('about');
 Route::get('/notfound', 'StaticController@showNotFound')->name('notfound');
 
-// MODULE 01 - Authentication
+// MODULE 01 - Authentication ---------------------------------------------------------------------
 
 Route::get('/auth/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/auth/login', 'Auth\LoginController@login');
@@ -23,27 +23,25 @@ Route::post('/auth/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/auth/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/auth/register', 'Auth\RegisterController@register');
 
-// MODULE 02: Profile & User
+// MODULE 02: Profile and User Settings -------------------------------------------------------------
 
-// Profile
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');
-Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
-Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
-
-Route::delete('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user');
+Route::delete('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user');     // TODO: checar isto.
 Route::get('/user/{id}/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
 Route::put('/user/{id}/profile/edit', "UserController@editProfile")->name('edit-profile');
 
+Route::get('/api/user/{id}/questions', 'UserController@paginateQuestions');
+Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
+
 // Notifications
-Route::post('/api/notification/{id}', 'NotificationController@read');
-Route::delete('/api/notification/{id}', 'NotificationController@delete');
-Route::get('/api/notification', 'NotificationController@load');
+Route::get('/api/user/notification', 'NotificationController@load');
+Route::post('/api/user/{id}/notification', 'NotificationController@read');
+Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 
 // Report
 Route::post('api/report/user/{id}', 'ReportController@reportUser');
 
-// MODULE 02 - Questions
-
+// MODULE 03 - Questions -----------------------------------------------------------------------------
 // Search Questions
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search');

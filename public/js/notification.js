@@ -9,8 +9,8 @@ function loadNotifications() {
     let data = {
         'page': CURRENT_PAGE,
     };
-    
-    sendAjaxGetRequest('/api/notification', data, requestNotificationsHandler);
+
+    sendAjaxGetRequest('/api/user/notification', data, requestNotificationsHandler);
     updateNotifications();
 }
 
@@ -45,7 +45,7 @@ function deleteHandler(json) {
         let obj = document.getElementById("notification-" + json.id);
         obj.remove();
     }
-    
+
     let goalDiv = document.querySelector('.goal-notification');
     if(json.response) {
         goalDiv.innerHTML += json.response;
@@ -59,7 +59,7 @@ function deleteHandler(json) {
             goalDiv.innerHTML += `<p class="mb-2 mt-2 text-center" >No more notifications to be displayed</p>`;
         }
     }
-    
+
     updateNotifications();
 }
 
@@ -69,7 +69,7 @@ function deleteNotification(notificationId) {
         'page': CURRENT_PAGE,
     };
 
-    sendDataAjaxRequest('DELETE', '/api/notification/' + notificationId, data, deleteHandler);
+    sendDataAjaxRequest('DELETE', '/api/user/'+ notificationId + '/notification', data, deleteHandler);
 }
 
 
@@ -89,7 +89,7 @@ function markRead(notificationId) {
         'id': notificationId,
     };
 
-    sendDataAjaxRequest('POST', '/api/notification/' + notificationId, data, readHandler);
+    sendDataAjaxRequest('POST', '/api/user/' + notificationId+ '/notification', data, readHandler);
 }
 
 // --- Notification infinite scroll --- //
@@ -119,8 +119,8 @@ function loadMore() {
     let data = {
         'page': CURRENT_PAGE,
     };
-    
-    sendAjaxGetRequest('/api/notification', data, requestNotificationsHandler);
+
+    sendAjaxGetRequest('/api/user/notification', data, requestNotificationsHandler);
 }
 
 
