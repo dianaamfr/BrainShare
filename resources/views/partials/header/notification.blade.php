@@ -7,10 +7,10 @@
           <button type="button" class="btn-close notification-close"  data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <ul class="list-group notification-group">
+            <div class="list-group notification-group">
                 <div class="goal-notification mb-2"> 
                 </div>
-            </ul>
+            </div>
         </div>
       </div>
     </div>

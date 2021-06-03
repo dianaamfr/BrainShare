@@ -66,7 +66,6 @@ class AnswerController extends Controller{
         // Authorization
         $this->authorize('delete', $answer);
 
-
         $question_id = $answer->question_id;
 
         // Delete Answer

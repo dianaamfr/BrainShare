@@ -22,7 +22,7 @@
             <h5>Features</h5>
             <ul class="list-unstyled text-small">
                 <li><a class="link-secondary" href="{{ route('search') }}">Search Questions</a></li>
-                <li><a class="link-secondary" href="{{ route('question') }}">Add Question</a></li>
+                <li><a class="link-secondary" href="{{ route('add-question') }}">Add Question</a></li>
             </ul>
         </div>
 

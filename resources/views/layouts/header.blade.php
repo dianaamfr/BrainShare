@@ -28,7 +28,7 @@
             <!-- Registered Users options -->
             @if (Auth::check())
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('question') }}">Add Question</a>
+                <a class="nav-link" href="{{ route('add-question') }}">Add Question</a>
               </li>
             @endif
 

@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                <h5 class="modal-title" id="staticBackdropLabel">&nbsp;</h5>
                 <button type="button" class="btn-close cancel-confirm" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p></p>
+                <p>&nbsp;</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary cancel-confirm" data-bs-dismiss="modal">Cancel</button>

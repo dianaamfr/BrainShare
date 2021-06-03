@@ -1,9 +1,9 @@
 <li id="notification-{{ $notification->id }}" class="list-group-item list-group-item-action container notification-element">
     <div id="notifcation-info-{{ $notification->id }}" class="d-flex align-items-center">
         @if ($notification->answer_id !== null)
-            <a href="/question/{{ $notification->type->question_id }}#answer-{{ $notification->answer_id }}">
+            <a href="/question/{{ $notification->type->question_id }}/view#answer-{{ $notification->answer_id }}">
         @else
-            <a href="/question/{{ $notification->type->answer->question_id }}#comment-{{ $notification->comment_id }}">
+            <a href="/question/{{ $notification->type->answer->question_id }}/view#comment-{{ $notification->comment_id }}">
         @endif
         <img src="{{ $notification->type->owner->image ? asset('storage/' . $notification->type->owner->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
         <span class="fw-bold">{{ $notification->type->owner->username }}</span>

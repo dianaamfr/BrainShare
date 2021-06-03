@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class StaticController extends Controller
 {
-    /**
-     * Shows the home page
-     *
-     * @return Response
-     */
 
     public function showAbout()
     {

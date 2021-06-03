@@ -1,5 +1,6 @@
 import {sendDataAjaxRequest, setConfirmationModal, sendAjaxGetRequest, tooltipLoad, showToast} from "./common.js";
 import {addCommentEventListeners} from "./comment.js";
+import convertMD from './parseMD.js';
 
 tooltipLoad();
 let all_answers = document.getElementById("all-answers");
@@ -131,6 +132,8 @@ function addAnswerHandler(responseJson) {
             tooltipLoad();
             document.getElementById("all-answers").scrollIntoView()
         }
+
+        convertMD("md-content");
     }
 }
 
@@ -186,18 +189,18 @@ function editAnswerHandler(responseJson) {
 
 
 function checkInfiniteScroll(parentSelector, childSelector) {
+    
     let lastDiv = document.querySelector(parentSelector + childSelector);
 
     if(!lastDiv) return;
-    let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
 
-    if (window.scrollY > lastDivOffset - 20) {
-        // Agora é necessário trocar o que está dentro deste if pelo pedido ajax em
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - lastDiv.offsetHeight * 2) {
+
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
-        // sendDataAjaxRequest("POST",'/api/question/'+ id + '/scroll', {'page' : page}, handlePagination);
         let counter = document.getElementById("all-answers").childElementCount;
+
         if (counter < answerCounter) {
             sendAjaxGetRequest('/api/question/' + id + '/scroll', {'counter': counter}, addScroll);
         }
@@ -205,7 +208,7 @@ function checkInfiniteScroll(parentSelector, childSelector) {
 }
 
 function update() {
-    checkInfiniteScroll("#all-answers", "> div:last-child");
+    checkInfiniteScroll("#all-answers", "> div:nth-last-child(2)");
 }
 
 function addScroll() {
@@ -216,6 +219,7 @@ function addScroll() {
         addEventListeners();
         addCommentEventListeners();
         tooltipLoad();
+        convertMD("md-content");
     }
 }
 

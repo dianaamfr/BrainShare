@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Question Title -->
-                <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}">{{ $question->title }}</a>
+                <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}/view">{{ $question->title }}</a>
                 </h4>
 
                 <!-- Desktop Question details -->

@@ -32,7 +32,7 @@ Route::post('/auth/reset-password', 'Auth\PasswordResetController@resetPassword'
 // MODULE 02: Profile and User Settings -------------------------------------------------------------
 
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');
-Route::delete('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user');     // TODO: checar isto.
+Route::delete('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user'); 
 Route::get('/user/{id}/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
 Route::put('/user/{id}/profile/edit', "UserController@editProfile")->name('edit-profile');
 
@@ -43,8 +43,6 @@ Route::get('/api/user/{id}/answers', 'UserController@paginateAnswers');
 Route::get('/api/user/notification', 'NotificationController@load');
 Route::post('/api/user/{id}/notification', 'NotificationController@read');
 Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
-
-
 
 
 // MODULE 03 - Search -----------------------------------------------------------------------------
@@ -60,16 +58,20 @@ Route::get('/api/search/tag/{id}', 'TagController@find');
 
 // ===> QUESTION
 // Show Question
-Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
+Route::get('/question/{id}/view', 'QuestionController@show')->name('show-question');
 Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
+
 // Add Question
-Route::get('/question/add', 'QuestionController@showQuestionForm');
+Route::get('/question/add', 'QuestionController@showQuestionForm')->name('add-question');
 Route::post('/question/add', 'QuestionController@create')->name('question');
+
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
+
 // Delete Question
-Route::delete('/question/{id}', 'QuestionController@delete')->name('delete-question');
+Route::delete('/question/{id}/delete', 'QuestionController@delete')->name('delete-question');
+
 // Vote Question
 Route::post('/api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 

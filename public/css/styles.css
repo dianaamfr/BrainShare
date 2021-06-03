@@ -184,6 +184,7 @@ h4 {
 p {
   margin-bottom: 0.2rem;
   line-height: 1.6rem;
+  word-break: break-all;
 }
 
 a {
@@ -1247,14 +1248,14 @@ input[name='tag-input'] + .input-group-append .btn-primary {
     "one three";
 }
 
-#profile-main {
+#profile-main, #delete-account {
   padding: 3rem;
   box-shadow: unset !important;
 }
 
 #profile-main .one {
   grid-area: one;
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 #profile-main .two {
@@ -1265,7 +1266,7 @@ input[name='tag-input'] + .input-group-append .btn-primary {
   grid-area: three;
 }
 
-#profile-main h3 {
+#profile-main h3, #delete-account h3 {
   font-weight: 500;
   font-size: 1.4rem;
   margin-bottom: 1rem;

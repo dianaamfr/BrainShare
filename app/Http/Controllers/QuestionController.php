@@ -19,7 +19,7 @@ class QuestionController extends Controller
 {
 
     public function show($id)
-    {
+    {   
         $question = Question::find($id);
         if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
             session(["message-ban-page" => "The question is deleted!"]);
@@ -34,7 +34,7 @@ class QuestionController extends Controller
 
 
     public function showQuestionForm()
-    {
+    {   
         if (!Auth::check()) return redirect('/auth/login');
 
         $courses = Course::all();
@@ -43,7 +43,7 @@ class QuestionController extends Controller
     }
 
     public function showEditQuestionForm($id)
-    {
+    {   
         $question = Question::find($id);
         $this->authorize('edit', $question);
 
@@ -59,7 +59,7 @@ class QuestionController extends Controller
      * @return Question The question created. Redirect 302.
      */
     public function create(Request $request)
-    {
+    {   
         $this->authorize('create', Question::class);
 
         $validated = $request->validate([
@@ -79,7 +79,6 @@ class QuestionController extends Controller
             $question->title = $request->title;
             $question->content = $request->content;
             $question->save();
-
 
             // Add Courses and tags
             $tags = $request->get('tagList');
@@ -104,7 +103,7 @@ class QuestionController extends Controller
         if ($result !== null) {
             return redirect()->route('show-question', ['id' => $result]);
         } else {
-            return redirect()->route('question');
+            return redirect()->route('add-question');
         }
     }
 
@@ -156,7 +155,6 @@ class QuestionController extends Controller
       } else redirect()->route('edit-question', $request->id);
     }
 
-    // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
     public function delete($questionId)
     {
         $question = Question::find($questionId);
