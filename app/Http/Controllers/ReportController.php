@@ -41,7 +41,6 @@ class ReportController
     function reportAnswer(Request $request, $answerId)
     {
 
-
         $validReport = $this->validateReport("answer", $answerId, $request);
         if ($validReport != null) return $validReport;
 
@@ -95,7 +94,7 @@ class ReportController
             return response()->json(array('success' => false, 'error' => 'Must be logged to report'));
 
         $rules = [
-            'content' => 'string|min:100|max:500|required'
+            'content' => 'string|min:50|max:300|required'
         ];
 
         $alreadyReported = DB::table('report')
@@ -103,12 +102,12 @@ class ReportController
             ->where('user_id', Auth::user()->id)->get();
 
         if (sizeof($alreadyReported) >= 1)
-            return response()->json(array('success' => false, 'error' => 'This question has already been reported'));
+            return response()->json(array('success' => false, 'error' => 'You have already reported this.'));
 
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json(array('success' => false, 'error' => 'The text is required and min:100 and max:500'));
+            return response()->json(array('success' => false, 'error' => 'The text is required and min:50 and max:300'));
         }
         return null;
     }

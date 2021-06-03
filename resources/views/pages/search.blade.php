@@ -7,7 +7,7 @@
 @endsection
 
 @if(session("message") != null)
-    <script>let toastMessageReply = "{{session("message")}}"</script>
+    <script>let toastMessageReply = "{{session("message")}}";</script>
     @include('partials.common.toast')
     {{session()->forget("message")}}
 @endif

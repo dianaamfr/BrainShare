@@ -1,48 +1,35 @@
-import {sendDataAjaxRequest, setConfirmationModal, tooltipLoad} from "./common.js"; 
+import {sendDataAjaxRequest, sendAjaxGetRequest, setConfirmationModal, tooltipLoad, showToast} from "./common.js";
+import {listenReportFlag} from './report.js';
 
 tooltipLoad();
 addCommentEventListeners();
+
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 export function addCommentEventListeners(){
+    
     // Add Comment
-    let comments = Array.from(document.getElementsByClassName('submit-comments'));
-    comments.forEach(addCommentEventListener);
+    let comments = document.querySelectorAll('.submit-comments');
+    comments.forEach(element => element.addEventListener('submit',addComment));
 
     // Delete Comment
-    let deleteCommentButtons = Array.from(document.getElementsByClassName('comment-delete-form'));
-    deleteCommentButtons.forEach(deleteCommentEventListener);
+    let deleteCommentButtons = document.querySelectorAll('.comment-delete-form');
+    deleteCommentButtons.forEach(element => element.addEventListener('submit',deleteComment));
 
     // Edit Comment
-    let editCommentButtons = Array.from(document.getElementsByClassName('comment-edit-form'));
-    editCommentButtons.forEach(editCommentEventListener);
+    let editCommentButtons = document.querySelectorAll('.comment-edit-form');
+    editCommentButtons.forEach(element => element.addEventListener('submit',showEditCommentForm));
 
-    let edit = Array.from(document.getElementsByClassName("submit-edit-comments"));
-    edit.forEach(editEventListener);
+    let edit = document.querySelectorAll(".submit-edit-comments");
+    edit.forEach(element => element.addEventListener('submit',submitEdit));
 
-    let cancelEdit = Array.from(document.querySelectorAll(".submit-edit-comments button[type=button]"));
-    cancelEdit.forEach(cancelEventListener);
-    
-}
 
-function addCommentEventListener(element){
-    element.addEventListener('submit',addComment);
-}
+    let cancelEdit = document.querySelectorAll(".submit-edit-comments button[type=button]");
+    cancelEdit.forEach(element => element.addEventListener('click',cancelEditComment));
 
-function deleteCommentEventListener(element){
-    element.addEventListener('submit',deleteComment);
-}
+    let loadMoreComments = document.querySelectorAll(".add-more-comments");
+    loadMoreComments.forEach(element => element.addEventListener('click',loadComments));
 
-function editCommentEventListener(element){
-    element.addEventListener('submit',editComment2);
-}
-
-function editEventListener(element){
-    element.addEventListener('submit',submitEdit);
-}
-
-function cancelEventListener(element){
-    element.addEventListener('click',cancelEditComment);
 }
 
 
@@ -51,12 +38,14 @@ function addComment(event){
     event.preventDefault();
 
     let answerID = this.querySelector('input[name="answerID"]').value;
-    let textElement = this.querySelector('textarea[name="content"]')
+    let textElement = this.querySelector('textarea[name="content"]');
     let text = textElement.value;
     textElement.value = "";
 
-    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment/add', {'text':text}, handler);
-    
+    let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
+
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text, 'counter':counter}, addCommentHandler);
+
 }
 
 function deleteComment(event){
@@ -66,64 +55,14 @@ function deleteComment(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
 
     setConfirmationModal(
-        'Delete Answer', 
-        'Are you sure you want to delete this Answer?', 
-        function(){
-            sendDataAjaxRequest("delete",'/api/comment/' + commentID + '/delete', null, handler);
-        }, modal);  
-    
-}
-
-// Falta dar fix ao css de modo a que consiga ir buscar o texto
-function editComment(event){
-
-    event.preventDefault();
-
-    let commentID = this.querySelector('input[name="commentID"]').value;
-    let text = this.querySelector('input[name="dummyText"]').value;
-
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
-}
-
-function editComment2(event){
-
-    event.preventDefault();
-
-    let commentID = this.querySelector('input[name="commentID"]').value;
-    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
-    let comment = document.getElementById('comment-' + commentID);
-
-    if(hiddenForm.style.display == 'none'){
-        hiddenForm.style.display = 'block';
-        comment.style.display = 'none';
-    }
-    else if (comment.style.display == 'none' ){
-        hiddenForm.style.display = 'none';
-        comment.style.display = 'block';
-    }
+        'Delete Comment',
+        'Are you sure you want to delete this Comment?',
+        function() {       
+        sendDataAjaxRequest("delete",'/api/comment/' + commentID, null, deleteAnswerHandler)
+         },
+        modal);
 
 }
-
-function cancelEditComment(event){
-
-    event.preventDefault();
-
-    let commentID = this.name;
-    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
-    let comment = document.getElementById('comment-' + commentID);
-
-    // This block is not necessary 
-    if(hiddenForm.style.display == 'none'){
-        hiddenForm.style.display = 'block';
-        comment.style.display = 'none';
-    }
-    else if (comment.style.display == 'none' ){
-        hiddenForm.style.display = 'none';
-        comment.style.display = 'block';
-    }
-
-}
-
 
 // Falta dar fix ao css de modo a que consiga ir buscar o texto
 function submitEdit(event){
@@ -133,28 +72,135 @@ function submitEdit(event){
     let commentID = this.querySelector('input[name="commentID"]').value;
     let text = this.querySelector('textarea').value;
 
-    sendDataAjaxRequest("put",'/api/comment/'+ commentID + '/edit',{'text':text}, handler);
+    sendDataAjaxRequest("put",'/api/comment/'+ commentID,{'text':text}, editAnswerhandler);
 }
 
-function handler(responseJson){
+function showEditCommentForm(event){
 
-    // need to receive the answerID in the request
-    // then, all comments for that answer should be refreshed
+    event.preventDefault();
+
+    let commentID = this.querySelector('input[name="commentID"]').value;
+    toggleEditForm(commentID);
+
+}
+
+function cancelEditComment(){
+
+    let commentID = this.name;
+    toggleEditForm(commentID);
+
+}
+
+function toggleEditForm(commentID){
+    let hiddenForm = document.getElementById('submit-edit-comments-' + commentID);
+    let comment = document.getElementById('display-comment-' + commentID);
+
+    hiddenForm.classList.toggle('d-none');
+    comment.classList.toggle('d-none');
+}
+
+
+
+function loadComments(event){
+    event.preventDefault();
+
+    let answerID = this.value;
+    let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
+
+    sendAjaxGetRequest('/api/answer/'+ answerID + '/comment', {'counter':counter}, loadCommentHandler);
+    
+}
+
+function addCommentHandler(responseJson){
+
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to add a Comment","red");
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red");
+        return;
+    }
 
     if(responseJson.success){
-        let answer = document.getElementById('comments-answer-' + responseJson.answer_id);
-  
-        answer.innerHTML = responseJson.html;
-
-        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments"); 
+        
+        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
         number_comments.innerHTML = responseJson.number_comments + " Comments";
 
-        // modificar isto para não refrescar tudo, mas apenas o modificado?
+        if(responseJson.html != undefined){
+            let comments = document.getElementById('comments-answer-' + responseJson.answer_id);
+            comments.innerHTML = responseJson.html + comments.innerHTML;
+
+            addCommentEventListeners();
+            tooltipLoad();
+        }
+
+        
+    }
+}
+
+function editAnswerhandler(responseJson){
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to edit a Comment","red")
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red")
+        return;
+    }
+
+    if(responseJson.success){
+
+        let comment = document.getElementById('show-edit-comment-' + responseJson.comment_id);
+        comment.innerHTML = responseJson.content;
+
+        let commentEdit = document.querySelector('#submit-edit-comments-' + responseJson.comment_id + ' textarea');
+        commentEdit.innerHTML = responseJson.content;
+
+        toggleEditForm(responseJson.comment_id);
+        addCommentEventListeners();
+        tooltipLoad();
+    }
+}
+
+
+function deleteAnswerHandler(responseJson){
+    if(responseJson.hasOwnProperty('error')){
+        showToast("An error occured while attempting to delete a Comment","red")
+        return;
+    } else if(responseJson.hasOwnProperty('exception')){
+        showToast("Unauthorized Operation\nLogin may be necessary","red")
+        return;
+    } else if(responseJson.success){
+
+        let comment = document.getElementById('comment-' + responseJson.comment_id);
+        comment.parentNode.removeChild(comment);
+
+        let number_comments = document.getElementById("answer-"+ responseJson.answer_id +"-number-comments");
+        number_comments.innerHTML = responseJson.number_comments + " Comments";
+
         addCommentEventListeners();
         tooltipLoad();
     }
     
+}
+
+
+function loadCommentHandler(){
+
     
+    let response = JSON.parse(this.responseText);
+    
+    if (response.success) {
+
+        let commentSection = document.getElementById("comments-answer-" + response.answer_id);
+        commentSection.innerHTML = commentSection.innerHTML + response.html;
+
+        let button = document.getElementById("load-comments-answer-" + response.answer_id);
+        button.parentNode.removeChild(button);
+
+        addCommentEventListeners();
+        listenReportFlag();
+        tooltipLoad();
+    }
 }
 
 

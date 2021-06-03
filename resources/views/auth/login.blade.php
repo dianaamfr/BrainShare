@@ -7,6 +7,12 @@
         <form method="POST" class="form-login text-start" action="{{ route('login') }}">
             {{ csrf_field() }}
 
+            @if (session('message-ban'))
+            <p class="error text-center">
+                {{ session('message-ban') }}
+            </p>
+            @endif
+ 
             <div class="mb-4">
                 <label for="email" class="form-label">E-mail</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" data-error="That email address is invalid" required autofocus>

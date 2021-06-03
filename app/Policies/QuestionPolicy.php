@@ -14,14 +14,14 @@ class QuestionPolicy
 
     public function create()
     {
-      // Any user can create a new card
+      // Any user can create a new question
       return Auth::check();
     }
 
     public function show(?User $user, Question $question)
     {
       return $question->deleted === false || (Auth::check() && ($user->isAdmin() ||
-        $user->isModerator() || $user->id === $question->question_owner_id));
+        $user->isModerator()));
     }
 
     public function delete(User $user, Question $question)
@@ -35,4 +35,5 @@ class QuestionPolicy
         // Only a question owner or Administrators/Moderators can edit it 
         return Auth::check() && $question->deleted === false && ($user->id == $question->question_owner_id || $user->isModerator() || $user->isAdmin());
     }
+
 }

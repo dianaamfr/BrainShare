@@ -28,7 +28,7 @@
             <!-- Registered Users options -->
             @if (Auth::check())
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('question') }}">Add Question</a>
+                <a class="nav-link" href="{{ route('add-question') }}">Add Question</a>
               </li>
             @endif
 
@@ -50,7 +50,7 @@
                   <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/profile.png')}}" alt="profile picture" class="rounded-circle">
                   {{ Auth::user()->username }}
               </a>
-              <button class="registration-button icon-hover notifications " data-bs-toggle="modal" data-bs-target="#notificationsModal">
+              <button class="registration-button icon-hover notification-open" data-bs-toggle="modal" data-bs-target="#notificationsModal">
                 <i class="far fa-bell"></i>
                 <i class="fas fa-bell"></i>
               </button>
@@ -73,4 +73,11 @@
 <!-- Registered Users options -->
 @if (Auth::check()) 
   @include('partials.header.notification')
+@endif
+
+<!-- Toast when try to access user banned pages -->
+@if(session("message-ban-page") != null)
+    <script>let toastMessageError = "{{session("message-ban-page")}}"</script>
+    @include('partials.common.toast')
+    {{session()->forget("message-ban-page")}}
 @endif

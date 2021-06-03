@@ -6,6 +6,12 @@
         <script src={{ asset('js/manage-categories/tag.js') }} type="module"></script>
     @endsection
 
+    @if(session("message") != null)
+        <script>let toastMessageReply = "{{session("message")}}";</script>
+        @include('partials.common.toast')
+        {{session()->forget("message")}}
+    @endif
+
      <!-- Mobile -  Management Navigation Top Bar-->
      @include('partials.management.mobile-side-bar')
 

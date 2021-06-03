@@ -26,15 +26,12 @@ class AnswerPolicy{
       return $user->id === $answer->answer_owner_id || $user->isAdmin() || $user->isModerator();
     }
 
-    /*
-    public function edit(User $user, Answer $answer){
-        // Only a question owner can edit it or the Administrator.
-        return $user->id === $answer->user_id;
-    }
-    */
-
-    public function valid(User $user, Answer $answer){
+    public function valid(?User $user, Answer $answer){
       // Only a question owner can mark answers as valid.
-      return $user->id === $answer->question->question_owner_id;
+      return Auth::check() && $user->id === $answer->question->question_owner_id && $user->id !== $answer->answer_owner_id;
   }
+
+    public function report(User $user, Answer $answer){
+      return Auth::check() && ($answer->owner && $answer->owner->id != Auth::user()->id);
+    }
 }

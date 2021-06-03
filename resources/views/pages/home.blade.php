@@ -7,7 +7,7 @@
             <p class="lead pb-2"> The FEUP website for questions and answers. We connect students to solutions to improve your academic experience. </p>
             <div class="d-flex justify-content-center">
                 <a href="{{ route('search') }}" class="btn btn-primary mx-3">Search</a>
-                <a href="{{ route('question') }}" class="btn btn-primary mx-3">Add Question</a>
+                <a href="{{ route('add-question') }}" class="btn btn-primary mx-3">Add Question</a>
             </div>
         </div>
     </div>

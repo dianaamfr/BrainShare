@@ -17,21 +17,27 @@ use App\Models\User;
 
 class QuestionController extends Controller
 {
-    public function newRoute(Request $request){
-        return response()->json(['success' => 'true']);
-    }
 
     public function show($id)
-    {       
+    {   
         $question = Question::find($id);
-        $this->authorize('show', $question);
+        if($question == null) return view('errors.404');
+        
+        if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message-ban-page" => "The question you tried to access has been deleted!"]);
+            return redirect(url()->previous());
+        }
 
-        return view('pages.question', ['question' => $question]);
+        $this->authorize('show', $question);
+        $answers =  $this->getAnswers($question)->limit(5)->get();
+        
+        return view('pages.question', ['question' => $question, 'answers' => $answers]);
     }
 
+
     public function showQuestionForm()
-    {
-        if (!Auth::check()) return redirect('/login');
+    {   
+        if (!Auth::check()) return redirect('/auth/login');
 
         $courses = Course::all();
         $tags = Tag::all();
@@ -39,7 +45,7 @@ class QuestionController extends Controller
     }
 
     public function showEditQuestionForm($id)
-    {
+    {   
         $question = Question::find($id);
         $this->authorize('edit', $question);
 
@@ -48,13 +54,14 @@ class QuestionController extends Controller
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
     }
 
+
     /**
      * Creates a new question.
      *
      * @return Question The question created. Redirect 302.
      */
     public function create(Request $request)
-    {
+    {   
         $this->authorize('create', Question::class);
 
         $validated = $request->validate([
@@ -74,7 +81,6 @@ class QuestionController extends Controller
             $question->title = $request->title;
             $question->content = $request->content;
             $question->save();
-
 
             // Add Courses and tags
             $tags = $request->get('tagList');
@@ -99,7 +105,7 @@ class QuestionController extends Controller
         if ($result !== null) {
             return redirect()->route('show-question', ['id' => $result]);
         } else {
-            return redirect()->route('question');
+            return redirect()->route('add-question');
         }
     }
 
@@ -151,13 +157,12 @@ class QuestionController extends Controller
       } else redirect()->route('edit-question', $request->id);
     }
 
-    // Não sei se é preciso mandar o userId, ou se é poss+ivel obter diretamente o User
     public function delete($questionId)
     {
         $question = Question::find($questionId);
 
         // If you are not logged in, redirect to the login page
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         $this->authorize('delete', $question);
 
@@ -170,7 +175,7 @@ class QuestionController extends Controller
 
     public function voteQuestion(Request $request, $questionId)
     {
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         if ($request->vote !== "1" && $request->vote !== "-1")
             return response()->json(array('success' => false, 'score' => 'ERROR'));
@@ -206,7 +211,7 @@ class QuestionController extends Controller
 
     public function voteAnswer(Request $request, $questionId, $answerId)
     {
-        if (!Auth::check()) return redirect('login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
 
@@ -237,6 +242,10 @@ class QuestionController extends Controller
 
             return response()->json(array('success' => false, 'id' => $answer->id, 'score' => $score));
         }
+    }
+
+    private function getAnswers($question){
+        return (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->orderBy('id', 'DESC');
     }
 
 }

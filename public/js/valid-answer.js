@@ -17,13 +17,17 @@ function markValidAnswer(answerId) {
         'answerId': answerId,
     };
 
-    sendDataAjaxRequest('POST', '/api/answer/valid/' + answerId, data, markValidHandler);
+    sendDataAjaxRequest('POST', '/api/answer/' + answerId + '/valid', data, markValidHandler);
 }
 
-if (document.querySelector('.mark-valid')) {
+export function markAsValidListener(){
     let numberDivs = document.querySelectorAll('.answer-question-card');
     for (let i = 0; i < numberDivs.length; i++) {
-        let answerId = numberDivs[i].querySelector(".answer-id").value;
-        document.querySelector('.mark-valid-' + answerId).addEventListener('click', function() { markValidAnswer(answerId); });
+        if (numberDivs[i].querySelector('.mark-valid')) {
+            let answerId = numberDivs[i].querySelector(".answer-id").value;
+            document.querySelector('.mark-valid-' + answerId).addEventListener('click', function() { markValidAnswer(answerId); });
+        }
     }
 }
+
+markAsValidListener();

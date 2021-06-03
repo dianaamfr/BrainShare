@@ -14,12 +14,13 @@
 
                 <!-- Mobile Question details -->
                 <div class="d-none question-details d-flex mb-3">
-                     <!-- Courses -->
+                    <!-- Courses -->
                     @include('partials.question.courses')
                 </div>
 
                 <!-- Question Title -->
-                <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}">{{ $question->title }}</a></h4>
+                <h4 class="card-title flex-grow-1"><a href="/question/{{ $question->id }}/view">{{ $question->title }}</a>
+                </h4>
 
                 <!-- Desktop Question details -->
                 <div class="question-details d-flex">
@@ -29,18 +30,20 @@
             </div>
         </header>
 
-        <div class="limited-text-3 card-body md-remove">
+        <div class="limited-text-3 md-remove">
             {{ Str::limit($question->content, 400) }}
         </div>
 
         <!-- Tags and User -->
-        <footer class="card-footer d-flex align-items-center flex-wrap">
+        <footer class="d-flex align-items-center flex-wrap">
             <div class="flex-grow-1 mb-1">
                 @include('partials.question.tags')
             </div>
-
-            @include('partials.question.author', ['element' => $question])
-
+            @if(isset($isProfile))
+                @include('partials.question.author', ['element' => $question, 'isProfile'=>$isProfile])
+            @else
+                @include('partials.question.author', ['element' => $question])
+            @endif
         </footer>
     </div>
     <div class="counts-mobile">

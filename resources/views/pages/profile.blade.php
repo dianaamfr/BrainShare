@@ -25,32 +25,50 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs mb-5">
                 <li class="page-question active nav-item ">
-                    <button id="pagination-button-1" class="nav-link page-link">My Questions</button>
+                    <button id="pagination-button-1" class="nav-link page-link">Questions</button>
                 </li>
                 <li class="page-answer nav-item">
-                    <button id="pagination-button-2" class="nav-link page-link">My Answers</button>
+                    <button id="pagination-button-2" class="nav-link page-link">Answers</button>
                 </li>
             </ul>
-
-            <!-- Search Bar -->
-            <form class="d-flex me-auto" id="profile-search">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
         </div>
 
         <section id="pagination-item-1" class="container-lg mt-5 profile-questions-preview px-0">
-            <h3 class="mb-4">My Questions</h3>
-            @include('partials.profile.question-list', $questions)
+            <!-- Search Bar -->
+            <form class="me-auto mb-5" id="search-questions">
+                <div class="d-flex">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" class="d-none my-1 reset-search mb-3" id="reset-search-questions">Reset search</button>
+            </form>
+
+            <div>
+                @include('partials.profile.question-list', $questions)
+            </div>
         </section>
 
         <section id="pagination-item-2" class="container-lg mt-5 profile-questions-preview px-0">
-            <h3 class="mb-4">My Answers</h3>
-            @include('partials.profile.answer-list', $answers)
+            <!-- Search Bar -->
+            <form class="me-auto mb-5" id="search-answers">
+                <div class="d-flex">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" class="d-none my-1 reset-search" id="reset-search-answers">Reset search</button>
+            </form>
+            
+            <div>
+                @include('partials.profile.answer-list', $answers)
+            </div>
         </section>
     </div>
     @include('partials.common.report-modal')

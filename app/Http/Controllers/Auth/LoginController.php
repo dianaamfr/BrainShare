@@ -39,6 +39,11 @@ class LoginController extends Controller
     protected function redirectTo(): string {
         session()->forget("message");
         session(["message" => "Logged with success!"]);
+
+        if (auth()->user()->user_role == "Administrator" || auth()->user()->user_role == "Moderator") {
+            return '/admin/tags';
+        }
+
         return '/search';
     }
 

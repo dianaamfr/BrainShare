@@ -83,8 +83,9 @@
                                 <label class="form-label">Birthday</label>
                                 <div class="input-group mb-0">
                                     <div class="input-group-prepend" title="Birthday">
-                                    <span class="input-group-text"><i class="fa fa-calendar edit-icon"
-                                                                      aria-hidden="true"></i></span>
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar edit-icon" aria-hidden="true"></i>
+                                    </span>
                                     </div>
                                     <input class="form-control" type="date" name="birthday" value="{{$user->birthday}}">
 
@@ -126,10 +127,9 @@
                                 </div>
                                 @if ($errors->has('new_password'))
                                     <span class="error">
-                                {{ $errors->first('new_password') }}
+                                        {{ $errors->first('new_password') }}
+                                    </span>
                                 @endif
-                            </span>
-
                             </div>
 
                             <div class="mb-2">
@@ -212,10 +212,9 @@
 
         <form method="post" action="{{route('delete-user', $user->id)}}" data-toggle="validator" autocomplete="off"
               enctype="multipart/form-data" id="delete-account-form">
-            @method('put')
             {{csrf_field()}}
 
-            <section id="profile-main" class="card profile-info container-lg mt-2">
+            <section id="delete-account" class="card profile-info container-lg mt-2">
 
                 <h3>Delete account</h3>
                 <div class="row">
@@ -254,7 +253,7 @@
                             @if ($errors->has('password_confirmation'))
                                 <span class="error">
                                 {{ $errors->first('password_confirmation') }}
-                            </span>
+                                </span>
                             @endif
                         </div>
 

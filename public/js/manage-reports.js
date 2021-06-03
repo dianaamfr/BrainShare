@@ -127,8 +127,7 @@ function changeReportsPage(event) {
                 'report-state': reportStateFilter.value,
                 'page': page};
   
-    sendAjaxGetRequest('/api/admin/reports', 
-        data, reportsSearchHandler)
+    sendAjaxGetRequest('/api/admin/reports', data, reportsSearchHandler)
     window.history.pushState({}, '', '/admin/reports?' + encodeForAjax(data));
 }
 

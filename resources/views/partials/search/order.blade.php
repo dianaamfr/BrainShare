@@ -11,7 +11,7 @@
       <input id="order-filter-3" type="radio" name="filter" class="nav-link" value="votes" hidden {{ app('request')->get('filter') == 'votes' ? 'checked' : '' }}>
       <label for="order-filter-3">Most Voted</label>
     </li>
-    <li id="mobile-search-filters" class="icon-hover">
+    <li id="mobile-search-filters">
       <button><i class="iconify" data-icon="feather:filter" data-inline="false"></i></button>
       <button><i class="iconify" data-icon="majesticons:filter" data-inline="false"></i></button>
     </li>

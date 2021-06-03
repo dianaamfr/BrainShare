@@ -21,34 +21,42 @@ DROP FUNCTION IF EXISTS generate_answer_notification CASCADE;
 DROP TRIGGER IF EXISTS answer_notification ON answer;
 DROP FUNCTION IF EXISTS generate_comment_notification CASCADE;
 DROP TRIGGER IF EXISTS comment_notification ON answer;
+
 DROP FUNCTION IF EXISTS process_vote CASCADE;
 DROP TRIGGER IF EXISTS vote_trigger ON vote;
 DROP FUNCTION IF EXISTS update_vote CASCADE;
 DROP TRIGGER IF EXISTS update_vote_trigger ON vote;
+
 DROP FUNCTION IF EXISTS score CASCADE;
 DROP TRIGGER IF EXISTS score_trigger ON vote;
+
 DROP FUNCTION IF EXISTS number_answer_update CASCADE;
 DROP TRIGGER IF EXISTS action_answer ON answer;
+
 DROP FUNCTION IF EXISTS tag_limit CASCADE;
 DROP TRIGGER IF EXISTS tag_trigger ON question_course;
 DROP FUNCTION IF EXISTS course_limit CASCADE;
 DROP TRIGGER IF EXISTS course_trigger ON question_course;
-DROP FUNCTION IF EXISTS update_search_question;
-DROP TRIGGER IF EXISTS search_question ON question CASCADE;
-DROP FUNCTION IF EXISTS update_search_question_answers;
-DROP TRIGGER IF EXISTS search_question_answers ON answer CASCADE;
-DROP FUNCTION IF EXISTS update_answer_search;
-DROP TRIGGER IF EXISTS answer_search ON answer CASCADE;
+
+DROP FUNCTION IF EXISTS update_search_question CASCADE;
+DROP TRIGGER IF EXISTS search_question ON question;
+DROP FUNCTION IF EXISTS update_search_question_answers CASCADE;
+DROP TRIGGER IF EXISTS search_question_answers ON answer;
+DROP FUNCTION IF EXISTS update_answer_search CASCADE;
+DROP TRIGGER IF EXISTS answer_search ON answer;
 DROP FUNCTION IF EXISTS already_reported_check CASCADE;
 DROP TRIGGER IF EXISTS already_reported ON question_course;
-DROP FUNCTION IF EXISTS discard_question_reports;
-DROP TRIGGER IF EXISTS discard_question_reports ON question CASCADE;
-DROP FUNCTION IF EXISTS discard_answer_reports;
-DROP TRIGGER IF EXISTS discard_answer_reports ON answer CASCADE;
-DROP FUNCTION IF EXISTS discard_comment_reports;
-DROP TRIGGER IF EXISTS discard_comment_reports ON comment CASCADE;
-DROP FUNCTION IF EXISTS discard_user_reports;
-DROP TRIGGER IF EXISTS discard_user_reports ON "user" CASCADE;
+DROP FUNCTION IF EXISTS update_search_answer_of_question CASCADE;
+DROP TRIGGER IF EXISTS search_answer_of_question ON question;
+
+DROP FUNCTION IF EXISTS deleted_question CASCADE;
+DROP TRIGGER IF EXISTS delete_question ON question;
+DROP FUNCTION IF EXISTS deleted_answer CASCADE;
+DROP TRIGGER IF EXISTS delete_answer ON answer;
+DROP FUNCTION IF EXISTS deleted_comment CASCADE;
+DROP TRIGGER IF EXISTS delete_comment ON comment;
+DROP FUNCTION IF EXISTS discard_user_reports CASCADE;
+DROP TRIGGER IF EXISTS discard_user_reports ON "user";
 
 -----------
 -- Types --
@@ -213,8 +221,12 @@ CREATE INDEX password_resets_email_index ON "password_resets" USING btree(email)
 CREATE FUNCTION generate_answer_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
-INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+IF NEW.deleted = false THEN
+    SELECT INTO owner_id question.question_owner_id FROM question, answer WHERE (question.id = new.question_id);
+    IF NEW.answer_owner_id <> owner_id THEN
+        INSERT INTO "notification" VALUES (DEFAULT, owner_id, NULL, new.id, DEFAULT, DEFAULT);
+    END IF;
+END IF;
 RETURN NEW;
 END
 $BODY$
@@ -230,8 +242,12 @@ CREATE TRIGGER answer_notification
 CREATE FUNCTION generate_comment_notification() RETURNS TRIGGER AS $BODY$
 DECLARE owner_id INTEGER;
 BEGIN
-SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
-INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+IF NEW.deleted = false THEN
+    SELECT INTO owner_id answer.answer_owner_id FROM answer, comment WHERE (answer.id = new.answer_id);
+    IF NEW.comment_owner_id <> owner_id THEN
+        INSERT INTO "notification" VALUES (DEFAULT, owner_id, new.id, NULL, DEFAULT, DEFAULT);
+    END IF;
+END IF;
 RETURN NEW;
 END
 $BODY$
@@ -247,8 +263,7 @@ CREATE TRIGGER comment_notification
 -- Um user não pode dar upvote na própria questão
 CREATE FUNCTION process_vote() RETURNS TRIGGER AS $$
 BEGIN
-  IF
-NEW.answer_id IS NOT NULL AND
+  IF NEW.answer_id IS NOT NULL AND
   	EXISTS (SELECT * FROM answer WHERE answer.id = NEW.answer_id AND
 		NEW.user_id = answer.answer_owner_id)
   THEN
@@ -348,24 +363,24 @@ CREATE TRIGGER score_trigger
 -- Update number of answers
 CREATE FUNCTION number_answer_update() RETURNS TRIGGER AS $$
 BEGIN
-	IF TG_OP = 'INSERT'
-	THEN
-UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
-ELSE
-UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
-END IF;
+    IF TG_OP = 'INSERT' THEN
+        IF NEW.deleted = false THEN
+            UPDATE question SET number_answer = number_answer + 1 WHERE NEW.question_id = id;
+        END IF;
+    ELSE
+        UPDATE question SET number_answer = number_answer - 1 WHERE OLD.question_id = id;
+    END IF;
 RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
--- QUESTION COURSES AND TAGS
--- Limit the number of tags to 5
 CREATE TRIGGER action_answer
     AFTER INSERT OR DELETE ON answer
     FOR EACH ROW
     EXECUTE PROCEDURE number_answer_update();
 
+-- QUESTION COURSES AND TAGS
 CREATE FUNCTION tag_limit() RETURNS TRIGGER AS $$
 DECLARE number_tags INTEGER;
 BEGIN
@@ -434,7 +449,7 @@ IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Answer already reported';
 ELSE
-			RETURN NEW;
+	RETURN NEW;
 END IF;
 ELSE
 SELECT INTO already_reported user_id FROM report WHERE report.user_id = new.user_id AND report.comment_id = NEW.comment_id;
@@ -442,7 +457,7 @@ IF already_reported IS NOT NULL
 		THEN
 			RAISE EXCEPTION 'Comment already reported';
 ELSE
-			RETURN NEW;
+	RETURN NEW;
 END IF;
 END IF;
 END
@@ -455,44 +470,96 @@ CREATE TRIGGER already_reported_check
     EXECUTE PROCEDURE already_reported_check();    
 
 -- Set Reports has handled when the content is deleted
-CREATE FUNCTION discard_question_reports() RETURNS TRIGGER AS $$
+CREATE FUNCTION deleted_question() RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.deleted = true 
     THEN
         UPDATE report
         SET viewed = true
         WHERE question_id = NEW.id;
+
+        -- delete all notifications related to answers to the deleted question
+        DELETE FROM "notification"
+        WHERE answer_id IN (SELECT id FROM answer WHERE question_id = NEW.id);
+
+        -- delete all notifications related to comments to answers to the deleted question
+        DELETE FROM "notification"
+        WHERE comment_id IN (
+            SELECT comment.id AS id 
+            FROM comment, answer 
+            WHERE answer.question_id = NEW.id AND 
+            comment.answer_id = answer.id);
     END IF;
     RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION discard_answer_reports() RETURNS TRIGGER AS $$
+CREATE TRIGGER delete_question
+    AFTER UPDATE OF deleted ON question
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_question();
+
+
+CREATE FUNCTION deleted_answer() RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.deleted = true 
-    THEN
+    IF NEW.deleted = true THEN 
+        -- set all reports related to the deleted answer to viewed
         UPDATE report
         SET viewed = true
         WHERE answer_id = NEW.id;
+
+        -- delete all notifications related to the deleted answer
+        DELETE FROM "notification"
+        WHERE answer_id = NEW.id;
+
+        -- delete all notifications related to comments to the deleted answer
+        DELETE FROM "notification"
+        WHERE comment_id IN (SELECT id FROM comment WHERE answer_id = NEW.id);
+
+        -- decrease number of answers to the question
+        UPDATE question
+        SET number_answer = number_answer - 1
+        WHERE id = NEW.question_id;
+    ELSE
+        -- increase number of answers to the question
+        UPDATE question
+        SET number_answer = number_answer + 1
+        WHERE id = NEW.question_id;
     END IF;
     RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION discard_comment_reports() RETURNS TRIGGER AS $$
-BEGIN
-    IF NEW.deleted = true 
-    THEN
+CREATE TRIGGER delete_answer
+    AFTER UPDATE OF deleted ON answer
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_answer();
+
+
+CREATE FUNCTION deleted_comment() RETURNS TRIGGER AS $$
+BEGIN   
+    IF NEW.deleted = false THEN
+        -- set all reports related to the deleted comment to viewed
         UPDATE report
         SET viewed = true
+        WHERE comment_id = NEW.id;
+
+        -- delete all notifications related to the deleted comment
+        DELETE FROM "notification"
         WHERE comment_id = NEW.id;
     END IF;
     RETURN NEW;
 END
 $$
 LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_comment
+    AFTER UPDATE OF deleted ON comment
+    FOR EACH ROW
+    EXECUTE PROCEDURE deleted_comment();
+
 
 CREATE FUNCTION discard_user_reports() RETURNS TRIGGER AS $$
 BEGIN
@@ -507,21 +574,6 @@ END
 $$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER discard_question_reports
-    AFTER UPDATE OF deleted ON question
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_question_reports();
-
-CREATE TRIGGER discard_answer_reports
-    AFTER UPDATE OF deleted ON answer
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_answer_reports();
-
-CREATE TRIGGER discard_comment_reports
-    AFTER UPDATE OF deleted ON comment
-    FOR EACH ROW
-    EXECUTE PROCEDURE discard_comment_reports();
-
 CREATE TRIGGER discard_user_reports
     AFTER UPDATE OF ban ON "user"
     FOR EACH ROW
@@ -533,9 +585,19 @@ CREATE TRIGGER discard_user_reports
 -- Updates the tsvector of a question when its content or title are changed
 CREATE FUNCTION update_search_question() RETURNS TRIGGER AS $BODY$
 BEGIN
-    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title))THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') ||
-        setweight(to_tsvector('simple',NEW.content),'B');
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title)) THEN
+        NEW.search = setweight(to_tsvector('simple',NEW.title),'A') || setweight(to_tsvector('simple',NEW.content),'B');
+END IF;
+RETURN NEW;
+END
+$BODY$ LANGUAGE 'plpgsql';
+
+CREATE FUNCTION update_search_answer_of_question() RETURNS TRIGGER AS $BODY$
+BEGIN
+    IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content OR NEW.title <> OLD.title)) THEN
+        UPDATE answer
+        SET search = setweight(to_tsvector('simple',answer.content),'A') || setweight(to_tsvector('simple',NEW.title),'B')
+        WHERE NEW.id = answer.question_id;
 END IF;
 RETURN NEW;
 END
@@ -543,15 +605,23 @@ $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER search_question
     BEFORE INSERT OR UPDATE ON question
-                         FOR EACH ROW
-                         EXECUTE PROCEDURE update_search_question();
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_search_question();
 
--- Creating/Updating tsvector for an Answer or Comment
--- Insert/Update the tsvector of an answer or comment
+CREATE TRIGGER search_answer_of_question
+    AFTER INSERT OR UPDATE ON question
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_search_answer_of_question();
+
+-- Creating/Updating tsvector for an Answer
+-- Insert/Update the tsvector of an Answer
 CREATE FUNCTION update_answer_search() RETURNS TRIGGER AS $BODY$
+DECLARE
+question_title TEXT;
 BEGIN
     IF TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND (NEW.content <> OLD.content)) THEN
-        NEW.search = setweight(to_tsvector('simple',NEW.content),'A');
+        SELECT title INTO question_title FROM question WHERE id = NEW.question_id;
+        NEW.search = setweight(to_tsvector('simple',NEW.content),'A') || setweight(to_tsvector('simple',question_title),'B');
 END IF;
 RETURN NEW;
 END
@@ -559,8 +629,8 @@ $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER answer_search
     BEFORE INSERT OR UPDATE ON answer
-                         FOR EACH ROW
-                         EXECUTE PROCEDURE update_answer_search();
+    FOR EACH ROW
+    EXECUTE PROCEDURE update_answer_search();
 
 -- SEARCH PAGE: full text search
 -- Updates the tsvector of a question when an answer to that question is inserted, updated or deleted
@@ -853,12 +923,12 @@ INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'tr
 -- Reported answers 
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',59,1,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',25,1,'Web''s assumption is not even close to the real problem.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',42,1,'He doesn''t know what he is talking about. The problem is not the one he described. I tested and it does not work.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',49,1,'I don''t agree this answer is correct so it should''t be marked as valid.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',56,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',56,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',48,2,'I study Maths and this is nonsense.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',95,2,'Doesn''t seem correct. I used his logic and ended up with the wrong result.');
 
 -- Reported comments

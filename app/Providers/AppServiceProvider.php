@@ -30,14 +30,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-
-
-        view()->composer('*', function($view)
-        {
-            if(Auth::user()) {
-                $notifications = Notification::where('user_id', Auth::user()->id)->orderBy('date', 'DESC')->paginate(5);
-                View::share('notifications', $notifications);
-            }
-        });
     }
 }

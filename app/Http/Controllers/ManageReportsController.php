@@ -69,7 +69,7 @@ class ManageReportsController extends Controller {
             $reports = $this->registeredUserReports($reports, $request);
         }
 
-        return $reports->orderBy('report.date', 'DESC')->paginate(10);
+        return $reports->orderBy('report.id', 'DESC')->paginate(10);
 
     }
 
@@ -119,7 +119,7 @@ class ManageReportsController extends Controller {
             Answer::find($report->answer_id)->update(['deleted' => true]);
         }
         else if(!is_null($report->comment_id)){
-            'Comment';
+            $type = 'Comment';
             Comment::find($report->comment_id)->update(['deleted' => true]);
         }
         else{

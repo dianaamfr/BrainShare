@@ -44,6 +44,10 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function answersNotDeleted(){
+        return $this->hasMany(Answer::class)->where('deleted','=',false);
+    }
+
     public function votes(){
         return $this->hasMany(Vote::class);
     }
@@ -56,4 +60,12 @@ class Question extends Model
         return $this->belongsToMany(Tag::class, 'question_tag');
     }
 
+    public function userVote($id){
+
+        $votes = $this->votes()->where('user_id', '=', $id);
+
+        if($votes->count() > 0)
+            return $votes->first()->value_vote;
+        return 0;
+    }
 }

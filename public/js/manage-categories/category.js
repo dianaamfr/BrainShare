@@ -1,5 +1,6 @@
 import {sendAjaxGetRequest, sendDataAjaxRequest, showAlert, encodeForAjax, setConfirmationModal} from "../common.js";
 
+let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 /**
  * This function treats DELETE and POST methods for categories.
@@ -48,21 +49,19 @@ export function listenSearchCategory(url, searchDiv) {
  * Listens for the delete button.
  * @param url{String} Url page where this request must happen.
  */
-export function listenDeleteCategory(url, modal) {
+export function listenDeleteCategory(url) {
     const deleteButtons = document.querySelectorAll('.management-action-btn');
 
     deleteButtons.forEach(element => element.addEventListener("click", function() {
         setConfirmationModal('Delete Tag', 
             'Are you sure you want to delete the tag <strong>"' + getCategoryName(element) + '"</strong>?',
             function(){
-                sendDataAjaxRequest("delete", "/api" + url + "/delete", {
+                sendDataAjaxRequest("delete", "/api" + url , {
                     input: getCategoryName(element),
                     }, handleCategoryResponse);
                     listenPageCategory(); 
-            },
-            modal
-        );     
-    }))
+            }, modal);     
+        }))
 }
 
 export function listenPageCategory(url) {
@@ -105,7 +104,7 @@ export function listenAddCategory(url){
     const addButton = InputDiv.querySelector("button");
     const addInput = InputDiv.querySelector("input");
     addButton.addEventListener("click", () => {
-        sendDataAjaxRequest("post", "/api" + url + "/add" , {'input': addInput.value}, handleCategoryResponse);
+        sendDataAjaxRequest("post", "/api" + url , {'input': addInput.value}, handleCategoryResponse);
     });
 
 }

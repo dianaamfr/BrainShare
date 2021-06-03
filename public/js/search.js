@@ -8,22 +8,23 @@ function sendAdvancedSearchRequest(page = 1) {
 
     let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value));
     let tags = JSON.stringify([...document.querySelectorAll('.selected-tag')].map(tag => tag.getAttribute('data-tag-id')));
-    
+
     let data = {
         'page': page,
-        'search-input': searchInput, 
-        'filter': filter.value, 
-        'courses': courses, 
+        'search-input': searchInput,
+        'filter': filter.value,
+        'courses': courses,
         'tags': tags
     };
 
     sendAjaxGetRequest('api/search', data, searchUpdateHandler);
-    
+
     let url = 'search?' + encodeForAjax(data)
     window.history.pushState({}, '', url);
 }
 
 function searchUpdateHandler(){
+
     if (this.status != 200) window.location = '/search';
     let response = JSON.parse(this.responseText);
 
@@ -35,11 +36,11 @@ function searchUpdateHandler(){
 }
 
 function sendSearchTagsRequest() {
-    sendAjaxGetRequest('api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
+    sendAjaxGetRequest('/api/search/tag', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 
 function getTagByIdRequest(badge) {
-    sendAjaxGetRequest('api/tag/' + badge.getAttribute('data-tag-id'), null, 
+    sendAjaxGetRequest('/api/search/tag/' + badge.getAttribute('data-tag-id'), null,
         function(){
             let response = JSON.parse(this.responseText);
             badge.innerHTML = response.name + badge.innerHTML;
@@ -54,7 +55,7 @@ function tagsUpdateHandler(){
         tagsSearchResults.style.display = "block";
     } else tagsSearchResults.style.display = "none";
 
-    for(tag of response.tags){
+    for(let tag of response.tags){
         // Tag label
         let newTagLabel = document.createElement('label');
         newTagLabel.setAttribute('for', `tag-filter-${tag.id}`);
@@ -73,14 +74,14 @@ function tagsUpdateHandler(){
         tagsSearchResults.append(newTagLabel);
 
         newTag.addEventListener('click', tagSelect);
-    }  
+    }
 }
 
 function tagSelect(){
 
     let allSelected = document.querySelectorAll('.selected-tag');
 
-    for(tag of allSelected){
+    for(let tag of allSelected){
         if(tag.getAttribute('data-tag-id') == this.value){
             tagsInput.value='';
             tagsSearchResults.style.display = "none";
@@ -113,17 +114,23 @@ function tagSelect(){
 
 
 function toggleDropdown(){
-    if(coursesDropdown.style.display == "block")
+    if(coursesDropdown.style.display == "block"){
         coursesDropdown.style.display = "none";
-    else
+    } else {
         coursesDropdown.style.display = "block";
+    }
 }
 
 function toggleMobileFilters(){
-    if(mobileFilters.style.display == "block")
+    if(mobileFilters.style.display == "block"){
         mobileFilters.style.display = "none";
-    else
+        document.querySelector('#mobile-search-filters button:first-child').style.display = "block";
+        document.querySelector('#mobile-search-filters button:last-child').style.display = "none";
+    } else {
         mobileFilters.style.display = "block";
+        document.querySelector('#mobile-search-filters button:first-child').style.display = "none";
+        document.querySelector('#mobile-search-filters button:last-child').style.display = "block";
+    }
 }
 
 // Search Page
@@ -132,7 +139,7 @@ let searchPage = document.getElementById('search-page');
 let searchBarBtn = document.querySelector('button[name="search-submit"]');
 let searchBar = document.getElementById('questions-search-bar');
 let searchFilters = document.querySelectorAll('#order-filters li input');
-let resetSearchBtn = document.getElementById('reset-search');
+let resetSearchBtn = document.getElementsByClassName('reset-search')[0];
 let questionsDiv = document.querySelector('#search-page .question-search-results');
 
 let courseFilters = document.querySelectorAll(".course-filter-input");
@@ -159,15 +166,15 @@ if(searchPage){
         updateResetBtn();
     });
 
-    // Order 
+    // Order
     searchFilters.forEach(searchFilter => {
-        searchFilter.addEventListener('click', 
+        searchFilter.addEventListener('click',
             function() {
                 updateResetBtn();
                 sendAdvancedSearchRequest()
             });});
-    
-  
+
+
     // Courses
     courseFilters.forEach(courseFilter => {
         courseFilter.addEventListener('click', function() {
@@ -184,8 +191,8 @@ if(searchPage){
     updatePagination();
 
     // Tags Search
-    tagsInput.addEventListener('keyup', 
-        function(){ 
+    tagsInput.addEventListener('keyup',
+        function(){
 
             if(tagsInput.value == ''){
                 tagsSearchResults.innerHTML = "";
@@ -244,6 +251,6 @@ mainSearch.addEventListener('submit', function(event){
     event.preventDefault();
     if(mainSearch.children[0].value == '')
         mainSearch.children[1].value = 'new';
-    
+
     mainSearch.submit();
 });

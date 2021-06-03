@@ -10,16 +10,19 @@
         <div class="col-6 col-md">
             <h5>Authentication</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="link-secondary" href="{{ route('login') }}">Login</a></li>
-                <li><a class="link-secondary" href="{{ route('register') }}">Register</a></li>
-                <li><a class="link-secondary" href="/user/1/profile">Profile</a></li>
+                @if(!Auth::check())
+                    <li><a class="link-secondary" href="{{ route('login') }}">Login</a></li>
+                    <li><a class="link-secondary" href="{{ route('register') }}">Register</a></li>
+                @else 
+                    <li><a class="link-secondary" href="/user/{{ Auth::id() }}/profile">Profile</a></li>
+                @endif
             </ul>
         </div>
         <div class="col-6 col-md">
             <h5>Features</h5>
             <ul class="list-unstyled text-small">
                 <li><a class="link-secondary" href="{{ route('search') }}">Search Questions</a></li>
-                <li><a class="link-secondary" href="{{ route('question') }}">Add Question</a></li>
+                <li><a class="link-secondary" href="{{ route('add-question') }}">Add Question</a></li>
             </ul>
         </div>
 

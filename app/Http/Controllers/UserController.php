@@ -8,6 +8,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -16,24 +17,33 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    
-    public function showProfile($id){
-  
-      if (!Auth::check()) return redirect('/login');
 
-      $user = User::find($id);
-      $this->authorize('show', $user);
-      
-      $questions = $user->questions()->simplePaginate(3);
-      $answers = $user->answers()->simplePaginate(3);
-      
-      return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
+    public function showProfile(Request $request, $id){
+
+        if (!Auth::check()) return redirect('/auth/login');
+
+        $user = User::find($id);
+        if($user === null) return view('errors.404');
+
+        if ($user->ban && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message-ban-page" => "The user is banned. You cant see his/her profile!"]);
+            return redirect(url()->previous());
+        }
+            
+        $this->authorize('show', $user);
+
+        $request->merge(['page' => 1]);
+
+        $questions = $user->questions()->simplePaginate(3);
+        $answers = $user->answers()->simplePaginate(3);
+
+        return view('/pages.profile', ['user' => $user, 'questions' => $questions, 'answers' => $answers]);
     }
 
 
     public function showEditProfile($id)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
         $user = User::find($id);
         $this->authorize('showEditUserProfile', $user);
 
@@ -48,9 +58,8 @@ class UserController extends Controller
 
     public function editProfile(Request $request, $id)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
-        // TODO : erro de commit. Auth.
         $user = User::find($id);
         $this->authorize('editUserProfile', $user);
 
@@ -82,9 +91,8 @@ class UserController extends Controller
             ]);
         }
 
-        $result = DB::transaction(function () use ($request) {
-            $id = Auth::id();       // TODO: aldready have the id.
-            $user = User::find($id);
+        $result = DB::transaction(function () use ($user, $request) {
+
             if (isset($request->name) && !is_null($request->name))
                 $user->name = $request->name;
             if (isset($request->email) && !is_null($request->email))
@@ -137,7 +145,9 @@ class UserController extends Controller
         $questions = $user->questions();
 
         if ($request->input('profile-search')) {
-            $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "", $request->input('profile-search'))));
+            $trimSearch = trim($request->input('profile-search'));
+            $pattern = "/[^0-9a-zA-ZÀ-ú\s]/";
+            $stripSearch = preg_replace($pattern, "", $trimSearch);
 
             if ($stripSearch != '') {
                 $search = str_replace(' ', ' | ', $stripSearch);
@@ -156,7 +166,9 @@ class UserController extends Controller
         $answers = $user->answers();
 
         if ($request->input('profile-search')) {
-            $stripSearch = htmlentities(trim(str_replace(['\'', '"'], "", $request->input('profile-search'))));
+            $trimSearch = trim($request->input('profile-search'));
+            $pattern = "/[^0-9a-zA-ZÀ-ú\s]/";
+            $stripSearch = preg_replace($pattern, "", $trimSearch);
 
             if ($stripSearch != '') {
                 $search = str_replace(' ', ' | ', $stripSearch);
@@ -173,6 +185,8 @@ class UserController extends Controller
     {
 
         $deleted = User::find($toDeleteId);
+        $image = $deleted->image;
+
         $this->authorize('delete', $deleted);
 
         // Check if it's to also change the password.
@@ -186,6 +200,12 @@ class UserController extends Controller
         ]);
 
         $deleted->delete();
+
+        // Delete Profile Picture if any
+        if(Storage::disk('public')->exists($image)) {
+            Storage::disk('public')->delete($image);
+        }
+
         return redirect()->route('home');
 
     }
@@ -194,11 +214,17 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+        $image = $user->image;
 
-        // if you are not the user, you cannot delete your profile
+        // If you are not the user, you cannot delete your profile
         if (Auth::user()->id != $id) return redirect('/user/{' . $id . '}');
 
         $user->delete();
+
+        // Delete Profile Picture if any
+        if(Storage::disk('public')->exists($image)) {
+            Storage::disk('public')->delete($image);
+        }
 
         return view('/home');
     }

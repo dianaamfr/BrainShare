@@ -38,7 +38,7 @@ class ReportPolicy
         return $user->isModerator() && (
             (!is_null($report->reported) && $report->reported->user_role === 'RegisteredUser') || 
             (!is_null($report->question) && (is_null($report->question->owner) || $report->question->owner->user_role === 'RegisteredUser')) ||
-            (!is_null($report->answer) && (is_null($report->answer->owner) || $report->answer->ownwer->user_role === 'RegisteredUser')) ||
+            (!is_null($report->answer) && (is_null($report->answer->owner) || $report->answer->owner->user_role === 'RegisteredUser')) ||
             (!is_null($report->comment) && (is_null($report->comment->owner) || $report->comment->owner->user_role === 'RegisteredUser')));
 
     }

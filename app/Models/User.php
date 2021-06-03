@@ -39,7 +39,7 @@ class User extends Authenticatable
     }
 
     public function answers() {
-        return $this->hasMany(Answer::class, 'answer_owner_id');
+        return $this->hasMany(Answer::class, 'answer_owner_id')->where('deleted', '=', false);
     }
 
     public function tags(){

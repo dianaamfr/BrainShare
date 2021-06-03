@@ -1,7 +1,7 @@
 @if (@count($answers) > 0)
     @each('partials.profile.answer-card', $answers, 'answer')
 @else
-    <p>You haven't submitted any answers yet</p>
+    <p>No answers to show</p>
 @endif
 
 <div class="profile-answers-paginate">{{ $answers->links() }}</div>
