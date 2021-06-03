@@ -21,6 +21,11 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
+        if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message-ban-page" => "The question is deleted!"]);
+            return redirect(url()->previous());
+        }
+
         $this->authorize('show', $question);
         $answers =  $this->getAnswers($question)->limit(5)->get();
         
@@ -30,7 +35,7 @@ class QuestionController extends Controller
 
     public function showQuestionForm()
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         $courses = Course::all();
         $tags = Tag::all();
@@ -157,7 +162,7 @@ class QuestionController extends Controller
         $question = Question::find($questionId);
 
         // If you are not logged in, redirect to the login page
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         $this->authorize('delete', $question);
 
@@ -170,7 +175,7 @@ class QuestionController extends Controller
 
     public function voteQuestion(Request $request, $questionId)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         if ($request->vote !== "1" && $request->vote !== "-1")
             return response()->json(array('success' => false, 'score' => 'ERROR'));
@@ -206,7 +211,7 @@ class QuestionController extends Controller
 
     public function voteAnswer(Request $request, $questionId, $answerId)
     {
-        if (!Auth::check()) return redirect('/login');
+        if (!Auth::check()) return redirect('/auth/login');
 
         if($request->vote !== "1" && $request->vote !== "-1") return redirect()->route('show-question', ['id' => $questionId]);
 

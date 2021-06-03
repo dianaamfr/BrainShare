@@ -8,17 +8,17 @@ function sendAdvancedSearchRequest(page = 1) {
 
     let courses = JSON.stringify([...document.querySelectorAll(".course-filter-input:checked")].map(course => course.value));
     let tags = JSON.stringify([...document.querySelectorAll('.selected-tag')].map(tag => tag.getAttribute('data-tag-id')));
-    
+
     let data = {
         'page': page,
-        'search-input': searchInput, 
-        'filter': filter.value, 
-        'courses': courses, 
+        'search-input': searchInput,
+        'filter': filter.value,
+        'courses': courses,
         'tags': tags
     };
 
     sendAjaxGetRequest('api/search', data, searchUpdateHandler);
-    
+
     let url = 'search?' + encodeForAjax(data)
     window.history.pushState({}, '', url);
 }
@@ -36,11 +36,11 @@ function searchUpdateHandler(){
 }
 
 function sendSearchTagsRequest() {
-    sendAjaxGetRequest('api/tag/search', {'tag-input': tagsInput.value}, tagsUpdateHandler);
+    sendAjaxGetRequest('/api/search/tag', {'tag-input': tagsInput.value}, tagsUpdateHandler);
 }
 
 function getTagByIdRequest(badge) {
-    sendAjaxGetRequest('api/tag/' + badge.getAttribute('data-tag-id'), null, 
+    sendAjaxGetRequest('/api/search/tag/' + badge.getAttribute('data-tag-id'), null,
         function(){
             let response = JSON.parse(this.responseText);
             badge.innerHTML = response.name + badge.innerHTML;
@@ -55,7 +55,7 @@ function tagsUpdateHandler(){
         tagsSearchResults.style.display = "block";
     } else tagsSearchResults.style.display = "none";
 
-    for(tag of response.tags){
+    for(let tag of response.tags){
         // Tag label
         let newTagLabel = document.createElement('label');
         newTagLabel.setAttribute('for', `tag-filter-${tag.id}`);
@@ -74,14 +74,14 @@ function tagsUpdateHandler(){
         tagsSearchResults.append(newTagLabel);
 
         newTag.addEventListener('click', tagSelect);
-    }  
+    }
 }
 
 function tagSelect(){
 
     let allSelected = document.querySelectorAll('.selected-tag');
 
-    for(tag of allSelected){
+    for(let tag of allSelected){
         if(tag.getAttribute('data-tag-id') == this.value){
             tagsInput.value='';
             tagsSearchResults.style.display = "none";
@@ -160,15 +160,15 @@ if(searchPage){
         updateResetBtn();
     });
 
-    // Order 
+    // Order
     searchFilters.forEach(searchFilter => {
-        searchFilter.addEventListener('click', 
+        searchFilter.addEventListener('click',
             function() {
                 updateResetBtn();
                 sendAdvancedSearchRequest()
             });});
-    
-  
+
+
     // Courses
     courseFilters.forEach(courseFilter => {
         courseFilter.addEventListener('click', function() {
@@ -185,8 +185,8 @@ if(searchPage){
     updatePagination();
 
     // Tags Search
-    tagsInput.addEventListener('keyup', 
-        function(){ 
+    tagsInput.addEventListener('keyup',
+        function(){
 
             if(tagsInput.value == ''){
                 tagsSearchResults.innerHTML = "";
@@ -245,6 +245,6 @@ mainSearch.addEventListener('submit', function(event){
     event.preventDefault();
     if(mainSearch.children[0].value == '')
         mainSearch.children[1].value = 'new';
-    
+
     mainSearch.submit();
 });

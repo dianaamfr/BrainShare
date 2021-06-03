@@ -15,9 +15,9 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
         let data = {
             'page': page,
         };
-        
+
         sendAjaxGetRequest(id, data, requestHandler);
-        
+
         let url = 'profile?' + encodeForAjax(data)
         window.history.pushState({}, '', url);
     }
@@ -36,14 +36,14 @@ function ajaxProfileUpdate(goalDiv, paginationElem, id) {
     updatePaginate();
 }
 
-function profileSearch(event){  
-    event.preventDefault(); 
+function profileSearch(event){
+    event.preventDefault();
     let search = this.querySelector("input[type='search']");
     let userId = document.getElementById('profile-id').innerHTML;
 
-    if(search.value == '') return;
+    if(search.value === '') return;
 
-    if(document.querySelector('#pagination-item-1').style.display == "block"){
+    if(document.querySelector('#pagination-item-1').style.display === "block"){
         // Search Questions
         resetDisplay(resetSearchBtns[0]);
         sendAjaxGetRequest( '/api/user/' + userId + '/questions', {"profile-search": search.value}, profileQuestionsUpdate);
@@ -51,7 +51,7 @@ function profileSearch(event){
     else {
         // Search Answers
         resetDisplay(resetSearchBtns[1]);
-        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);  
+        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {"profile-search": search.value}, profileAnswersUpdate);
     }
 }
 
@@ -66,16 +66,16 @@ function profileQuestionsUpdate() {
 function profileAnswersUpdate() {
     let response = JSON.parse(this.responseText);
     document.querySelector('#pagination-item-2 > div:last-child').innerHTML = response.html;
-    
+
     let userId = document.getElementById('profile-id').innerHTML;
     ajaxProfileUpdate(document.querySelector('#pagination-item-2 > div:last-child'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
 }
 
 function resetSearch(){
-    
+
     let userId = document.getElementById('profile-id').innerHTML;
 
-    if(document.querySelector('#pagination-item-1').style.display == "block"){
+    if(document.querySelector('#pagination-item-1').style.display === "block"){
         document.querySelector('#search-questions input[type="search"]').value = '';
         resetDisplay(resetSearchBtns[0]);
 
@@ -87,13 +87,13 @@ function resetSearch(){
         resetDisplay(resetSearchBtns[1]);
 
         // Search Answers
-        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {}, profileAnswersUpdate);  
+        sendAjaxGetRequest( '/api/user/' + userId + '/answers', {}, profileAnswersUpdate);
     }
 
 }
 
 function resetDisplay(resetBtn){
-    
+
     if(resetBtn.classList.contains('d-block')){
         resetBtn.classList.remove('d-block');
         resetBtn.classList.add('d-none');
@@ -111,12 +111,12 @@ if (document.getElementById('profile-id')) {
 
     // Question paginate
     ajaxProfileUpdate(document.querySelector('#pagination-item-1 > div:last-child'), '.profile-questions-paginate .pagination a', '/api/user/' + userId + '/questions');
-    
+
     // Answer paginate
     ajaxProfileUpdate(document.querySelector('#pagination-item-2 > div:last-child'), '.profile-answers-paginate .pagination a', '/api/user/' + userId + '/answers');
-   
+
     document.getElementById('search-questions').addEventListener('submit', profileSearch);
     document.getElementById('search-answers').addEventListener('submit', profileSearch);
-    
+
     resetSearchBtns.forEach(btn => btn.addEventListener('click', resetSearch));
 }

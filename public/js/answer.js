@@ -10,7 +10,6 @@ let addAnswerAlert = document.getElementById('answer-alert');
 addEventListeners();
 setInterval(update, 1500);
 
-
 function addEventListeners() {
 
     // Add Answer
@@ -52,7 +51,7 @@ function submitAnswer(event) {
         'text': text,
         'counter': counter
     }, addAnswerHandler);
-    
+
 
 }
 
@@ -118,6 +117,10 @@ function addAnswerHandler(responseJson) {
     } else if (responseJson.success) {
         showToast("Answer successfully added!!","blue");
 
+        if(document.querySelector(".no-answers")) {
+            document.querySelector(".no-answers").remove();
+        }
+
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
 
@@ -132,7 +135,7 @@ function addAnswerHandler(responseJson) {
 }
 
 function deleteAnswerHandler(responseJson) {
-    
+
     if(responseJson.hasOwnProperty('error')){
         showToast("An error occured while attempting to edit an answer","red");
         return;
