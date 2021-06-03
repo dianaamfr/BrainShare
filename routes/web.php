@@ -41,8 +41,9 @@ Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 // Report
 Route::post('api/user/{id}/report', 'ReportController@reportUser');
 
-// MODULE 03 - Questions -----------------------------------------------------------------------------
-// TODO: talvez mudar. Ainda pensando.
+
+// MODULE 03 - Search -----------------------------------------------------------------------------
+// TODO: talvez mudar para outro modulo.
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search');
 // Search Tags
@@ -50,26 +51,27 @@ Route::get('/api/search/tag', 'TagController@search');
 Route::get('/api/search/tag/{id}', 'TagController@find');
 
 
+
+// MODULE 04 - Question -----------------------------------------------------------------------------
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
-Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
+Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
 // Add Question
 Route::get('/question/add', 'QuestionController@showQuestionForm');
 Route::post('/question/add', 'QuestionController@create')->name('question');
 // Edit Question
 Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
 Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
+// Delete Question
+Route::delete('/question/{id}', 'QuestionController@delete')->name('delete-question');
+// Vote Question
+Route::post('/api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 
+
+Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 // Vote Question and Answer
-Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
 
-
-// Delete Question
-
-// Answer
-Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
-Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
