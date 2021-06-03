@@ -18,7 +18,8 @@ class CheckBlocked
     {   
         if (auth()->check() && auth()->user()->ban) { 
             $message = 'Your account has been suspended.';
-            auth()->logout();     
+            auth()->logout();  
+            session()->forget("message");   
             return redirect()->route('login')->with('message-ban', $message); 
         }
 
