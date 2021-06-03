@@ -94,7 +94,11 @@
             <h4 id="question-number-answers" class="d-inline-block">{{$question->number_answer}} answers</h4>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answers'=>$answers])
+            @if ($question->number_answer == 0)
+                <p class="no-answers p-2">No answers yet!</p>
+            @else
+                @include('partials.common.answer-list',['answers'=>$answers])
+            @endif
         </div>
     </section>
 

@@ -118,6 +118,10 @@ function addAnswerHandler(responseJson) {
     } else if (responseJson.success) {
         showToast("Answer successfully added!!","blue");
 
+        if(document.querySelector(".no-answers")) {
+            document.querySelector(".no-answers").remove();
+        }
+
         let number_answers = document.getElementById("question-number-answers");
         number_answers.innerHTML = responseJson.number_answers + ' answers';
 
