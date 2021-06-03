@@ -76,8 +76,8 @@
 @endif
 
 <!-- Toast when try to access user banned pages -->
-@if(session("message") != null)
-    <script>let toastMessageError = "{{session("message")}}"</script>
+@if(session("message-ban-page") != null)
+    <script>let toastMessageError = "{{session("message-ban-page")}}"</script>
     @include('partials.common.toast')
-    {{session()->forget("message")}}
+    {{session()->forget("message-ban-page")}}
 @endif
