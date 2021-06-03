@@ -44,8 +44,7 @@ Route::get('/api/user/notification', 'NotificationController@load');
 Route::post('/api/user/{id}/notification', 'NotificationController@read');
 Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 
-// Report
-Route::post('/api/user/{id}/report', 'ReportController@reportUser');
+
 
 
 // MODULE 03 - Search -----------------------------------------------------------------------------
@@ -77,8 +76,8 @@ Route::post('/api/question/{id}/vote', 'QuestionController@voteQuestion')->name(
 
 // ===> ANSWER
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
-Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
-Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
+Route::post('/api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
+Route::post('/api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
@@ -91,11 +90,11 @@ Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('dele
 
 
 // Make Report
-Route::get('api/report/status', 'ReportController@isReported');
+Route::get('/api/report/status', 'ReportController@isReported');
+Route::post('/api/report/user/{id}', 'ReportController@reportUser');
 Route::post('/api/report/question/{id}', 'ReportController@reportQuestion');
-Route::post('api/report/answer/{id}', 'ReportController@reportAnswer');
-Route::post('api/report/comment/{id}', 'ReportController@reportComment');
-
+Route::post('/api/report/answer/{id}', 'ReportController@reportAnswer');
+Route::post('/api/report/comment/{id}', 'ReportController@reportComment');
 
 // MODULE 03 - Management
 
@@ -113,16 +112,16 @@ Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')-
 
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
-Route::put('api/admin/user/{id}', 'ManageUsersController@update');
-Route::get('api/admin/user', 'ManageUsersController@search');
+Route::put('/api/admin/user/{id}', 'ManageUsersController@update');
+Route::get('/api/admin/user', 'ManageUsersController@search');
 
 // Manage Reports
 Route::get('/admin/reports', 'ManageReportsController@show')->name('manage-reports');
-Route::put('api/admin/reports/undiscard', 'ManageReportsController@undiscard');
-Route::put('api/admin/reports/discard', 'ManageReportsController@discard');
-Route::put('api/admin/reports/delete', 'ManageReportsController@delete');
-Route::put('api/admin/reports/revert', 'ManageReportsController@revert');
-Route::get('api/admin/reports', 'ManageReportsController@search');
+Route::put('/api/admin/reports/undiscard', 'ManageReportsController@undiscard');
+Route::put('/api/admin/reports/discard', 'ManageReportsController@discard');
+Route::put('/api/admin/reports/delete', 'ManageReportsController@delete');
+Route::put('/api/admin/reports/revert', 'ManageReportsController@revert');
+Route::get('/api/admin/reports', 'ManageReportsController@search');
 
 
 Route::fallback(function() {

@@ -62,7 +62,7 @@ function handleReport(reportInfo){
     else if (elementType === "comment")
         requestReport(elementId,'/api/report/comment/' + elementId, content);
     else if (elementType === "reported")
-        requestReport(elementId,'/api/user/' + elementId + "/report", content);
+        requestReport(elementId,'/api/report/user/' + elementId, content);
 
 }
 
