@@ -21,6 +21,11 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
+        if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message-ban-page" => "The question is deleted!"]);
+            return redirect(url()->previous());
+        }
+
         $this->authorize('show', $question);
         $answers =  $this->getAnswers($question)->limit(5)->get();
         
