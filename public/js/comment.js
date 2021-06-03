@@ -104,7 +104,7 @@ function loadComments(event){
     let answerID = this.value;
     let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
 
-    sendAjaxGetRequest('/api/answer/'+ answerID + '/comments', {'counter':counter}, loadCommentHandler);
+    sendAjaxGetRequest('/api/answer/'+ answerID + '/comment', {'counter':counter}, loadCommentHandler);
 
     
 }

@@ -57,23 +57,20 @@
 
             <!-- Footer -->
             <footer class="d-flex">
-
                 <!-- Tags -->
                 @include('partials.question.tags')
 
-            <!-- Report Button -->
+                <!-- Report Button -->
                 @if(Auth::check() && $question->owner && $question->owner->id != Auth::user()->id)
                     @include('partials.common.report',['margin' => 'ms-auto', 'id'=>$question->id, 'type'=>'question'])
                 @endif
-            
             </footer>
-
         </div>
 
     </article>
 
     <div id="submit-answer-collapse">
-        <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-form" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-form" aria-expanded="false">
             Add Answer
         </button>
         

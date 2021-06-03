@@ -94,7 +94,7 @@ class ReportController
             return response()->json(array('success' => false, 'error' => 'Must be logged to report'));
 
         $rules = [
-            'content' => 'string|min:100|max:500|required'
+            'content' => 'string|min:50|max:300|required'
         ];
 
         $alreadyReported = DB::table('report')
@@ -107,7 +107,7 @@ class ReportController
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json(array('success' => false, 'error' => 'The text is required and min:100 and max:500'));
+            return response()->json(array('success' => false, 'error' => 'The text is required and min:50 and max:300'));
         }
         return null;
     }

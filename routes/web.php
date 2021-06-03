@@ -32,7 +32,7 @@ Route::post('/auth/reset-password', 'Auth\PasswordResetController@resetPassword'
 // MODULE 02: Profile and User Settings -------------------------------------------------------------
 
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');
-Route::delete('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user'); 
+Route::post('/user/{id}/profile', "UserController@deleteUserOnProfile")->name('delete-user'); 
 Route::get('/user/{id}/profile/edit', "UserController@showEditProfile")->name('show-edit-profile');
 Route::put('/user/{id}/profile/edit', "UserController@editProfile")->name('edit-profile');
 
@@ -78,13 +78,13 @@ Route::post('/api/question/{id}/vote', 'QuestionController@voteQuestion')->name(
 // ===> ANSWER
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
 Route::post('/api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
-Route::post('/api/answer/valid/{idAnswer}', 'AnswerController@markValid');
+Route::post('/api/answer/{idAnswer}/valid', 'AnswerController@markValid');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
 
 // ===> COMMENT
-Route::get('/api/answer/{id}/comments','CommentController@showMoreComments');
+Route::get('/api/answer/{id}/comment','CommentController@showMoreComments');
 Route::post('/api/answer/{id}/comment','CommentController@addComment')->name('add-comment');
 Route::put('/api/comment/{id}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('delete-comment');

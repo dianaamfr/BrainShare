@@ -923,12 +923,12 @@ INSERT INTO "report" (id,viewed,user_id,question_id,content) VALUES (DEFAULT,'tr
 -- Reported answers 
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',59,1,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',25,1,'Web''s assumption is not even close to the real problem.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',28,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',42,1,'He doesn''t know what he is talking about. The problem is not the one he described. I tested and it does not work.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',49,1,'I don''t agree this answer is correct so it should''t be marked as valid.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',56,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'false',56,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',48,2,'I study Maths and this is nonsense.');
-INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien.');
+INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',35,3,'The answer is not correct. Chrome works the same way.');
 INSERT INTO "report" (id,viewed,user_id,answer_id,content) VALUES (DEFAULT,'true',95,2,'Doesn''t seem correct. I used his logic and ended up with the wrong result.');
 
 -- Reported comments
