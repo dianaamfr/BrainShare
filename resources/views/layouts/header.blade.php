@@ -74,3 +74,10 @@
 @if (Auth::check()) 
   @include('partials.header.notification')
 @endif
+
+<!-- Toast when try to access user banned pages -->
+@if(session("message") != null)
+    <script>let toastMessageError = "{{session("message")}}"</script>
+    @include('partials.common.toast')
+    {{session()->forget("message")}}
+@endif

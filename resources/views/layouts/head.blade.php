@@ -34,6 +34,7 @@
 
 <!-- Scripts -->
 <script  src={{ asset('js/parseMD.js') }} type="module"></script>
+<script src={{ asset('js/toastReplies.js')}}  type="module"></script>
 <script  src={{ asset('js/removeMD.js') }} type="module"></script>
 <script  src={{ asset('js/search.js') }}  type="module"></script>
 <script  src={{ asset('js/tags.js') }} type="module"></script>
