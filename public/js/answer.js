@@ -1,12 +1,12 @@
 import {sendDataAjaxRequest, setConfirmationModal, sendAjaxGetRequest, tooltipLoad, showToast} from "./common.js";
 import {addCommentEventListeners} from "./comment.js";
 import convertMD from './parseMD.js';
+import {listenReportFlag} from './report.js';
+import {voteAnswersListeners} from './upvote.js';
+import {markAsValidListener} from './valid-answer.js';
 
 tooltipLoad();
-let all_answers = document.getElementById("all-answers");
-let lastScrollTime = Date.now();
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
-let addAnswerAlert = document.getElementById('answer-alert');
 
 addEventListeners();
 setInterval(update, 1500);
@@ -194,8 +194,7 @@ function checkInfiniteScroll(parentSelector, childSelector) {
 
     if(!lastDiv) return;
 
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - lastDiv.offsetHeight * 2) {
-
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - lastDiv.offsetHeight * 3) {
         let id = document.querySelector("#submit-answer > input[name=questionID]").value;
         let answerCounter = document.querySelector("#submit-answer > input[name=answerCounter]").value
 
@@ -220,6 +219,9 @@ function addScroll() {
         addCommentEventListeners();
         tooltipLoad();
         convertMD("md-content");
+        listenReportFlag();
+        voteAnswersListeners();
+        markAsValidListener();
     }
 }
 

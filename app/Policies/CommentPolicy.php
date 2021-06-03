@@ -16,7 +16,6 @@ class CommentPolicy{
       return Auth::check();
     }
 
-
     public function edit(User $user, Comment $comment){
         // Only a comment owner can edit it or the Administrator.
         return $user->id === $comment->comment_owner_id;

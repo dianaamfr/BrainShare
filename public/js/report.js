@@ -17,7 +17,7 @@ function createModal(){
 /**
  * Listen to the report button.
  */
-function listenReportFlag(){
+export function listenReportFlag(){
     const reportButtonElement = document.querySelectorAll(".report-icon");
     reportButtonElement.forEach(element => {
         element.addEventListener("click", e => canReport(e));
@@ -45,10 +45,9 @@ function showModal(){
     else if (json['exception'])
         showToast("Error on report. Make sure you're logged.", 'red');
     else {
-        showToast('You have already reported this question', 'yellow');
+        showToast('You have already reported this.', 'yellow');
     }
 }
-
 
 function handleReport(reportInfo){
     const elementType = reportInfo[0].value;

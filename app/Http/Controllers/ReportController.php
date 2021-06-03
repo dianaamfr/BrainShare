@@ -102,7 +102,7 @@ class ReportController
             ->where('user_id', Auth::user()->id)->get();
 
         if (sizeof($alreadyReported) >= 1)
-            return response()->json(array('success' => false, 'error' => 'This question has already been reported'));
+            return response()->json(array('success' => false, 'error' => 'You have already reported this.'));
 
 
         $validator = Validator::make($request->all(), $rules);

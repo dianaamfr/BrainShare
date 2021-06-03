@@ -102,14 +102,14 @@ Route::post('/api/report/comment/{id}', 'ReportController@reportComment');
 // Manage Tags
 Route::get('/admin/tags', 'CategoriesController@showTags')->name('manage-tags');
 Route::get('/api/admin/tags', 'CategoriesController@searchTags')->name('manage-tags-search');
-Route::post('/api/admin/tags/add', 'CategoriesController@addTag')->name('manage-tags-add');
-Route::delete('/api/admin/tags/delete', 'CategoriesController@deleteTag')->name('manage-tags-delete');
+Route::post('/api/admin/tags', 'CategoriesController@addTag')->name('manage-tags-add');
+Route::delete('/api/admin/tags', 'CategoriesController@deleteTag')->name('manage-tags-delete');
 
 // Manage Courses
 Route::get('/admin/courses', 'CategoriesController@showCourses')->name('manage-courses');
 Route::get('/api/admin/courses', 'CategoriesController@searchCourses')->name('manage-courses-search');
-Route::post('/api/admin/courses/add', 'CategoriesController@addCourse')->name('manage-courses-add');
-Route::delete('/api/admin/courses/delete', 'CategoriesController@deleteCourse')->name('manage-courses-delete');
+Route::post('/api/admin/courses', 'CategoriesController@addCourse')->name('manage-courses-add');
+Route::delete('/api/admin/courses', 'CategoriesController@deleteCourse')->name('manage-courses-delete');
 
 // Manage Users
 Route::get('/admin/user', 'ManageUsersController@show')->name('manage-users');
@@ -123,7 +123,6 @@ Route::put('/api/admin/reports/discard', 'ManageReportsController@discard');
 Route::put('/api/admin/reports/delete', 'ManageReportsController@delete');
 Route::put('/api/admin/reports/revert', 'ManageReportsController@revert');
 Route::get('/api/admin/reports', 'ManageReportsController@search');
-
 
 Route::fallback(function() {
     return view('errors.404');

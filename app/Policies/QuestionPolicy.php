@@ -14,7 +14,7 @@ class QuestionPolicy
 
     public function create()
     {
-      // Any user can create a new card
+      // Any user can create a new question
       return Auth::check();
     }
 
@@ -36,7 +36,4 @@ class QuestionPolicy
         return Auth::check() && $question->deleted === false && ($user->id == $question->question_owner_id || $user->isModerator() || $user->isAdmin());
     }
 
-    public function markValid(User $user, Question $question){
-        return Auth::check() && Auth::id() === $question->question_owner_id;
-    }
 }

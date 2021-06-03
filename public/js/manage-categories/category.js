@@ -56,7 +56,7 @@ export function listenDeleteCategory(url) {
         setConfirmationModal('Delete Tag', 
             'Are you sure you want to delete the tag <strong>"' + getCategoryName(element) + '"</strong>?',
             function(){
-                sendDataAjaxRequest("delete", "/api" + url + "/delete", {
+                sendDataAjaxRequest("delete", "/api" + url , {
                     input: getCategoryName(element),
                     }, handleCategoryResponse);
                     listenPageCategory(); 
@@ -104,7 +104,7 @@ export function listenAddCategory(url){
     const addButton = InputDiv.querySelector("button");
     const addInput = InputDiv.querySelector("input");
     addButton.addEventListener("click", () => {
-        sendDataAjaxRequest("post", "/api" + url + "/add" , {'input': addInput.value}, handleCategoryResponse);
+        sendDataAjaxRequest("post", "/api" + url , {'input': addInput.value}, handleCategoryResponse);
     });
 
 }

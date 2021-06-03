@@ -69,7 +69,7 @@ class ManageReportsController extends Controller {
             $reports = $this->registeredUserReports($reports, $request);
         }
 
-        return $reports->orderBy('report.date', 'DESC')->paginate(10);
+        return $reports->orderBy('report.id', 'DESC')->paginate(10);
 
     }
 

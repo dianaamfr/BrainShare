@@ -107,13 +107,13 @@
     <footer class="d-flex align-items-center pb-2">
         <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->orderedComments(Auth::user())->get()) }} Comments</span>
         <hr>
-        <!-- if question owner -->
-        @can('markValid',$answer->question)
+        <!-- If question owner -->
+        @can('valid', $answer)
             @if ($answer->valid)
-                <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Unmark as valid
+                <button class="mark-valid btn btn-link mark-valid-{{$answer->id}}" type="submit">Unmark as valid
                 </button>
             @else
-                <button class="mark-valid btn btn-link mark-valid-{{ $answer->id }}" type="submit">Mark as valid
+                <button class="mark-valid btn btn-link mark-valid-{{$answer->id}}" type="submit">Mark as valid
                 </button>
             @endif
         @endcan

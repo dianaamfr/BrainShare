@@ -62,7 +62,7 @@
                         @endif
                     <!-- Answer -->
                     @elseif ($report->answer_id) 
-                        <a href="/question/{{$report->answer->question_id}}#answer-{{$report->answer_id}}/view">
+                        <a href="/question/{{$report->answer->question_id}}/view#answer-{{$report->answer_id}}">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                         @if($report->answer->deleted == true)
@@ -70,7 +70,7 @@
                         @endif
                     <!-- Comment -->
                     @elseif ($report->comment_id) 
-                        <a href="/question/{{$report->comment->answer->question_id}}#comment-{{$report->comment_id}}/view">
+                        <a href="/question/{{$report->comment->answer->question_id}}/view#comment-{{$report->comment_id}}">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                         @if($report->comment->deleted == true)

@@ -1,6 +1,9 @@
 import {sendDataAjaxRequest, sendAjaxGetRequest, setConfirmationModal, tooltipLoad, showToast} from "./common.js";
+import {listenReportFlag} from './report.js';
+
 tooltipLoad();
 addCommentEventListeners();
+
 let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 export function addCommentEventListeners(){
@@ -105,7 +108,6 @@ function loadComments(event){
     let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
 
     sendAjaxGetRequest('/api/answer/'+ answerID + '/comment', {'counter':counter}, loadCommentHandler);
-
     
 }
 
@@ -196,6 +198,7 @@ function loadCommentHandler(){
         button.parentNode.removeChild(button);
 
         addCommentEventListeners();
+        listenReportFlag();
         tooltipLoad();
     }
 }

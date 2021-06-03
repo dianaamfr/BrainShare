@@ -23,6 +23,7 @@ class UserController extends Controller
         if (!Auth::check()) return redirect('/auth/login');
 
         $user = User::find($id);
+        if($user === null) return view('errors.404');
 
         if ($user->ban && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
             session(["message-ban-page" => "The user is banned. You cant see his/her profile!"]);

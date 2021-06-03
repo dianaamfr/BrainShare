@@ -21,8 +21,10 @@ class QuestionController extends Controller
     public function show($id)
     {   
         $question = Question::find($id);
+        if($question == null) return view('errors.404');
+        
         if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
-            session(["message-ban-page" => "The question is deleted!"]);
+            session(["message-ban-page" => "The question you tried to access has been deleted!"]);
             return redirect(url()->previous());
         }
 
