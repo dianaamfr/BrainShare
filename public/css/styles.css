@@ -686,8 +686,8 @@ article.question .card-title {
 
 
 .question-author img {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
   object-fit: cover;
 }
 
@@ -938,12 +938,21 @@ footer .comments{
   color: var(--white);
 }
 
+#order-filters li#mobile-search-filters {
+  display: none;
+}
+
+#order-filters li#mobile-search-filters button:last-child {
+  display: none;
+}
+
 .reset-search {
   color: var(--main-blue);
   text-decoration: none;
 }
 
 .reset-search:hover {
+  color: var(--hover-blue);
   text-decoration: underline;
 }
 

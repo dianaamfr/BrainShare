@@ -48,7 +48,6 @@ Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 
 
 // MODULE 03 - Search -----------------------------------------------------------------------------
-// TODO: talvez mudar para outro modulo.
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search');
 // Search Tags

@@ -114,17 +114,23 @@ function tagSelect(){
 
 
 function toggleDropdown(){
-    if(coursesDropdown.style.display == "block")
+    if(coursesDropdown.style.display == "block"){
         coursesDropdown.style.display = "none";
-    else
+    } else {
         coursesDropdown.style.display = "block";
+    }
 }
 
 function toggleMobileFilters(){
-    if(mobileFilters.style.display == "block")
+    if(mobileFilters.style.display == "block"){
         mobileFilters.style.display = "none";
-    else
+        document.querySelector('#mobile-search-filters button:first-child').style.display = "block";
+        document.querySelector('#mobile-search-filters button:last-child').style.display = "none";
+    } else {
         mobileFilters.style.display = "block";
+        document.querySelector('#mobile-search-filters button:first-child').style.display = "none";
+        document.querySelector('#mobile-search-filters button:last-child').style.display = "block";
+    }
 }
 
 // Search Page
