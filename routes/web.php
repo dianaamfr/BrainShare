@@ -45,7 +45,7 @@ Route::post('/api/user/{id}/notification', 'NotificationController@read');
 Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 
 // Report
-Route::post('api/user/{id}/report', 'ReportController@reportUser');
+Route::post('/api/user/{id}/report', 'ReportController@reportUser');
 
 
 // MODULE 03 - Search -----------------------------------------------------------------------------
