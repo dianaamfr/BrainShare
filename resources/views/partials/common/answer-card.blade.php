@@ -72,16 +72,14 @@
                 </div>
             @endif
 
-            <div class="col align-self-start ps-4 mt-2 md-content" id="answer-content-{{$answer->id}}">
-                {{ $answer->content }}
-            </div>
+            <div class="col align-self-start ps-4 mt-2 md-content" id="answer-content-{{$answer->id}}">{{ $answer->content }}</div>
 
 
             <div class="col align-self-start ps-4 d-none" id="edit-answer-{{$answer->id}}">
                 <form class="edit-answer-forms" >
                     <input type="hidden" name="answerID" value="{{$answer->id}}">
-                    <div class="border form-control testing-editor" >
-                        <textarea class="form-control" placeholder="Type your answer here" name="content"> {{$answer->content}} </textarea>
+                    <div class="testing-editor" >
+                        <textarea class="form-control" placeholder="Type your answer here" name="content">{{$answer->content}}</textarea>
                         <div class="editor-toolbar"></div>
                     </div>
                    
@@ -107,7 +105,7 @@
         <hr>
     </div>
     <footer class="d-flex align-items-center pb-2">
-        <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->comments) }} Comments</span>
+        <span id="answer-{{$answer->id}}-number-comments" class="comments flex-grow-1"> {{ @count($answer->orderedComments(Auth::user())->get()) }} Comments</span>
         <hr>
         <!-- if question owner -->
         @can('markValid',$answer->question)
@@ -144,7 +142,7 @@
         </div>
 
         <div id="comments-answer-{{$answer->id}}">
-            @include('partials.common.comment-list',['comments'=> Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $answer->comments()->limit(3)->get() : $answer->commentsNotDeleted()->limit(3)->get()])
+            @include('partials.common.comment-list',['comments'=> $answer->orderedComments(Auth::user())->limit(3)->get()])
         </div>
         
         @if(count($answer->comments) > 3 )

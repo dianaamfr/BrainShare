@@ -5,11 +5,10 @@ let InputDiv = document.getElementById("input-category");
 let searchDiv = InputDiv.querySelectorAll("div")[1];
 const url = "/admin/courses";
 
-let modal = new bootstrap.Modal(document.querySelector('.confirmationModal'));
 
 listenPageCategory(url);
 listenSearchCategory(url, searchDiv);
-listenDeleteCategory(url, modal);
+listenDeleteCategory(url);
 listenAddCategory(url);
 
 const searchValue = getParameterByName("search-name", window.location.href);

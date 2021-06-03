@@ -632,9 +632,13 @@ a.btn {
 
 /* ---- Question Page ---- */
 
+#submit-answer-collapse {
+  max-width: 1200px;
+  margin: auto;
+}
+
 article.question.card,
-.answers,
-#submit-answer {
+.answers{
   max-width: 1200px;
   margin: auto;
 }
@@ -789,11 +793,6 @@ footer .comments{
     color: var(--main-blue);
 }
 
-
-
-#submit-answer {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
 
 #submit-answer label {
   font-family: title-font;

@@ -39,7 +39,7 @@ function canReport(e) {
 
 function showModal(){
     const json = JSON.parse(this.responseText);
-    console.log(json);
+ 
     if (json['isReported'] === false)
         modal.show();
     else if (json['exception'])

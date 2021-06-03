@@ -72,21 +72,33 @@
 
     </article>
 
-    <!-- Submit Answer Form -->
-    <form id="submit-answer">
-        <input type="hidden" name="questionID" value="{{$question->id}}">
-        <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
-        @include('partials.question.answer-form')
-    </form>
+    <div id="submit-answer-collapse">
+        <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-form" aria-expanded="false" aria-controls="collapseExample">
+            Add Answer
+        </button>
+        
+        <div class="collapse mt-2" id="collapsed-form">
+            <!-- Submit Answer Form -->
+            <form id="submit-answer" >
+                <input type="hidden" name="questionID" value="{{$question->id}}">
+                <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
+                @include('partials.question.answer-form')
+            </form>
+        </div>
+    </div>
 
-
+   
     <!-- Answer -->
     <section class="answers">
         <header class="d-flex align-items-center">
             <h4 id="question-number-answers" class="d-inline-block">{{$question->number_answer}} answers</h4>
         </header>
         <div class="answer card" id="all-answers">
-            @include('partials.common.answer-list',['answers'=>$answers])
+            @if ($question->number_answer == 0)
+                <p class="no-answers p-2">No answers yet!</p>
+            @else
+                @include('partials.common.answer-list',['answers'=>$answers])
+            @endif
         </div>
     </section>
 

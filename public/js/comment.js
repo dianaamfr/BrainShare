@@ -41,7 +41,7 @@ function addComment(event){
 
     let counter = document.getElementById("comments-answer-" + answerID).childElementCount;
 
-    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text, 'counter':counter}, addAnswerHandler);
+    sendDataAjaxRequest("POST",'/api/answer/'+ answerID + '/comment', {'text':text, 'counter':counter}, addCommentHandler);
 
 }
 
@@ -109,7 +109,7 @@ function loadComments(event){
     
 }
 
-function addAnswerHandler(responseJson){
+function addCommentHandler(responseJson){
 
     if(responseJson.hasOwnProperty('error')){
         showToast("An error occured while attempting to add a Comment","red");
@@ -126,7 +126,7 @@ function addAnswerHandler(responseJson){
 
         if(responseJson.html != undefined){
             let comments = document.getElementById('comments-answer-' + responseJson.answer_id);
-            comments.innerHTML += responseJson.html;
+            comments.innerHTML = responseJson.html + comments.innerHTML;
 
             addCommentEventListeners();
             tooltipLoad();
@@ -190,7 +190,7 @@ function loadCommentHandler(){
     if (response.success) {
 
         let commentSection = document.getElementById("comments-answer-" + response.answer_id);
-        commentSection.innerHTML += response.html;
+        commentSection.innerHTML = commentSection.innerHTML + response.html;
 
         let button = document.getElementById("load-comments-answer-" + response.answer_id);
         button.parentNode.removeChild(button);

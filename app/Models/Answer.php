@@ -22,7 +22,11 @@ class Answer extends Model
 
   public function commentsNotDeleted(){
     return $this->hasMany(Comment::class)->where('deleted','=',false);
-}
+  }
+
+  public function orderedComments($user){
+    return (!is_null($user) && ($user->isAdmin() || $user->isModerator()) ? $this->comments(): $this->commentsNotDeleted())->orderBy('id', 'DESC');
+  }
 
   public function votes(){
     return $this->hasMany(Vote::class);

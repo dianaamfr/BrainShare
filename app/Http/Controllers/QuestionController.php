@@ -21,10 +21,15 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
-        $this->authorize('show', $question);
-        $answers =  (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->limit(5)->get();
+        if ($question->deleted && auth()->user()->user_role !== "Administrator" && auth()->user()->user_role !== "Moderator") {
+            session(["message-ban-page" => "The question is deleted!"]);
+            return redirect(url()->previous());
+        }
 
-        return view('pages.question', ['question' => $question, 'answers'=>$answers]);
+        $this->authorize('show', $question);
+        $answers =  $this->getAnswers($question)->limit(5)->get();
+        
+        return view('pages.question', ['question' => $question, 'answers' => $answers]);
     }
 
 
@@ -46,6 +51,7 @@ class QuestionController extends Controller
         $tags = Tag::all();
         return view('pages.edit-question', ['question' => $question, 'courses' => $courses, 'tags' => $tags]);
     }
+
 
     /**
      * Creates a new question.
@@ -236,6 +242,10 @@ class QuestionController extends Controller
 
             return response()->json(array('success' => false, 'id' => $answer->id, 'score' => $score));
         }
+    }
+
+    private function getAnswers($question){
+        return (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isModerator()) ? $question->answers() : $question->answersNotDeleted())->orderBy('id', 'DESC');
     }
 
 }
