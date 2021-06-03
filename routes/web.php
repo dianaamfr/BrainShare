@@ -42,31 +42,30 @@ Route::delete('/api/user/{id}/notification', 'NotificationController@delete');
 Route::post('api/user/{id}/report', 'ReportController@reportUser');
 
 // MODULE 03 - Questions -----------------------------------------------------------------------------
-// Search Questions
+// TODO: talvez mudar. Ainda pensando.
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/api/search', 'SearchController@advancedSearch')->name('api/search');
+// Search Tags
+Route::get('/api/search/tag', 'TagController@search');
+Route::get('/api/search/tag/{id}', 'TagController@find');
 
-// Add Question
-Route::get('/question/add', 'QuestionController@showQuestionForm');
-Route::post('/question/add', 'QuestionController@create')->name('question');
 
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
-
-// Search Tags
-Route::get('api/tag/search', 'TagController@search');
-Route::get('api/tag/{id}', 'TagController@find');
+Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
+// Add Question
+Route::get('/question/add', 'QuestionController@showQuestionForm');
+Route::post('/question/add', 'QuestionController@create')->name('question');
+// Edit Question
+Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
+Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
 
 // Vote Question and Answer
 Route::post('api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
 
-// Edit Question
-Route::get('/question/{id}/edit', 'QuestionController@showEditQuestionForm');
-Route::put('/question/{id}/edit', 'QuestionController@updateQuestion')->name('edit-question');
 
 // Delete Question
-Route::delete('question/{id}', 'QuestionController@delete')->name('delete-question');
 
 // Answer
 Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
