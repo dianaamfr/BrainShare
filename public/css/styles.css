@@ -632,9 +632,13 @@ a.btn {
 
 /* ---- Question Page ---- */
 
+#submit-answer-collapse {
+  max-width: 1200px;
+  margin: auto;
+}
+
 article.question.card,
-.answers,
-#submit-answer {
+.answers{
   max-width: 1200px;
   margin: auto;
 }

@@ -13,8 +13,9 @@
                 @if(!Auth::check())
                     <li><a class="link-secondary" href="{{ route('login') }}">Login</a></li>
                     <li><a class="link-secondary" href="{{ route('register') }}">Register</a></li>
+                @else 
+                    <li><a class="link-secondary" href="/user/{{ Auth::id() }}/profile">Profile</a></li>
                 @endif
-                <li><a class="link-secondary" href="/user/{{ Auth::id() }}/profile">Profile</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">

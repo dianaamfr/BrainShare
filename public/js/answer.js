@@ -46,7 +46,6 @@ function submitAnswer(event) {
 
     let counter = document.getElementById("all-answers").childElementCount;
 
-    // TODO: clean markdown editor
     editor.codemirror.setValue("");
 
     sendDataAjaxRequest("POST", '/api/question/' + id + '/answer', {
@@ -127,6 +126,7 @@ function addAnswerHandler(responseJson) {
             addEventListeners();
             addCommentEventListeners();
             tooltipLoad();
+            document.getElementById("all-answers").scrollIntoView()
         }
     }
 }

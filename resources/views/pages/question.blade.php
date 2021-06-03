@@ -72,18 +72,19 @@
 
     </article>
 
-      
-    <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-form" aria-expanded="false" aria-controls="collapseExample">
-        Add Answer
-    </button>
-    
-    <div class="collapse mt-2" id="collapsed-form">
-        <!-- Submit Answer Form -->
-        <form id="submit-answer" >
-            <input type="hidden" name="questionID" value="{{$question->id}}">
-            <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
-            @include('partials.question.answer-form')
-        </form>
+    <div id="submit-answer-collapse">
+        <button class="btn btn-primary mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-form" aria-expanded="false" aria-controls="collapseExample">
+            Add Answer
+        </button>
+        
+        <div class="collapse mt-2" id="collapsed-form">
+            <!-- Submit Answer Form -->
+            <form id="submit-answer" >
+                <input type="hidden" name="questionID" value="{{$question->id}}">
+                <input type="hidden" name="answerCounter" value="{{$question->number_answer}}">
+                @include('partials.question.answer-form')
+            </form>
+        </div>
     </div>
 
    
