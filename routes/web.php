@@ -23,6 +23,12 @@ Route::post('/auth/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/auth/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('/auth/register', 'Auth\RegisterController@register');
 
+// Password Reset
+Route::get('/auth/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
+Route::post('/auth/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
+Route::get('/auth/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
+Route::post('/auth/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
+
 // MODULE 02: Profile and User Settings -------------------------------------------------------------
 
 Route::get('/user/{id}/profile', "UserController@showProfile")->name('show-profile');
@@ -53,6 +59,8 @@ Route::get('/api/search/tag/{id}', 'TagController@find');
 
 
 // MODULE 04 - Question -----------------------------------------------------------------------------
+
+// ===> QUESTION
 // Show Question
 Route::get('/question/{id}', 'QuestionController@show')->name('show-question');
 Route::get('/api/question/{id}/scroll', 'AnswerController@appendInfiniteScroll');
@@ -67,22 +75,20 @@ Route::delete('/question/{id}', 'QuestionController@delete')->name('delete-quest
 // Vote Question
 Route::post('/api/question/{id}/vote', 'QuestionController@voteQuestion')->name('vote-question');
 
-
+// ===> ANSWER
 Route::post('/api/question/{id}/answer','AnswerController@newAnswer');
-// Vote Question and Answer
 Route::post('api/question/{idQuestion}/answer/{idAnswer}', 'QuestionController@voteAnswer')->name('vote-answer');
-
+Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 Route::put('/api/answer/{id}','AnswerController@editAnswer')->name('edit-answer');
 Route::delete('/api/answer/{id}','AnswerController@deleteAnswer')->name('delete-answer');
 
-// Mark Answer as Valid
-Route::post('api/answer/valid/{idAnswer}', 'AnswerController@markValid');
 
-// Comment
+// ===> COMMENT
 Route::get('/api/answer/{id}/comments','CommentController@showMoreComments');
 Route::post('/api/answer/{id}/comment','CommentController@addComment')->name('add-comment');
 Route::put('/api/comment/{id}','CommentController@editComment')->name('edit-comment');
 Route::delete('/api/comment/{id}','CommentController@deleteComment')->name('delete-comment');
+
 
 // Make Report
 Route::get('api/report/status', 'ReportController@isReported');
@@ -118,11 +124,6 @@ Route::put('api/admin/reports/delete', 'ManageReportsController@delete');
 Route::put('api/admin/reports/revert', 'ManageReportsController@revert');
 Route::get('api/admin/reports', 'ManageReportsController@search');
 
-// Password Reset
-Route::get('/forgot-password', 'Auth\PasswordResetController@show')->name('password.request');
-Route::post('/forgot-password', 'Auth\PasswordResetController@requestRecovery')->name('password.email');
-Route::get('/reset-password/{token}', 'Auth\PasswordResetController@showResetPassword')->name('password.reset');
-Route::post('/reset-password', 'Auth\PasswordResetController@resetPassword')->name('password.update');
 
 Route::fallback(function() {
     return view('errors.404');
