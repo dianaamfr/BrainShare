@@ -181,7 +181,8 @@ function editAnswerHandler(responseJson) {
             let answer = document.getElementById('answer-content-' + responseJson.answer_id);
 
             editForm.classList.toggle('d-none');
-            answer.classList.toggle('d-none');
+            answer.classList.toggle('d-none');        
+            convertMD("md-content");
         }
 
     }
