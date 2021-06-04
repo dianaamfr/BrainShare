@@ -313,7 +313,7 @@ paths:
               
       responses:
         "302":
-          description: "Redirects after user has been deleted."
+          description: "Redirects after the user has been deleted."
 
           headers:
             Location:
@@ -476,7 +476,7 @@ paths:
 
       responses:
         "200":
-          description: "Ok, get the html returned to update the notification items in the page. "
+          description: "Ok, get the html returned to update the notification items on the page. "
   
   /api/user/{id}/notification: 
     delete: 
@@ -615,7 +615,7 @@ paths:
           
       responses: 
         "200": 
-          description: "OK. Get the objects the tags that matches the current text. Each element contains the source for a question card. "
+          description: "OK. Get the objects the tags that match the current text. Each element contains the source for a question card. "
         
   /api/search/tag/{id}: 
     get: 
@@ -635,7 +635,7 @@ paths:
           
       responses: 
         "200": 
-          description: "OK. Get the objects the tags that matches the current text. Each element contains the source for a question card."
+          description: "OK. Get the objects the tags that match the current text. Each element contains the source for a question card."
 
 
 # MODULE 04: QUESTION    --- questions
@@ -1048,7 +1048,7 @@ paths:
 
       responses:
         "202":
-          description: "Accpeted. Render the page without the deleted comment."
+          description: "Accepted. Render the page without the deleted comment."
 
   /api/answer/{id}/comment:
     get: 
@@ -1267,7 +1267,7 @@ paths:
     get: 
       operationId: "R601"
       summary: "R601: Show the courses"
-      description: "Shows the categories page with the course tab selected and result of the text search if defined. Case not defined the results shown will be the deafult. Access: MOD, ADM"
+      description: "Shows the categories page with the course tab selected and result of the text search if defined. Case not defined the results shown will be the default. Access: MOD, ADM"
       tags:  
       - 'M06: Management'
 
@@ -1299,7 +1299,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Get the filtered courses objects and use the information to render the page."
+          description: "Ok. Get the filtered courses' objects and use the information to render the page."
                   
     delete:
       operationId: R603
@@ -1902,4 +1902,3 @@ components:
 
       required:
         - content
-   
