@@ -14,6 +14,9 @@ BrainShare's mission is to create a community of FEUP students that allows them 
 ## Usage
 [http://lbaw2152.lbaw-prod.fe.up.pt/](http://lbaw2152.lbaw-prod.fe.up.pt/)
 
+## Installation
+docker run -it -p 8000:80 -e DB_DATABASE="lbaw2152" -e DB_USERNAME="lbaw2152" -e DB_PASSWORD="VQ245458" lbaw2152/lbaw2152
+
 ## Administration Credentials
 
 | Role | Username | Password |
@@ -33,12 +36,6 @@ BrainShare's mission is to create a community of FEUP students that allows them 
 | --------------------------- | ---------------- |
 | lbaw2152.recovery@gmail.com | portugal123!lbaw |
 
-
-## Installation
-docker run -it -p 8000:80 -e DB_DATABASE="lbaw2152" -e DB_USERNAME="lbaw2152" -e DB_PASSWORD="VQ245458" lbaw2152/lbaw2152
-
-## Usage
-[http://lbaw2152.lbaw-prod.fe.up.pt/](http://lbaw2152.lbaw-prod.fe.up.pt/)
 
 ## Artefacts Checklist
 - [Artifacts](https://docs.google.com/spreadsheets/d/1tLJ6TJqvkxBjjP1zpl0U7yDk5qBW10M6wMT9zsir3n4/edit?ts=6022a2f3#gid=112353011)
