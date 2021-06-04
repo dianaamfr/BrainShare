@@ -37,7 +37,7 @@ paths:
         - 'M01: Authentication'
       responses:
         "200":
-          description: "OK. Show the [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)" 
+          description: "OK. Show the Login Page [UI06](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui06-login)" 
 
     post:
       operationId: R102
@@ -110,7 +110,7 @@ paths:
         - 'M01: Authentication'
       responses:
         "200":
-          description: "OK. Show the [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui07-register)"
+          description: "OK. Show the Register Page [UI07](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui07-register)"
 
     post:
       operationId: R105
@@ -172,7 +172,7 @@ paths:
         - 'M01: Authentication'
       responses: 
         "200": 
-          description: "Ok. Show the recovery password page [UI08]" 
+          description: "Ok. Show the recovery password page [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui08-password-recovery)" 
   
     post: 
       operationId: R107
@@ -218,7 +218,7 @@ paths:
                 
       responses: 
         "200": 
-          description: "Ok. Show the reset password page [UI09]"
+          description: "Ok. Show the reset password page [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-password-reset)"
     
   /auth/reset-password: 
     post: 
@@ -275,7 +275,7 @@ paths:
 
       responses:
         "200":
-          description: "OK. Show [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile)."
+          description: "OK. Show the user profile page [UI05](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui05-profile)."
     
     post:
       operationId: R202
@@ -344,7 +344,7 @@ paths:
       
       responses:
         "200":
-          description: "OK. Show [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-edit-profile)."
+          description: "OK. Show the Edit Profile page [UI13](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-edit-profile)."
 
     put:
       operationId: R204
@@ -555,7 +555,7 @@ paths:
         
       responses: 
         "200": 
-          description: "Ok. Shows the [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)."
+          description: "Ok. Shows the Search page [UI02](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui02-search)."
 
   /api/search: 
     get: 
@@ -782,7 +782,7 @@ paths:
           
       responses: 
         "200": 
-          description: "Success. Show the edit question page [UI12](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-edit-question)"
+          description: "Success. Show the edit question page [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-edit-question)"
           
     put:
       operationId: R407
@@ -1273,7 +1273,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the manage categories page with course tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+          description: "Ok. Show the manage categories page with course tab selected [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-manage-categories)"
   
   /api/admin/courses: 
     get: 
@@ -1380,7 +1380,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the manage categories page with tag tab selected [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+          description: "Ok. Show the manage categories page with tag tab selected [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-manage-categories)"
   
   /api/admin/tags: 
     get: 
@@ -1494,7 +1494,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the report page [UI09](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui09-manage-categories)"
+          description: "Ok. Show the report page [UI12](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-manage-categories)"
   
   
   /api/admin/reports:
@@ -1735,7 +1735,7 @@ paths:
 
       responses: 
         "202": 
-          description: "OK. Show the [UI08](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui08-manage-users)."
+          description: "OK. Show the user management page [UI10](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui10-manage-users)."
   
   # R316
   /api/admin/user: 
@@ -1853,7 +1853,7 @@ paths:
 
       responses:
         "202":
-          description: "Ok. Show the about page [UI013](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-about)."   
+          description: "Ok. Show the about page [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-about)."   
       
   /notfound:   
     get:
@@ -1865,7 +1865,7 @@ paths:
       
       responses: 
         "202":
-          description: "Ok, Show the error page [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-error-page)"
+          description: "Ok, Show the error page [UI17](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui17-error-page)"
           
           
 components: 
