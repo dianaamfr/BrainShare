@@ -15,7 +15,9 @@ BrainShare's mission is to create a community of FEUP students that allows them 
 [http://lbaw2152.lbaw-prod.fe.up.pt/](http://lbaw2152.lbaw-prod.fe.up.pt/)
 
 ## Installation
+```
 docker run -it -p 8000:80 -e DB_DATABASE="lbaw2152" -e DB_USERNAME="lbaw2152" -e DB_PASSWORD="VQ245458" lbaw2152/lbaw2152
+```
 
 ## Administration Credentials
 
