@@ -344,7 +344,7 @@ paths:
       
       responses:
         "200":
-          description: "OK. Show the Edit Profile page [UI13](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui13-edit-profile)."
+          description: "OK. Show the Edit Profile page [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-edit-profile)."
 
     put:
       operationId: R204
@@ -782,7 +782,7 @@ paths:
           
       responses: 
         "200": 
-          description: "Success. Show the edit question page [UI14](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui14-edit-question)"
+          description: "Success. Show the edit question page [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-edit-question)"
           
     put:
       operationId: R407
@@ -1273,7 +1273,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the manage categories page with course tab selected [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-manage-categories)"
+          description: "Ok. Show the manage coures page [UI12](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-manage-courses)"
   
   /api/admin/courses: 
     get: 
@@ -1380,7 +1380,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the manage categories page with tag tab selected [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-manage-categories)"
+          description: "Ok. Show the manage tags page [UI11](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui11-manage-tags)"
   
   /api/admin/tags: 
     get: 
@@ -1494,7 +1494,7 @@ paths:
 
       responses: 
         "200": 
-          description: "Ok. Show the report page [UI12](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-manage-categories)"
+          description: "Ok. Show the report page [UI13](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui12-manage-reports)"
   
   
   /api/admin/reports:
@@ -1853,7 +1853,7 @@ paths:
 
       responses:
         "202":
-          description: "Ok. Show the about page [UI15](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui15-about)."   
+          description: "Ok. Show the about page [UI16](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui16-about)."   
       
   /notfound:   
     get:
@@ -1865,7 +1865,7 @@ paths:
       
       responses: 
         "202":
-          description: "Ok, Show the error page [UI17](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui17-error-page)"
+          description: "Ok, Show the error page [UI18](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER#ui18-error-page)"
           
           
 components: 
