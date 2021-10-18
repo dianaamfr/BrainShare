@@ -4,7 +4,7 @@
 
 BrainShare's mission is to create a community of FEUP students that allows them to easily obtain an answer to their questions regarding their curricular subject. 
 
-![website-demo](github.com/dianaamfr/BrainShare/tree/master/demo.gif)
+![website-demo](demo.gif)
 
 ## Project Components 
 - [ER: Requirements Specification](https://github.com/dianaamfr/BrainShare/wiki/ER)
