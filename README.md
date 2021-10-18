@@ -4,12 +4,13 @@
 
 BrainShare's mission is to create a community of FEUP students that allows them to easily obtain an answer to their questions regarding their curricular subject. 
 
+![website-demo](https://github.com/dianaamfr/BrainShare/tree/master/demo.gif)
 
 ## Project Components 
-- [ER: Requirements Specification](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/ER)
-- [EBD: Database Specification](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/EBD)
-- [EAP: Architecture Specification and Prototype](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/EAP)
-- [PA: Product and Presentation](https://git.fe.up.pt/lbaw/lbaw2021/lbaw2152/-/wikis/PA)
+- [ER: Requirements Specification](https://github.com/dianaamfr/BrainShare/wiki/ER)
+- [EBD: Database Specification](https://github.com/dianaamfr/BrainShare/wiki/EBD)
+- [EAP: Architecture Specification and Prototype](https://github.com/dianaamfr/BrainShare/wiki/EAP)
+- [PA: Product and Presentation](https://github.com/dianaamfr/BrainShare/wiki/PA)
 
 ## Usage
 [http://lbaw2152.lbaw-prod.fe.up.pt/](http://lbaw2152.lbaw-prod.fe.up.pt/)
