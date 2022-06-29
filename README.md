@@ -33,13 +33,6 @@ docker run -it -p 8000:80 -e DB_DATABASE="lbaw2152" -e DB_USERNAME="lbaw2152" -e
 | ------------- | ------------------------| --------- |
 | User account  | lbaw2152@lbaw.com       | lbaw2152! |
 
-### Mailtrap Credentials
-
-| E-mail                      | Password         |
-| --------------------------- | ---------------- |
-| lbaw2152.recovery@gmail.com | portugal123!lbaw |
-
-
 ## Artefacts Checklist
 - [Artifacts](https://docs.google.com/spreadsheets/d/1tLJ6TJqvkxBjjP1zpl0U7yDk5qBW10M6wMT9zsir3n4/edit?ts=6022a2f3#gid=112353011)
 ## Team 2152
